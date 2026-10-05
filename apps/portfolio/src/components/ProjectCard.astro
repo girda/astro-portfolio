@@ -1,0 +1,74 @@
+---
+interface Props {
+  href: string;
+  title: string;
+  category: string;
+  number: number;
+  status?: string;
+}
+
+const {
+  href,
+  title,
+  category,
+  number,
+  status = "Geplant",
+} = Astro.props;
+---
+
+<a class="project-card" href={href}>
+  <div class="project-top">
+    <span class="project-number">
+      {String(number).padStart(2, "0")}
+    </span>
+
+    <span class="status">{status}</span>
+  </div>
+
+  <h3>{title}</h3>
+  <p>{category}</p>
+</a>
+
+<style>
+  .project-card {
+    display: block;
+    text-decoration: none;
+    color: inherit;
+    transition: border-color .2s, transform .2s;
+    padding: 28px;
+    border: 1px solid #30323c;
+    border-radius: 16px;
+    background: #191b21;
+    height: 100%;
+  }
+
+  .project-card:hover { border-color: #a9b9ff; transform: translateY(-4px); }
+  .project-card:focus-visible { outline: 2px solid #a9b9ff; outline-offset: 4px; }
+  @media(prefers-reduced-motion:reduce) { .project-card { transition: none; } .project-card:hover { transform:none; } }
+  .project-top {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px;
+    margin-bottom: 64px;
+  }
+
+  .project-number {
+    color: #8da7ff;
+  }
+
+  .status {
+    color: #b9bbc6;
+    font-size: 0.875rem;
+  }
+
+  h3 {
+    margin: 0 0 8px;
+    font-size: 1.5rem;
+  }
+
+  p {
+    margin: 0;
+    color: #b9bbc6;
+  }
+</style>

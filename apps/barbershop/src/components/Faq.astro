@@ -1,0 +1,36 @@
+---
+interface Props {
+  items: {
+    question: string;
+    answer: string;
+  }[];
+}
+
+const { items } = Astro.props;
+---
+
+<section class="faq" aria-labelledby="faq-title">
+  <div class="faq-heading" data-reveal>
+    <p class="eyebrow">GUT ZU WISSEN</p>
+    <h2 id="faq-title">Noch Fragen?</h2>
+    <p class="intro">
+      Hier findest du die Antworten zu unserem Website-Konzept.
+    </p>
+  </div>
+
+  <div class="faq-list">
+    {
+      items.map((item) => (
+        <details>
+          <summary>
+            <span>{item.question}</span>
+            <span class="indicator" aria-hidden="true" />
+          </summary>
+
+          <div class="answer-wrap"><p class="answer">{item.answer}</p></div>
+        </details>
+      ))
+    }
+  </div>
+</section>
+

@@ -1,0 +1,7 @@
+---
+import NailPage from '../components/NailPage.astro';
+import { languages, pages, pathFor } from '../data/locales';
+export function getStaticPaths(){return languages.flatMap(lang=>pages.filter(page=>lang!=='de'||page!=='home').map(page=>({params:{route:pathFor(lang,page).replace(/^\//,'').replace(/\/$/,'')},props:{lang,page}})));}
+const {lang,page}=Astro.props;
+---
+<NailPage lang={lang} page={page}/>

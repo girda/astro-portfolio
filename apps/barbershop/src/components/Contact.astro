@@ -1,0 +1,74 @@
+---
+import { contact } from "../data/contact";
+const coordinates = `${contact.coordinates.lat},${contact.coordinates.lng}`;
+const mapUrl = `https://www.google.com/maps?q=${encodeURIComponent(coordinates)}&z=15&hl=de&output=embed`;
+const externalUrl = `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(coordinates)}`;
+---
+
+<section id="kontakt" class="contact container" aria-labelledby="contact-title">
+  <div class="contact-heading" data-reveal>
+    <p class="eyebrow">KONTAKT & STANDORT</p>
+    <h2 id="contact-title">DER WEG<br />ZU DEINEM LOOK.</h2>
+  </div>
+  <div class="contact-layout">
+    <div class="contact-info" data-reveal>
+      {contact.isDemo && <p class="demo-label">DEMO · ADRESSE, KONTAKTDATEN UND ZEITEN SIND FIKTIV</p>}
+      <div class="contact-group">
+        <h3>Adresse</h3>
+        {contact.address ? <address>{contact.address}</address> : <p>Die genaue Anschrift wird ergänzt.</p>}
+        {contact.isDemo && <p>Die Karte zeigt einen Beispielstandort, nicht die fiktive Adresse.</p>}
+        <p class="coordinate-label">{contact.coordinates.lat.toFixed(5)}° N / {contact.coordinates.lng.toFixed(5)}° E</p>
+        <a class="contact-link" href={externalUrl} target="_blank" rel="noopener noreferrer">Standort in Google Maps öffnen</a>
+      </div>
+      <div class="contact-group">
+        <h3>Kontakt</h3>
+        {contact.isDemo && <p>{contact.phone}<br />{contact.email}</p>}
+        {!contact.isDemo && contact.phone && <a class="contact-link" href={`tel:${contact.phone.replace(/[^+\d]/g, "")}`}>{contact.phone}</a>}
+        {!contact.isDemo && contact.email && <a class="contact-link" href={`mailto:${contact.email}`}>{contact.email}</a>}
+        {!contact.phone && !contact.email && <p>Telefon und E-Mail werden ergänzt.</p>}
+      </div>
+      <div class="contact-group">
+        <h3>Öffnungszeiten</h3>
+        {contact.hours.length ? <dl class="hours">{contact.hours.map(row => <div><dt>{row.days}</dt><dd>{row.time}</dd></div>)}</dl> : <p>Öffnungszeiten folgen.</p>}
+      </div>
+    </div>
+    <div class="map-card">
+      <div class="map-frame">
+        <iframe
+          src={mapUrl}
+          title="Google Maps – ausgewählter Standort"
+          loading="lazy"
+          width="640"
+          height="420"
+          allowfullscreen
+          referrerpolicy="strict-origin-when-cross-origin"
+        ></iframe>
+      </div>
+      <div class="map-footer"><span>{contact.isDemo ? "DEMO-STANDORT" : "STANDORT"}</span><span>GOOGLE MAPS</span></div>
+    </div>
+  </div>
+</section>
+
+
+<style>
+  .contact { padding-block: 16px 80px; }
+  .contact-heading { margin-bottom: 36px; }
+  .contact-layout { display: grid; grid-template-columns: minmax(0,.8fr) minmax(0,1.2fr); gap: 24px; }
+  .contact-info { padding: 32px; border: 1px solid var(--line); border-radius: var(--radius); background: var(--surface); }
+  .demo-label { font-size: .75rem; letter-spacing: .06em; color: var(--accent); margin-bottom: 24px; }
+  .contact-group + .contact-group { border-top: 1px solid var(--line); margin-top: 24px; padding-top: 24px; }
+  h3 { font-size: 1.125rem; line-height: 1.4; margin-bottom: 10px; }
+  .contact-group p, address, .hours { color: var(--muted); font-style: normal; }
+  address { white-space: pre-line; }
+  .coordinate-label { font-size: .8125rem; margin-top: 8px; font-variant-numeric: tabular-nums; }
+  .contact-link { display: block; width: fit-content; margin-top: 12px; text-decoration: underline; text-underline-offset: 5px; overflow-wrap: anywhere; }
+  .contact-link:hover { color: var(--accent); }
+  .hours { margin: 0; }
+  .hours div { display: flex; justify-content: space-between; flex-wrap: wrap; gap: 8px 24px; }
+  dd { margin: 0; }
+  .map-card { display: flex; flex-direction: column; min-width: 0; border: 1px solid var(--line); border-radius: var(--radius); background: #20231e; overflow: hidden; }
+  .map-frame { flex: 1; min-height: 420px; }
+  .map-frame :global(iframe) { display: block; width: 100%; height: 100%; min-height: 420px; border: 0; }
+  .map-footer { display: flex; justify-content: space-between; flex-wrap: wrap; gap: 12px; padding: 14px 20px; border-top: 1px solid var(--line); color: var(--muted); font-size: .75rem; letter-spacing: .08em; }
+  @media(max-width:760px) { .contact { padding-block: 8px 56px; } .contact-layout { grid-template-columns: 1fr; } .contact-info { padding: 24px; } .map-frame, .map-frame :global(iframe) { height: 360px; min-height: 360px; } }
+</style>

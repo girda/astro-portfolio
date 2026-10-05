@@ -1,0 +1,74 @@
+---
+import SectionMotion from "../components/SectionMotion.astro";
+import { site } from '../data/site';
+import Icon from '../components/Icon.astro';
+import '../styles/global.css';
+---
+<!doctype html>
+<html lang="de">
+<head><meta charset="UTF-8"/><meta name="viewport" content="width=device-width,initial-scale=1"/><meta name="description" content="KLAR – ein Website-Konzept für einen Reinigungsservice in München. Interaktiven Preisrechner ausprobieren."/><title>KLAR — Mehr Zeit fürs Leben. · Demo</title></head>
+<body>
+<a class="skip" href="#main">Zum Inhalt</a>
+<div class="demo-strip">Ein Website-Konzept von HIRDA. <span>Alle Preise und Leistungen sind Beispiele.</span></div>
+<header class="wrap header">
+  <a href={import.meta.env.BASE_URL} class="logo" aria-label="KLAR – Startseite">klar<span>✳</span></a>
+  <span class="city"><Icon name="pin"/>{site.city}</span>
+  <nav aria-label="Hauptnavigation"><a href="#leistungen">Leistungen</a><a href="#ablauf">So funktioniert’s</a><a href="#fragen">Fragen</a></nav>
+  <a class="button small" href="#rechner">Preis berechnen <Icon name="arrow"/></a>
+</header>
+<main id="main">
+<section class="hero wrap">
+ <div class="hero-image"><img src={site.photo} alt="Lichtdurchfluteter Wohnraum mit hellen Möbeln und Holzboden" width="1800" height="1200" fetchpriority="high"/><div class="photo-shade"></div></div>
+ <div class="hero-copy"><p class="eyebrow"><span class="dot"></span> REINIGUNG IN MÜNCHEN</p><h1>Ein sauberes Zuhause.<br/><span>Mehr Zeit für dich.</span></h1><p>Für den Alltag, der schon voll genug ist.<br/>Stell deine Reinigung zusammen — wir zeigen dir, wie einfach das sein kann.</p><a href="#rechner" class="hero-link">Deine Reinigung, dein Rhythmus <Icon name="arrow"/></a></div>
+ <div class="floating-note"><span class="note-icon"><Icon/></span><div>Durchatmen.<br/><strong>Du bist zu Hause.</strong></div></div>
+</section>
+<section class="wrap calculator" id="rechner" aria-labelledby="calc-title">
+ <form id="calculator" data-pricing={JSON.stringify(site.pricing)}>
+  <div class="calc-heading"><div><p class="eyebrow">WENIGE KLICKS. ALLES KLAR.</p><h2 id="calc-title">Was darf’s sein?</h2></div><span class="subtle">Küche & Flur inklusive</span></div>
+  <div class="calc-grid">
+   <div class="counter-field"><label for="rooms">Zimmer</label><div class="stepper"><button type="button" data-step="-1" data-for="rooms" aria-label="Weniger Zimmer">−</button><input id="rooms" name="rooms" type="number" min="1" max="8" value="2" readonly aria-label="Anzahl Zimmer"/><button type="button" data-step="1" data-for="rooms" aria-label="Mehr Zimmer">+</button></div></div>
+   <div class="counter-field"><label for="baths">Bäder</label><div class="stepper"><button type="button" data-step="-1" data-for="baths" aria-label="Weniger Bäder">−</button><input id="baths" name="baths" type="number" min="1" max="4" value="1" readonly aria-label="Anzahl Bäder"/><button type="button" data-step="1" data-for="baths" aria-label="Mehr Bäder">+</button></div></div>
+   <div class="frequency-field"><label for="frequency">Wie oft?</label><select id="frequency" name="frequency"><option value="1">Einmalig</option><option value="0.9">Alle zwei Wochen · −10 %</option><option value="0.85">Wöchentlich · −15 %</option></select></div>
+   <div class="total"><span>Demo-Preis pro Reinigung</span><output id="price" aria-live="polite">79,00 €</output><button class="button" type="submit">Reinigung zusammenstellen <Icon name="arrow"/></button></div>
+  </div>
+  <details id="extras"><summary>Ein bisschen mehr Frische? <span>Extras hinzufügen +</span></summary><div class="extras-grid">{site.extras.map(extra => <label class="extra"><input type="checkbox" name="extra" value={extra.price} data-name={extra.name}/><span>{extra.name}<small>+ {extra.price},00 €</small></span></label>)}</div></details>
+  <p class="calculator-note">Unverbindlicher Beispielpreis. Keine echte Buchung. <span id="discount-note">Extras werden separat berechnet.</span></p>
+  <noscript><p>Bitte aktiviere JavaScript, um den Demo-Preis zu berechnen.</p></noscript>
+ </form>
+</section>
+<div class="wrap benefits"><span><Icon name="check"/>Preis direkt im Blick</span><span><Icon name="check"/>Leistungen selbst wählen</span><span><Icon name="check"/>Einmalig oder regelmäßig</span><span><Icon name="check"/>Mehr Freiraum im Alltag</span></div>
+<section class="wrap section" id="leistungen"><div class="section-head"><div><p class="eyebrow">FÜR DEINE RÄUME</p><h2>Sauber passt immer.</h2></div><p>Ein Zuhause zum Wohlfühlen.<br/>Ein Arbeitsplatz zum Durchstarten.</p></div><div class="service-grid">{site.services.map((service,i) => <a class:list={['service',`service-${i}`]} href={service.link}><div class="service-top"><span class="service-icon"><Icon name={service.icon}/></span><span class="round-arrow"><Icon name="arrow"/></span></div><h3>{service.title}</h3><p>{service.text}</p><span class="service-price">{service.price}</span></a>)}</div></section>
+<section class="included"><div class="wrap included-layout"><div><p class="eyebrow">BIS INS KLEINE DETAIL</p><h2>Was sauber<br/>bei uns bedeutet.</h2><p class="muted">Kein Rätselraten: Hier siehst du, was in einer normalen Reinigung eingeplant ist.</p><div class="included-badge"><Icon/><span>Ein gutes Gefühl.<br/><strong>In jedem Raum.</strong></span></div></div><div class="room-list">{site.rooms.map((room,i) => <details open={i===0}><summary>{room.name}<span class="plus">+</span></summary><div class="answer"><ul>{room.items.map(item=><li><Icon name="check"/>{item}</li>)}</ul></div></details>)}</div></div></section>
+<section id="ablauf" class="wrap section"><div class="section-head"><div><p class="eyebrow">GANZ UNKOMPLIZIERT</p><h2>Drei Schritte zu mehr Freizeit.</h2></div></div><div class="steps">{[{n:'01',title:'Deine Räume auswählen',text:'Zimmer, Bäder und passende Extras. Du bestimmst den Umfang.'},{n:'02',title:'Den Rhythmus finden',text:'Einmal frischer Wind oder regelmäßig Unterstützung im Alltag.'},{n:'03',title:'Den Überblick behalten',text:'Prüfe deine Auswahl und den Beispielpreis in der Zusammenfassung.'}].map(step=><article><span class="step-number">{step.n}</span><h3>{step.title}</h3><p>{step.text}</p></article>)}</div></section>
+<section class="wrap faq-layout section" id="fragen"><div><p class="eyebrow">GUT ZU WISSEN</p><h2>Noch Fragen?<br/>Alles klar.</h2><p class="muted">Die wichtigsten Antworten<br/>rund um unser Servicekonzept.</p></div><div class="faq">{site.faq.map(item=><details><summary>{item.q}<span class="plus">+</span></summary><div class="answer"><p>{item.a}</p></div></details>)}</div></section>
+<section class="wrap contact-section" id="kontakt"><div><p class="eyebrow">MÜNCHEN & UMGEBUNG · DEMO</p><h2>Mehr Platz für<br/>die schönen Dinge.</h2><p>Schwabing · Maxvorstadt · Haidhausen · Sendling</p></div><div><a class="button white" href="#rechner">Rechner ausprobieren <Icon name="arrow"/></a><p class="contact-note">Kontakt-Platzhalter<br/><strong>{site.email}</strong><br/>Keine echte Kontaktadresse.</p></div></section>
+</main>
+<footer class="wrap footer"><a class="logo" href={import.meta.env.BASE_URL}>klar<span>✳</span></a><p>Ein Demo-Projekt von HIRDA. · {new Date().getFullYear()}</p><a href="https://unsplash.com/photos/jgBhFe0Ll6g" target="_blank" rel="noopener noreferrer">Foto: antho tropo / Unsplash ↗</a></footer>
+<dialog id="summary-dialog" aria-labelledby="summary-title"><div class="dialog-top"><span class="eyebrow">DEINE AUSWAHL</span><button type="button" id="close-dialog" aria-label="Zusammenfassung schließen">×</button></div><h2 id="summary-title">Alles auf einen Blick.</h2><p id="summary-text"></p><ul id="summary-extras"></ul><div class="dialog-price"><span>Demo-Preis pro Reinigung</span><strong id="summary-price"></strong></div><p class="demo-explanation">Das ist eine Vorschau. Es wurde nichts gebucht und es werden keine Daten übermittelt.</p><button type="button" class="button" id="back-to-calc">Auswahl bearbeiten</button></dialog>
+<script>
+ const form = document.querySelector<HTMLFormElement>('#calculator')!;
+ const rooms = document.querySelector<HTMLInputElement>('#rooms')!;
+ const baths = document.querySelector<HTMLInputElement>('#baths')!;
+ const frequency = document.querySelector<HTMLSelectElement>('#frequency')!;
+ const price = document.querySelector<HTMLOutputElement>('#price')!;
+ const pricing = JSON.parse(form.dataset.pricing!);
+ const extras = () => [...form.querySelectorAll<HTMLInputElement>('input[name="extra"]:checked')];
+ const currency = new Intl.NumberFormat('de-DE',{style:'currency',currency:'EUR'});
+ const calculate = () => (pricing.base + (Number(rooms.value)-1)*pricing.room + (Number(baths.value)-1)*pricing.bathroom) * Number(frequency.value) + extras().reduce((sum,item)=>sum+Number(item.value),0);
+ const update = () => {
+  price.value = currency.format(calculate());
+  form.querySelectorAll<HTMLButtonElement>('[data-step]').forEach(button=>{const field=button.dataset.for==='rooms'?rooms:baths;button.disabled=Number(button.dataset.step)<0?Number(field.value)<=Number(field.min):Number(field.value)>=Number(field.max);});
+ };
+ form.querySelectorAll<HTMLButtonElement>('[data-step]').forEach(button=>button.addEventListener('click',()=>{const field=button.dataset.for==='rooms'?rooms:baths;field.value=String(Math.max(Number(field.min),Math.min(Number(field.max),Number(field.value)+Number(button.dataset.step))));update();}));
+ form.addEventListener('change',update);update();
+ const dialog = document.querySelector<HTMLDialogElement>('#summary-dialog')!;
+ form.addEventListener('submit',event=>{event.preventDefault();document.querySelector('#summary-text')!.textContent=`${rooms.value} Zimmer · ${baths.value} ${Number(baths.value)===1?'Bad':'Bäder'} · Küche & Flur inklusive. ${frequency.selectedOptions[0].textContent}.`;document.querySelector('#summary-price')!.textContent=currency.format(calculate());const list=document.querySelector('#summary-extras')!;list.replaceChildren(...extras().map(extra=>{const li=document.createElement('li');li.textContent=`${extra.dataset.name}: ${currency.format(Number(extra.value))}`;return li;}));dialog.showModal();});
+ document.querySelector('#close-dialog')!.addEventListener('click',()=>dialog.close());
+ document.querySelector('#back-to-calc')!.addEventListener('click',()=>dialog.close());
+ // Keep native details semantics and animate both opening and closing.
+ document.querySelectorAll<HTMLDetailsElement>('.faq details,.room-list details').forEach(details=>{
+  const summary=details.querySelector('summary')!;const answer=details.querySelector<HTMLElement>('.answer')!;let animation:Animation|null=null;let expanded=details.open;
+  summary.addEventListener('click',event=>{if(matchMedia('(prefers-reduced-motion: reduce)').matches)return;event.preventDefault();const start=details.getBoundingClientRect().height;expanded=animation?!expanded:!details.open;animation?.cancel();details.open=true;const end=summary.getBoundingClientRect().height+(expanded?answer.getBoundingClientRect().height:0);details.style.overflow='hidden';animation=details.animate({height:[`${start}px`,`${end}px`]},{duration:260,easing:'ease-out'});animation.onfinish=()=>{details.open=expanded;details.style.overflow='';animation=null;};});
+ });
+</script>
+<SectionMotion /></body></html>

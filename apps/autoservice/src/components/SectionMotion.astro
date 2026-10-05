@@ -1,0 +1,21 @@
+<script>
+ const reduced = matchMedia('(prefers-reduced-motion: reduce)');
+ const targets = [...document.querySelectorAll<HTMLElement>('[data-motion], main > section > .section-heading, main > section > h2, .service-grid > *, .steps > *, .gallery > figure, .contact-layout > *, .included-layout > *, .booking-layout > *, .faq-layout > *, .services > *, .service-list > article')].filter(el => !el.closest('.reveal,[data-reveal]') && !el.querySelector('.reveal,[data-reveal]'));
+ const active = new Set<Animation>();
+ if (!reduced.matches && 'IntersectionObserver' in window) {
+  const observer = new IntersectionObserver(entries => {
+   for (const entry of entries) {
+    if (!entry.isIntersecting) continue;
+    observer.unobserve(entry.target);
+    if (reduced.matches) continue;
+    const animation = entry.target.animate([{opacity:.15,transform:'translateY(18px)'},{opacity:1,transform:'translateY(0)'}],{duration:600,easing:'cubic-bezier(.2,.7,.2,1)'});
+    active.add(animation);animation.onfinish=()=>active.delete(animation);
+   }
+  },{threshold:.08});
+  targets.forEach(el=>observer.observe(el));
+  reduced.addEventListener('change',()=>{if(reduced.matches){observer.disconnect();active.forEach(a=>a.cancel());active.clear();}});
+ }
+</script>
+<style is:global>
+ @media(prefers-reduced-motion:no-preference){dialog[open]{animation:dialog-enter .22s ease-out}@keyframes dialog-enter{from{opacity:0;transform:translateY(10px) scale(.98)}to{opacity:1;transform:none}}}
+</style>
