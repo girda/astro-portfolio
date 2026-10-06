@@ -1,0 +1,24 @@
+.project-badge {
+  position: absolute;
+  inset: 12px 12px auto auto;
+  z-index: 2;
+  display: inline-flex;
+  align-items: center;
+  padding: 6px 12px;
+  border-radius: 100px;
+  border: 1px solid #fff3;
+  background: linear-gradient(135deg, #f5c396, #eca569);
+  color: #332b23;
+  font: 600 10px/1.4 var(--font-code);
+  letter-spacing: .08em;
+  text-transform: uppercase;
+  box-shadow: inset 0 1px 0 #fff5, 0 3px 10px #0002;
+  pointer-events: none;
+}
+.project-badge--client {
+  background: linear-gradient(135deg, #d5e2ce, #b7cbb0);
+  color: #26352a;
+}
+@media (max-width: 600px) {
+  .project-badge { inset: 10px 10px auto auto; }
+}

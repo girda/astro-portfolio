@@ -1,0 +1,163 @@
+---
+import "../styles/studio-hero.css";
+import "../styles/hero-refinement.css";
+import "../styles/navigation-panel.css";
+import "../styles/mobile-viewport.css";
+import "../styles/portfolio-motion.css";
+import { languagePath } from "../i18n/translations";
+interface Props {
+  lang: "de" | "ru" | "en";
+}
+const { lang } = Astro.props;
+const t =
+  lang === "en"
+    ? {
+        lines: ["Your business.", "Your website.", "Your style."],
+        intro:
+          "I’m Artem. I bring your business online — with thoughtful design, clear structure and attention to detail.",
+        work: "View projects",
+        about: "About me",
+        eyebrow: "WEB DESIGN & DEVELOPMENT",
+        note: "Design. Development. Personality.",
+      }
+    : {
+        lines: ["Dein Business.", "Deine Website.", "Dein Stil."],
+        intro:
+          "Ich bin Artem. Ich bringe dein Unternehmen ins Web — mit durchdachtem Design, klarer Struktur und Liebe zum Detail.",
+        work: "Projekte ansehen",
+        about: "Über mich",
+        eyebrow: "WEBDESIGN & ENTWICKLUNG",
+        note: "Design. Entwicklung. Persönlichkeit.",
+      };
+const base = import.meta.env.BASE_URL.replace(/\/$/, "");
+---
+
+<section id="top" class="studio-hero" aria-labelledby="hero-title" data-studio>
+  <div class="art-window">
+    <div class="art-plane">
+      <picture>
+        <source
+          media="(max-width: 760px)"
+          srcset={`${base}/images/studio-mobile-sharp.png`}
+        />
+        <img
+          class="studio-image"
+          src={`${base}/images/studio-sharp.png`}
+          width="1586"
+          height="992"
+          alt=""
+          fetchpriority="high"
+        />
+      </picture>
+    </div>
+  </div>
+  <header class="hero-nav container">
+    <a class="wordmark" href={languagePath(lang)} aria-label="HIRDA">
+      <span class="wordmark-name" aria-hidden="true"><span class="logo-h"><span class="wordmark-bracket">[</span>H<span class="wordmark-bracket">]</span></span><span class="logo-rest">IRDA</span></span>
+    </a>
+    <nav class="desktop-nav" aria-label="Navigation">
+      <a href="#projects">{t.work}</a>
+      <a href="#about">{t.about}</a>
+    </nav>
+    <nav
+      class="hero-languages"
+      aria-label={lang === "en" ? "Language" : "Sprache"}
+    >
+      <a
+        href={languagePath("de")}
+        aria-current={lang === "de" ? "page" : undefined}
+      >
+        DE
+      </a>
+      <span>/</span>
+      <a
+        href={languagePath("en")}
+        aria-current={lang === "en" ? "page" : undefined}
+      >
+        EN
+      </a>
+    </nav>
+    <details class="mobile-menu">
+      <summary aria-label={lang === "en" ? "Open menu" : "Menü öffnen"}>
+        <span class="menu-stroke"></span>
+        <span class="menu-stroke"></span>
+      </summary>
+      <nav
+        class="menu-panel"
+        aria-label={lang === "en" ? "Main navigation" : "Hauptnavigation"}
+      >
+        <div class="menu-caption">HIRDA / NAVIGATION</div>
+        <div class="menu-links">
+          <a href="#projects">
+            <span>01</span>
+            {t.work}
+          </a>
+          <a href="#about">
+            <span>02</span>
+            {t.about}
+          </a>
+          <a href="#services">
+            <span>03</span>
+            {lang === "en" ? "Services" : "Leistungen"}
+          </a>
+        </div>
+        <div class="menu-bottom">
+          <span>{t.eyebrow}</span>
+          <span>DE / EN</span>
+        </div>
+      </nav>
+    </details>
+  </header>
+  <div class="hero-copy container">
+    <p class="hero-eyebrow">{t.eyebrow}</p>
+    <h1 id="hero-title" aria-label={t.lines.join(" ")}>
+      {t.lines.map((line, i) => (
+        <span
+          class:list={["line", { accent: i > 1 }]}
+          style={`--delay:${i * 100}ms`}
+        >
+          {Array.from(line).map((letter, j) => (
+            <span
+              class="typed-letter"
+              aria-hidden="true"
+              style={`--type-delay:${500 + (t.lines.slice(0, i).join("").length + j) * 60}ms`}
+            >
+              {letter === " " ? "\u00a0" : letter}
+            </span>
+          ))}
+        </span>
+      ))}
+    </h1>
+    <p class="hero-intro">{t.intro}</p>
+    <div class="hero-actions">
+      <a class="primary" href="#projects">
+        {t.work}
+      </a>
+      <a class="secondary" href="#about">
+        {t.about}
+      </a>
+    </div>
+  </div>
+  <div class="hero-foot container">
+    <span>{t.note}</span>
+    <a href="#projects" aria-label={t.work}>
+      <svg
+        class="arrow-icon"
+        width="20"
+        height="20"
+        viewBox="0 0 24 24"
+        fill="none"
+        stroke="currentColor"
+        stroke-width="1.5"
+        stroke-linecap="round"
+        stroke-linejoin="round"
+        aria-hidden="true"
+      >
+        <path d="M12 4v16M5 13l7 7 7-7" />
+      </svg>
+    </a>
+  </div>
+</section>
+<script>
+  import "../scripts/mobile-menu";
+</script>

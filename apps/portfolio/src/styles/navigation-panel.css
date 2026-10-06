@@ -1,0 +1,129 @@
+body.menu-open {
+  overflow: hidden;
+}
+@media (max-width: 760px) {
+  body.menu-open .studio-hero {
+    overflow: visible;
+    z-index: 10;
+  }
+  section.studio-hero .mobile-menu summary {
+    position: relative;
+    z-index: 12;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 6px;
+    width: 44px;
+    height: 44px;
+    border: 0;
+    border-radius: 6px;
+    background: transparent;
+    color: #f4f1eb;
+  }
+  .menu-stroke {
+    display: block;
+    width: 24px;
+    height: 2px;
+    border-radius: 2px;
+    margin-inline: auto;
+    background: currentColor;
+    transition: transform 0.3s;
+  }
+  .mobile-menu[open] .menu-stroke:first-child {
+    transform: translateY(4px) rotate(45deg);
+  }
+  .mobile-menu[open] .menu-stroke:last-child {
+    transform: translateY(-4px) rotate(-45deg);
+  }
+  section.studio-hero[data-studio] .hero-nav .mobile-menu nav.menu-panel {
+    position: fixed;
+    inset: 0;
+    top: 0;
+    width: 100%;
+    height: 100dvh;
+    overflow-y: auto;
+    border: 0;
+    border-radius: 0;
+    padding: 112px 24px 32px;
+    display: flex;
+    flex-direction: column;
+    gap: 32px;
+    background:
+      radial-gradient(ellipse at 100% 100%, #68513d66, transparent 65%), #202729;
+    z-index: 11;
+  }
+  .menu-caption,
+  .menu-bottom {
+    font: 10px/1.6 var(--font-code);
+    letter-spacing: 0.12em;
+    color: #bec5b7;
+  }
+  .menu-links {
+    margin-block: auto;
+  }
+  section.studio-hero .menu-links a {
+    display: flex;
+    align-items: baseline;
+    gap: 16px;
+    padding: 23px 0;
+    border-bottom: 1px solid #ffffff20;
+    font: 500 clamp(28px, 7vw, 52px)/1.15 var(--font-body);
+    letter-spacing: -0.035em;
+  }
+  .menu-links a span {
+    color: #efbd8f;
+    font: 11px/1 var(--font-code);
+    letter-spacing: 0;
+  }
+  .menu-links a:hover,
+  .menu-links a:focus-visible {
+    color: #efbd8f;
+  }
+  .menu-bottom {
+    display: flex;
+    justify-content: space-between;
+    gap: 16px;
+    padding-top: 24px;
+  }
+  @media (prefers-reduced-motion: no-preference) {
+    .mobile-menu[open] .menu-panel {
+      animation: panel-in 0.45s cubic-bezier(0.2, 0.7, 0.2, 1) both;
+    }
+    .mobile-menu[open] .menu-links a {
+      animation: menu-link-in 0.5s 0.12s both;
+    }
+    .mobile-menu[open] .menu-links a:nth-child(2) {
+      animation-delay: 0.2s;
+    }
+    .mobile-menu[open] .menu-links a:nth-child(3) {
+      animation-delay: 0.28s;
+    }
+  }
+}
+@keyframes panel-in {
+  from {
+    clip-path: inset(0 0 100% 0);
+  }
+  to {
+    clip-path: inset(0);
+  }
+}
+@keyframes menu-link-in {
+  from {
+    opacity: 0;
+    transform: translateY(22px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+/* Обводка нужна только при навигации с клавиатуры. */
+section.studio-hero .mobile-menu summary:focus-visible {
+  outline: 2px solid var(--brand-accent);
+  outline-offset: 2px;
+}
+@media (hover: hover) {
+  section.studio-hero .mobile-menu summary:hover { color: var(--brand-accent); }
+}

@@ -12,9 +12,7 @@ const { delay = 0 } = Astro.props;
 
 <script>
   const elements = document.querySelectorAll<HTMLElement>(".reveal");
-  const reducedMotion = window.matchMedia(
-    "(prefers-reduced-motion: reduce)",
-  );
+  const reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)");
 
   if (!reducedMotion.matches && "IntersectionObserver" in window) {
     const observer = new IntersectionObserver(
@@ -30,7 +28,10 @@ const { delay = 0 } = Astro.props;
     );
 
     reducedMotion.addEventListener("change", () => {
-      if (reducedMotion.matches) { observer.disconnect(); elements.forEach(el => el.classList.remove("reveal-ready")); }
+      if (reducedMotion.matches) {
+        observer.disconnect();
+        elements.forEach((el) => el.classList.remove("reveal-ready"));
+      }
     });
     for (const element of elements) {
       element.classList.add("reveal-ready");
@@ -48,8 +49,8 @@ const { delay = 0 } = Astro.props;
     opacity: 0;
     transform: translateY(24px);
     transition:
-      opacity 650ms ease var(--reveal-delay, 0ms),
-      transform 650ms ease var(--reveal-delay, 0ms);
+      opacity 1000ms ease var(--reveal-delay, 0ms),
+      transform 1000ms ease var(--reveal-delay, 0ms);
   }
 
   .reveal-ready.is-visible {

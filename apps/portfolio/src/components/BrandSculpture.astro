@@ -1,0 +1,25 @@
+---
+import "../styles/brand.css";
+interface Props { lang: "de" | "en" | "ru"; }
+const { lang } = Astro.props;
+const base = import.meta.env.BASE_URL;
+---
+<button class="brand-sculpture" type="button" data-brand-sculpture aria-label={lang === "en" ? "Rotate the HIRDA logo" : "HIRDA-Logo drehen"}>
+  <img class="brand-fallback" src={`${base}images/hirda-mark.svg`} width="220" height="220" alt="" />
+</button>
+<script>
+  const element = document.querySelector<HTMLButtonElement>('[data-brand-sculpture]');
+  if (element) {
+    // Загружаем WebGL только рядом с видимой секцией. SVG остаётся запасным вариантом.
+    const reduced = matchMedia('(prefers-reduced-motion: reduce)');
+    const observer = new IntersectionObserver(async entries => {
+      if (!entries.some(entry => entry.isIntersecting) || reduced.matches) return;
+      observer.disconnect();
+      try {
+        const { mountSculpture } = await import('../scripts/brand-sculpture');
+        mountSculpture(element);
+      } catch { /* Ошибка WebGL или загрузки не скрывает SVG-логотип. */ }
+    }, { rootMargin: '150px' });
+    observer.observe(element);
+  }
+</script>

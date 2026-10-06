@@ -1,4 +1,8 @@
 ---
+import "../styles/atmosphere.css";
+import "../styles/typography.css";
+import "../styles/rhythm.css";
+import ScrollHeadings from "../components/ScrollHeadings.astro";
 import SectionMotion from "../components/SectionMotion.astro";
 interface Props {
   title: string;
@@ -15,12 +19,16 @@ const { title, description, lang = "de" } = Astro.props;
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="description" content={description} />
+    <link rel="icon" type="image/svg+xml" href={`${import.meta.env.BASE_URL}favicon.svg`} />
     <title>{title}</title>
   </head>
 
   <body>
+    <div class="site-atmosphere" aria-hidden="true"></div>
     <slot />
-  <SectionMotion /></body>
+    <ScrollHeadings />
+    <SectionMotion />
+  </body>
 </html>
 
 <style is:global>
@@ -29,15 +37,18 @@ const { title, description, lang = "de" } = Astro.props;
   }
 
   html {
-    color-scheme: light;
-    background: #f5f5ee;
+    color-scheme: dark;
+    background: #22282c;
     scroll-behavior: smooth;
   }
 
   body {
     margin: 0;
-    color: #20231e;
-    font-family: "Helvetica Neue", Arial, Helvetica, sans-serif;
+    position: relative;
+    isolation: isolate;
+    background: #22282c;
+    color: #f4f1eb;
+    font-family: var(--font-body);
     line-height: 1.6;
   }
 
@@ -47,7 +58,7 @@ const { title, description, lang = "de" } = Astro.props;
   }
 
   a:focus-visible {
-    outline: 2px solid #617d2e;
+    outline: 2px solid #f6b17b;
     outline-offset: 6px;
   }
 
@@ -56,7 +67,11 @@ const { title, description, lang = "de" } = Astro.props;
     margin-inline: auto;
   }
 
-  @media(max-width:700px){.container{width:calc(100% - 36px)}}
+  @media (max-width: 700px) {
+    .container {
+      width: calc(100% - 36px);
+    }
+  }
   @media (prefers-reduced-motion: reduce) {
     html {
       scroll-behavior: auto;

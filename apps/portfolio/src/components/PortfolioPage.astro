@@ -1,18 +1,15 @@
 ---
-import PortfolioHero from "./PortfolioHero.astro";
+import { projects, projectHref } from "../data/projects";
+import BrandSculpture from "./BrandSculpture.astro";
+import StudioHero from "./StudioHero.astro";
 import BaseLayout from "../layouts/BaseLayout.astro";
 import ProjectCard from "./ProjectCard.astro";
 import Reveal from "./Reveal.astro";
 import Services from "./Services.astro";
+import SiteFooter from "./SiteFooter.astro";
+import Pricing from "./Pricing.astro";
 
-import {
-  languages,
-  languagePath,
-  translations,
-  type Language,
-} from "../i18n/translations";
-
-
+import { translations, type Language } from "../i18n/translations";
 
 interface Props {
   lang: Language;
@@ -20,91 +17,114 @@ interface Props {
 
 const { lang } = Astro.props;
 const t = translations[lang];
-const name = "HIRDA";
-const brands = ['KANT', 'KLAR', 'WERKRAUM', 'STILL'];
-const openLabel = {de:'Website öffnen',ru:'Открыть сайт',en:'Open website'}[lang];
-const base = import.meta.env.BASE_URL.replace(/\/$/, '');
-const demos = ['barbershop', 'cleaning', 'autoservice', 'nails'];
-const demoHref = (index: number) => import.meta.env.PROD
-  ? `${import.meta.env.BASE_URL.replace(/\/$/, '')}/demos/${demos[index]}/`
-  : `http://localhost:${4322 + index}/`;
-
+const openLabel = {
+  de: "Website öffnen",
+  ru: "Открыть сайт",
+  en: "Open website",
+}[lang];
+const base = import.meta.env.BASE_URL.replace(/\/$/, "");
 ---
 
 <BaseLayout title={t.pageTitle} description={t.description} lang={lang}>
-  <header class="container navigation">
-    <a class="logo" href={languagePath(lang)}>
-      {name}<span>.</span>
-    </a>
-
-    <div class="nav-actions">
-      <a class="projects-link" href="#projects">
-        {t.navigation}
-      </a>
-
-      <nav class="languages" aria-label={t.languageLabel}>
-        {
-          languages.map((language) => (
-            <a
-              href={languagePath(language)}
-              lang={language}
-              hreflang={language}
-              aria-current={language === lang ? "page" : undefined}
-            >
-              {language.toUpperCase()}
-            </a>
-          ))
-        }
-      </nav>
-    </div>
-  </header>
-
+  <StudioHero lang={lang} />
   <main class="container" id="main">
-    <PortfolioHero lang={lang} headline={t.headline} eyebrow={t.eyebrow} introduction={t.introduction} button={t.button} />
-
     <section id="projects" class="projects">
       <p class="eyebrow">{t.projectsEyebrow}</p>
 
       <h2>{t.projectsTitle}</h2>
 
-      <p class="section-description">
-        {t.projectsDescription}
-      </p>
+      <p class="section-description">{t.projectsDescription}</p>
 
       <div class="project-grid">
-        {
-          t.projects.map((project, index) => (
-            <Reveal delay={index * 100}>
-              <ProjectCard
-                title={project.title}
-                category={project.category}
-                number={index + 1}
-                status={"Demo"}
-                preview={`${base}/previews/${demos[index]}.jpg`}
-                name={brands[index]}
-                open={openLabel}
-                href={demoHref(index)}
-              />
-            </Reveal>
-          ))
-        }
+        {t.projects.map((project, index) => (
+          <Reveal delay={index * 100}>
+            <ProjectCard
+              title={project.title}
+              category={project.category}
+              status={projects[project.id].status}
+              lang={lang}
+              preview={`${base}/previews/${project.id}.jpg`}
+              name={projects[project.id].name}
+              open={openLabel}
+              href={projectHref(project.id)}
+            />
+          </Reveal>
+        ))}
       </div>
     </section>
-    <div id="services"></div>
+    <section id="about" class="about">
+      <div class="about-copy"><p class="eyebrow">{lang === "en" ? "ABOUT ME" : "ÜBER MICH"}</p>
+      <h2>{lang === "en" ? "Hi, I’m Artem." : "Hi, ich bin Artem."}</h2>
+      <p class="section-description">{lang === "en"
+        ? "I’ve been working in web development for seven years. I design and develop websites for independent professionals and small businesses — with thoughtful design and attention to detail."
+        : "Seit sieben Jahren bin ich in der Webentwicklung tätig. Ich gestalte und entwickle Websites für Selbstständige und kleine Unternehmen — mit durchdachtem Design und einem Blick fürs Detail."}</p>
+      <p class="section-description">{lang === "en"
+        ? "What matters to me is that your website reflects who you are, clearly explains what you offer and works well on every screen."
+        : "Mir ist wichtig, dass deine Website zu dir passt, dein Angebot verständlich macht und auf jedem Bildschirm gut funktioniert."}</p></div>
+      <BrandSculpture lang={lang} />
+    </section>
     <Services
       title={t.servicesTitle}
       description={t.servicesDescription}
       items={t.services}
     />
-
+    <Pricing lang={lang} />
   </main>
 
-  <footer class="container">
-    © {new Date().getFullYear()}
-    {name}. · Artem Hirda
-  </footer>
+  <SiteFooter lang={lang} />
 </BaseLayout>
 
 <style>
-.navigation{display:flex;align-items:center;justify-content:space-between;gap:20px;padding-block:24px;border-bottom:1px solid #d9dbd2}.logo{font-size:28px;font-weight:800;letter-spacing:-.08em}.logo span{color:#7d9251}.nav-actions{display:flex;align-items:center;gap:32px}.projects-link{font-size:12px}.languages{display:flex;gap:3px}.languages a{display:grid;place-items:center;min-width:38px;min-height:38px;border-radius:50%;font-size:11px}.languages a[aria-current=page]{background:#20231e;color:#fff}.languages a:hover{background:#d9ff68;color:#20231e}.eyebrow{font-size:11px;letter-spacing:.13em;margin:0 0 20px;color:#6b7164}.projects{padding:76px 0 80px;scroll-margin-top:25px}h2{font-size:clamp(34px,5vw,62px);line-height:1.1;letter-spacing:-.055em;font-weight:500;margin:0}.section-description{max-width:600px;color:#686e61;font-size:14px;line-height:1.7;margin:22px 0 40px}.project-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:42px 28px}footer{padding-block:28px;border-top:1px solid #d9dbd2;font-size:12px;color:#686e61}#services{scroll-margin-top:30px}@media(max-width:700px){.navigation{padding-block:18px}.projects-link{display:none}.project-grid{grid-template-columns:1fr;gap:30px}.projects{padding:46px 0}.nav-actions{gap:12px}}
+  .eyebrow {
+    font-size: 11px;
+    letter-spacing: 0.13em;
+    margin: 0 0 20px;
+    color: #c9cfa8;
+  }
+  .about {
+    padding: 55px 0;
+    border-top: 1px solid #424649;
+    scroll-margin-top: 25px;
+  }
+  .projects {
+    padding: 76px 0 80px;
+    scroll-margin-top: 25px;
+  }
+  h2 {
+    font-size: clamp(34px, 5vw, 62px);
+    line-height: 1.1;
+    letter-spacing: -0.055em;
+    font-weight: 500;
+    margin: 0;
+  }
+  .section-description {
+    max-width: 600px;
+    color: #b9bdbd;
+    font-size: 14px;
+    line-height: 1.7;
+    margin: 22px 0 40px;
+  }
+  .project-grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 42px 28px;
+  }
+
+  #services {
+    scroll-margin-top: 30px;
+  }
+  @media (max-width: 700px) {
+    .project-grid {
+      grid-template-columns: 1fr;
+      gap: 30px;
+    }
+    .about {
+      padding: 55px 0;
+      border-top: 1px solid #424649;
+      scroll-margin-top: 25px;
+    }
+    .projects {
+      padding: 46px 0;
+    }
+  }
 </style>

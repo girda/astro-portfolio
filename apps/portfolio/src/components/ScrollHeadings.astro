@@ -1,0 +1,53 @@
+<script>
+  const headings = [...document.querySelectorAll<HTMLElement>("main h2")];
+  const reduced = matchMedia("(prefers-reduced-motion: reduce)");
+  if (!reduced.matches && "IntersectionObserver" in window) {
+    const observer = new IntersectionObserver(
+      (entries) => {
+        for (const entry of entries)
+          if (entry.isIntersecting) {
+            entry.target.classList.add("heading-running");
+            observer.unobserve(entry.target);
+          }
+      },
+      { threshold: 0.5 },
+    );
+    for (const heading of headings) {
+      const text = heading.textContent?.trim() ?? "";
+      // Диктор читает цельный заголовок, декоративные буквы скрыты от него.
+      heading.setAttribute("aria-label", text);
+      let index = 0;
+      const fragment = document.createDocumentFragment();
+      for (const word of text.split(/(\s+)/)) {
+        const wrapper = document.createElement("span");
+        wrapper.setAttribute("aria-hidden", "true");
+        if (/^\s+$/.test(word)) wrapper.textContent = word;
+        else {
+          wrapper.className = "heading-word";
+          for (const character of word) {
+            const letter = document.createElement("span");
+            letter.className = "heading-letter";
+            letter.textContent = character;
+            letter.style.setProperty(
+              "--letter-delay",
+              `${index++ * Math.min(55, 2400 / text.length)}ms`,
+            );
+            wrapper.append(letter);
+          }
+        }
+        fragment.append(wrapper);
+      }
+      heading.replaceChildren(fragment);
+      heading.classList.add("heading-ready");
+      observer.observe(heading);
+    }
+    reduced.addEventListener("change", () => {
+      if (reduced.matches) {
+        observer.disconnect();
+        headings.forEach((h) =>
+          h.classList.remove("heading-ready", "heading-running"),
+        );
+      }
+    });
+  }
+</script>

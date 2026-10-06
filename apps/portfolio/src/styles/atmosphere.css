@@ -1,0 +1,81 @@
+/* Цвета иллюстрации продолжаются в общем фоне страницы. */
+.site-atmosphere {
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  pointer-events: none;
+  background:
+    radial-gradient(ellipse 75% 18% at 105% 36%, #bb794334, transparent 75%),
+    radial-gradient(ellipse 65% 21% at -10% 64%, #82906126, transparent 76%),
+    radial-gradient(ellipse 65% 20% at 95% 95%, #c3864e30, transparent 75%),
+    linear-gradient(180deg, #22282c 20%, #24282a 50%, #202625 78%, #25282a);
+}
+
+.site-atmosphere::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  opacity: 0.035;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='180' height='180'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Cpath fill='%23fff' filter='url(%23n)' d='M0 0h180v180H0z'/%3E%3C/svg%3E");
+}
+
+/* Маска растворяет иллюстрацию в настоящем фоне страницы. */
+section.studio-hero[data-studio] {
+  background: transparent;
+}
+.studio-hero .art-window {
+  -webkit-mask-image: linear-gradient(
+    to bottom,
+    #000 0%,
+    #000 calc(100% - 230px),
+    transparent 100%
+  );
+  mask-image: linear-gradient(
+    to bottom,
+    #000 0%,
+    #000 calc(100% - 230px),
+    transparent 100%
+  );
+}
+.studio-hero::after,
+.studio-hero .art-window::after {
+  display: none;
+}
+
+#main section#about.about {
+  position: relative;
+  background: none;
+}
+
+body {
+  overflow-x: clip;
+}
+#main .about::before {
+  content: "";
+  position: absolute;
+  inset-block: 0;
+  left: 50%;
+  width: 100vw;
+  transform: translateX(-50%);
+  background: radial-gradient(ellipse at 90% 50%, #e3ad7620, transparent 68%);
+  pointer-events: none;
+  z-index: -1;
+}
+
+#main .about::after {
+  content: "</>";
+  position: absolute;
+  right: 5%;
+  top: 50%;
+  transform: translateY(-50%);
+  font: 200 clamp(80px, 14vw, 190px)/1 monospace;
+  letter-spacing: -0.12em;
+  color: #e5b58710;
+  pointer-events: none;
+  z-index: -1;
+}
+
+::selection {
+  background: #f6b17b;
+  color: #22282c;
+}

@@ -1,0 +1,62 @@
+/* Единый ритм отступов: 8 / 16 / 24 / 32 / 64. */
+:root {
+  --section-space: 64px;
+  --heading-gap: 16px;
+  --content-gap: 32px;
+}
+#main .projects,
+#main section#about.about,
+#main .services {
+  padding-block: var(--section-space);
+}
+#main .projects {
+  padding-top: 32px;
+}
+#main .eyebrow {
+  margin: 0 0 var(--heading-gap);
+}
+#main .section-description {
+  margin: var(--heading-gap) 0 var(--content-gap);
+}
+#main #about .section-description {
+  margin-bottom: 0;
+}
+#main .section-heading {
+  margin-bottom: var(--content-gap);
+}
+#main .project-grid {
+  gap: 32px 24px;
+}
+.heading-word {
+  display: inline-block;
+  white-space: nowrap;
+}
+.heading-ready .heading-letter {
+  opacity: 0;
+}
+.heading-running .heading-letter {
+  animation: heading-type 1ms var(--letter-delay) forwards;
+}
+@keyframes heading-type {
+  to {
+    opacity: 1;
+  }
+}
+@media (max-width: 700px) {
+  :root {
+    --section-space: 40px;
+    --content-gap: 24px;
+  }
+  #main .projects {
+    padding-top: 24px;
+  }
+  #main .project-grid {
+    gap: 28px;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .heading-ready .heading-letter {
+    opacity: 1;
+    animation: none;
+  }
+}

@@ -1,0 +1,77 @@
+#main .project-grid { gap: 32px; }
+#main .project-tile {
+  display: block;
+  overflow: hidden;
+  border: 1px solid #c6c4b52b;
+  border-radius: 20px;
+  background: radial-gradient(ellipse at 100% 100%, #b98c6321, transparent 65%), linear-gradient(145deg, #343b3b, #252b2c 75%);
+  box-shadow: inset 0 1px 0 #ffffff09, 0 4px 10px #00000012, 0 18px 40px -18px #00000060;
+  transition: border-color .25s, box-shadow .25s;
+}
+#main .project-tile:focus-visible {
+  outline: 2px solid #efbd8f;
+  outline-offset: 5px;
+}
+.tile-preview {
+  position: relative;
+  aspect-ratio: 1.6;
+  overflow: hidden;
+  margin: 10px 10px 0;
+  border-radius: 12px;
+  background: #202627;
+}
+.tile-preview img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: top;
+  transition: transform .5s ease;
+}
+.tile-details { padding: 24px; }
+.tile-category {
+  margin: 0 0 8px;
+  color: #bdc4c0;
+  font: 12px/1.5 var(--font-body);
+}
+#main .tile-title {
+  margin: 0 0 20px;
+  font: 600 clamp(26px, 3vw, 34px)/1.2 var(--font-body);
+  letter-spacing: -.025em;
+}
+.tile-link {
+  display: inline-flex;
+  align-items: center;
+  min-height: 40px;
+  padding: 9px 15px;
+  border: 1px solid #efbd8f30;
+  border-radius: 9px;
+  background: #efbd8f09;
+  color: #f1cfad;
+  font: 500 12px/1.5 var(--font-code);
+  transition: background .25s, border-color .25s, color .25s;
+}
+.project-tile:focus-visible .tile-link {
+  background: #efbd8f;
+  color: #232929;
+}
+@media (hover: hover) and (pointer: fine) {
+  #main .project-tile:hover {
+    border-color: #efbd8f66;
+    box-shadow: inset 0 1px 0 #ffffff12, 0 8px 18px #0000001a, 0 24px 48px -18px #00000080;
+  }
+  .project-tile:hover .tile-preview img { transform: scale(1.025); }
+  .project-tile:hover .tile-link {
+    background: #efbd8f;
+    border-color: #efbd8f;
+    color: #232929;
+  }
+}
+@media (max-width: 700px) {
+  #main .project-grid { gap: 28px; }
+  .tile-details { padding: 20px; }
+}
+@media (prefers-reduced-motion: reduce) {
+  #main .project-tile, .tile-preview img, .tile-link { transition: none; }
+  .project-tile:hover .tile-preview img { transform: none; }
+}

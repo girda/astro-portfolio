@@ -1,11 +1,58 @@
 ---
-interface Props { href:string; title:string; category:string; number:number; status?:string; preview:string; name:string; open:string; }
-const {href,title,category,number,preview,name,open}=Astro.props;
+import "../styles/project-badges.css";
+import "../styles/project-card.css";
+interface Props {
+  href: string;
+  title: string;
+  category: string;
+  status?: "demo" | "client";
+  lang?: "de" | "en" | "ru";
+  preview: string;
+  name: string;
+  open: string;
+}
+const {
+  href,
+  title,
+  category,
+  preview,
+  name,
+  open,
+  status = "demo",
+  lang = "de",
+} = Astro.props;
+const statusLabel =
+  status === "demo"
+    ? "Demo"
+    : lang === "en"
+      ? "Client project"
+      : lang === "ru"
+        ? "Клиентский проект"
+        : "Kundenprojekt";
 ---
-<a class={`project-card card-${number}`} href={href} target="_blank" rel="noopener noreferrer">
- <div class="preview-stage"><div class="browser"><div class="browser-bar"><span>● ● ●</span><span>{name} / WEBSITE CONCEPT</span><span>↗</span></div><img src={preview} alt={`${title} — ${category}`} width="1280" height="800" loading="lazy" decoding="async"/></div><span class="open-preview">{open} ↗</span></div>
- <div class="project-meta"><div><p class="project-category">0{number} / {category}</p><h3>{name}<span>↗</span></h3></div><span class="project-arrow" aria-hidden="true">↗</span></div>
+
+<a
+  class="project-card project-tile"
+  href={href}
+  target="_blank"
+  rel="noopener noreferrer"
+>
+  <div class="tile-preview">
+    <img
+      src={preview}
+      alt={`${title} — ${category}`}
+      width="1280"
+      height="800"
+      loading="lazy"
+      decoding="async"
+    />
+    <span class={`project-badge project-badge--${status}`}>
+      {statusLabel}
+    </span>
+  </div>
+  <div class="tile-details">
+    <p class="tile-category">{category}</p>
+    <h3 class="tile-title">{name}</h3>
+    <span class="tile-link">{open}</span>
+  </div>
 </a>
-<style>
-.project-card{display:block;min-width:0}.preview-stage{position:relative;padding:48px 30px 0;border-radius:14px;overflow:hidden;background:#ddd8d0;aspect-ratio:1.4}.card-2 .preview-stage{background:#b8cec8}.card-3 .preview-stage{background:#d9e1a9}.card-4 .preview-stage{background:#edced8}.browser{border:5px solid #fff;border-bottom:0;border-radius:9px 9px 0 0;overflow:hidden;box-shadow:0 18px 36px #18181825;transform:rotate(-3deg) translateY(16px);transition:transform .5s cubic-bezier(.2,.7,.2,1)}.card-2 .browser,.card-4 .browser{transform:rotate(3deg) translateY(16px)}.browser-bar{display:flex;justify-content:space-between;align-items:center;background:white;color:#646464;padding:6px 8px;font-size:8px;letter-spacing:.05em}.browser-bar>span:first-child{color:#c5c5c5}img{width:100%;height:auto;display:block}.open-preview{position:absolute;right:18px;bottom:18px;border-radius:30px;background:#181a19;color:#fff;padding:10px 17px;font-size:12px}.project-card:hover .browser{transform:rotate(0) translateY(0)}.project-meta{display:flex;justify-content:space-between;align-items:center;padding:22px 0 14px}.project-category{font-size:12px;color:#656760;margin:0 0 8px}h3{font-size:34px;line-height:1;margin:0;letter-spacing:-.06em;font-weight:600}h3 span{font-size:14px;vertical-align:top;margin-left:5px}.project-arrow{border:1px solid #caccc4;border-radius:50%;width:46px;height:46px;display:grid;place-items:center;font-size:24px;transition:background .2s}.project-card:hover .project-arrow{background:#d9ff68}@media(max-width:600px){.preview-stage{padding:30px 18px 0}.project-category{font-size:11px}h3{font-size:29px}.open-preview{font-size:11px;padding:8px 12px}}@media(prefers-reduced-motion:reduce){.browser,.project-arrow{transition:none}}
-</style>

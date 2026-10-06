@@ -13,7 +13,7 @@ interface Props {
 const { title, description, items } = Astro.props;
 ---
 
-<section class="services" aria-labelledby="services-title">
+<section id="services" class="services" aria-labelledby="services-title">
   <Reveal>
     <div class="section-heading">
       <h2 id="services-title">{title}</h2>
@@ -22,27 +22,25 @@ const { title, description, items } = Astro.props;
   </Reveal>
 
   <div class="service-list">
-    {
-      items.map((item, index) => (
-        <Reveal delay={index * 80}>
-          <article class="service">
-            <span class="number" aria-hidden="true">
-              {String(index + 1).padStart(2, "0")}
-            </span>
+    {items.map((item, index) => (
+      <Reveal delay={index * 80}>
+        <article class="service">
+          <span class="number" aria-hidden="true">
+            {String(index + 1).padStart(2, "0")}
+          </span>
 
-            <h3>{item.title}</h3>
-            <p>{item.description}</p>
-          </article>
-        </Reveal>
-      ))
-    }
+          <h3>{item.title}</h3>
+          <p>{item.description}</p>
+        </article>
+      </Reveal>
+    ))}
   </div>
 </section>
 
 <style>
   .services {
     padding-block: 64px 96px;
-    border-top: 1px solid #d9dbd2;
+    border-top: 1px solid #424649;
   }
 
   .section-heading {
@@ -64,7 +62,7 @@ const { title, description, items } = Astro.props;
   .section-heading p {
     max-width: 460px;
     margin: 0;
-    color: #686e61;
+    color: #b9bdbd;
     font-size: 1.125rem;
   }
 
@@ -74,11 +72,15 @@ const { title, description, items } = Astro.props;
     gap: 32px;
     align-items: baseline;
     padding-block: 32px;
-    border-bottom: 1px solid #d9dbd2;
+    border-bottom: 1px solid #424649;
+  }
+
+  .service-list :global(> :last-child) .service {
+    border-bottom: 0;
   }
 
   .number {
-    color: #607540;
+    color: #f6b17b;
     font-size: 0.875rem;
   }
 
@@ -91,7 +93,7 @@ const { title, description, items } = Astro.props;
 
   .service p {
     margin: 0;
-    color: #686e61;
+    color: #b9bdbd;
   }
 
   @media (max-width: 700px) {

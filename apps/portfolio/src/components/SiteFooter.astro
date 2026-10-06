@@ -1,0 +1,62 @@
+---
+interface Props { lang: string }
+const { lang } = Astro.props;
+const en = lang === "en";
+const links = en
+  ? [["projects", "Projects"], ["about", "About me"], ["services", "Services"], ["pricing", "Pricing"]]
+  : [["projects", "Projekte"], ["about", "Über mich"], ["services", "Leistungen"], ["pricing", "Preise"]];
+---
+<footer class="site-footer">
+  <div class="container footer-inner">
+    <div class="footer-top" data-motion>
+      <div class="footer-brand">
+        <a class="footer-logo" href="#top" aria-label="HIRDA"><span aria-hidden="true"><b>[</b>H<b>]</b>IRDA</span></a>
+        <p>{en ? "Design. Development. Personality." : "Design. Entwicklung. Persönlichkeit."}</p>
+      </div>
+      <nav aria-label={en ? "Footer navigation" : "Navigation im Footer"}>
+        {links.map(([id, label]) => <a href={`#${id}`}>{label}</a>)}
+      </nav>
+      <a class="back-top" href="#top">
+        <span>{en ? "Back to top" : "Nach oben"}</span>
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m6 14 6-6 6 6" /></svg>
+      </a>
+    </div>
+    <div class="footer-bottom">
+      <span>© {new Date().getFullYear()} Artem Hirda</span>
+      <span class="footer-signature" aria-hidden="true">&lt;design meets code /&gt;</span>
+    </div>
+  </div>
+</footer>
+<style>
+  .site-footer {
+    position: relative;
+    margin-top: 32px;
+    background: radial-gradient(ellipse at 10% 100%, #f5a5680e, transparent 65%), linear-gradient(180deg, #171d2000, #171d2066);
+    font: 400 16px/1.65 var(--font-body);
+  }
+  .footer-inner { border-top: 1px solid #d5d9d41c; padding-block: 48px 24px; }
+  .footer-top { display: grid; grid-template-columns: minmax(0,1fr) auto auto; gap: 48px; align-items: start; }
+  .footer-logo { display: inline-block; font: 650 40px/1.2 var(--font-body); letter-spacing: .04em; }
+  .footer-logo b { color: var(--brand-accent); font-weight: inherit; }
+  .footer-brand p { color: #b7bfbb; margin: 16px 0 0; max-width: 340px; }
+  nav { display: grid; grid-template-columns: repeat(2, auto); gap: 8px 32px; }
+  nav a { display: inline-flex; min-height: 44px; align-items: center; transition: color .25s; }
+  .back-top { display: flex; align-items: center; gap: 12px; min-height: 44px; padding: 8px 14px; border-radius: 10px; border: 1px solid #ffffff20; background: #ffffff03; }
+  .back-top svg { transition: transform .3s; }
+  .footer-bottom { margin-top: 48px; padding-top: 20px; border-top: 1px solid #d5d9d410; display: flex; justify-content: space-between; flex-wrap: wrap; gap: 12px 24px; color: #aeb8b2; }
+  .footer-signature { font-family: var(--font-code); color: #bdc8b7; }
+  @media (hover:hover) {
+    nav a:hover, .back-top:hover { color: var(--brand-accent); }
+    .back-top:hover svg { transform: translateY(-3px); }
+  }
+  @media (max-width: 760px) {
+    .site-footer { margin-top: 16px; }
+    .footer-inner { padding-block: 32px 24px; }
+    .footer-top { grid-template-columns: minmax(0,1fr); gap: 24px; }
+    .footer-logo { font-size: 30px; }
+    nav { grid-template-columns: repeat(2,minmax(0,1fr)); gap: 4px 16px; }
+    .back-top { justify-self: start; }
+    .footer-bottom { margin-top: 32px; }
+  }
+  @media (prefers-reduced-motion:reduce) { nav a, .back-top svg { transition: none; } }
+</style>
