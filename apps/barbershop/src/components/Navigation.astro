@@ -1,0 +1,76 @@
+---
+import Brand from './Brand.astro';
+import Icon from './Icon.astro';
+const links = [ ['Leistungen & Preise','#leistungen'], ['Der Salon','#studio'], ['Looks & Inspiration','#einblicke'], ['Dein Besuch','#ablauf'], ['Fragen & Antworten','#fragen'], ['Kontakt & Standort','#kontakt'] ];
+---
+<nav class="desktop-navigation" aria-label="Hauptnavigation">
+  {links.map(([label, href]) => <a href={href}>{label}</a>)}
+</nav>
+<button class="button header-button desktop-booking" type="button" data-open-phone hidden>Termin vereinbaren</button>
+<div class="header-actions">
+  <button class="phone-trigger" type="button" data-open-phone aria-label="Telefon und Terminvereinbarung" aria-haspopup="dialog" aria-controls="phone-dialog" hidden><Icon name="phone" /></button>
+  <button class="menu-trigger" type="button" aria-label="Menü öffnen" aria-haspopup="dialog" aria-controls="kant-menu" aria-expanded="false" hidden><span></span><span></span></button>
+</div>
+<dialog id="kant-menu" class="kant-menu" aria-label="Hauptnavigation">
+  <div class="menu-shell">
+    <div class="menu-top"><Brand /><button class="menu-close" type="button" aria-label="Menü schließen"><Icon name="x" /></button></div>
+    <div class="menu-content">
+      <div class="menu-art" aria-hidden="true"><Icon name="scissors" /><span>GUTES<br />HANDWERK.<br /><em>KLARE<br />HALTUNG.</em></span></div>
+      <nav aria-label="Seitenbereiche"><p class="eyebrow">DEIN WEG ZU KANT</p>{links.map(([label, href],i) => <a href={href} style={`--order:${i}`}><span>{label}</span><Icon name="chevron-right" /></a>)}</nav>
+    </div>
+    <div class="menu-bottom"><span>HAAR. BART. CHARAKTER.</span><button class="text-link" type="button" data-menu-phone>Termin telefonisch vereinbaren</button></div>
+  </div>
+</dialog>
+<noscript><nav class="fallback-navigation" aria-label="Hauptnavigation">{links.map(([label,href])=><a href={href}>{label}</a>)}</nav></noscript>
+<script>
+  const menu = document.querySelector<HTMLDialogElement>('#kant-menu');
+  const trigger = document.querySelector<HTMLButtonElement>('.menu-trigger');
+  if (menu && trigger) {
+    // При переходе на десктоп закрываем мобильное меню и возвращаем прокрутку.
+    matchMedia('(min-width:1101px)').addEventListener('change', event => { if (event.matches && menu.open) menu.close(); });
+    const reduced = matchMedia('(prefers-reduced-motion: reduce)');
+    let closing = false;
+    trigger.hidden = false;
+    trigger.addEventListener('click', () => { menu.showModal(); trigger.setAttribute('aria-expanded','true'); document.body.classList.add('kant-menu-open'); });
+    const close = async () => {
+      if (closing || !menu.open) return;
+      closing = true;
+      if (!reduced.matches) await menu.animate([{opacity:1,transform:'translateY(0)'},{opacity:0,transform:'translateY(-12px)'}],{duration:180,easing:'ease-in',fill:'forwards'}).finished;
+      menu.close(); menu.getAnimations().forEach(animation => animation.cancel()); closing = false;
+    };
+    menu.addEventListener('close', () => { trigger.setAttribute('aria-expanded','false'); document.body.classList.remove('kant-menu-open'); });
+    menu.querySelector('.menu-close')?.addEventListener('click', close);
+    menu.addEventListener('cancel', event => { event.preventDefault(); void close(); });
+    menu.querySelectorAll<HTMLAnchorElement>('a[href^="#"]').forEach(link => link.addEventListener('click', async event => {
+      event.preventDefault(); await close(); location.hash = link.hash;
+    }));
+    menu.querySelector('[data-menu-phone]')?.addEventListener('click', async () => { await close(); document.querySelector<HTMLButtonElement>('.phone-trigger')?.click(); });
+  }
+</script>
+<style>
+.desktop-navigation { display:flex; align-items:center; gap:clamp(14px,1.6vw,26px); font-size:12px; }
+.desktop-navigation a { padding-block:12px; white-space:nowrap; transition:color .2s; }
+.desktop-navigation a:hover { color:var(--accent); }
+.desktop-booking { white-space:nowrap; }
+.header-actions { display:none; gap:16px; align-items:center; }
+.phone-trigger,.menu-trigger,.menu-close { width:44px; height:44px; display:flex; justify-content:center; align-items:center; padding:0; border:0; color:var(--text); background:transparent; transition:color .2s,background .2s; border-radius:50%; }
+.phone-trigger { color:var(--accent); background:#c5a57210; }.phone-trigger:hover { background:#c5a57225; }
+.menu-trigger { flex-direction:column; gap:7px; }.menu-trigger span { display:block; width:25px; height:2px; background:currentColor; transition:width .25s; }.menu-trigger span:last-child { width:18px; margin-left:7px; }.menu-trigger:hover span:last-child { width:25px; margin-left:0; }
+.kant-menu { position:fixed; inset:0; width:100%; max-width:none; height:100dvh; max-height:none; margin:0; border:0; padding:0; color:var(--text); background:radial-gradient(ellipse at 0 100%,#c5a57214,transparent 65%),#141815; overflow:auto; }
+.kant-menu::backdrop { background:#080b09dd; }
+.menu-shell { width:min(1320px,calc(100% - 96px)); margin:auto; min-height:100%; display:flex; flex-direction:column; padding:30px 0; }
+.menu-top { display:flex; justify-content:space-between; align-items:center; }
+.menu-close:hover { color:var(--accent); background:#ffffff08; }
+.menu-content { display:grid; grid-template-columns:1fr 1fr; align-items:center; gap:64px; margin-block:auto; padding:42px 0; }
+.menu-art { position:relative; color:#ffffff09; font:clamp(60px,7vw,100px)/.97 Impact,'Arial Narrow',sans-serif; letter-spacing:.02em; }.menu-art em { color:#c5a57224; }.menu-art :global(.icon) { position:absolute; width:210px; height:210px; right:4%; bottom:0; color:#c5a57216; transform:rotate(-15deg); }
+.menu-content nav a { display:flex; align-items:center; justify-content:space-between; gap:20px; padding:16px 0; border-bottom:1px solid #ffffff18; font-size:clamp(22px,2.6vw,38px); line-height:1.2; letter-spacing:-.035em; transition:color .2s,padding-left .25s; }
+.menu-content nav a :global(.icon) { color:var(--accent); width:24px; height:24px; }.menu-content nav a:hover { color:var(--accent); padding-left:10px; }
+.menu-bottom { display:flex; align-items:center; justify-content:space-between; gap:20px; color:var(--muted); font-size:10px; letter-spacing:.12em; }.menu-bottom button { color:var(--accent); background:none; border:0; border-bottom:1px solid #c5a57255; border-radius:0; letter-spacing:0; }
+@media(prefers-reduced-motion:no-preference) {
+.kant-menu[open] { animation:menu-reveal .5s cubic-bezier(.2,.8,.2,1) both; }.kant-menu[open] .menu-content nav a { animation:link-reveal .5s calc(.12s + var(--order) * .045s) both; }
+}
+@keyframes menu-reveal { from { clip-path:inset(0 0 100% 0); } to { clip-path:inset(0); } }
+@keyframes link-reveal { from { opacity:0; transform:translateY(20px); } to { opacity:1; transform:none; } }
+@media(max-width:1100px) { .desktop-navigation,.desktop-booking { display:none; }.header-actions { display:flex; } }
+@media(max-width:700px) { .header-actions { gap:8px; }.menu-shell { width:calc(100% - 36px); padding:22px 0; }.menu-content { display:block; padding:38px 0; }.menu-art { position:absolute; bottom:40px; left:18px; font-size:76px; opacity:.35; pointer-events:none; }.menu-content nav { position:relative; }.menu-content nav a { font-size:26px; padding:16px 0; }.menu-bottom { flex-direction:column; align-items:flex-start; gap:12px; position:relative; }.menu-bottom button { font-size:12px; } }
+</style>

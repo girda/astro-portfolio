@@ -1,0 +1,55 @@
+---
+const photos = [
+  {
+    src: "/images/cut-01.jpeg",
+    alt: "Inspiration für einen kurzen Herrenhaarschnitt",
+  },
+  {
+    src: "/images/cut-02.jpeg",
+    alt: "Inspiration für einen Herrenhaarschnitt mit klaren Konturen",
+  },
+  {
+    src: "/images/cut-03.jpeg",
+    alt: "Inspiration für einen gepflegten Bart und Haarschnitt",
+  },
+];
+---
+
+<section class="gallery" aria-labelledby="gallery-title">
+  <div class="gallery-container">
+    <div class="gallery-heading" data-reveal>
+      <div>
+        <p class="eyebrow">LOOKBOOK</p>
+        <h2 id="gallery-title">Dein nächster Look.</h2>
+      </div>
+
+      <p class="description">
+        Inspiration für Schnitt und Bart.
+        Die Bilder dienen zur Illustration dieses Website-Konzepts.
+      </p>
+    </div>
+
+    <div class="gallery-grid">
+      {
+        photos.map((photo, index) => (
+          <figure data-reveal>
+            <div class="image-frame">
+              <img
+                src={photo.src}
+                alt={photo.alt}
+                loading="lazy"
+                decoding="async"
+              />
+            </div>
+
+            <figcaption>
+              <span>LOOK / {String(index + 1).padStart(2, "0")}</span>
+              <span>INSPIRATION</span>
+            </figcaption>
+          </figure>
+        ))
+      }
+    </div>
+  </div>
+</section>
+

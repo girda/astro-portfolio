@@ -73,7 +73,9 @@ export const translations = {
     services: [
       { title: "Websites & Landingpages", description: "Dein Angebot klar präsentiert — mit individuellem Design und einer Struktur, die Besucher schnell ans Ziel bringt." },
       { title: "Website-Redesign", description: "Ein neuer Look und eine bessere Nutzerführung für deine bestehende Website — auf dem Smartphone genauso wie am Desktop." },
-      { title: "Weiterentwicklung & Pflege", description: "Neue Inhalte, zusätzliche Funktionen und technische Updates — damit deine Website mit deinem Unternehmen mitwächst." },
+      { title: "Weiterentwicklung & Pflege", description: "Zwei Korrekturrunden sind in den Website-Paketen enthalten. Danach unterstütze ich dich bei neuen Inhalten und technischen Updates — einzeln oder mit monatlicher Betreuung nach Vereinbarung." },
+      { title: "Website mit CMS", description: "Texte, Bilder und Preise selbst bearbeiten — mit einem passenden Redaktionssystem und persönlicher Einweisung." },
+      { title: "Individuelle Funktionen", description: "Mehrsprachigkeit, digitale Speisekarten oder Schnittstellen — passend zu deinen Abläufen und nach vereinbartem Umfang." },
     ],
   },
 
@@ -180,7 +182,9 @@ export const translations = {
     services: [
       { title: "Websites & landing pages", description: "Present your offer clearly — with a distinctive design and a structure that helps visitors find what they need." },
       { title: "Website redesign", description: "A fresh look and easier navigation for your existing website — on mobile and desktop alike." },
-      { title: "Development & maintenance", description: "New content, additional features and technical updates — so your website can grow with your business." },
+      { title: "Development & maintenance", description: "Website packages include two revision rounds. Afterwards, I can help with new content and technical updates — as individual tasks or agreed monthly maintenance." },
+      { title: "Website with CMS", description: "Edit text, images and prices yourself — with a suitable content management system and a personal introduction." },
+      { title: "Custom features", description: "Multiple languages, digital menus or integrations — tailored to your workflow and an agreed scope." },
     ],
   },
 } satisfies Record<Language, Translation>;

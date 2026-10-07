@@ -1,0 +1,29 @@
+---
+const base = import.meta.env.BASE_URL.replace(/\/$/, '');
+---
+<section class="atmosphere" aria-labelledby="atmosphere-title">
+  <img class="atmosphere-image" src={`${base}/images/barbershop.webp`} alt="" loading="lazy" aria-hidden="true" />
+  <div class="container atmosphere-copy" data-reveal><p class="eyebrow">HANDWERK. HALTUNG. KANT.</p><h2 id="atmosphere-title">Ein guter Schnitt.<br /><em>Ein gutes Gefühl.</em></h2><p>Ledersessel. Zeit für dich. Und ein Look, der bleibt.</p></div>
+</section>
+<script>
+  const section = document.querySelector<HTMLElement>('.atmosphere');
+  const photo = section?.querySelector<HTMLElement>('.atmosphere-image');
+  if (section && photo) {
+    const reduced = matchMedia('(prefers-reduced-motion: reduce)');
+    let visible = false, frame = 0;
+    const paint = () => {
+      frame = 0;
+      const rect = section.getBoundingClientRect();
+      const progress = (innerHeight / 2 - rect.top - rect.height / 2) / (innerHeight + rect.height);
+      photo.style.transform = reduced.matches ? 'none' : `translate3d(0,${Math.max(-45,Math.min(45,progress * 100))}px,0)`;
+    };
+    // Обновляем только видимую секцию, максимум один раз за кадр.
+    const schedule = () => { if (visible && !frame) frame = requestAnimationFrame(paint); };
+    const observer = new IntersectionObserver(([entry]) => { visible = entry.isIntersecting; schedule(); });
+    observer.observe(section);
+    window.addEventListener('scroll', schedule, {passive:true});
+    window.addEventListener('resize', schedule, {passive:true});
+    reduced.addEventListener('change', paint);
+    document.addEventListener('astro:before-swap', () => { observer.disconnect(); cancelAnimationFrame(frame); window.removeEventListener('scroll', schedule); window.removeEventListener('resize', schedule); reduced.removeEventListener('change', paint); }, {once:true});
+  }
+</script>

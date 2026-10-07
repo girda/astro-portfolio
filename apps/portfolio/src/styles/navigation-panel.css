@@ -44,7 +44,7 @@ body.menu-open {
     overflow-y: auto;
     border: 0;
     border-radius: 0;
-    padding: 112px 24px 32px;
+    padding: 88px 24px 24px;
     display: flex;
     flex-direction: column;
     gap: 32px;
@@ -65,9 +65,9 @@ body.menu-open {
     display: flex;
     align-items: baseline;
     gap: 16px;
-    padding: 23px 0;
+    padding: 15px 0;
     border-bottom: 1px solid #ffffff20;
-    font: 500 clamp(28px, 7vw, 52px)/1.15 var(--font-body);
+    font: 500 clamp(24px, 6vw, 40px)/1.15 var(--font-body);
     letter-spacing: -0.035em;
   }
   .menu-links a span {
@@ -127,3 +127,5 @@ section.studio-hero .mobile-menu summary:focus-visible {
 @media (hover: hover) {
   section.studio-hero .mobile-menu summary:hover { color: var(--brand-accent); }
 }
+
+@media (prefers-reduced-motion: no-preference) { .mobile-menu[open] .menu-links a:nth-child(4) { animation-delay: .34s; } .mobile-menu[open] .menu-links a:nth-child(5) { animation-delay: .40s; } }

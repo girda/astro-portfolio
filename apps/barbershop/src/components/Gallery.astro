@@ -1,55 +1,49 @@
 ---
-const photos = [
-  {
-    src: import.meta.env.BASE_URL.replace(/\/$/, "") + "/images/cut-01.jpeg",
-    alt: "Inspiration für einen kurzen Herrenhaarschnitt",
-  },
-  {
-    src: import.meta.env.BASE_URL.replace(/\/$/, "") + "/images/cut-02.jpeg",
-    alt: "Inspiration für einen Herrenhaarschnitt mit klaren Konturen",
-  },
-  {
-    src: import.meta.env.BASE_URL.replace(/\/$/, "") + "/images/cut-03.jpeg",
-    alt: "Inspiration für einen gepflegten Bart und Haarschnitt",
-  },
-];
+import Icon from "./Icon.astro";
+const base = import.meta.env.BASE_URL.replace(/\/$/, "");
+import photos from '../data/lookbook.json';
 ---
-
-<section class="gallery" aria-labelledby="gallery-title">
-  <div class="gallery-container">
-    <div class="gallery-heading" data-reveal>
-      <div>
-        <p class="eyebrow">LOOKBOOK</p>
-        <h2 id="gallery-title">Dein nächster Look.</h2>
-      </div>
-
-      <p class="description">
-        Inspiration für Schnitt und Bart.
-        Die Bilder dienen zur Illustration dieses Website-Konzepts.
-      </p>
-    </div>
-
-    <div class="gallery-grid">
-      {
-        photos.map((photo, index) => (
-          <figure data-reveal>
-            <div class="image-frame">
-              <img
-                src={photo.src}
-                alt={photo.alt}
-                loading="lazy"
-                decoding="async"
-              />
-            </div>
-
-            <figcaption>
-              <span>LOOK / {String(index + 1).padStart(2, "0")}</span>
-              <span>INSPIRATION</span>
-            </figcaption>
-          </figure>
-        ))
-      }
-    </div>
+<section id="einblicke" class="gallery section-space" aria-labelledby="gallery-title">
+  <div class="container">
+    <div class="section-heading" data-reveal><div><p class="eyebrow">STYLE INSPIRATION</p><h2 id="gallery-title">Gute Schnitte.<br /><em>Dein Stil.</em></h2></div><div class="gallery-navigation" hidden><button type="button" data-gallery-prev aria-label="Vorheriger Look" aria-controls="lookbook-track"><Icon name="chevron-left" /></button><button type="button" data-gallery-next aria-label="Nächster Look" aria-controls="lookbook-track"><Icon name="chevron-right" /></button></div></div>
+    <div class="gallery-viewport" id="lookbook-track" tabindex="0" role="region" aria-roledescription="Karussell" aria-label="Lookbook — ziehen oder Pfeiltasten verwenden"><div class="gallery-track">
+      {photos.map((photo, i) => <figure class="look-slide"><div class="image-frame lookbook-frame"><img src={`${base}/images/${photo.src}`} alt={photo.alt} loading="lazy" draggable="false" /></div><figcaption><h3>{photo.title}</h3><span>{photo.detail}</span></figcaption></figure>)}
+    </div></div>
+    <div class="gallery-progress" hidden>{photos.map((photo, i) => <button type="button" data-slide={i} aria-label={`Look anzeigen: ${photo.title}`} aria-controls="lookbook-track" />)}</div>
+    <p class="gallery-note">Mit Maus oder Finger durch die Looks ziehen.</p>
+    <p class="gallery-note">Schnitt-Inspiration & Barber-Handwerk · Beispielbilder für dieses Designkonzept.</p>
+    <details class="image-credits"><summary>Bildnachweise</summary><p>Zusätzliche Fotos: <a href="https://unsplash.com/photos/man-cutting-hair-of-man-CCTCHXEsan8">John Arano</a>, <a href="https://unsplash.com/photos/barber-blow-drying-hair-in-salon-wJoB8D3hnzc">delfina pan</a>, <a href="https://unsplash.com/photos/a-man-with-a-beard-is-getting-his-hair-cut-cmoQYMqGgoI">Glib Albovsky</a> / Unsplash.</p></details>
   </div>
 </section>
-
+<script>
+  import EmblaCarousel from 'embla-carousel';
+  const viewport = document.querySelector<HTMLElement>('.gallery-viewport');
+  const controls = document.querySelector<HTMLElement>('.gallery-navigation');
+  const progress = document.querySelector<HTMLElement>('.gallery-progress');
+  if (viewport && controls && progress) {
+    const reduced = matchMedia('(prefers-reduced-motion: reduce)');
+    // Один слайд за шаг; мышь и сенсорный экран работают одинаково.
+    const carousel = EmblaCarousel(viewport, { align:'start', containScroll:'trimSnaps', duration:26 });
+    const prev = controls.querySelector<HTMLButtonElement>('[data-gallery-prev]')!;
+    const next = controls.querySelector<HTMLButtonElement>('[data-gallery-next]')!;
+    const dots = Array.from(progress.querySelectorAll<HTMLButtonElement>('button'));
+    const update = () => {
+      prev.disabled = !carousel.canScrollPrev(); next.disabled = !carousel.canScrollNext();
+      dots.forEach((dot, i) => { dot.hidden = i >= carousel.scrollSnapList().length; dot.setAttribute('aria-current', String(i === carousel.selectedScrollSnap())); });
+    };
+    prev.addEventListener('click', () => carousel.scrollPrev(reduced.matches));
+    next.addEventListener('click', () => carousel.scrollNext(reduced.matches));
+    dots.forEach((dot, i) => dot.addEventListener('click', () => carousel.scrollTo(i, reduced.matches)));
+    viewport.addEventListener('keydown', event => {
+      if (!['ArrowRight','ArrowLeft','Home','End'].includes(event.key)) return;
+      event.preventDefault();
+      if (event.key === 'ArrowRight') carousel.scrollNext(reduced.matches);
+      if (event.key === 'ArrowLeft') carousel.scrollPrev(reduced.matches);
+      if (event.key === 'Home') carousel.scrollTo(0, reduced.matches);
+      if (event.key === 'End') carousel.scrollTo(carousel.scrollSnapList().length - 1, reduced.matches);
+    });
+    carousel.on('select', update).on('reInit', update);
+    controls.hidden = false; progress.hidden = false; update();
+    document.addEventListener('astro:before-swap', () => carousel.destroy(), {once:true});
+  }
+</script>

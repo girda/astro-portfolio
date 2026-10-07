@@ -1,0 +1,44 @@
+[
+  {
+    "src": "cut-02.jpeg",
+    "title": "Clean fade",
+    "detail": "KLARE LINIEN. STARKER LOOK.",
+    "alt": "Kurzer Herrenhaarschnitt mit präzisem Fade"
+  },
+  {
+    "src": "cut-01.jpeg",
+    "title": "Textured cut",
+    "detail": "STRUKTUR MIT CHARAKTER.",
+    "alt": "Strukturierter Haarschnitt und gepflegter Bart"
+  },
+  {
+    "src": "cut-03.jpeg",
+    "title": "Own your style",
+    "detail": "DEIN LOOK. DEINE REGELN.",
+    "alt": "Individueller Herrenhaarschnitt mit kurzem Übergang"
+  },
+  {
+    "src": "cut-04.jpg",
+    "title": "Präzision",
+    "detail": "SAUBERE ÜBERGÄNGE.",
+    "alt": "Barber schneidet mit einer Haarschneidemaschine einen Fade",
+    "author": "John Arano",
+    "source": "https://unsplash.com/photos/man-cutting-hair-of-man-CCTCHXEsan8"
+  },
+  {
+    "src": "cut-05.jpg",
+    "title": "Das Finish",
+    "detail": "VOLUMEN. FORM. CHARAKTER.",
+    "alt": "Barber föhnt und stylt das Haar eines Kunden",
+    "author": "delfina pan",
+    "source": "https://unsplash.com/photos/barber-blow-drying-hair-in-salon-wJoB8D3hnzc"
+  },
+  {
+    "src": "cut-06.jpg",
+    "title": "Handwerk",
+    "detail": "DER BLICK FÜRS DETAIL.",
+    "alt": "Barber mit Kamm bei der präzisen Arbeit",
+    "author": "Glib Albovsky",
+    "source": "https://unsplash.com/photos/a-man-with-a-beard-is-getting-his-hair-cut-cmoQYMqGgoI"
+  }
+]

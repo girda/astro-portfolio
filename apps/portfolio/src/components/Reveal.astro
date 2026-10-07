@@ -1,12 +1,13 @@
 ---
 interface Props {
   delay?: number;
+  variant?: "default" | "project";
 }
 
-const { delay = 0 } = Astro.props;
+const { delay = 0, variant = "default" } = Astro.props;
 ---
 
-<div class="reveal" style={`--reveal-delay: ${delay}ms`}>
+<div class:list={["reveal", { "reveal-project": variant === "project" }]} style={`--reveal-delay: ${delay}ms`}>
   <slot />
 </div>
 
@@ -58,8 +59,15 @@ const { delay = 0 } = Astro.props;
     transform: translateY(0);
   }
 
+  .reveal-project.reveal-ready {
+    transform: perspective(1100px) translateY(24px) rotateX(3deg) scale(.975);
+    transform-origin: 50% 100%;
+    transition-duration: 620ms;
+    transition-timing-function: cubic-bezier(.22,.8,.25,1);
+  }
+  .reveal-project.reveal-ready.is-visible { transform: perspective(1100px) translateY(0) rotateX(0) scale(1); }
   @media (prefers-reduced-motion: reduce) {
-    .reveal-ready {
+    .reveal-ready, .reveal-project.reveal-ready, .reveal-project.reveal-ready.is-visible {
       opacity: 1;
       transform: none;
       transition: none;

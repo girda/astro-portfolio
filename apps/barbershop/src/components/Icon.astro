@@ -1,0 +1,9 @@
+---
+import icons from '../data/icons.json';
+interface Props { name: string; class?: string }
+const { name, class: className = '' } = Astro.props;
+// Оригинальные SVG Tabler (MIT). Дополнительное поле защищает края штрихов.
+const aliases: Record<string, keyof typeof icons> = { comb:'razor-electric', spark:'blade', calendar:'calendar-check', chat:'message-circle', check:'circle-check' };
+const key = aliases[name] ?? name as keyof typeof icons;
+---
+<svg class={`icon ${className}`} viewBox="-2 -2 28 28" width="24" height="24" fill="none" stroke="currentColor" stroke-width="1.65" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false" set:html={icons[key] ?? icons.scissors} />

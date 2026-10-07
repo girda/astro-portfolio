@@ -1,0 +1,104 @@
+---
+import { site } from "../data/site";
+---
+
+<dialog id="booking-dialog" aria-labelledby="booking-title">
+  <div class="dialog-content">
+    <form method="dialog" class="close-form">
+      <button class="close-button" aria-label="Dialog schließen">
+        ✕
+      </button>
+    </form>
+
+    <p class="eyebrow">DEMO · TERMINANFRAGE</p>
+    <h2 id="booking-title">Dein nächster Look.</h2>
+
+    <p class="description">
+      Wähle eine Leistung und entdecke den Ablauf.
+      Dies ist eine Demo — es wird kein Termin gebucht.
+    </p>
+
+    <form id="booking-form">
+      <label for="booking-service">Deine Leistung</label>
+
+      <select id="booking-service" name="service" required>
+        <option value="" disabled selected>Bitte auswählen</option>
+
+        {
+          site.services.map((service) => (
+            <option value={service.title}>
+              {service.title} · {service.duration} · {service.price}
+            </option>
+          ))
+        }
+      </select>
+
+      <button class="submit-button" type="submit">
+        Auswahl ansehen
+      </button>
+
+      <p id="booking-result" class="result" role="status"></p>
+    </form>
+  </div>
+</dialog>
+
+<script>
+  const dialog = document.querySelector<HTMLDialogElement>(
+    "#booking-dialog",
+  );
+
+  const form = document.querySelector<HTMLFormElement>(
+    "#booking-form",
+  );
+
+  const service = document.querySelector<HTMLSelectElement>(
+    "#booking-service",
+  );
+
+  const result = document.querySelector<HTMLParagraphElement>(
+    "#booking-result",
+  );
+
+  if (dialog && form && service && result) {
+    const openButtons = document.querySelectorAll<HTMLButtonElement>(
+      "[data-open-booking]",
+    );
+
+    for (const button of openButtons) {
+      button.addEventListener("click", () => {
+        form.reset();
+        result.textContent = "";
+
+        const requestedService = button.dataset.service;
+
+        if (requestedService) {
+          const optionExists = Array.from(service.options).some(
+            (option) => option.value === requestedService,
+          );
+
+          if (optionExists) {
+            service.value = requestedService;
+          }
+        }
+
+        dialog.showModal();
+      });
+
+      button.hidden = false;
+    }
+
+    form.addEventListener("submit", (event) => {
+      event.preventDefault();
+
+      result.textContent =
+        `Ausgewählt: ${service.value}. ` +
+        "Auf einer echten Salon-Website würdest du jetzt einen " +
+        "verfügbaren Termin auswählen. Diese Demo sendet keine Anfrage.";
+    });
+
+    service.addEventListener("change", () => {
+      result.textContent = "";
+    });
+  }
+</script>
+

@@ -1,0 +1,72 @@
+<script>
+  const reduced = window.matchMedia("(prefers-reduced-motion: reduce)");
+  const targets = document.querySelectorAll<HTMLElement>("[data-reveal]");
+  if (!reduced.matches && "IntersectionObserver" in window) {
+    const observer = new IntersectionObserver((entries) => {
+      for (const entry of entries) {
+        if (!entry.isIntersecting) continue;
+        entry.target.classList.add("is-visible");
+        observer.unobserve(entry.target);
+      }
+    }, { threshold: 0.08 });
+    targets.forEach((element) => {
+      // Above-the-fold content remains immediately visible.
+      if (element.getBoundingClientRect().top < window.innerHeight) return;
+      element.classList.add("reveal-ready");
+      observer.observe(element);
+    });
+    reduced.addEventListener("change", () => {
+      if (reduced.matches) {
+        observer.disconnect();
+        targets.forEach(el => el.classList.remove("reveal-ready"));
+      }
+    });
+  }
+
+  document.querySelectorAll<HTMLDetailsElement>(".faq details").forEach((details) => {
+    const summary = details.querySelector<HTMLElement>("summary")!;
+    const content = details.querySelector<HTMLElement>(".answer-wrap")!;
+    let animation: Animation | null = null;
+    let expanded = details.open;
+
+    const settle = () => {
+      animation?.cancel();
+      animation = null;
+      details.open = expanded;
+      details.style.height = "";
+      details.style.overflow = "";
+      summary.setAttribute("aria-expanded", String(expanded));
+      details.classList.toggle("is-expanded", expanded);
+    };
+    summary.setAttribute("aria-expanded", String(expanded));
+
+    summary.addEventListener("click", (event) => {
+      if (reduced.matches || !details.animate) {
+        event.preventDefault();
+        expanded = !expanded;
+        settle();
+        return;
+      }
+      event.preventDefault();
+      const start = details.getBoundingClientRect().height;
+      animation?.cancel();
+      expanded = !expanded;
+      details.open = true;
+      details.style.height = `${start}px`;
+      details.style.overflow = "hidden";
+      summary.setAttribute("aria-expanded", String(expanded));
+      details.classList.toggle("is-expanded", expanded);
+      const borders = parseFloat(getComputedStyle(details).borderTopWidth) +
+        parseFloat(getComputedStyle(details).borderBottomWidth);
+      const end = summary.getBoundingClientRect().height + borders +
+        (expanded ? content.getBoundingClientRect().height : 0);
+      animation = details.animate(
+        { height: [`${start}px`, `${end}px`] },
+        { duration: 300, easing: "cubic-bezier(.22,.68,0,1)" },
+      );
+      animation.onfinish = settle;
+    });
+    window.addEventListener("resize", () => { if (animation) settle(); });
+    reduced.addEventListener("change", () => { if (reduced.matches) settle(); });
+  });
+</script>

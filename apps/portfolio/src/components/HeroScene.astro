@@ -1,0 +1,19 @@
+---
+import "../styles/hero-scene.css";
+interface Props { lang: "de" | "en" | "ru"; }
+const { lang } = Astro.props;
+---
+<div class="hero-scene" data-hero-scene aria-hidden="true"></div>
+<button class="scene-toggle" data-scene-toggle hidden aria-pressed="false" aria-label={lang==='en'?'Pause 3D scene':'3D-Szene pausieren'} data-pause={lang==='en'?'Pause 3D scene':'3D-Szene pausieren'} data-play={lang==='en'?'Play 3D scene':'3D-Szene abspielen'}>Ⅱ</button>
+<script>
+const host=document.querySelector<HTMLElement>('[data-hero-scene]');
+if(host && !matchMedia('(prefers-reduced-motion: reduce)').matches) {
+ const observer=new IntersectionObserver(async entries=>{
+  if(!entries.some(e=>e.isIntersecting))return;
+  observer.disconnect();
+  try { const {mountStudio}=await import('../scripts/studio-scene'); mountStudio(host); }
+  catch { /* При ошибке WebGL остаётся исходная иллюстрация. */ }
+ });
+ observer.observe(host);
+}
+</script>

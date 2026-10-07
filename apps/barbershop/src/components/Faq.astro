@@ -1,4 +1,5 @@
 ---
+import Icon from "./Icon.astro";
 interface Props {
   items: {
     question: string;
@@ -24,7 +25,7 @@ const { items } = Astro.props;
         <details>
           <summary>
             <span>{item.question}</span>
-            <span class="indicator" aria-hidden="true" />
+            <Icon name="plus" class="faq-toggle" />
           </summary>
 
           <div class="answer-wrap"><p class="answer">{item.answer}</p></div>

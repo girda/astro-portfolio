@@ -88,18 +88,11 @@ const base = import.meta.env.BASE_URL.replace(/\/$/, "");
       >
         <div class="menu-caption">HIRDA / NAVIGATION</div>
         <div class="menu-links">
-          <a href="#projects">
-            <span>01</span>
-            {t.work}
-          </a>
-          <a href="#about">
-            <span>02</span>
-            {t.about}
-          </a>
-          <a href="#services">
-            <span>03</span>
-            {lang === "en" ? "Services" : "Leistungen"}
-          </a>
+          <a href="#top">{lang === "en" ? "Home" : "Start"}</a>
+          <a href="#projects">{t.work}</a>
+          <a href="#about">{t.about}</a>
+          <a href="#services">{lang === "en" ? "Services" : "Leistungen"}</a>
+          <a href="#pricing">{lang === "en" ? "Pricing & maintenance" : "Preise & Betreuung"}</a>
         </div>
         <div class="menu-bottom">
           <span>{t.eyebrow}</span>

@@ -1,0 +1,13 @@
+---
+import BarberPole from './BarberPole.astro';
+interface Props { href?: string }
+const { href = '#top' } = Astro.props;
+---
+<div class="kant-brand"><BarberPole /><a href={href} aria-label="KANT — Startseite"><span class="wordmark">KANT<span>.</span></span><span class="brand-caption">BARBER & GROOMING</span></a></div>
+<style>
+.kant-brand { display:flex; align-items:center; gap:11px; flex-shrink:0; }
+a { display:flex; flex-direction:column; gap:4px; }
+.wordmark { font-family:"Helvetica Neue",Helvetica,Arial,sans-serif; font-size:32px; font-weight:900; line-height:1; letter-spacing:-.07em; color:#eeeade; }
+.wordmark span { color:var(--accent); }.brand-caption { font-size:7px; letter-spacing:.12em; color:#ccc8bc; line-height:1; }
+@media(max-width:700px) { .wordmark { font-size:29px; }.brand-caption { font-size:6px; } }
+</style>

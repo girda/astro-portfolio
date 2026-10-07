@@ -1,0 +1,28 @@
+<button class="barber-pole" type="button" aria-label="Barber-Pole-Animation pausieren" aria-pressed="false" title="Animation pausieren">
+  <span class="pole-cap" aria-hidden="true"></span><span class="pole-glass" aria-hidden="true"><span class="pole-stripes"></span></span><span class="pole-cap pole-bottom" aria-hidden="true"></span>
+</button>
+<script>
+  document.querySelectorAll<HTMLButtonElement>('.barber-pole').forEach(pole => {
+    pole.addEventListener('click', () => {
+      const paused = pole.classList.toggle('is-paused');
+      pole.setAttribute('aria-pressed', String(paused));
+      pole.setAttribute('aria-label', paused ? 'Barber-Pole-Animation starten' : 'Barber-Pole-Animation pausieren');
+      pole.title = paused ? 'Animation starten' : 'Animation pausieren';
+    });
+    const observer = new IntersectionObserver(([entry]) => pole.classList.toggle('is-offscreen', !entry.isIntersecting));
+    observer.observe(pole);
+    document.addEventListener('astro:before-swap', () => observer.disconnect(), {once:true});
+  });
+</script>
+<style>
+  .barber-pole { width:22px; height:48px; padding:0; border:0; background:transparent; display:flex; flex-direction:column; align-items:center; flex:none; filter:drop-shadow(0 3px 8px #0007); }
+  .pole-cap { width:22px; height:7px; border:1px solid #aaa591; border-radius:7px 7px 2px 2px; background:linear-gradient(90deg,#403f36,#dbd5bd 38%,#8d8977 70%,#3f4038); }
+  .pole-bottom { transform:rotate(180deg); }
+  .pole-glass { width:18px; flex:1; position:relative; overflow:hidden; border-inline:1px solid #b7b5a1; background:#ddd; }
+  .pole-stripes { position:absolute; inset:-48px 0; background:repeating-linear-gradient(-45deg,#a83232 0 8.485px,#eee9db 8.485px 16.97px,#315b80 16.97px 25.455px,#eee9db 25.455px 33.94px); animation:pole-turn 2.8s linear infinite; }
+  .pole-glass::after { content:""; position:absolute; inset:0; background:linear-gradient(90deg,#0007,transparent 26%,#fff8 38%,#fff1 52%,transparent 65%,#0008); }
+  .is-paused .pole-stripes,.is-offscreen .pole-stripes { animation-play-state:paused; }
+  @keyframes pole-turn { to { transform:translateY(48px); } }
+  @media(prefers-reduced-motion:reduce) { .pole-stripes { animation:none; } }
+  @media(max-width:700px) { .barber-pole { width:22px; height:48px; }.pole-cap { width:22px; height:7px; }.pole-glass { width:18px; } }
+</style>

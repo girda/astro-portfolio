@@ -1,221 +1,76 @@
 ---
 import "../styles/theme.css";
+import "../styles/dialog.css";
+import Atmosphere from "../components/Atmosphere.astro";
+import Navigation from "../components/Navigation.astro";
+import Brand from "../components/Brand.astro";
+import Icon from "../components/Icon.astro";
+import PhoneDialog from "../components/PhoneDialog.astro";
 import Motion from "../components/Motion.astro";
 import { site } from "../data/site";
 import BookingDialog from "../components/BookingDialog.astro";
 import Gallery from "../components/Gallery.astro";
 import Contact from "../components/Contact.astro";
 import Faq from "../components/Faq.astro";
+const base = import.meta.env.BASE_URL.replace(/\/$/, "");
 ---
-
 <!doctype html>
 <html lang="de">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-
-    <meta
-      name="description"
-      content="KANT Barbershop — ein Website-Konzept für Haarschnitte, Bartpflege und deinen eigenen Stil."
-    />
-
+    <meta name="description" content="KANT — ein Barbershop-Designkonzept. Präzise Schnitte, gepflegte Bärte und ein Look mit Charakter." />
     <meta name="robots" content="noindex, nofollow" />
-
-    <link
-      rel="icon"
-      href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='12' fill='%23181917'/%3E%3Ctext x='32' y='47' text-anchor='middle' font-family='Arial' font-size='44' font-weight='700' fill='%23d6a078'%3EK%3C/text%3E%3C/svg%3E"
-    />
-
-    <title>{site.name} — {site.subtitle} · Demo</title>
+    <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='10' fill='%23171918'/%3E%3Ctext x='32' y='47' text-anchor='middle' font-family='Arial' font-size='44' font-weight='700' fill='%23f1eee5'%3EK%3C/text%3E%3C/svg%3E" />
+    <title>KANT — Barbershop mit Charakter · Demo</title>
   </head>
-
   <body>
     <a class="skip-link" href="#main">Zum Inhalt</a>
-
-    <div class="demo-banner">
-      Designkonzept · Fiktiver Salon · Keine echte Terminbuchung
-    </div>
-
-    <header class="container header">
-      <a class="brand" href={import.meta.env.BASE_URL} aria-label={`${site.name} — Startseite`}>
-        <span class="brand-name">{site.name}<span>.</span></span>
-        <span class="brand-subtitle">{site.subtitle}</span>
-      </a>
-
-      <nav class="navigation" aria-label="Hauptnavigation">
-        <a href="#leistungen">Leistungen</a>
-        <a href="#einblicke">Einblicke</a>
-        <a href="#fragen">FAQ</a>
-        <a href="#kontakt">Kontakt</a>
-      </nav>
-
-      <button
-        class="button header-button"
-        type="button"
-        data-open-booking
-        aria-haspopup="dialog"
-        aria-controls="booking-dialog"
-        hidden
-      >
-        Termin · Demo
-      </button>
+    <div class="demo-banner">Designkonzept · Fiktiver Salon · Keine echte Terminbuchung</div>
+    <header class="container header" id="top">
+      <Brand href={import.meta.env.BASE_URL} />
+      <Navigation />
     </header>
-
     <main id="main">
-      <section class="container hero" aria-labelledby="hero-title">
-        <div class="hero-copy" data-reveal>
-          <p class="eyebrow hero-eyebrow">HAARSCHNITT & BARTPFLEGE</p>
-
-          <h1 id="hero-title">
-            DEIN STIL.<br />
-            <span>KLARE KANTE.</span>
-          </h1>
-
-          <p class="hero-description">{site.description}</p>
-
-          <div class="hero-actions">
-            <button
-              class="button"
-              type="button"
-              data-open-booking
-              aria-haspopup="dialog"
-              aria-controls="booking-dialog"
-              hidden
-            >
-              Termin ausprobieren
-            </button>
-
-            <a class="text-link" href="#leistungen">Preise ansehen</a>
-          </div>
-
-          <p class="hero-note">Dein Look. Unser Handwerk.</p>
+      <section class="hero hero-interior" aria-labelledby="hero-title">
+        <img class="hero-background" src={`${base}/images/barbershop.webp`} width="5044" height="2837" alt="Barbershop mit Ledersesseln, Spiegeln und Schachbrettboden" fetchpriority="high" />
+        <div class="container hero-inner">
+        <div class="hero-copy">
+          <p class="eyebrow"><span class="small-line" aria-hidden="true"></span> FÜR KÖPFE MIT CHARAKTER</p>
+          <h1 id="hero-title">Guter Schnitt.<br /><em>Klare Kante.</em></h1>
+          <p class="hero-description">Präzise Schnitte. Gepflegte Bärte. Ein Look, der zu dir passt — und nicht zu irgendwem.</p>
+          <div class="hero-actions"><button class="button" type="button" data-open-booking aria-haspopup="dialog" aria-controls="booking-dialog" hidden>Dein nächster Termin</button><a class="text-link" href="#leistungen">Leistungen & Preise</a></div>
+          <div class="hero-footnote"><Icon name="scissors" class="hero-seal" /><p>Handwerk im Detail.<br /><strong>Persönlichkeit im Ergebnis.</strong></p></div>
         </div>
-
-        <figure class="hero-visual">
-          <img
-            src={`${import.meta.env.BASE_URL.replace(/\/$/, "")}/images/barbershop.webp`}
-            alt="Barbershop-Interieur mit klassischen Ledersesseln und großen Spiegeln"
-            width="5044"
-            height="2837"
-            fetchpriority="high"
-            decoding="async"
-          />
-
-          <figcaption>
-            <span>DER RAUM FÜR DEINEN STIL.</span>
-            <span>KANT / CONCEPT</span>
-          </figcaption>
-        </figure>
+        </div>
       </section>
-
-      <div class="container signature" aria-hidden="true">
-        <span>PRÄZISION IM DETAIL.</span>
-        <span>CHARAKTER IM SCHNITT.</span>
-      </div>
-
-      <section
-        id="leistungen"
-        class="services"
-        aria-labelledby="services-title"
-      >
+      <div class="signature" aria-hidden="true"><div class="container"><span>HAAR.</span><Icon name="scissors" class="signature-tool" /><span>BART.</span><Icon name="razor" class="signature-tool" /><span>CHARAKTER.</span><Icon name="blade" class="signature-tool" /><span>KANT.</span></div></div>
+      <section id="leistungen" class="services section-space" aria-labelledby="services-title">
         <div class="container">
-          <div class="section-heading" data-reveal>
-            <div>
-              <p class="eyebrow">01 / LEISTUNGEN</p>
-              <h2 id="services-title">
-                DEIN LOOK.<br />
-                DEINE WAHL.
-              </h2>
-            </div>
-
-            <p class="section-description">
-              Schnitt, Bart oder beides. Hier findest du unser
-              beispielhaftes Angebot mit Preisen und Behandlungszeiten.
-            </p>
-          </div>
-
-          <div class="service-list">
-            {
-              site.services.map((service) => (
-                <article class="service" data-reveal>
-                  <span class="service-number" aria-hidden="true">
-                    {service.number}
-                  </span>
-
-                  <div class="service-info">
-                    <h3>{service.title}</h3>
-                    <p>{service.description}</p>
-                  </div>
-
-                  <div class="service-price">
-                    <strong>{service.price}</strong>
-                    <span>{service.duration}</span>
-                  </div>
-
-                  <button
-                    class="service-book"
-                    type="button"
-                    data-open-booking
-                    data-service={service.title}
-                    aria-label={`Termin für ${service.title} ausprobieren`}
-                    aria-haspopup="dialog"
-                    aria-controls="booking-dialog"
-                    hidden
-                  >
-                    Auswählen
-                  </button>
-                </article>
-              ))
-            }
-          </div>
-
-          <p class="price-note">
-            Demo-Angebot: Alle Preise und Zeitangaben sind Beispiele.
-          </p>
+          <div class="section-heading" data-reveal><div><p class="eyebrow">DAS HANDWERK</p><h2 id="services-title">Weniger Blabla.<br /><em>Mehr guter Schnitt.</em></h2></div><p class="section-description">Drei Leistungen. Klare Preise.<br />Du wählst deinen Look, wir kümmern uns um die Details.</p></div>
+          <div class="service-list">{site.services.map((service, i) => <article class:list={["service", {"service-featured": i === 2}]} data-reveal>
+            <Icon name={i === 0 ? "scissors" : i === 1 ? "razor" : "blade"} class="service-watermark" /><div class="service-top"><Icon name={i === 0 ? "scissors" : i === 1 ? "comb" : "spark"} />{i === 2 && <span class="service-tag">DAS KOMPLETTPAKET</span>}</div>
+            <h3>{service.title}</h3><p>{service.description}</p>
+            <div class="service-bottom"><div class="service-price"><strong>{service.price}</strong><span>{service.duration}</span></div><button class="service-book" type="button" data-open-booking data-service={service.title} aria-label={`${service.title} — Demo-Termin wählen`} aria-haspopup="dialog" aria-controls="booking-dialog" hidden><Icon name="calendar" /></button></div>
+          </article>)}</div>
+          <p class="price-note">Demo-Angebot · Preise und Behandlungszeiten sind Beispiele.</p>
         </div>
       </section>
-
-      <div id="einblicke">
-        <Gallery />
-      </div>
-
+      <section id="studio" class="studio container section-space" aria-labelledby="studio-title">
+        <figure class="studio-photo" data-reveal><img src={`${base}/images/barbershop.webp`} width="5044" height="2837" alt="Warmer Barbershop-Innenraum mit Ledersesseln, Spiegeln und Schachbrettboden" loading="lazy" /><figcaption>REINKOMMEN. ABSCHALTEN. GUT AUSSEHEN.</figcaption></figure>
+        <div class="studio-copy" data-reveal><p class="eyebrow">DER SALON / DAS KONZEPT</p><h2 id="studio-title">Dein Platz.<br /><em>Deine Auszeit.</em></h2><p>Ein guter Barbershop ist mehr als ein neuer Haarschnitt. Es ist ein Ort, an dem Handwerk zählt und du kurz den Alltag hinter dir lässt.</p><p>Für KANT verbinden wir klassische Barber-Atmosphäre mit einem klaren, modernen Auftritt.</p><a class="text-link" href="#kontakt">Den Standort entdecken</a></div>
+      </section>
+      <Atmosphere />
+      <Gallery />
+      <section id="ablauf" class="ritual container section-space" aria-labelledby="ritual-title">
+        <div data-reveal><p class="eyebrow">SO EINFACH GEHT’S</p><h2 id="ritual-title">Ein Termin.<br /><em>Dein Moment.</em></h2></div>
+        <ol class="ritual-steps">{[["Ankommen", "Wir sprechen über deinen Stil und darüber, was zu dir passt."], ["Zurücklehnen", "Schnitt, Konturen, Feinarbeit. Schritt für Schritt zu deinem Look."], ["Gut rausgehen", "Das Finish sitzt. Dazu gibt’s Tipps für dein Styling zu Hause."]].map(([title, text], i) => <li data-reveal><Icon name={i === 0 ? "chat" : i === 1 ? "scissors" : "check"} /><div><h3>{title}</h3><p>{text}</p></div></li>)}</ol>
+      </section>
+      <div id="fragen"><Faq items={site.faq} /></div>
       <Contact />
-
-      <div id="fragen">
-        <Faq items={site.faq} />
-      </div>
-
-      <section class="container closing" data-reveal aria-labelledby="closing-title">
-        <div>
-          <p class="eyebrow">DEIN NÄCHSTER SCHNITT</p>
-          <h2 id="closing-title">BEREIT FÜR<br />KLARE KANTE?</h2>
-        </div>
-
-        <div class="closing-action">
-          <button
-            class="button"
-            type="button"
-            data-open-booking
-            aria-haspopup="dialog"
-            aria-controls="booking-dialog"
-            hidden
-          >
-            Buchung ausprobieren
-          </button>
-
-          <p>Unverbindliche Demo. Keine echte Buchung.</p>
-        </div>
-      </section>
+      <section class="closing" aria-labelledby="closing-title"><div class="container closing-inner" data-reveal><div><p class="eyebrow">ZEIT FÜR EINEN FRISCHEN LOOK</p><h2 id="closing-title">Mach’s zu<br /><em>deinem Schnitt.</em></h2></div><div class="closing-action"><button class="button" type="button" data-open-booking aria-haspopup="dialog" aria-controls="booking-dialog" hidden>Termin ausprobieren</button><p>Demo entdecken. Keine echte Buchung.</p></div></div></section>
     </main>
-
-    <footer class="container footer">
-      <a class="footer-brand" href={import.meta.env.BASE_URL}>{site.name}.</a>
-      <p>Ein Barbershop-Konzept von Artem.</p>
-      <span>© {new Date().getFullYear()} · Demo-Projekt</span>
-    </footer>
-
-    <BookingDialog />
-    <Motion />
+    <footer class="container footer"><Brand /><p><span>Ein Designkonzept von HIRDA.</span></p><span>© {new Date().getFullYear()} · Demo-Projekt</span></footer>
+    <BookingDialog /><PhoneDialog /><Motion />
   </body>
 </html>
-

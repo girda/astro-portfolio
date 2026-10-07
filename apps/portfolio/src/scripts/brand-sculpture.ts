@@ -1,6 +1,6 @@
 import * as THREE from 'three';
 
-export function mountSculpture(host: HTMLButtonElement) {
+export function mountSculpture(host: HTMLElement) {
   const reduced = matchMedia('(prefers-reduced-motion: reduce)');
   const renderer = new THREE.WebGLRenderer({ alpha: true, antialias: true, powerPreference: 'low-power' });
   renderer.setPixelRatio(Math.min(devicePixelRatio, 1.5));
@@ -32,39 +32,43 @@ export function mountSculpture(host: HTMLButtonElement) {
   const key = new THREE.DirectionalLight(0xffbf84,4); key.position.set(3,4,5); scene.add(key);
   const rim = new THREE.DirectionalLight(0xc6e0dc,3); rim.position.set(-4,1,2); scene.add(rim);
   group.rotation.set(-.1,-.22,0);
-  let visible=true, disposed=false;
-  // Нет постоянного цикла: рисуем лишь при взаимодействии и изменении размера.
-  const render=()=>{if(visible&&!disposed&&!document.hidden)renderer.render(scene,camera);};
-  const resize=()=>{
-    const {width,height}=host.getBoundingClientRect();
-    if(!width||!height)return;
+  let visible = false, disposed = false, frame = 0, last = 0, elapsed = 0;
+  const render = () => { if (!disposed) renderer.render(scene, camera); };
+  // Медленное покачивание по трём осям; остановка вне экрана и в фоновой вкладке.
+  const tick = (now: number) => {
+    frame = 0;
+    if (disposed || !visible || document.hidden || reduced.matches) return;
+    if (now - last >= 1000 / 30) {
+      elapsed += Math.min((now - last) / 1000, .05); last = now;
+      group.rotation.set(Math.sin(elapsed * .55) * .14, Math.sin(elapsed * .38) * .38, Math.sin(elapsed * .3) * .07);
+      render();
+    }
+    frame = requestAnimationFrame(tick);
+  };
+  const sync = () => {
+    cancelAnimationFrame(frame); frame = 0; last = performance.now();
+    if (disposed) return;
+    if (reduced.matches) { group.rotation.set(-.1,-.22,0); render(); }
+    else if (visible && !document.hidden) frame = requestAnimationFrame(tick);
+  };
+  const resize = () => {
+    const {width,height} = host.getBoundingClientRect();
+    if (!width || !height) return;
     renderer.setSize(width,height,false); camera.aspect=width/height; camera.updateProjectionMatrix(); render();
   };
-  const resizeObserver=new ResizeObserver(resize);
-  const visibilityObserver=new IntersectionObserver(entries=>{visible=entries[0].isIntersecting;render();});
-  const onMove=(event:PointerEvent)=>{
-    if(reduced.matches)return;
-    const rect=host.getBoundingClientRect();
-    group.rotation.y=(event.clientX-rect.left)/rect.width*.7-.35;
-    group.rotation.x=((event.clientY-rect.top)/rect.height-.5)*.35;
-    render();
-  };
-  const onClick=()=>{if(!reduced.matches){group.rotation.y=group.rotation.y>0?-.3:.3;render();}};
-  const onLeave=()=>{group.rotation.set(-.1,-.22,0);render();};
-  const onMotion=()=>{onLeave();};
-  const cleanup=()=>{
-    if(disposed)return; disposed=true;
+  const resizeObserver = new ResizeObserver(resize);
+  const visibilityObserver = new IntersectionObserver(entries => { visible=entries[0].isIntersecting; sync(); });
+  const cleanup = () => {
+    if (disposed) return; disposed=true; cancelAnimationFrame(frame);
     resizeObserver.disconnect(); visibilityObserver.disconnect();
-    host.removeEventListener('pointermove',onMove);host.removeEventListener('pointerleave',onLeave);host.removeEventListener('click',onClick);
-    document.removeEventListener('visibilitychange',render);reduced.removeEventListener('change',onMotion);
-    geometries.forEach(g=>g.dispose());amber.dispose();graphite.dispose();renderer.dispose();
-    renderer.domElement.remove();host.classList.remove('is-ready');
+    document.removeEventListener('visibilitychange',sync); reduced.removeEventListener('change',sync);
+    geometries.forEach(g=>g.dispose()); amber.dispose(); graphite.dispose(); renderer.dispose();
+    renderer.domElement.remove(); host.classList.remove('is-ready');
   };
   renderer.domElement.setAttribute('aria-hidden','true');
   renderer.domElement.addEventListener('webglcontextlost',cleanup,{once:true});
-  host.append(renderer.domElement);resize();host.classList.add('is-ready');
-  resizeObserver.observe(host);visibilityObserver.observe(host);
-  host.addEventListener('pointermove',onMove);host.addEventListener('pointerleave',onLeave);host.addEventListener('click',onClick);
-  document.addEventListener('visibilitychange',render);reduced.addEventListener('change',onMotion);
+  host.append(renderer.domElement); resize(); host.classList.add('is-ready');
+  resizeObserver.observe(host); visibilityObserver.observe(host);
+  document.addEventListener('visibilitychange',sync); reduced.addEventListener('change',sync);
   document.addEventListener('astro:before-swap',cleanup,{once:true});
 }

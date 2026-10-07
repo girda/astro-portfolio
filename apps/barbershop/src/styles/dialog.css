@@ -1,0 +1,19 @@
+:is(#booking-dialog,#phone-dialog) { width: min(520px,calc(100% - 32px)); max-height: calc(100dvh - 48px); padding: 0; overflow-y: auto; border: 1px solid #666354; border-radius: 16px; background: var(--surface); color: var(--text); box-shadow: 0 24px 100px #0008; }
+:is(#booking-dialog,#phone-dialog)::backdrop { background: #000b; backdrop-filter: blur(5px); }
+.dialog-content { position: relative; padding: 44px 32px 32px; }
+.close-form { position: absolute; top: 8px; right: 8px; }
+.close-button { display: grid; place-items: center; width: 44px; height: 44px; border: 0; border-radius: 8px; background: transparent; color: var(--text); }
+.close-button:hover { background: #ffffff12; }
+.dialog-content h2 { font-size: clamp(1.75rem,5vw,2.5rem); }
+.dialog-content .description { margin-block: 20px 28px; color: var(--muted); }
+.dialog-content label { display: block; margin-bottom: 10px; font-weight: 700; }
+.dialog-content select { width: 100%; min-height: 52px; padding: 12px; border: 1px solid #77796d; border-radius: 8px; background: var(--bg); color: var(--text); }
+.submit-button { width: 100%; margin-top: 20px; }
+.result { margin-top: 20px; color: var(--accent); }
+.result:empty { display: none; }
+
+/* Нативный select сохраняет клавиатуру и системный выбор на телефоне. */
+.dialog-content select { appearance:none; padding:14px 48px 14px 16px; border-color:var(--line); border-radius:4px; background-image:url("data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%22-2%20-2%2028%2028%22%20fill%3D%22none%22%20stroke%3D%22%23c5a572%22%20stroke-width%3D%221.65%22%20stroke-linecap%3D%22round%22%20stroke-linejoin%3D%22round%22%3E%3Cpath%20d%3D%22M6%209l6%206l6%20-6%22%20%2F%3E%3C%2Fsvg%3E"); background-repeat:no-repeat; background-position:right 16px center; background-size:20px; }
+.dialog-content select:focus { outline:none; border-color:var(--accent); }
+.dialog-content select:focus-visible { box-shadow:0 0 0 3px #c5a57225; }
+.phone-number { display:block; font-size:clamp(24px,6vw,34px); font-weight:700; color:var(--accent); margin-block:24px; letter-spacing:-.04em; }.phone-note { font-size:12px; color:var(--muted); }.phone-symbol { width:40px; height:40px; margin-bottom:24px; color:var(--accent); }

@@ -3,21 +3,23 @@ interface Props { lang: string }
 const { lang } = Astro.props;
 const en = lang === "en";
 const rows = en ? [
-  ["Onepager", "from €490", "One page, one clear offer.", "Up to 5 sections, based on an existing design concept adapted to your business. Responsive layout, supplied text and images, basic SEO setup. One language and two revision rounds included."],
+  ["Landingpage", "from €490", "A single-page website with one clear goal.", "Up to 5 sections, based on an existing design concept adapted to your business. Responsive layout, supplied text and images, basic SEO setup. One language and two revision rounds included."],
   ["Business website", "from €790", "More room for your business.", "Up to 4 pages, a consistent design, responsive layout, a contact form and basic SEO setup. Based on an existing design concept, with supplied content. One language and two revision rounds included."],
-  ["Website with CMS", "from €1,290", "Update your content yourself.", "A small business website with an established content management system. Edit text, images, services and prices yourself. Includes CMS setup and an introduction. Page count and editable content are agreed before the project starts."],
+  ["Website with CMS", "from €1,290", "Update your content yourself.", "A small business website with an established content management system. Edit text, images, services and prices yourself. Includes CMS setup, an introduction and two revision rounds. Page count and editable content are agreed before the project starts."],
   ["Custom web application", "On request", "Functions tailored to your workflow.", "Customer accounts, booking workflows or integrations: scope, implementation and pricing are agreed individually. These functions are not included in the website packages."],
   ["Additional language", "from €150", "Reach visitors in another language.", "From €150 for a onepager or €250 for a website with up to 4 pages. Includes a language switcher, integration of supplied translations and layout checks. Translation and editing are quoted separately."],
   ["Map & directions", "Included", "Make your business easy to find.", "A simple map for one address or a directions link is included in the website package. Multiple locations, filters and custom map features are quoted separately. Any provider fees are additional."],
   ["Redesign & maintenance", "On request", "Keep your website moving forward.", "Design updates, new content, fixes and additional features. I review the existing website first and agree the scope and price with you. Ongoing maintenance is a separate service, not an automatic subscription."],
+  ["Monthly maintenance", "On request", "A reliable contact after launch.", "An optional monthly agreement for content changes, technical checks and updates. Included hours, response times, backups and cancellation terms are agreed in advance. Hosting and licences are separate; additional work is quoted before it starts."],
 ] : [
-  ["Onepager", "ab 490 €", "Eine Seite. Ein klares Angebot.", "Bis zu 5 Abschnitte auf Basis eines vorhandenen Designkonzepts, angepasst an dein Unternehmen. Mobile Ansicht, Einbindung deiner Texte und Bilder sowie SEO-Grundeinstellungen. Eine Sprache und zwei Korrekturrunden sind inklusive."],
+  ["Landingpage", "ab 490 €", "Eine einseitige Website mit einem klaren Ziel.", "Bis zu 5 Abschnitte auf Basis eines vorhandenen Designkonzepts, angepasst an dein Unternehmen. Mobile Ansicht, Einbindung deiner Texte und Bilder sowie SEO-Grundeinstellungen. Eine Sprache und zwei Korrekturrunden sind inklusive."],
   ["Business-Website", "ab 790 €", "Mehr Raum für dein Unternehmen.", "Bis zu 4 Seiten mit einheitlichem Design, mobiler Ansicht, Kontaktformular und SEO-Grundeinstellungen. Auf Basis eines vorhandenen Designkonzepts und bereitgestellter Inhalte. Eine Sprache und zwei Korrekturrunden sind inklusive."],
-  ["Website mit CMS", "ab 1.290 €", "Inhalte selbst bearbeiten.", "Eine kleine Unternehmenswebsite mit einem bewährten Redaktionssystem. Texte, Bilder, Leistungen und Preise kannst du selbst ändern. Einrichtung und Einweisung sind inklusive. Seitenumfang und bearbeitbare Inhalte legen wir vorab gemeinsam fest."],
+  ["Website mit CMS", "ab 1.290 €", "Inhalte selbst bearbeiten.", "Eine kleine Unternehmenswebsite mit einem bewährten Redaktionssystem. Texte, Bilder, Leistungen und Preise kannst du selbst ändern. Einrichtung, Einweisung und zwei Korrekturrunden sind inklusive. Seitenumfang und bearbeitbare Inhalte legen wir vorab gemeinsam fest."],
   ["Individuelle Webanwendung", "Auf Anfrage", "Funktionen für deine Abläufe.", "Kundenbereich, Buchungsabläufe oder Schnittstellen: Umfang, Umsetzung und Preis stimmen wir individuell ab. Diese Funktionen sind nicht Bestandteil der Website-Pakete."],
-  ["Weitere Sprache", "ab 150 €", "Dein Angebot in einer weiteren Sprache.", "Ab 150 € für einen Onepager oder ab 250 € für eine Website mit bis zu 4 Seiten. Inklusive Sprachumschalter, Einbindung bereitgestellter Übersetzungen und Prüfung der Darstellung. Übersetzung und Textredaktion berechne ich separat nach Umfang."],
+  ["Weitere Sprache", "ab 150 €", "Dein Angebot in einer weiteren Sprache.", "Ab 150 € für einen Landingpage oder ab 250 € für eine Website mit bis zu 4 Seiten. Inklusive Sprachumschalter, Einbindung bereitgestellter Übersetzungen und Prüfung der Darstellung. Übersetzung und Textredaktion berechne ich separat nach Umfang."],
   ["Karte & Anfahrt", "Inklusive", "Damit man dein Unternehmen findet.", "Eine einfache Karte für einen Standort oder ein Routenlink ist im Website-Paket enthalten. Mehrere Standorte, Filter und individuelle Kartenfunktionen kalkuliere ich separat. Eventuelle Gebühren des Kartenanbieters kommen hinzu."],
   ["Redesign & Pflege", "Auf Anfrage", "Damit deine Website mitwächst.", "Design-Updates, neue Inhalte, Fehlerbehebung und zusätzliche Funktionen. Nach einer Prüfung deiner bestehenden Website vereinbaren wir Umfang und Preis. Laufende Pflege ist eine separate Leistung und kein automatisches Abo."],
+  ["Monatliche Betreuung", "Auf Anfrage", "Auch nach dem Start für dich da.", "Optionaler monatlicher Service für Inhaltsänderungen, technische Prüfungen und Updates. Zeitkontingent, Reaktionszeiten, Backups und Kündigungsbedingungen vereinbaren wir vorab. Hosting und Lizenzen sind separat; Mehrarbeit wird vorher abgestimmt."],
 ];
 ---
 <section id="pricing" class="pricing" aria-labelledby="pricing-title">
@@ -29,7 +31,7 @@ const rows = en ? [
       <details class="price-item" data-price-item>
         <summary>
           <span class="price-label"><span class="price-title">{title}</span><span class="price-subtitle">{subtitle}</span></span>
-          <span class="price-value">{price}</span>
+          <span class="price-value">{price.startsWith(en ? "from " : "ab ") ? <><span class="price-prefix">{en ? "from" : "ab"}</span><strong>{price.replace(/^(from|ab) /, "")}</strong></> : <strong class="price-text">{price}</strong>}</span>
           <span class="price-toggle" aria-hidden="true"></span>
         </summary>
         <div class="price-content"><p>{description}</p></div>
@@ -39,28 +41,38 @@ const rows = en ? [
   <p class="pricing-note">{en ? "Starting prices depend on scope. You receive an individual quote before work begins. Domain, hosting, paid services and licences are charged separately." : "Die Einstiegspreise richten sich nach dem Umfang. Vor Beginn erhältst du ein individuelles Angebot. Domain, Hosting, kostenpflichtige Dienste und Lizenzen werden separat berechnet."}</p>
 </section>
 <script>
-  // Нативный details работает без JavaScript; скрипт добавляет плавное закрытие.
+  // Одна анимация высоты на строку. Повторный клик продолжает движение с текущей высоты.
   document.querySelectorAll<HTMLDetailsElement>("[data-price-item]").forEach((item) => {
     const summary = item.querySelector("summary")!;
-    let animation: Animation | undefined;
+    const content = item.querySelector<HTMLElement>(".price-content")!;
+    const reduced = matchMedia("(prefers-reduced-motion: reduce)");
+    let animation: Animation | null = null;
     let expanded = item.open;
+    const finish = () => {
+      animation?.cancel(); animation = null;
+      item.open = expanded;
+      item.style.height = "";
+      item.style.overflow = "";
+      item.classList.toggle("is-expanded", expanded);
+    };
     summary.addEventListener("click", (event) => {
-      if (matchMedia("(prefers-reduced-motion: reduce)").matches) return;
       event.preventDefault();
       const start = item.getBoundingClientRect().height;
-      animation?.cancel();
       expanded = !expanded;
-      item.open = true;
-      const end = expanded ? item.getBoundingClientRect().height : summary.getBoundingClientRect().height + 2;
+      animation?.cancel(); animation = null;
+      if (reduced.matches) { finish(); return; }
+      item.style.height = `${start}px`;
       item.style.overflow = "hidden";
-      animation = item.animate({ height: [`${start}px`, `${end}px`] }, { duration: 280, easing: "cubic-bezier(.22,1,.36,1)" });
-      animation.onfinish = () => {
-        item.open = expanded;
-        item.style.overflow = "";
-        animation = undefined;
-      };
+      item.open = true;
+      item.classList.toggle("is-expanded", expanded);
+      const border = 2;
+      const end = summary.getBoundingClientRect().height + border + (expanded ? content.getBoundingClientRect().height : 0);
+      const current = item.animate({ height: [`${start}px`, `${end}px`] }, { duration: 360, easing: "cubic-bezier(.22,.7,.3,1)", fill: "forwards" });
+      animation = current;
+      current.onfinish = () => { if (animation === current) finish(); };
     });
-    item.addEventListener("toggle", () => { if (!animation) expanded = item.open; });
+    reduced.addEventListener("change", () => { if (animation) finish(); });
+    window.addEventListener("resize", () => { if (animation) finish(); });
   });
 </script>
 <style>
@@ -70,29 +82,44 @@ const rows = en ? [
   .pricing-intro { color: #bdc4c0; max-width: 600px; margin: 0 0 32px; }
   .pricing-list { display: grid; gap: 10px; }
   .price-item { border: 1px solid #ffffff16; border-radius: 14px; background: linear-gradient(115deg, #ffffff05, #efa56807); box-shadow: 0 5px 18px #0000000c; transition: border-color .25s, background .25s; }
-  .price-item[open] { border-color: #f5a56855; background: linear-gradient(115deg, #ffffff06, #f5a5680d); }
-  summary { list-style: none; cursor: pointer; display: grid; grid-template-columns: minmax(0,1fr) auto 28px; gap: 24px; align-items: center; padding: 24px; border-radius: 14px; }
+  .price-item.is-expanded { border-color: #f5a56855; background: linear-gradient(115deg, #ffffff06, #f5a5680d); }
+  summary { list-style: none; cursor: pointer; display: grid; grid-template-columns: minmax(0,1fr) minmax(150px,auto) 28px; gap: 40px; align-items: center; padding: 24px; border-radius: 14px; }
   summary::-webkit-details-marker { display: none; }
   summary:focus-visible { outline: 2px solid var(--brand-accent); outline-offset: 3px; }
-  .price-label { display: grid; gap: 5px; }
+  .price-label { display: grid; gap: 5px; min-width: 0; }
+  .price-title { overflow-wrap: anywhere; hyphens: auto; }
   .price-title { font-size: clamp(17px,2vw,22px); font-weight: 600; }
   .price-subtitle { font-size: 13px; color: #b5bdb9; }
   .price-value { color: var(--brand-accent); font: 500 15px/1.4 var(--font-code); white-space: nowrap; }
   .price-toggle { width: 24px; height: 24px; position: relative; }
   .price-toggle::before, .price-toggle::after { content: ""; position: absolute; background: #d5d9d4; width: 14px; height: 1.5px; top: 11px; left: 5px; border-radius: 2px; transition: transform .25s; }
   .price-toggle::after { transform: rotate(90deg); }
-  [open] .price-toggle::after { transform: rotate(0); }
+  .is-expanded .price-toggle::after { transform: rotate(0); }
   .price-content { padding: 0 24px 24px; }
   .price-content p { border-top: 1px solid #ffffff12; padding-top: 20px; margin: 0; max-width: 760px; color: #c3cac5; line-height: 1.75; }
   .pricing-note { max-width: 760px; color: #aeb6b2; font-size: 13px; line-height: 1.7; margin: 20px 0 0; }
   @media (hover:hover) { summary:hover .price-title { color: var(--brand-accent); } }
   @media (max-width:700px) {
     .pricing { padding-block: 40px; }
-    summary { padding: 18px; gap: 8px 12px; grid-template-columns: minmax(0,1fr) 24px; }
+    summary { padding: 18px; gap: 8px 12px; grid-template-columns: minmax(0,1fr) auto 20px; }
     .price-label { grid-column: 1; }
-    .price-value { grid-column: 1; grid-row: 2; font-size: 14px; }
-    .price-toggle { grid-column: 2; grid-row: 1 / 3; }
+    .price-value { grid-column: 2; grid-row: 1; }
+    .price-toggle { grid-column: 3; grid-row: 1; }
     .price-content { padding: 0 18px 18px; }
   }
   @media (prefers-reduced-motion:reduce) { .price-item, .price-toggle::before, .price-toggle::after { transition: none; } }
+
+  #pricing .price-value { display: flex; justify-content: flex-end; align-items: baseline; gap: 8px; font-family: var(--font-body); text-align: right; }
+  #pricing .price-value strong { font-size: var(--item-title-size); font-weight: 700; font-variant-numeric: tabular-nums; white-space: nowrap; }
+  #pricing .price-value .price-text { font-size: var(--text-size); }
+  #pricing .price-prefix { font-size: var(--text-size); font-weight: 400; color: #bdc4c0; }
+  #pricing .price-subtitle { font-size: var(--text-size); font-family: var(--font-body); }
+  #pricing .price-content p { font-size: var(--text-size); line-height: 1.75; }
+  .price-item { overflow-anchor: none; }
+  @media (max-width: 420px) {
+    summary { gap: 12px; padding: 16px 12px; }
+    #pricing .price-value { flex-direction: column; align-items: flex-end; gap: 2px; }
+    #pricing .price-subtitle { display: none; }
+    .price-toggle { width: 20px; }
+  }
 </style>

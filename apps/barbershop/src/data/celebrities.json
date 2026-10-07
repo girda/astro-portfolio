@@ -1,0 +1,62 @@
+[
+  {
+    "src": "celebrities/matthew-mcconaughey.jpg",
+    "title": "Matthew McConaughey",
+    "detail": "Natural waves",
+    "alt": "Matthew McConaughey — Natural waves",
+    "author": "Avda / www.avda-foto.de",
+    "source": "https://commons.wikimedia.org/wiki/File:Matthew_McConaughey_-_Goldene_Kamera_2014_-_Berlin.jpg",
+    "license": "CC BY-SA 3.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by-sa/3.0"
+  },
+  {
+    "src": "celebrities/tom-hardy.jpg",
+    "title": "Tom Hardy",
+    "detail": "Buzz cut & beard",
+    "alt": "Tom Hardy — Buzz cut und Bart",
+    "author": "Georges Biard",
+    "source": "https://commons.wikimedia.org/wiki/File:Tom_Hardy_Cannes_2015_2.jpg",
+    "license": "CC BY-SA 3.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by-sa/3.0"
+  },
+  {
+    "src": "celebrities/leonardo-dicaprio.jpg",
+    "title": "Leonardo DiCaprio",
+    "detail": "Classic slick back",
+    "alt": "Leonardo DiCaprio — Classic slick back",
+    "author": "Georges Biard",
+    "source": "https://commons.wikimedia.org/wiki/File:Leonardo_Dicaprio_Cannes_2019_2.jpg",
+    "license": "CC BY-SA 3.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by-sa/3.0"
+  },
+  {
+    "src": "celebrities/brad-pitt.jpg",
+    "title": "Brad Pitt",
+    "detail": "Relaxed side part",
+    "alt": "Brad Pitt — Relaxed side part",
+    "author": "© Glenn Francis, www.PacificProDigital.com",
+    "source": "https://commons.wikimedia.org/wiki/File:Brad_Pitt_2019_by_Glenn_Francis.jpg",
+    "license": "CC BY-SA 4.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0"
+  },
+  {
+    "src": "celebrities/ryan-gosling.jpg",
+    "title": "Ryan Gosling",
+    "detail": "Clean side part",
+    "alt": "Ryan Gosling — Clean side part",
+    "author": "Gage Skidmore",
+    "source": "https://commons.wikimedia.org/wiki/File:Ryan_Gosling_by_Gage_Skidmore.jpg",
+    "license": "CC BY-SA 3.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by-sa/3.0"
+  },
+  {
+    "src": "celebrities/jake-gyllenhaal.jpg",
+    "title": "Jake Gyllenhaal",
+    "detail": "Swept back",
+    "alt": "Jake Gyllenhaal — Swept back",
+    "author": "© Glenn Francis, www.PacificProDigital.com",
+    "source": "https://commons.wikimedia.org/wiki/File:Jake_Gyllenhaal_2019_by_Glenn_Francis.jpg",
+    "license": "CC BY-SA 4.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0"
+  }
+]

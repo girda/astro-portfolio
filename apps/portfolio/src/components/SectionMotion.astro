@@ -2,7 +2,7 @@
   const reduced = matchMedia("(prefers-reduced-motion: reduce)");
   const targets = [
     ...document.querySelectorAll<HTMLElement>(
-      "[data-motion], .price-item, .pricing-intro, .pricing-note, .about-copy > p, main > section > .section-description, main > section > .eyebrow, main > section > .section-heading, .service-grid > *, .steps > *, .gallery > figure, .contact-layout > *, .included-layout > *, .booking-layout > *, .faq-layout > *, .services > *, .service-list > article",
+      "[data-motion], .pricing-intro, .pricing-note, .about-copy > p, main > section > .section-description, main > section > .eyebrow, main > section > .section-heading, .service-grid > *, .steps > *, .gallery > figure, .contact-layout > *, .included-layout > *, .booking-layout > *, .faq-layout > *, .services > *, .service-list > article",
     ),
   ].filter(
     (el) =>

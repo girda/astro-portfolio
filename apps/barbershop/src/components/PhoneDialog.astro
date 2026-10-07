@@ -1,0 +1,22 @@
+---
+import { contact } from '../data/contact';
+import Icon from './Icon.astro';
+---
+<dialog id="phone-dialog" aria-labelledby="phone-title">
+  <div class="dialog-content">
+    <form method="dialog" class="close-form"><button class="close-button" aria-label="Dialog schließen"><Icon name="x" /></button></form>
+    <Icon name="phone" class="phone-symbol" />
+    <p class="eyebrow">DEIN TERMIN BEI KANT</p>
+    <h2 id="phone-title">Ruf an.<br />Wir nehmen uns Zeit.</h2>
+    <p class="description">Ruf uns an und vereinbare deinen Termin. Wir helfen dir gerne bei der Wahl deiner Behandlung.</p>
+    {contact.isDemo ? <span class="phone-number">{contact.phone}</span> : <a class="phone-number" href={`tel:${contact.phone.replace(/[^+\d]/g, '')}`}>{contact.phone}</a>}
+    {contact.isDemo && <p class="phone-note">Designkonzept · Beispielnummer, nicht erreichbar. Es wird kein Anruf ausgelöst.</p>}
+  </div>
+</dialog>
+<script>
+  const phone = document.querySelector<HTMLDialogElement>('#phone-dialog');
+  if (phone) document.querySelectorAll<HTMLButtonElement>('[data-open-phone]').forEach(button => {
+    button.hidden = false;
+    button.addEventListener('click', () => phone.showModal());
+  });
+</script>

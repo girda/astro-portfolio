@@ -3,11 +3,10 @@ section.studio-hero .wordmark { gap: 8px; }
 
 #main section#about { display: grid; grid-template-columns: minmax(0,1.5fr) minmax(230px,1fr); gap: 32px; align-items: center; }
 #main .about::after { display: none; }
-.brand-sculpture { position: relative; width: 100%; min-width: 0; height: 270px; border: 0; padding: 0; border-radius: 24px; background: radial-gradient(ellipse at 50% 60%,#efb08013,transparent 65%); color: inherit; cursor: grab; touch-action: pan-y; }
-.brand-sculpture:active { cursor: grabbing; }
-.brand-sculpture:focus-visible { outline: 1px solid var(--brand-accent); outline-offset: 5px; }
+.brand-sculpture { position: relative; display: grid; place-items: center; width: 100%; min-width: 0; height: 270px; background: none; isolation: isolate; }
+.brand-sculpture::before { content: ""; position: absolute; inset: 0; z-index: -1; pointer-events: none; background: radial-gradient(ellipse at center, #efa56820 0%, #efa56809 35%, transparent 68%); }
 .brand-sculpture .brand-fallback { width: 220px; height: 220px; object-fit: contain; }
-.brand-sculpture canvas { display: block; width: 100%; height: 100%; }
+.brand-sculpture canvas { display: block; width: 100%; height: 100%; grid-area: 1 / 1; }
 .brand-sculpture.is-ready .brand-fallback { display: none; }
 @media(max-width:700px) { #main section#about { grid-template-columns: 1fr; gap: 16px; } .brand-sculpture { height: 220px; } }
 @media(prefers-reduced-motion:reduce) { .brand-sculpture { cursor: default; } }
