@@ -3,8 +3,8 @@ interface Props { lang: string }
 const { lang } = Astro.props;
 const en = lang === "en";
 const links = en
-  ? [["projects", "Projects"], ["about", "About me"], ["services", "Services"], ["pricing", "Pricing"]]
-  : [["projects", "Projekte"], ["about", "Über mich"], ["services", "Leistungen"], ["pricing", "Preise"]];
+  ? [["projects", "Projects"], ["about", "About me"], ["services", "Services"], ["pricing", "Pricing"], ["contact", "Contact"]]
+  : [["projects", "Projekte"], ["about", "Über mich"], ["services", "Leistungen"], ["pricing", "Preise"], ["contact", "Kontakt"]];
 ---
 <footer class="site-footer">
   <div class="container footer-inner">

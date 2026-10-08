@@ -7,6 +7,7 @@ import ProjectCard from "./ProjectCard.astro";
 import Reveal from "./Reveal.astro";
 import Services from "./Services.astro";
 import SiteFooter from "./SiteFooter.astro";
+import Contact from "./Contact.astro";
 import Pricing from "./Pricing.astro";
 
 import { translations, type Language } from "../i18n/translations";
@@ -39,6 +40,7 @@ const base = import.meta.env.BASE_URL.replace(/\/$/, "");
         {t.projects.map((project, index) => (
           <Reveal variant="project" delay={(index % 2) * 70}>
             <ProjectCard
+              projectId={project.id}
               title={project.title}
               category={project.category}
               status={projects[project.id].status}
@@ -69,6 +71,7 @@ const base = import.meta.env.BASE_URL.replace(/\/$/, "");
       items={t.services}
     />
     <Pricing lang={lang} />
+    <Contact lang={lang} />
   </main>
 
   <SiteFooter lang={lang} />

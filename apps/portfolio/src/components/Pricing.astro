@@ -32,7 +32,7 @@ const rows = en ? [
         <summary>
           <span class="price-label"><span class="price-title">{title}</span><span class="price-subtitle">{subtitle}</span></span>
           <span class="price-value">{price.startsWith(en ? "from " : "ab ") ? <><span class="price-prefix">{en ? "from" : "ab"}</span><strong>{price.replace(/^(from|ab) /, "")}</strong></> : <strong class="price-text">{price}</strong>}</span>
-          <span class="price-toggle" aria-hidden="true"></span>
+          <svg class="accordion-chevron" viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m6 9 6 6 6-6"/></svg>
         </summary>
         <div class="price-content"><p>{description}</p></div>
       </details>
@@ -91,10 +91,6 @@ const rows = en ? [
   .price-title { font-size: clamp(17px,2vw,22px); font-weight: 600; }
   .price-subtitle { font-size: 13px; color: #b5bdb9; }
   .price-value { color: var(--brand-accent); font: 500 15px/1.4 var(--font-code); white-space: nowrap; }
-  .price-toggle { width: 24px; height: 24px; position: relative; }
-  .price-toggle::before, .price-toggle::after { content: ""; position: absolute; background: #d5d9d4; width: 14px; height: 1.5px; top: 11px; left: 5px; border-radius: 2px; transition: transform .25s; }
-  .price-toggle::after { transform: rotate(90deg); }
-  .is-expanded .price-toggle::after { transform: rotate(0); }
   .price-content { padding: 0 24px 24px; }
   .price-content p { border-top: 1px solid #ffffff12; padding-top: 20px; margin: 0; max-width: 760px; color: #c3cac5; line-height: 1.75; }
   .pricing-note { max-width: 760px; color: #aeb6b2; font-size: 13px; line-height: 1.7; margin: 20px 0 0; }
@@ -104,10 +100,8 @@ const rows = en ? [
     summary { padding: 18px; gap: 8px 12px; grid-template-columns: minmax(0,1fr) auto 20px; }
     .price-label { grid-column: 1; }
     .price-value { grid-column: 2; grid-row: 1; }
-    .price-toggle { grid-column: 3; grid-row: 1; }
     .price-content { padding: 0 18px 18px; }
   }
-  @media (prefers-reduced-motion:reduce) { .price-item, .price-toggle::before, .price-toggle::after { transition: none; } }
 
   #pricing .price-value { display: flex; justify-content: flex-end; align-items: baseline; gap: 8px; font-family: var(--font-body); text-align: right; }
   #pricing .price-value strong { font-size: var(--item-title-size); font-weight: 700; font-variant-numeric: tabular-nums; white-space: nowrap; }
@@ -120,6 +114,7 @@ const rows = en ? [
     summary { gap: 12px; padding: 16px 12px; }
     #pricing .price-value { flex-direction: column; align-items: flex-end; gap: 2px; }
     #pricing .price-subtitle { display: none; }
-    .price-toggle { width: 20px; }
   }
 </style>
+
+<style> .accordion-chevron { flex-shrink:0; color:var(--brand-accent); transition:transform .28s ease; } .is-expanded .accordion-chevron { transform:rotate(180deg); } summary { -webkit-tap-highlight-color:transparent; } @media(prefers-reduced-motion:reduce) { .accordion-chevron { transition:none; } } </style>

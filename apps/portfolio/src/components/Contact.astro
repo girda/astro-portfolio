@@ -1,0 +1,52 @@
+---
+import { whatsappNumber } from '../config/contact';
+interface Props { lang: string }
+const { lang } = Astro.props;
+const en = lang === 'en';
+const topics = en ? ['New website', 'Redesign', 'Website with CMS', 'Maintenance', 'Something else'] : ['Neue Website', 'Redesign', 'Website mit CMS', 'Betreuung', 'Etwas anderes'];
+---
+<section id="contact" class="contact" aria-labelledby="contact-title">
+  <div class="contact-copy">
+    <p class="eyebrow">{en ? 'YOUR NEXT STEP' : 'DEIN NÄCHSTER SCHRITT'}</p>
+    <h2 id="contact-title">{en ? 'An idea? Let’s talk.' : 'Eine Idee? Lass uns sprechen.'}</h2>
+    <p>{en ? 'Tell me what you have in mind. We’ll discuss what your website needs — personally, on WhatsApp.' : 'Erzähl mir, was du vorhast. Wir besprechen, was deine Website braucht — persönlich, auf WhatsApp.'}</p>
+    <span class="contact-note"><span aria-hidden="true">&lt;/&gt;</span> {en ? 'Your idea. Our starting point.' : 'Deine Idee. Unser Ausgangspunkt.'}</span>
+  </div>
+  <form data-whatsapp-form data-phone={whatsappNumber} data-lang={lang} aria-label={en ? 'Project enquiry' : 'Projektanfrage'}>
+    <label for="contact-name">{en ? 'Your name' : 'Dein Name'}<input id="contact-name" name="name" autocomplete="name" required maxlength="80" placeholder={en ? 'How should I call you?' : 'Wie heißt du?'} /></label>
+    <label for="contact-topic">{en ? 'What do you need?' : 'Worum geht’s?'}<select id="contact-topic" name="topic">{topics.map(topic => <option>{topic}</option>)}</select></label>
+    <label for="contact-message">{en ? 'Your idea' : 'Deine Idee'}<textarea id="contact-message" name="message" rows="4" required minlength="10" maxlength="1500" placeholder={en ? 'Your business, your plans, what matters to you…' : 'Dein Unternehmen, deine Pläne, was dir wichtig ist…'}></textarea></label>
+    <button type="submit">{en ? 'Continue in WhatsApp' : 'Weiter zu WhatsApp'}<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 11.5a8.5 8.5 0 0 1-8.5 8.5H4l-1 1v-9.5a9 9 0 1 1 18 0Z"/><path d="M8 11h8m-8 4h5"/></svg></button>
+    <p class="form-note">{en ? 'This opens WhatsApp with your prepared message. Review it and send it there yourself.' : 'Öffnet WhatsApp mit deiner vorbereiteten Nachricht. Du prüfst und sendest sie dort selbst.'}</p>
+    <noscript><p><a href={`https://wa.me/${whatsappNumber}`}>{en ? 'Open WhatsApp directly' : 'WhatsApp direkt öffnen'}</a></p></noscript>
+  </form>
+</section>
+<script>
+  import { buildWhatsAppUrl } from '../scripts/whatsapp';
+  document.querySelectorAll<HTMLFormElement>('[data-whatsapp-form]').forEach(form => {
+    form.addEventListener('submit', event => {
+      event.preventDefault();
+      if (!form.reportValidity()) return;
+      const data = new FormData(form);
+      // Текст передаётся в WhatsApp только по явному нажатию посетителя.
+      const url = buildWhatsAppUrl(form.dataset.phone!, String(data.get('name') || ''), String(data.get('topic') || ''), String(data.get('message') || ''), form.dataset.lang === 'en');
+      window.location.assign(url);
+    });
+  });
+</script>
+<style>
+.contact { display:grid; grid-template-columns:1fr 1fr; gap:64px; padding-block:var(--section-space); scroll-margin-top:24px; }
+.eyebrow { color:#c9cfa8; font:11px/1.5 var(--font-code); letter-spacing:.13em; margin:0 0 16px; }
+h2 { margin:0; font-size:clamp(32px,4vw,48px); line-height:1.15; letter-spacing:-.035em; }
+.contact-copy>p:not(.eyebrow) { color:#b9c1bd; max-width:440px; margin:24px 0; }
+.contact-note { display:flex; align-items:center; gap:12px; font-size:13px; color:#adb6b2; }.contact-note>span { color:var(--brand-accent); font-family:var(--font-code); }
+form { border:1px solid #ffffff1c; border-radius:18px; padding:28px; background:linear-gradient(130deg,#ffffff05,#ffac6607); }
+label { display:block; font:500 14px/1.5 var(--font-body); margin-bottom:20px; }
+input,select,textarea { width:100%; display:block; margin-top:8px; padding:13px 14px; border:1px solid #ffffff26; border-radius:9px; background:#20272bcc; color:#f4f1eb; font:400 16px/1.5 var(--font-body); }
+select { appearance:none; padding-right:40px; background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='24' height='24' fill='none' stroke='%23ffac66' stroke-width='1.6'%3E%3Cpath d='m6 9 6 6 6-6'/%3E%3C/svg%3E"); background-repeat:no-repeat; background-position:right 12px center; }
+textarea { resize:vertical; min-height:120px; }input::placeholder,textarea::placeholder { color:#929e99; }
+input:focus-visible,select:focus-visible,textarea:focus-visible,button:focus-visible { outline:2px solid var(--brand-accent); outline-offset:3px; }
+button { display:flex; justify-content:center; align-items:center; gap:12px; width:100%; min-height:50px; padding:14px 20px; border:0; border-radius:9px; background:var(--brand-accent); color:#1b2426; font:600 15px/1.5 var(--font-body); cursor:pointer; transition:filter .2s; }button:hover { filter:brightness(1.08); }
+.form-note { margin:14px 0 0; font-size:12px; color:#aeb8b3; line-height:1.65; }
+@media(max-width:760px) { .contact { grid-template-columns:1fr; gap:28px; } form { padding:20px; } }
+</style>

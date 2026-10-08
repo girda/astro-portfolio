@@ -176,7 +176,7 @@ h1 em,h2 em { color:var(--accent); }
 .signature .signature-tool { width:36px; height:36px; color:var(--accent); flex-shrink:0; }
 .service .service-watermark { max-width:40%; }
 .faq-toggle { width:22px; height:22px; color:var(--accent); transition:transform .25s; }
-.faq summary[aria-expanded="true"] .faq-toggle { transform:rotate(45deg); }
+.faq summary[aria-expanded="true"] .faq-toggle { transform:rotate(180deg); }
 .gallery-navigation .icon { stroke-width:1.65; }
 @media(max-width:700px) { .signature .container { gap:8px; }.signature .signature-tool { width:26px; height:26px; }.signature .signature-tool:last-of-type { display:none; } }
 
@@ -235,3 +235,14 @@ body.kant-menu-open { overflow:hidden; }
 .service-watermark { transition:opacity .4s; }.service:hover .service-watermark { opacity:.2; }
 @media(max-width:700px) { .header { padding-block:12px; }.hero-interior { padding-top:132px; padding-bottom:310px; }.hero-interior .hero-actions { gap:12px; }.section-space { padding-block:56px; }.studio { padding-top:0; }.gallery-note { margin-top:16px; }.look-slide h3 { font-size:24px; }.hero-interior::after { background:linear-gradient(180deg,#121613 0%,#121613 38%,#121613ed 46%,#12161345 60%,#12161308 79%,#171918 100%); } }
 @media(prefers-reduced-motion:reduce) { .studio-photo:hover img { transform:none; } }
+
+/* Убираем системную синюю подсветку касания; фокус клавиатуры сохраняется. */
+.faq summary,
+.image-credits summary {
+  -webkit-tap-highlight-color: transparent;
+  color: inherit;
+}
+.faq summary:focus:not(:focus-visible),
+.image-credits summary:focus:not(:focus-visible) {
+  outline: none;
+}

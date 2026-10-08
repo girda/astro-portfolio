@@ -8,6 +8,7 @@ interface Props {
   status?: "demo" | "client";
   lang?: "de" | "en" | "ru";
   preview: string;
+  projectId: string;
   name: string;
   open: string;
 }
@@ -16,6 +17,7 @@ const {
   title,
   category,
   preview,
+  projectId,
   name,
   open,
   status = "demo",
@@ -38,14 +40,11 @@ const statusLabel =
   rel="noopener noreferrer"
 >
   <div class="tile-preview">
-    <img
-      src={preview}
-      alt={`${title} — ${category}`}
-      width="1280"
-      height="800"
-      loading="lazy"
-      decoding="async"
-    />
+    <div class="device-composition" aria-hidden="true">
+      <div class="device device-desktop"><div class="browser-bar"><i></i><i></i><i></i><span>{name.toLowerCase()} / website</span></div><img src={preview} alt="" width="1280" height="800" loading="lazy" decoding="async" /></div>
+      <div class="device device-tablet"><div class="browser-bar"><i></i><span>{name.toLowerCase()}</span></div><img src={`${import.meta.env.BASE_URL}previews/${projectId}-tablet.png`} alt="" width="768" height="1024" loading="lazy" decoding="async" /></div>
+      <div class="device device-phone"><div class="phone-speaker"></div><img src={`${import.meta.env.BASE_URL}previews/${projectId}-mobile.png`} alt="" width="390" height="844" loading="lazy" decoding="async" /></div>
+    </div>
     <span class={`project-badge project-badge--${status}`}>
       {statusLabel}
     </span>

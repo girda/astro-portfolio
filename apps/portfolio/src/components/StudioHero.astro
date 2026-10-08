@@ -1,4 +1,5 @@
 ---
+import MenuIcon from "./MenuIcon.astro";
 import "../styles/studio-hero.css";
 import "../styles/hero-refinement.css";
 import "../styles/navigation-panel.css";
@@ -58,6 +59,7 @@ const base = import.meta.env.BASE_URL.replace(/\/$/, "");
     <nav class="desktop-nav" aria-label="Navigation">
       <a href="#projects">{t.work}</a>
       <a href="#about">{t.about}</a>
+      <a href="#contact">{lang === "en" ? "Contact" : "Kontakt"}</a>
     </nav>
     <nav
       class="hero-languages"
@@ -88,12 +90,13 @@ const base = import.meta.env.BASE_URL.replace(/\/$/, "");
       >
         <div class="menu-caption">HIRDA / NAVIGATION</div>
         <div class="menu-links">
-          <a href="#top">{lang === "en" ? "Home" : "Start"}</a>
-          <a href="#projects">{t.work}</a>
-          <a href="#about">{t.about}</a>
-          <a href="#services">{lang === "en" ? "Services" : "Leistungen"}</a>
-          <a href="#pricing">{lang === "en" ? "Pricing & maintenance" : "Preise & Betreuung"}</a>
+          <a href="#top"><MenuIcon name="home" /><span class="menu-label">{lang === "en" ? "Home" : "Start"}</span></a>
+          <a href="#projects"><MenuIcon name="projects" /><span class="menu-label">{t.work}</span></a>
+          <a href="#about"><MenuIcon name="about" /><span class="menu-label">{t.about}</span></a>
+          <a href="#services"><MenuIcon name="services" /><span class="menu-label">{lang === "en" ? "Services" : "Leistungen"}</span></a>
+          <a href="#pricing"><MenuIcon name="pricing" /><span class="menu-label">{lang === "en" ? "Pricing & maintenance" : "Preise & Betreuung"}</span></a>
         </div>
+          <a class="menu-contact" href="#contact"><MenuIcon name="contact" /><span>{lang === "en" ? "Let’s talk" : "Lass uns sprechen"}</span></a>
         <div class="menu-bottom">
           <span>{t.eyebrow}</span>
           <span>DE / EN</span>
