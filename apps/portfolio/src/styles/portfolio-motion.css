@@ -14,11 +14,11 @@ section.studio-hero .wordmark-name { display: inline-flex; }
   section.studio-hero .hero-intro {
     animation: element-arrive 1200ms 850ms cubic-bezier(.22,.65,.3,1) both;
   }
-  section.studio-hero .hero-actions a {
+  section.studio-hero .hero-actions :is(a, button) {
     animation: element-arrive 1200ms 1100ms cubic-bezier(.22,.65,.3,1) both;
     transition: background .25s, box-shadow .25s;
   }
-  section.studio-hero .hero-actions a:nth-child(2) { animation-delay: 1300ms; }
+  section.studio-hero .hero-actions :is(a, button):nth-child(2) { animation-delay: 1300ms; }
   section.studio-hero .hero-foot {
     animation: element-arrive 1300ms 1450ms cubic-bezier(.22,.65,.3,1) both;
   }

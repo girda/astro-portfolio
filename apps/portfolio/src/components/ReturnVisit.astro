@@ -1,0 +1,28 @@
+    <script is:inline>
+      (() => {
+        const key = 'hirda:last-visit';
+        const hour = 60 * 60 * 1000;
+        let reset = false;
+        const registerVisit = () => {
+          try {
+            const now = Date.now();
+            const previous = Number(localStorage.getItem(key));
+            reset = previous > 0 && now - previous >= hour;
+            localStorage.setItem(key, String(now));
+            if (reset) {
+              history.replaceState(history.state, '', location.pathname + location.search);
+              history.scrollRestoration = 'manual';
+            }
+          } catch { /* Сайт работает и при запрещённом localStorage. */ }
+        };
+        registerVisit();
+        addEventListener('pageshow', event => {
+          if (event.persisted) registerVisit();
+          if (reset) {
+            window.scrollTo({ top: 0, left: 0, behavior: 'instant' });
+            history.scrollRestoration = 'auto';
+            reset = false;
+          }
+        });
+      })();
+    </script>

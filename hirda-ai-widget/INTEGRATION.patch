@@ -1,0 +1,10 @@
+--- a/apps/portfolio/src/components/PortfolioPage.astro
++++ b/apps/portfolio/src/components/PortfolioPage.astro
+@@
+ import BaseLayout from "../layouts/BaseLayout.astro";
++import AIAssistantWidget from "./AIAssistantWidget.astro";
+ import ProjectCard from "./ProjectCard.astro";
+@@
+   <SiteFooter lang={lang} />
++  <AIAssistantWidget lang={lang} />
+ </BaseLayout>

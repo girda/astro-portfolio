@@ -9,6 +9,7 @@ import Services from "./Services.astro";
 import SiteFooter from "./SiteFooter.astro";
 import Contact from "./Contact.astro";
 import Pricing from "./Pricing.astro";
+import AIAssistantWidget from "./AIAssistantWidget.astro";
 
 import { translations, type Language } from "../i18n/translations";
 
@@ -75,6 +76,7 @@ const base = import.meta.env.BASE_URL.replace(/\/$/, "");
   </main>
 
   <SiteFooter lang={lang} />
+  <AIAssistantWidget lang={lang} />
 </BaseLayout>
 
 <style>

@@ -4,7 +4,7 @@ const trigger = menu?.querySelector<HTMLElement>("summary");
 if (menu && trigger) {
   const backgrounds = [
     ...document.querySelectorAll<HTMLElement>(
-      "main, body > footer, .hero-copy, .hero-foot, .art-window, .wordmark, .hero-languages",
+      "main, body > footer, .hero-copy, .hero-foot, .art-window, .wordmark, .hero-languages, [data-hirda-cat]",
     ),
   ];
   const previousInert = new Map<HTMLElement, boolean>();
@@ -45,11 +45,15 @@ if (menu && trigger) {
       // Переносим фокус к выбранной секции, не вызывая повторную прокрутку.
       const section = document.querySelector<HTMLElement>(link.hash);
       if (section) {
+        const previousTabindex = section.getAttribute("tabindex");
         section.setAttribute("tabindex", "-1");
         section.focus({ preventScroll: true });
         section.addEventListener(
           "blur",
-          () => section.removeAttribute("tabindex"),
+          () => {
+            if (previousTabindex === null) section.removeAttribute("tabindex");
+            else section.setAttribute("tabindex", previousTabindex);
+          },
           { once: true },
         );
       }

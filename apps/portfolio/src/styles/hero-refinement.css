@@ -21,7 +21,7 @@ section.studio-hero .line {
   }
 }
 
-section.studio-hero .hero-actions a {
+section.studio-hero .hero-actions :is(a, button) {
   font-family: var(--font-code);
   font-size: 13px;
   font-weight: 500;
@@ -62,7 +62,7 @@ section.studio-hero .secondary:hover {
   section.studio-hero .hero-intro {
     margin-block: 18px;
   }
-  section.studio-hero .hero-actions a {
+  section.studio-hero .hero-actions :is(a, button) {
     padding: 12px 16px;
     font-size: 12px;
   }

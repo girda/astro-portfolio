@@ -1,0 +1,746 @@
+---
+interface Props {
+  lang?: 'de' | 'ru' | 'en';
+}
+
+const { lang = 'de' } = Astro.props;
+const copy = {
+  de: {
+    greeting: 'Hi! Ich bin Artems KI-Assistent. Frag mich zu Projekten, Preisen oder Websites.',
+    title: 'HIRDA CAT',
+    status: 'DIGITALER ASSISTENT · DEMO',
+    subtitle: 'WAS MÖCHTEST DU WISSEN?',
+    open: 'HIRDA CAT öffnen',
+    close: 'Chat schließen',
+    dismiss: 'Hinweis schließen',
+    placeholder: 'Deine Frage an mich …',
+    send: 'Senden',
+    welcome: 'Hi! 👋 Ich bin Artems KI-Assistent. Ich zeige dir gerne Projekte, Leistungen oder Preise. Was interessiert dich?',
+    projects: 'Projekte',
+    prices: 'Preise',
+    services: 'Leistungen',
+    contact: 'Kontakt',
+    disclaimer: 'Demo-Modus: Antworten sind noch nicht mit einer KI verbunden.',
+  },
+  ru: {
+    greeting: 'Привет! Я ИИ-помощник Артёма. Спроси меня о проектах, ценах или сайтах.',
+    title: 'HIRDA CAT',
+    status: 'ЦИФРОВОЙ ПОМОЩНИК · ДЕМО',
+    subtitle: 'ЧТО ТЕБЯ ИНТЕРЕСУЕТ?',
+    open: 'Открыть HIRDA CAT',
+    close: 'Закрыть чат',
+    dismiss: 'Закрыть подсказку',
+    placeholder: 'Твой вопрос …',
+    send: 'Отправить',
+    welcome: 'Привет! 👋 Я ИИ-помощник Артёма. Расскажу о его проектах, услугах и ценах. Что тебя интересует?',
+    projects: 'Проекты',
+    prices: 'Цены',
+    services: 'Услуги',
+    contact: 'Контакты',
+    disclaimer: 'Демо-режим: ответы пока не подключены к ИИ.',
+  },
+  en: {
+    greeting: 'Hi! I’m Artem’s AI assistant. Ask me about projects, pricing or websites.',
+    title: 'HIRDA CAT',
+    status: 'DIGITAL ASSISTANT · DEMO',
+    subtitle: 'WHAT WOULD YOU LIKE TO KNOW?',
+    open: 'Open HIRDA CAT',
+    close: 'Close chat',
+    dismiss: 'Dismiss hint',
+    placeholder: 'Ask me anything …',
+    send: 'Send',
+    welcome: 'Hi! 👋 I’m Artem’s AI assistant. I can guide you through his projects, services, or prices. What interests you?',
+    projects: 'Projects',
+    prices: 'Pricing',
+    services: 'Services',
+    contact: 'Contact',
+    disclaimer: 'Demo mode: responses are not connected to AI yet.',
+  },
+}[lang];
+const robotSrc = `${import.meta.env.BASE_URL}ai/robot-cat.webp`;
+const avatarSrc = `${import.meta.env.BASE_URL}ai/face-default.webp`;
+---
+
+<div class="hirda-cat" data-hirda-cat data-lang={lang}>
+  <!-- Закрывает фон, но чат остаётся отдельным виджетом. -->
+  <div class="cat-backdrop" data-cat-backdrop hidden aria-hidden="true"></div>
+  <div class="cat-bubble" data-cat-bubble hidden>
+    <button class="bubble-text" type="button" data-cat-bubble-open aria-label={copy.open}>{copy.greeting}</button>
+    <button class="bubble-close" type="button" data-cat-dismiss aria-label={copy.dismiss}>×</button>
+  </div>
+
+  <button class="cat-launcher" type="button" data-cat-launcher aria-expanded="false" aria-controls="hirda-cat-panel" aria-label={copy.open}>
+    <span class="cat-spark" aria-hidden="true">✦</span>
+    <img src={robotSrc} alt="" width="750" height="750" decoding="async" />
+    <span class="launcher-glow" aria-hidden="true"></span>
+  </button>
+
+  <section class="cat-panel" id="hirda-cat-panel" data-cat-panel role="dialog" aria-modal="true" aria-labelledby="hirda-cat-title" hidden>
+    <div class="cat-accent-bar" aria-hidden="true"></div>
+    <header class="cat-head">
+      <div class="head-avatar" aria-hidden="true"><img data-cat-avatar src={avatarSrc} alt="" width="350" height="330" decoding="async" /></div>
+      <div class="head-copy">
+        <div class="head-kicker">HIRDA / AI EXPERIENCE</div>
+        <h2 id="hirda-cat-title">{copy.title}<span class="head-version"> / 01</span></h2>
+        <p><span class="status-dot" aria-hidden="true"></span>{copy.status}</p>
+      </div>
+      <button class="cat-close" type="button" data-cat-close aria-label={copy.close}>
+        <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><path d="M5 5 19 19M19 5 5 19" /></svg>
+      </button>
+    </header>
+
+    <div class="cat-conversation" data-cat-conversation role="log" aria-live="polite" aria-label="Chat">
+      <p class="chat-intro"><span class="chat-intro-line"></span>{copy.subtitle}<span class="chat-intro-line"></span></p>
+      <div class="chat-message is-bot">{copy.welcome}</div>
+      <div class="cat-topics" data-cat-topics>
+        <button type="button" data-cat-topic="projects"><span>✳</span>{copy.projects}<span>↗</span></button>
+        <button type="button" data-cat-topic="prices"><span>€</span>{copy.prices}<span>↗</span></button>
+        <button type="button" data-cat-topic="services"><span>✦</span>{copy.services}<span>↗</span></button>
+        <button type="button" data-cat-topic="contact"><span>↗</span>{copy.contact}<span>↗</span></button>
+      </div>
+    </div>
+
+    <div class="cat-bottom">
+      <form class="cat-compose" data-cat-form>
+        <label class="sr-only" for="hirda-cat-input">{copy.placeholder}</label>
+        <input id="hirda-cat-input" data-cat-input type="text" autocomplete="off" maxlength="350" placeholder={copy.placeholder} />
+        <button type="submit" aria-label={copy.send}>
+          <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m5 12 14-7-4 14-3.1-6.9L5 12Z"/><path d="m12 12 7-7"/></svg>
+        </button>
+      </form>
+      <p class="cat-notice">{copy.disclaimer}</p>
+    </div>
+  </section>
+</div>
+
+<script>
+  type Lang = 'de' | 'ru' | 'en';
+  type Topic = 'projects' | 'prices' | 'services' | 'contact';
+  const dictionary = {
+    de: {
+      project: 'Artem zeigt vier Website-Konzepte: KANT (Barbershop), KLAR (Reinigung), WERKRAUM (Autowerkstatt) und STILL (Nagelstudio).',
+      pricing: 'Die Einstiegspreise sind: Landingpage ab 490 €, Business-Website ab 790 € und Website mit CMS ab 1.290 €. Der Endpreis hängt vom Umfang ab.',
+      service: 'Artem bietet Websites, Landingpages, Redesign, CMS und individuelle Funktionen. Die passende Lösung hängt von deinem Projekt ab.',
+      contact: 'Du kannst Artem über das Kontaktformular auf der Seite erreichen. Dort bereitest du eine WhatsApp-Nachricht vor und sendest sie selbst ab.',
+      unknown: 'Das ist bisher eine interaktive Demo. Wähle unten ein Thema oder sieh dir Artems Projekte und Leistungen direkt auf der Seite an.',
+      labels: { projects: 'Projekte ansehen', prices: 'Preise ansehen', services: 'Leistungen ansehen', contact: 'Zum Kontakt' },
+      names: { projects: 'Projekte', prices: 'Preise', services: 'Leistungen', contact: 'Kontakt' },
+    },
+    en: {
+      project: 'Artem showcases four website concepts: KANT (barbershop), KLAR (cleaning), WERKRAUM (auto service), and STILL (nail studio).',
+      pricing: 'Starting prices: landing page from €490, business website from €790, and a CMS website from €1,290. The final quote depends on the scope.',
+      service: 'Artem builds websites, landing pages, redesigns, CMS sites and custom features tailored to a business.',
+      contact: 'Use the contact section to prepare a WhatsApp enquiry. You can review the message and send it yourself.',
+      unknown: 'This is an interactive demo for now. Choose a topic below, or explore Artem’s work directly on this page.',
+      labels: { projects: 'See projects', prices: 'See pricing', services: 'See services', contact: 'Go to contact' },
+      names: { projects: 'Projects', prices: 'Pricing', services: 'Services', contact: 'Contact' },
+    },
+    ru: {
+      project: 'Артём показывает четыре проекта: KANT (барбершоп), KLAR (клининг), WERKRAUM (автосервис), STILL (студия маникюра).',
+      pricing: 'Стартовые цены: лендинг от 490 €, сайт для бизнеса от 790 €, сайт с CMS от 1 290 €. Итоговая стоимость зависит от задач.',
+      service: 'Артём создаёт сайты, лендинги, редизайн, сайты с CMS и индивидуальные функции.',
+      contact: 'В разделе контактов можно подготовить сообщение в WhatsApp, проверить его и отправить Артёму.',
+      unknown: 'Это пока интерактивное демо. Выбери тему ниже или посмотри проекты и услуги на сайте.',
+      labels: { projects: 'Смотреть проекты', prices: 'Смотреть цены', services: 'Смотреть услуги', contact: 'К контактам' },
+      names: { projects: 'Проекты', prices: 'Цены', services: 'Услуги', contact: 'Контакты' },
+    },
+  };
+
+  const root = document.querySelector<HTMLElement>('[data-hirda-cat]');
+  if (root) {
+    const lang: Lang = root.dataset.lang === 'ru' || root.dataset.lang === 'en' ? root.dataset.lang : 'de';
+    const texts = dictionary[lang];
+    const bubble = root.querySelector<HTMLElement>('[data-cat-bubble]')!;
+    const backdrop = root.querySelector<HTMLElement>('[data-cat-backdrop]')!;
+    const avatar = root.querySelector<HTMLImageElement>('[data-cat-avatar]')!;
+    const faceDefault = `${import.meta.env.BASE_URL}ai/face-default.webp`;
+    const faceWink = `${import.meta.env.BASE_URL}ai/face-wink.webp`;
+    const faceHappy = `${import.meta.env.BASE_URL}ai/face-happy.webp`;
+    const bubbleOpener = root.querySelector<HTMLButtonElement>('[data-cat-bubble-open]')!;
+    const launcher = root.querySelector<HTMLButtonElement>('[data-cat-launcher]')!;
+    const panel = root.querySelector<HTMLElement>('[data-cat-panel]')!;
+    const closer = root.querySelector<HTMLButtonElement>('[data-cat-close]')!;
+    const dismiss = root.querySelector<HTMLButtonElement>('[data-cat-dismiss]')!;
+    const log = root.querySelector<HTMLElement>('[data-cat-conversation]')!;
+    const form = root.querySelector<HTMLFormElement>('[data-cat-form]')!;
+    const input = root.querySelector<HTMLInputElement>('[data-cat-input]')!;
+    const topics = root.querySelector<HTMLElement>('[data-cat-topics]')!;
+    let bubbleTimer: number | undefined;
+    let shownBubble = false;
+    let oldBodyOverflow = '';
+    let returnFocus: HTMLElement = launcher;
+    const reducedMotion = matchMedia('(prefers-reduced-motion: reduce)');
+    let emotionTimer: number | undefined;
+    let blinkTimer: number | undefined;
+    let viewportHeight = window.innerHeight;
+    let viewportFrame = 0;
+    const visualViewport = window.visualViewport;
+
+    // При появлении клавиатуры помещаем панель в реально видимую область.
+    const updateViewport = () => {
+      if (panel.hidden) return;
+      const height = visualViewport?.height ?? window.innerHeight;
+      const keyboard = matchMedia('(max-width: 600px)').matches &&
+        document.activeElement === input && viewportHeight - height > 100;
+      root.classList.toggle('has-keyboard', keyboard);
+      root.style.setProperty('--cat-visible-height', `${height}px`);
+      root.style.setProperty('--cat-visible-top', `${visualViewport?.offsetTop ?? 0}px`);
+    };
+    const scheduleViewport = () => {
+      cancelAnimationFrame(viewportFrame);
+      viewportFrame = requestAnimationFrame(updateViewport);
+    };
+    visualViewport?.addEventListener('resize', scheduleViewport);
+    visualViewport?.addEventListener('scroll', scheduleViewport);
+    window.addEventListener('resize', scheduleViewport);
+    input.addEventListener('focus', scheduleViewport);
+    input.addEventListener('blur', scheduleViewport);
+
+    const resetEmotion = () => {
+      clearTimeout(emotionTimer);
+      avatar.src = faceDefault;
+    };
+    const showEmotion = (src: string, duration: number) => {
+      resetEmotion();
+      if (reducedMotion.matches || document.hidden || panel.hidden) return;
+      avatar.src = src;
+      emotionTimer = window.setTimeout(resetEmotion, duration);
+    };
+    const syncBlink = () => {
+      clearInterval(blinkTimer);
+      resetEmotion();
+      if (!panel.hidden && !document.hidden && !reducedMotion.matches) {
+        blinkTimer = window.setInterval(() => showEmotion(faceWink, 240), 6500);
+      }
+    };
+    reducedMotion.addEventListener('change', syncBlink);
+    document.addEventListener('visibilitychange', syncBlink);
+
+    const dismissBubble = () => { bubble.hidden = true; window.clearTimeout(bubbleTimer); };
+    const showBubble = () => {
+      if (shownBubble || !panel.hidden) return;
+      shownBubble = true;
+      bubble.hidden = false;
+      bubbleTimer = window.setTimeout(dismissBubble, 8000);
+    };
+    window.setTimeout(showBubble, 2800);
+
+    const openChat = (opener: HTMLElement = launcher) => {
+      if (!panel.hidden) return;
+      returnFocus = opener === bubbleOpener ? launcher : opener;
+      viewportHeight = window.innerHeight;
+      dismissBubble();
+      shownBubble = true;
+      backdrop.hidden = false;
+      panel.hidden = false;
+      root.classList.add('is-open');
+      oldBodyOverflow = document.body.style.overflow;
+      document.body.style.overflow = 'hidden';
+      launcher.setAttribute('aria-expanded', 'true');
+      // На телефоне не открываем клавиатуру сразу: посетитель видит дизайн и подсказки.
+      if (window.matchMedia('(min-width: 601px)').matches) input.focus();
+      else closer.focus({ preventScroll: true });
+      syncBlink();
+      showEmotion(faceHappy, 750);
+      scheduleViewport();
+    };
+
+    const closeChat = (restoreFocus = true) => {
+      panel.hidden = true;
+      backdrop.hidden = true;
+      root.classList.remove('is-open');
+      launcher.setAttribute('aria-expanded', 'false');
+      document.body.style.overflow = oldBodyOverflow;
+      root.classList.remove('has-keyboard');
+      cancelAnimationFrame(viewportFrame);
+      syncBlink();
+      if (restoreFocus) (returnFocus.isConnected ? returnFocus : launcher).focus({ preventScroll: true });
+    };
+
+    function addMessage(text: string, role: 'bot' | 'user', action?: { label: string; anchor: string }) {
+      const node = document.createElement('div');
+      node.className = `chat-message is-${role}`;
+      node.textContent = text; // Никогда не вставляем содержимое пользователя как HTML.
+      log.insertBefore(node, topics);
+      if (action) {
+        const link = document.createElement('a');
+        link.className = 'cat-action';
+        link.textContent = `${action.label} ↗`;
+        link.href = action.anchor;
+        link.addEventListener('click', () => closeChat(false));
+        log.insertBefore(link, topics);
+      }
+      log.scrollTop = log.scrollHeight;
+    }
+
+    function replyToTopic(topic: Topic, userText: string) {
+      addMessage(userText, 'user');
+      const responses: Record<Topic, string> = {
+        projects: texts.project, prices: texts.pricing, services: texts.service, contact: texts.contact,
+      };
+      addMessage(responses[topic], 'bot', { label: texts.labels[topic], anchor: topic === 'prices' ? '#pricing' : topic === 'services' ? '#services' : topic === 'contact' ? '#contact' : '#projects' });
+    }
+
+    function detectTopic(value: string): Topic | null {
+      const q = value.toLowerCase();
+      if (/preis|kosten|cost|price|budget|цена|стоим|сколько/.test(q)) return 'prices';
+      if (/projekt|portfolio|project|work|работ|проект|пример/.test(q)) return 'projects';
+      if (/kontakt|contact|whatsapp|email|связ|контакт|напис/.test(q)) return 'contact';
+      if (/website|webseite|service|leistung|angebot|сайт|услуг|landing|cms|design/.test(q)) return 'services';
+      return null;
+    }
+
+    launcher.addEventListener('click', () => panel.hidden ? openChat() : closeChat());
+    bubbleOpener.addEventListener('click', () => openChat(bubbleOpener));
+    root.addEventListener('hirda:open-chat', (event) => {
+      const opener = (event as CustomEvent<HTMLElement>).detail;
+      openChat(opener instanceof HTMLElement ? opener : launcher);
+    });
+    closer.addEventListener('click', () => closeChat());
+    backdrop.addEventListener('click', () => closeChat());
+    dismiss.addEventListener('click', dismissBubble);
+
+    topics.querySelectorAll<HTMLButtonElement>('[data-cat-topic]').forEach((button) => {
+      button.addEventListener('click', () => {
+        const topic = button.dataset.catTopic as Topic;
+        replyToTopic(topic, texts.names[topic]);
+      });
+    });
+
+    form.addEventListener('submit', (event) => {
+      event.preventDefault();
+      const value = input.value.trim();
+      if (!value) return;
+      input.value = '';
+      const topic = detectTopic(value);
+      if (topic) replyToTopic(topic, value);
+      else { addMessage(value, 'user'); addMessage(texts.unknown, 'bot'); }
+    });
+
+    document.addEventListener('keydown', (event) => {
+      if (panel.hidden) return;
+      if (event.key === 'Escape') { closeChat(); return; }
+      if (event.key !== 'Tab') return;
+      const focusables = Array.from(panel.querySelectorAll<HTMLElement>(
+        'button:not([disabled]), input:not([disabled]), a[href]'
+      ));
+      if (!focusables.length) return;
+      const first = focusables[0];
+      const last = focusables[focusables.length - 1];
+      if (event.shiftKey && document.activeElement === first) {
+        event.preventDefault();
+        last.focus();
+      } else if (!event.shiftKey && document.activeElement === last) {
+        event.preventDefault();
+        first.focus();
+      }
+    });
+  }
+</script>
+
+<style>
+  .hirda-cat {
+    --cat-accent: #ffa36b;
+    --cat-muted: #a9b6bc;
+    --cat-border: rgba(215, 233, 233, .14);
+    position: fixed;
+    z-index: 900;
+    right: 14px;
+    bottom: calc(12px + env(safe-area-inset-bottom));
+    color: #f7f5ef;
+    font-family: var(--font-body, system-ui, sans-serif);
+  }
+
+  /* Тёмный полупрозрачный фон, закрывается по нажатию */
+  .cat-backdrop {
+    position: fixed;
+    inset: 0;
+    z-index: 0;
+    background: rgba(4, 9, 14, .62);
+    backdrop-filter: blur(5px) saturate(.85);
+    -webkit-backdrop-filter: blur(5px) saturate(.85);
+    animation: backdrop-in .25s ease-out both;
+  }
+  .cat-backdrop[hidden], .cat-panel[hidden], .cat-bubble[hidden] {
+    display: none !important;
+  }
+
+  /* Маскот остаётся видимым и служит визуальным якорем */
+  .cat-launcher {
+    position: relative;
+    z-index: 2;
+    display: block;
+    width: 94px;
+    height: 100px;
+    padding: 0;
+    border: 0;
+    background: transparent;
+    cursor: pointer;
+    outline-offset: 3px;
+    -webkit-tap-highlight-color: transparent;
+    filter: drop-shadow(0 12px 15px #0009);
+    transform-origin: center bottom;
+    animation: cat-idle 6.3s ease-in-out infinite;
+  }
+  .cat-launcher img { position: relative; z-index: 2; width: 100%; height: 100%; object-fit: contain; }
+  .cat-launcher:hover { animation-play-state: paused; transform: translateY(-4px) scale(1.03); }
+  .hirda-cat.is-open .cat-launcher { animation: none; transform: translateY(-3px); }
+  .launcher-glow {
+    position: absolute;
+    z-index: 1;
+    width: 44px;
+    height: 10px;
+    bottom: 0;
+    left: 26px;
+    border-radius: 50%;
+    background: #ffa36975;
+    filter: blur(11px);
+    animation: cat-pulse 2.6s ease-in-out infinite;
+  }
+  .cat-spark {
+    position: absolute;
+    z-index: 3;
+    top: 0;
+    right: 10px;
+    font-size: 14px;
+    color: #ffbd8e;
+    filter: drop-shadow(0 0 5px #ffa369);
+    pointer-events: none;
+    animation: cat-sparkle 5.8s infinite;
+  }
+
+  /* Приветственная реплика над котом */
+  .cat-bubble {
+    position: absolute;
+    z-index: 3;
+    right: 0;
+    bottom: calc(100% + 19px);
+    width: min(262px, calc(100vw - 28px));
+    padding: 15px 40px 16px 17px;
+    border-radius: 27px;
+    border: 1px solid #eadbc9;
+    background: #fffaf2;
+    color: #1c252b;
+    box-shadow: 0 14px 36px #0005, 0 3px 8px #0002;
+    animation: bubble-in .4s cubic-bezier(.16,.8,.25,1) both;
+  }
+  .cat-bubble::before, .cat-bubble::after {
+    content: '';
+    position: absolute;
+    border: 1px solid #eadbc9;
+    border-radius: 50%;
+    background: #fffaf2;
+    pointer-events: none;
+  }
+  .cat-bubble::before { width: 15px; height: 15px; right: 46px; bottom: -18px; }
+  .cat-bubble::after { width: 7px; height: 7px; right: 38px; bottom: -32px; }
+  .bubble-text { display: block; width: 100%; border: 0; padding: 0; background: transparent; color: inherit; text-align: left; font-size: 13px; font-weight: 500; line-height: 1.55; font-family: inherit; cursor: pointer; }
+  .bubble-close { position: absolute; top: 9px; right: 9px; width: 29px; height: 29px; border: 0; border-radius: 50%; color: #596269; background: #20272b10; font: 20px/1 system-ui; cursor: pointer; }
+  .bubble-close:hover { background: #20272b24; }
+
+  /* Панель: отдельно от страницы, больше по высоте, всё ещё не full-screen */
+  .cat-panel {
+    position: absolute;
+    z-index: 4;
+    right: 1px;
+    bottom: calc(100% + 14px);
+    display: flex;
+    flex-direction: column;
+    width: min(420px, calc(100vw - 28px));
+    height: min(700px, calc(100dvh - 150px));
+    min-height: 260px;
+    overflow: hidden;
+    border-radius: 23px;
+    border: 1px solid rgba(218, 234, 235, .2);
+    background: #111e28;
+    box-shadow: 0 32px 96px #000c, 0 5px 28px #0005, inset 0 1px 0 #ffffff12;
+    animation: panel-rise .36s cubic-bezier(.16,.85,.2,1) both;
+    isolation: isolate;
+  }
+  .cat-panel::before {
+    content: '';
+    position: absolute;
+    z-index: -1;
+    top: -150px;
+    right: -150px;
+    width: 350px;
+    height: 350px;
+    pointer-events: none;
+    background: radial-gradient(circle, #ff9e5810, transparent 68%);
+  }
+  .cat-accent-bar {
+    flex: 0 0 2px;
+    height: 2px;
+    background: linear-gradient(90deg, #ffa36b 0%, #f7c6a8 28%, #ffa36b33 72%, transparent);
+  }
+
+  .cat-head {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    min-height: 91px;
+    padding: 15px 17px;
+    border-bottom: 1px solid var(--cat-border);
+    background: linear-gradient(130deg, #20313b 0%, #172631 57%, #16242d 100%);
+  }
+  .head-avatar {
+    flex: 0 0 48px;
+    width: 48px;
+    height: 48px;
+    display: grid;
+    place-items: center;
+    overflow: hidden;
+    border-radius: 14px;
+    border: 1px solid #ffffff21;
+    background: radial-gradient(circle at 50% 65%, #31434b 0%, #10202b 80%);
+    box-shadow: inset 0 1px 4px #ffffff12;
+  }
+  /* Уменьшенная голова: уши и антенна полностью помещаются в рамку */
+  .head-avatar img {
+    display: block;
+    width: 38px;
+    height: 38px;
+    max-width: none;
+    object-fit: contain;
+  }
+  .head-copy { flex: 1; min-width: 0; }
+  .head-kicker {
+    margin-bottom: 6px;
+    color: var(--cat-accent);
+    font: 600 9px/1.25 ui-monospace, SFMono-Regular, Menlo, monospace;
+    letter-spacing: .15em;
+  }
+  .head-copy h2 {
+    margin: 0;
+    color: #faf9f4;
+    font: 750 19px/1.1 ui-monospace, SFMono-Regular, Menlo, monospace;
+    letter-spacing: -.055em;
+  }
+  .head-version { color: #81929b; font-size: 11px; font-weight: 500; letter-spacing: 0; }
+  .head-copy p {
+    display: flex;
+    align-items: center;
+    gap: 7px;
+    margin: 7px 0 0;
+    color: #b2c0c7;
+    font-size: 9px;
+    letter-spacing: .035em;
+  }
+  .status-dot { flex: 0 0 6px; width: 6px; height: 6px; border-radius: 50%; background: #b5d7a6; box-shadow: 0 0 10px #b5d7a680; }
+  .cat-close {
+    display: grid;
+    place-items: center;
+    flex: 0 0 35px;
+    width: 35px;
+    height: 35px;
+    align-self: flex-start;
+    border: 1px solid #ffffff25;
+    border-radius: 11px;
+    background: #ffffff08;
+    color: #d4e0e0;
+    cursor: pointer;
+    transition: background .2s, border-color .2s, transform .2s;
+  }
+  .cat-close:hover { border-color: #ffa36b88; background: #ffffff15; transform: rotate(90deg); }
+
+  .cat-conversation {
+    flex: 1;
+    min-height: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 15px;
+    overflow-y: auto;
+    overscroll-behavior: contain;
+    padding: 24px 18px;
+    background: radial-gradient(ellipse 170px 230px at 100% 0, #34465335, transparent 78%), #0d1923;
+    scrollbar-color: #495d67 #0d1923;
+  }
+  .chat-intro {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 11px;
+    align-self: stretch;
+    margin: 0 0 7px;
+    color: #abb8b8;
+    text-align: center;
+    font: 600 10px/1.4 ui-monospace, SFMono-Regular, Menlo, monospace;
+    letter-spacing: .11em;
+  }
+  .chat-intro-line { max-width: 52px; height: 1px; flex: 1; background: #71817f45; }
+  .cat-conversation :global(.chat-message) {
+    max-width: 90%;
+    padding: 16px 17px;
+    border-radius: 16px;
+    font-size: 13px;
+    line-height: 1.65;
+    white-space: pre-wrap;
+    overflow-wrap: anywhere;
+    box-shadow: 0 10px 28px #0002;
+  }
+  .cat-conversation :global(.chat-message.is-bot) {
+    color: #f1f4f2;
+    border: 1px solid #a5c1be20;
+    border-bottom-left-radius: 5px;
+    background: linear-gradient(135deg, #243a45, #20323d);
+  }
+  .cat-conversation :global(.chat-message.is-user) {
+    color: #18242c;
+    background: #ffa36b;
+    border-bottom-right-radius: 5px;
+    align-self: flex-end;
+  }
+
+  .cat-topics {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 9px;
+    width: 100%;
+    margin-top: 5px;
+  }
+  .cat-topics button {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    min-width: 0;
+    min-height: 54px;
+    padding: 11px 12px;
+    border-radius: 13px;
+    border: 1px solid #59717b7d;
+    background: linear-gradient(145deg, #1c303c, #182a35);
+    color: #faf9f4;
+    text-align: left;
+    font-size: 12px; font-weight: 500; line-height: 1.3; font-family: inherit;
+    cursor: pointer;
+    transition: border-color .18s, background .18s, transform .18s;
+  }
+  .cat-topics button span:first-child { flex: 0 0 16px; color: #ffa36b; font-size: 16px; font-family: ui-monospace, monospace; }
+  .cat-topics button span:last-child { margin-left: auto; color: #ffa36b; }
+  .cat-topics button:hover { border-color: #ffa36b; background: #263d49; transform: translateY(-2px); }
+  .cat-topics button:active { transform: scale(.98); }
+  .cat-conversation :global(.cat-action) {
+    display: inline-flex;
+    align-items: center;
+    padding: 10px 13px;
+    border-radius: 11px;
+    border: 1px solid #ffa36b8e;
+    background: #ffa36b20;
+    color: #ffd0a9;
+    text-decoration: none;
+    font-size: 12px;
+    font-weight: 700;
+  }
+  .cat-conversation :global(.cat-action:hover) { background: #ffa36b2e; }
+
+  .cat-bottom {
+    flex: 0 0 auto;
+    padding: 13px 14px 13px;
+    border-top: 1px solid var(--cat-border);
+    background: linear-gradient(145deg, #1c2d38, #162630);
+  }
+  .cat-compose {
+    display: flex;
+    align-items: center;
+    gap: 9px;
+    margin: 0;
+    padding: 5px 5px 5px 13px;
+    border: 1px solid #78919757;
+    border-radius: 15px;
+    background: #0c1923;
+    transition: border-color .2s, box-shadow .2s;
+  }
+  .cat-compose:focus-within { border-color: #ffa36b; box-shadow: 0 0 0 3px #ffa36b17; }
+  .cat-compose input {
+    flex: 1;
+    min-width: 0;
+    min-height: 38px;
+    border: 0;
+    outline: 0;
+    background: transparent;
+    color: #faf9f4;
+    font-size: 13px; font-weight: 400; line-height: 1.5; font-family: inherit;
+  }
+  .cat-compose input::placeholder { color: #91a3ac; }
+  .cat-compose button {
+    display: grid;
+    place-items: center;
+    flex: 0 0 41px;
+    width: 41px;
+    height: 41px;
+    border: 0;
+    border-radius: 11px;
+    background: #ffa36b;
+    color: #13232b;
+    cursor: pointer;
+    transition: background .2s, transform .2s;
+  }
+  .cat-compose button:hover { background: #ffc19a; transform: translateY(-1px); }
+  .cat-notice { margin: 9px 3px 0; color: #a9b7bf; text-align: center; font-size: 10px; line-height: 1.4; }
+  .hirda-cat button:focus-visible, .hirda-cat a:focus-visible, .hirda-cat input:focus-visible { outline: 2px solid #ffa36b; outline-offset: 3px; }
+  .sr-only { position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip: rect(0,0,0,0); white-space: nowrap; border: 0; }
+
+  @keyframes backdrop-in { from { opacity: 0; } to { opacity: 1; } }
+  @keyframes panel-rise { from { opacity: 0; transform: translateY(22px) scale(.97); } to { opacity: 1; transform: translateY(0) scale(1); } }
+  @keyframes bubble-in { from { opacity: 0; transform: translateY(10px) scale(.96); } to { opacity: 1; transform: none; } }
+  @keyframes cat-idle {
+    0%, 100% { transform: translateY(0) rotate(0deg); }
+    18% { transform: translateY(-5px) rotate(-1.5deg); }
+    25% { transform: translateY(-7px) rotate(2deg); }
+    30% { transform: translateY(-2px) rotate(0deg); }
+    60% { transform: translateY(-4px); }
+    70% { transform: translateY(-8px) rotate(-2deg); }
+    78% { transform: translateY(0); }
+  }
+  @keyframes cat-pulse { 0%, 100% { opacity: .4; transform: scale(.86); } 50% { opacity: .9; transform: scale(1.15); } }
+  @keyframes cat-sparkle { 0%, 12%, 88%, 100% { opacity: 0; transform: scale(.5); } 18%, 24% { opacity: 1; transform: scale(1); } 28% { opacity: 0; transform: scale(.6); } }
+
+  @media (max-width: 600px) {
+    .hirda-cat { right: 9px; bottom: calc(8px + env(safe-area-inset-bottom)); }
+    .cat-launcher { width: 80px; height: 86px; }
+    .cat-bubble { right: 0; bottom: calc(100% + 20px); width: min(246px, calc(100vw - 28px)); padding: 14px 38px 15px 16px; }
+    .cat-panel {
+      position: fixed;
+      right: 11px;
+      bottom: calc(97px + env(safe-area-inset-bottom));
+      width: calc(100vw - 22px);
+      height: min(650px, calc(100dvh - 160px - env(safe-area-inset-bottom)));
+      min-height: 260px;
+      border-radius: 22px;
+    }
+    .cat-head { min-height: 85px; padding: 13px 14px; }
+    .cat-conversation { padding: 20px 15px; }
+    .head-avatar { flex-basis: 45px; width: 45px; height: 45px; }
+    .head-avatar img { width: 35px; height: 35px; }
+  }
+  /* 16px предотвращают автоматический зум поля ввода в iOS. */
+  @media (max-width: 600px) {
+    .cat-compose input { font-size: 16px; }
+    .has-keyboard .cat-panel {
+      top: calc(var(--cat-visible-top, 0px) + 8px);
+      bottom: auto;
+      height: calc(var(--cat-visible-height, 100dvh) - 16px);
+      min-height: 0;
+    }
+    .has-keyboard .cat-head { min-height: 64px; padding-block: 8px; flex-shrink: 0; }
+    .has-keyboard .cat-bottom { padding-block: 8px; flex-shrink: 0; }
+    .has-keyboard .cat-conversation { padding-block: 12px; }
+    .has-keyboard .cat-launcher { visibility: hidden; }
+  }
+  .cat-conversation > * { flex-shrink: 0; }
+  @media (max-width: 360px) {
+    .cat-topics { gap: 7px; }
+    .cat-topics button { font-size: 11px; padding: 9px; }
+    .head-kicker { font-size: 8px; }
+  }
+  @media (max-height: 550px) {
+    .hirda-cat:not(.has-keyboard) .cat-panel { height: calc(100dvh - 108px - env(safe-area-inset-bottom)); min-height: 180px; }
+    .cat-head { min-height: 67px; padding-block: 9px; }
+    .cat-conversation { padding-block: 14px; }
+    .cat-bottom { padding-block: 8px; }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .cat-backdrop, .cat-launcher, .launcher-glow, .cat-spark, .cat-bubble, .cat-panel { animation: none !important; }
+    .cat-close, .cat-topics button, .cat-compose button { transition: none !important; }
+  }
+</style>

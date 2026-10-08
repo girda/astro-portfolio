@@ -110,7 +110,7 @@
   gap: 16px;
   width: max-content;
 }
-.hero-actions a {
+.hero-actions :is(a, button) {
   min-height: 50px;
   padding: 14px 23px;
   border-radius: 7px;
@@ -131,7 +131,7 @@
   border: 1px solid #d1d0c9;
   background: #24292c50;
 }
-.hero-actions a:hover {
+.hero-actions :is(a, button):hover {
   transform: translateY(-3px);
 }
 .primary:hover {
@@ -236,7 +236,7 @@
     gap: 10px;
     width: 100%;
   }
-  .hero-actions a {
+  .hero-actions :is(a, button) {
     font-size: 13px;
     padding: 13px 15px;
     gap: 12px;

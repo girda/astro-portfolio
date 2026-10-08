@@ -1,3 +1,4 @@
+import { heroCopy } from "../data/hero";
 import type { ProjectId } from "../data/projects";
 export const languages = ["de", "en"] as const;
 
@@ -31,9 +32,8 @@ interface Translation {
 
 export const translations = {
   de: {
-    pageTitle: "HIRDA. — Webdesign & Entwicklung",
-    description:
-      "Individuelle Websites für Selbstständige und kleine Unternehmen.",
+    pageTitle: heroCopy.de.title,
+    description: heroCopy.de.intro,
     navigation: "Projekte ansehen",
     eyebrow: "WEBDESIGN & ENTWICKLUNG",
     headline: ["Dein Unternehmen.", "Ein klarer Auftritt."],
@@ -75,7 +75,7 @@ export const translations = {
       { title: "Website-Redesign", description: "Ein neuer Look und eine bessere Nutzerführung für deine bestehende Website — auf dem Smartphone genauso wie am Desktop." },
       { title: "Weiterentwicklung & Pflege", description: "Zwei Korrekturrunden sind in den Website-Paketen enthalten. Danach unterstütze ich dich bei neuen Inhalten und technischen Updates — einzeln oder mit monatlicher Betreuung nach Vereinbarung." },
       { title: "Website mit CMS", description: "Texte, Bilder und Preise selbst bearbeiten — mit einem passenden Redaktionssystem und persönlicher Einweisung." },
-      { title: "Individuelle Funktionen", description: "Mehrsprachigkeit, digitale Speisekarten oder Schnittstellen — passend zu deinen Abläufen und nach vereinbartem Umfang." },
+      { title: "KI-Agenten & Automatisierung", description: "Digitale Assistenten, die Fragen beantworten und bei Abläufen helfen. Mein HIRDA CAT zeigt dir eine erste UI-Demo — Funktionen und Anbindungen entwickeln wir passend zu deinem Unternehmen." },
     ],
   },
 
@@ -140,9 +140,8 @@ export const translations = {
   },
 
   en: {
-    pageTitle: "HIRDA. — Web Design & Development",
-    description:
-      "Custom websites for independent professionals and small businesses.",
+    pageTitle: heroCopy.en.title,
+    description: heroCopy.en.intro,
     navigation: "View projects",
     eyebrow: "WEB DESIGN & DEVELOPMENT",
     headline: ["Your business.", "A clear presence."],
@@ -184,7 +183,7 @@ export const translations = {
       { title: "Website redesign", description: "A fresh look and easier navigation for your existing website — on mobile and desktop alike." },
       { title: "Development & maintenance", description: "Website packages include two revision rounds. Afterwards, I can help with new content and technical updates — as individual tasks or agreed monthly maintenance." },
       { title: "Website with CMS", description: "Edit text, images and prices yourself — with a suitable content management system and a personal introduction." },
-      { title: "Custom features", description: "Multiple languages, digital menus or integrations — tailored to your workflow and an agreed scope." },
+      { title: "AI agents & automation", description: "Digital assistants that answer questions and help with workflows. My HIRDA CAT is an initial UI demo — we tailor the features and integrations to your business." },
     ],
   },
 } satisfies Record<Language, Translation>;

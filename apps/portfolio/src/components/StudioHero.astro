@@ -1,4 +1,5 @@
 ---
+import { heroCopy } from "../data/hero";
 import MenuIcon from "./MenuIcon.astro";
 import "../styles/studio-hero.css";
 import "../styles/hero-refinement.css";
@@ -10,26 +11,11 @@ interface Props {
   lang: "de" | "ru" | "en";
 }
 const { lang } = Astro.props;
-const t =
-  lang === "en"
-    ? {
-        lines: ["Your business.", "Your website.", "Your style."],
-        intro:
-          "I’m Artem. I bring your business online — with thoughtful design, clear structure and attention to detail.",
-        work: "View projects",
-        about: "About me",
-        eyebrow: "WEB DESIGN & DEVELOPMENT",
-        note: "Design. Development. Personality.",
-      }
-    : {
-        lines: ["Dein Business.", "Deine Website.", "Dein Stil."],
-        intro:
-          "Ich bin Artem. Ich bringe dein Unternehmen ins Web — mit durchdachtem Design, klarer Struktur und Liebe zum Detail.",
-        work: "Projekte ansehen",
-        about: "Über mich",
-        eyebrow: "WEBDESIGN & ENTWICKLUNG",
-        note: "Design. Entwicklung. Persönlichkeit.",
-      };
+const t = heroCopy[lang === "en" ? "en" : "de"];
+const animatedLines = t.lines.map((text, index) => ({
+  text,
+  offset: t.lines.slice(0, index).join("").length,
+}));
 const base = import.meta.env.BASE_URL.replace(/\/$/, "");
 ---
 
@@ -99,7 +85,6 @@ const base = import.meta.env.BASE_URL.replace(/\/$/, "");
           <a class="menu-contact" href="#contact"><MenuIcon name="contact" /><span>{lang === "en" ? "Let’s talk" : "Lass uns sprechen"}</span></a>
         <div class="menu-bottom">
           <span>{t.eyebrow}</span>
-          <span>DE / EN</span>
         </div>
       </nav>
     </details>
@@ -107,7 +92,7 @@ const base = import.meta.env.BASE_URL.replace(/\/$/, "");
   <div class="hero-copy container">
     <p class="hero-eyebrow">{t.eyebrow}</p>
     <h1 id="hero-title" aria-label={t.lines.join(" ")}>
-      {t.lines.map((line, i) => (
+      {animatedLines.map(({ text: line, offset }, i) => (
         <span
           class:list={["line", { accent: i > 1 }]}
           style={`--delay:${i * 100}ms`}
@@ -116,7 +101,7 @@ const base = import.meta.env.BASE_URL.replace(/\/$/, "");
             <span
               class="typed-letter"
               aria-hidden="true"
-              style={`--type-delay:${500 + (t.lines.slice(0, i).join("").length + j) * 60}ms`}
+              style={`--type-delay:${500 + (offset + j) * 60}ms`}
             >
               {letter === " " ? "\u00a0" : letter}
             </span>
@@ -129,31 +114,32 @@ const base = import.meta.env.BASE_URL.replace(/\/$/, "");
       <a class="primary" href="#projects">
         {t.work}
       </a>
-      <a class="secondary" href="#about">
-        {t.about}
-      </a>
+      <button class="secondary agent-demo-trigger" type="button" data-open-agent hidden>
+        {lang === "en" ? "Explore the AI demo" : "KI-Demo entdecken"}
+      </button>
     </div>
   </div>
   <div class="hero-foot container">
     <span>{t.note}</span>
-    <a href="#projects" aria-label={t.work}>
-      <svg
-        class="arrow-icon"
-        width="20"
-        height="20"
-        viewBox="0 0 24 24"
-        fill="none"
-        stroke="currentColor"
-        stroke-width="1.5"
-        stroke-linecap="round"
-        stroke-linejoin="round"
-        aria-hidden="true"
-      >
-        <path d="M12 4v16M5 13l7 7 7-7" />
-      </svg>
-    </a>
+    <span class="hero-foot-spacer" aria-hidden="true"></span>
   </div>
 </section>
 <script>
   import "../scripts/mobile-menu";
+  const agentLauncher = document.querySelector<HTMLButtonElement>('[data-cat-launcher]');
+  const agentDemo = document.querySelector<HTMLButtonElement>('[data-open-agent]');
+  if (agentLauncher && agentDemo) {
+    agentDemo.hidden = false;
+    agentDemo.addEventListener('click', () => {
+      document.querySelector('[data-hirda-cat]')?.dispatchEvent(new CustomEvent('hirda:open-chat', { detail: agentDemo }));
+    });
+  }
 </script>
+
+<style> .hero-foot-spacer { display:block; width:44px; height:44px; flex-shrink:0; margin-left:auto; } @media(max-width:760px) { .hero-foot-spacer { height:32px; } } </style>
+
+<style>
+.agent-demo-trigger { display:inline-flex; align-items:center; justify-content:center; font:inherit; color:inherit; cursor:pointer; }
+.agent-demo-trigger[hidden] { display:none; }
+.agent-demo-trigger:focus-visible { outline:2px solid var(--brand-accent); outline-offset:4px; }
+</style>

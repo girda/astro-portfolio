@@ -2,6 +2,8 @@
 import "../styles/atmosphere.css";
 import "../styles/typography.css";
 import "../styles/rhythm.css";
+import { heroCopy } from "../data/hero";
+import ReturnVisit from "../components/ReturnVisit.astro";
 import ScrollHeadings from "../components/ScrollHeadings.astro";
 import SectionMotion from "../components/SectionMotion.astro";
 interface Props {
@@ -10,7 +12,16 @@ interface Props {
   lang?: "de" | "ru" | "en";
 }
 
-const { title, description, lang = "de" } = Astro.props;
+const { lang = "de" } = Astro.props;
+const locale = lang === "en" ? "en" : "de";
+const copy = heroCopy[locale];
+const title = Astro.props.title;
+const description = Astro.props.description;
+// Абсолютные адреса нужны ботам мессенджеров; localhost в метаданные не попадает.
+const origin = Astro.site ?? new URL("https://girda.github.io");
+const base = import.meta.env.BASE_URL;
+const canonical = new URL(`${base}${locale === "en" ? "en/" : ""}`, origin).href;
+const image = new URL(`${base}social/hirda-${locale}-2026.png`, origin).href;
 ---
 
 <!doctype html>
@@ -21,34 +32,23 @@ const { title, description, lang = "de" } = Astro.props;
     <meta name="description" content={description} />
     <link rel="icon" type="image/svg+xml" href={`${import.meta.env.BASE_URL}favicon.svg`} />
     <title>{title}</title>
-    <script is:inline>
-      (() => {
-        const key = 'hirda:last-visit';
-        const hour = 60 * 60 * 1000;
-        let reset = false;
-        const registerVisit = () => {
-          try {
-            const now = Date.now();
-            const previous = Number(localStorage.getItem(key));
-            reset = previous > 0 && now - previous >= hour;
-            localStorage.setItem(key, String(now));
-            if (reset) {
-              history.replaceState(history.state, '', location.pathname + location.search);
-              history.scrollRestoration = 'manual';
-            }
-          } catch { /* Сайт работает и при запрещённом localStorage. */ }
-        };
-        registerVisit();
-        addEventListener('pageshow', event => {
-          if (event.persisted) registerVisit();
-          if (reset) {
-            window.scrollTo({ top: 0, left: 0, behavior: 'instant' });
-            history.scrollRestoration = 'auto';
-            reset = false;
-          }
-        });
-      })();
-    </script>
+    <ReturnVisit />
+    <link rel="canonical" href={canonical} />
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content="HIRDA" />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:url" content={canonical} />
+    <meta property="og:locale" content={locale === "en" ? "en_GB" : "de_DE"} />
+    <meta property="og:image" content={image} />
+    <meta property="og:image:type" content="image/png" />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:image:alt" content={`HIRDA — ${copy.lines.join(" ")}`} />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content={title} />
+    <meta name="twitter:description" content={description} />
+    <meta name="twitter:image" content={image} />
   </head>
 
   <body>

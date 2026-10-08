@@ -144,3 +144,6 @@ section.studio-hero .mobile-menu summary:focus-visible {
  section.studio-hero .menu-links a { padding:11px 14px; font-size:23px; }
  section.studio-hero[data-studio] .hero-nav .mobile-menu nav.menu-panel { padding-top:76px; gap:14px; }
 }
+
+/* Меню временно скрывает виджет, не сбрасывая состояние его демо-чата. */
+body.menu-open [data-hirda-cat] { visibility:hidden; }

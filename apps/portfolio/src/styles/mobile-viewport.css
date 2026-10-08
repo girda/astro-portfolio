@@ -9,7 +9,7 @@
   section.studio-hero .hero-eyebrow { font-size: 9px; margin-bottom: clamp(10px, 1.8svh, 18px); }
   section.studio-hero h1 { font-size: clamp(24px, min(7.3vw, 4.1svh), 44px); line-height: 1.13; }
   section.studio-hero .hero-intro { font-size: clamp(12px, 1.65svh, 15px); line-height: 1.45; margin-block: clamp(10px, 1.8svh, 18px); }
-  section.studio-hero .hero-actions a { min-height: 44px; padding: 10px 14px; font-size: 11px; }
+  section.studio-hero .hero-actions :is(a, button) { min-height: 44px; padding: 10px 14px; font-size: 11px; }
   /* Размер всей сцены меняется равномерно: лишнее обрезается, а не растягивается. */
   section.studio-hero .art-plane {
     inset: auto auto clamp(0px, calc(750px - 100svh), 100px) 50%;
