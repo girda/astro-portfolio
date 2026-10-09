@@ -5,9 +5,9 @@
   z-index: -1;
   pointer-events: none;
   background:
-    radial-gradient(ellipse 75% 18% at 105% 36%, #bb794334, transparent 75%),
+    radial-gradient(ellipse 75% 18% at 105% 36%, color-mix(in srgb, var(--brand-accent) 20.39%, transparent), transparent 75%),
     radial-gradient(ellipse 65% 21% at -10% 64%, #82906126, transparent 76%),
-    radial-gradient(ellipse 65% 20% at 95% 95%, #c3864e30, transparent 75%),
+    radial-gradient(ellipse 65% 20% at 95% 95%, color-mix(in srgb, var(--brand-accent) 18.82%, transparent), transparent 75%),
     linear-gradient(180deg, #22282c 20%, #24282a 50%, #202625 78%, #25282a);
 }
 
@@ -57,7 +57,7 @@ body {
   left: 50%;
   width: 100vw;
   transform: translateX(-50%);
-  background: radial-gradient(ellipse at 90% 50%, #e3ad7620, transparent 68%);
+  background: radial-gradient(ellipse at 90% 50%, color-mix(in srgb, var(--brand-accent) 12.55%, transparent), transparent 68%);
   pointer-events: none;
   z-index: -1;
 }
@@ -70,12 +70,12 @@ body {
   transform: translateY(-50%);
   font: 200 clamp(80px, 14vw, 190px)/1 monospace;
   letter-spacing: -0.12em;
-  color: #e5b58710;
+  color: color-mix(in srgb, var(--brand-accent) 6.27%, transparent);
   pointer-events: none;
   z-index: -1;
 }
 
 ::selection {
-  background: #f6b17b;
+  background: var(--brand-accent);
   color: #22282c;
 }

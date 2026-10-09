@@ -135,7 +135,7 @@
   transform: translateY(-3px);
 }
 .primary:hover {
-  background: #ffc395;
+  background: var(--brand-accent);
 }
 .hero-foot {
   position: absolute;

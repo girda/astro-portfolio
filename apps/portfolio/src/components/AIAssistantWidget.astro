@@ -63,7 +63,7 @@ const avatarSrc = `${import.meta.env.BASE_URL}ai/face-default.webp`;
   <div class="cat-backdrop" data-cat-backdrop hidden aria-hidden="true"></div>
   <div class="cat-bubble" data-cat-bubble hidden>
     <svg class="bubble-shape" viewBox="0 0 300 160" preserveAspectRatio="none" aria-hidden="true"><path d="M40 132C12 135 0 119 4 96C-4 76 5 55 24 49C20 25 43 10 67 16C79-3 112-4 132 10C154-3 183 1 196 17C224 4 252 18 254 38C283 36 303 58 294 82C307 106 287 131 265 130C245 150 216 141 204 136C184 149 154 144 139 136C113 149 85 142 77 134C61 141 49 139 40 132Z"/></svg>
-    <button class="bubble-text" type="button" data-cat-bubble-open aria-label={`${copy.open}: ${copy.greeting}`}><span class="bubble-code" aria-hidden="true">&lt;hello /&gt;</span><span data-cat-greeting>{copy.greeting}</span></button>
+    <button class="bubble-text" type="button" data-cat-bubble-open aria-label={`${copy.open}: ${copy.greeting}`}><span data-cat-greeting>{copy.greeting}</span></button>
     <button class="bubble-close" type="button" data-cat-dismiss aria-label={copy.dismiss}><svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" aria-hidden="true"><path d="m6 6 12 12M18 6 6 18"/></svg></button>
   </div>
 
@@ -430,7 +430,7 @@ const avatarSrc = `${import.meta.env.BASE_URL}ai/face-default.webp`;
   .cat-conversation :global(.chat-message) { white-space: pre-wrap; overflow-wrap: anywhere; }
 
   .hirda-cat {
-    --cat-accent: #ffa36b;
+    --cat-accent: var(--brand-accent);
     --cat-muted: #a9b6bc;
     --cat-border: rgba(215, 233, 233, .14);
     position: fixed;
@@ -483,7 +483,7 @@ const avatarSrc = `${import.meta.env.BASE_URL}ai/face-default.webp`;
     bottom: 0;
     left: 26px;
     border-radius: 50%;
-    background: #ffa36975;
+    background: color-mix(in srgb, var(--brand-accent) 45.88%, transparent);
     filter: blur(11px);
     animation: cat-pulse 2.6s ease-in-out infinite;
   }
@@ -493,8 +493,8 @@ const avatarSrc = `${import.meta.env.BASE_URL}ai/face-default.webp`;
     top: 0;
     right: 10px;
     font-size: 14px;
-    color: #ffbd8e;
-    filter: drop-shadow(0 0 5px #ffa369);
+    color: var(--brand-accent);
+    filter: drop-shadow(0 0 5px var(--brand-accent));
     pointer-events: none;
     animation: cat-sparkle 5.8s infinite;
   }
@@ -504,7 +504,6 @@ const avatarSrc = `${import.meta.env.BASE_URL}ai/face-default.webp`;
   .bubble-shape { position:absolute; inset:0; width:100%; height:100%; fill:#f6f2e9; pointer-events:none; }
   .cat-bubble::after { content:''; position:absolute; right:calc(var(--head-x) - 8px); bottom:-13px; width:27px; height:31px; background:#f6f2e9; clip-path:polygon(0 0,100% 0,78% 100%); transform:rotate(-15deg); }
   .bubble-text { position:relative; display:block; width:100%; border:0; padding:0; background:transparent; color:inherit; text-align:left; font:500 12px/1.55 var(--font-code); cursor:pointer; }
-  .bubble-code { display:block; margin-bottom:7px; color:#87613f; font-size:10px; }
   [data-cat-greeting] { display:block; }
   .bubble-close { position:absolute; top:-12px; right:0; display:grid; place-items:center; width:44px; height:44px; border:0; border-radius:50%; color:#f6f2e9; background:#30383b; box-shadow:0 4px 14px #0003; cursor:pointer; }
   .bubble-close svg { transition:transform .35s ease, stroke-width .25s; }
@@ -542,13 +541,13 @@ const avatarSrc = `${import.meta.env.BASE_URL}ai/face-default.webp`;
     width: 350px;
     height: 350px;
     pointer-events: none;
-    background: radial-gradient(circle, #ff9e5810, transparent 68%);
+    background: radial-gradient(circle, color-mix(in srgb, var(--brand-accent) 6.27%, transparent), transparent 68%);
   }
   .cat-accent-bar {
     display: none;
     flex: 0 0 2px;
     height: 2px;
-    background: linear-gradient(90deg, #ffa36b 0%, #f7c6a8 28%, #ffa36b33 72%, transparent);
+    background: linear-gradient(90deg, var(--brand-accent) 0%, var(--brand-accent) 28%, color-mix(in srgb, var(--brand-accent) 20.00%, transparent) 72%, transparent);
   }
 
   .cat-head {
@@ -619,7 +618,7 @@ const avatarSrc = `${import.meta.env.BASE_URL}ai/face-default.webp`;
     cursor: pointer;
     transition: background .2s, border-color .2s, transform .2s;
   }
-  .cat-close:hover { border-color: #ffa36b88; background: #ffffff15; transform: rotate(90deg); }
+  .cat-close:hover { border-color: color-mix(in srgb, var(--brand-accent) 53.33%, transparent); background: #ffffff15; transform: rotate(90deg); }
 
   .cat-conversation {
     flex: 1;
@@ -665,7 +664,7 @@ const avatarSrc = `${import.meta.env.BASE_URL}ai/face-default.webp`;
   }
   .cat-conversation :global(.chat-message.is-user) {
     color: #18242c;
-    background: #ffa36b;
+    background: var(--brand-accent);
     border-bottom-right-radius: 5px;
     align-self: flex-end;
   }
@@ -694,8 +693,8 @@ const avatarSrc = `${import.meta.env.BASE_URL}ai/face-default.webp`;
     transition: border-color .18s, background .18s, transform .18s;
   }
   .cat-topics button svg { flex-shrink: 0; color: #cbd5d0; }
-  .cat-topics button span:first-child { flex: 0 0 16px; color: #ffa36b; font-size: 16px; font-family: ui-monospace, monospace; }
-  .cat-topics button span:last-child { margin-left: auto; color: #ffa36b; }
+  .cat-topics button span:first-child { flex: 0 0 16px; color: var(--brand-accent); font-size: 16px; font-family: ui-monospace, monospace; }
+  .cat-topics button span:last-child { margin-left: auto; color: var(--brand-accent); }
   .cat-topics button:hover { border-color: #a7bab4; background: #394244; transform: translateY(-2px); }
   .cat-topics button:active { transform: scale(.98); }
   .cat-conversation :global(.cat-action) {
@@ -703,14 +702,14 @@ const avatarSrc = `${import.meta.env.BASE_URL}ai/face-default.webp`;
     align-items: center;
     padding: 10px 13px;
     border-radius: 11px;
-    border: 1px solid #ffa36b8e;
-    background: #ffa36b20;
-    color: #ffd0a9;
+    border: 1px solid color-mix(in srgb, var(--brand-accent) 55.69%, transparent);
+    background: color-mix(in srgb, var(--brand-accent) 12.55%, transparent);
+    color: var(--brand-accent);
     text-decoration: none;
     font-size: 12px;
     font-weight: 700;
   }
-  .cat-conversation :global(.cat-action:hover) { background: #ffa36b2e; }
+  .cat-conversation :global(.cat-action:hover) { background: color-mix(in srgb, var(--brand-accent) 18.04%, transparent); }
 
   .cat-bottom {
     flex: 0 0 auto;
@@ -749,12 +748,12 @@ const avatarSrc = `${import.meta.env.BASE_URL}ai/face-default.webp`;
     height: 41px;
     border: 0;
     border-radius: 11px;
-    background: #ffa36b;
+    background: var(--brand-accent);
     color: #13232b;
     cursor: pointer;
     transition: background .2s, transform .2s;
   }
-  .cat-compose button:hover { background: #ffc19a; transform: translateY(-1px); }
+  .cat-compose button:hover { background: var(--brand-accent); transform: translateY(-1px); }
   .hirda-cat button:focus-visible, .hirda-cat a:focus-visible { outline: 2px solid #c1cfcc; outline-offset: 3px; }
   .cat-panel:focus, .hirda-cat input:focus-visible { outline: none; }
   .sr-only { position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip: rect(0,0,0,0); white-space: nowrap; border: 0; }
@@ -824,4 +823,6 @@ const avatarSrc = `${import.meta.env.BASE_URL}ai/face-default.webp`;
     .bubble-close svg { transition:none; }
     .cat-close, .cat-topics button, .cat-compose button { transition: none !important; }
   }
+.cat-compose button, .cat-conversation :global(.chat-message.is-user) { color: #fff; }
+.cat-compose button:hover { background: var(--brand-accent-hover); }
 </style>

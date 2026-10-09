@@ -71,13 +71,13 @@ body.menu-open {
     letter-spacing: -0.035em;
   }
   .menu-links a span {
-    color: #efbd8f;
+    color: var(--brand-accent);
     font: 11px/1 var(--font-code);
     letter-spacing: 0;
   }
   .menu-links a:hover,
   .menu-links a:focus-visible {
-    color: #efbd8f;
+    color: var(--brand-accent);
   }
   .menu-bottom {
     display: flex;
@@ -135,7 +135,7 @@ section.studio-hero .mobile-menu summary:focus-visible {
   section.studio-hero .menu-links a { align-items:center; padding:16px; border:1px solid #ffffff0d; border-radius:14px; background:linear-gradient(120deg,#ffffff06,transparent); gap:18px; transition:background .25s,border-color .25s; }
   section.studio-hero .menu-links a .menu-label { color:inherit; font:inherit; letter-spacing:inherit; }
   .menu-icon { width:24px; height:24px; flex-shrink:0; color:var(--brand-accent); }
-  section.studio-hero .menu-links a:hover, section.studio-hero .menu-links a:focus-visible { background:#ffad6810; border-color:#ffad6840; }
+  section.studio-hero .menu-links a:hover, section.studio-hero .menu-links a:focus-visible { background:color-mix(in srgb, var(--brand-accent) 6.27%, transparent); border-color:color-mix(in srgb, var(--brand-accent) 25.10%, transparent); }
   .menu-contact { display:flex; align-items:center; gap:16px; font:500 16px/1.4 var(--font-body); color:var(--brand-accent); }
   section.studio-hero[data-studio] .hero-nav .mobile-menu nav.menu-panel { gap:20px; }
   .menu-bottom { padding-top:8px; }

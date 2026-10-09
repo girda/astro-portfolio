@@ -36,5 +36,5 @@ section.studio-hero .wordmark-name { display: inline-flex; }
   }
 }
 @media (hover: hover) and (pointer: fine) {
-  section.studio-hero .primary:hover { box-shadow: 0 6px 26px #f5a56830, inset 0 1px 0 #fff5; }
+  section.studio-hero .primary:hover { box-shadow: 0 6px 26px color-mix(in srgb, var(--brand-accent) 18.82%, transparent), inset 0 1px 0 #fff5; }
 }

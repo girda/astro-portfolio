@@ -64,8 +64,8 @@ const rows = pricing[en ? "en" : "de"];
   h2 { font-size: clamp(2rem, 4vw, 3rem); line-height: 1.15; margin: 0 0 16px; }
   .pricing-intro { color: #bdc4c0; max-width: 600px; margin: 0 0 32px; }
   .pricing-list { display: grid; gap: 10px; }
-  .price-item { border: 1px solid #ffffff16; border-radius: 14px; background: linear-gradient(115deg, #ffffff05, #efa56807); box-shadow: 0 5px 18px #0000000c; transition: border-color .25s, background .25s; }
-  .price-item.is-expanded { border-color: #f5a56855; background: linear-gradient(115deg, #ffffff06, #f5a5680d); }
+  .price-item { border: 1px solid #ffffff16; border-radius: 14px; background: linear-gradient(115deg, #ffffff05, color-mix(in srgb, var(--brand-accent) 2.75%, transparent)); box-shadow: 0 5px 18px #0000000c; transition: border-color .25s, background .25s; }
+  .price-item.is-expanded { border-color: color-mix(in srgb, var(--brand-accent) 33.33%, transparent); background: linear-gradient(115deg, #ffffff06, color-mix(in srgb, var(--brand-accent) 5.10%, transparent)); }
   summary { list-style: none; cursor: pointer; display: grid; grid-template-columns: minmax(0,1fr) minmax(150px,auto) 28px; gap: 40px; align-items: center; padding: 24px; border-radius: 14px; }
   summary::-webkit-details-marker { display: none; }
   summary:focus-visible { outline: 2px solid #c1cfcc; outline-offset: 3px; }

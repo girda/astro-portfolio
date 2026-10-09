@@ -1,5 +1,6 @@
 html:root {
-  --brand-accent: #f5a568;
+  --brand-accent: #b85c32;
+  --brand-accent-hover: #a6502b;
   --font-body: "Avenir Next", "Segoe UI", sans-serif;
   --font-code: "SFMono-Regular", Consolas, "Liberation Mono", monospace;
 }

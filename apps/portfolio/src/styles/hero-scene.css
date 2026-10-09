@@ -2,9 +2,9 @@
 .hero-scene canvas { display: block; width: 100%; height: 100%; }
 section.studio-hero.scene-ready { background: radial-gradient(ellipse at 82% 60%,#70503a33,transparent 58%); }
 .scene-ready .art-window { visibility: hidden; }
-.scene-toggle { position: absolute; right: 32px; bottom: 90px; width: 36px; height: 36px; border: 1px solid #ffffff30; border-radius: 50%; background: #22282cbb; color: #efbd8f; cursor: pointer; font: 14px var(--font-body); }
+.scene-toggle { position: absolute; right: 32px; bottom: 90px; width: 36px; height: 36px; border: 1px solid #ffffff30; border-radius: 50%; background: #22282cbb; color: var(--brand-accent); cursor: pointer; font: 14px var(--font-body); }
 .scene-toggle[hidden] { display: none; }
-.scene-toggle:focus-visible { outline: 2px solid #efbd8f; outline-offset: 4px; }
+.scene-toggle:focus-visible { outline: 2px solid var(--brand-accent); outline-offset: 4px; }
 @media(max-width:760px) {
  .hero-scene { top: auto; bottom: 35px; width: 100%; height: 52%; }
  .scene-toggle { right: 18px; bottom: 62px; width: 32px; height: 32px; }
