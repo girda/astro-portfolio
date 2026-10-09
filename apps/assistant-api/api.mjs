@@ -6,6 +6,8 @@ export class ApiError extends Error {
 export function validate(body) {
   if (!body || !['de', 'en', 'ru'].includes(body.lang) || !Array.isArray(body.messages) ||
       body.messages.length < 1 || body.messages.length > 11) throw new ApiError(400, 'invalid_request');
+  const mode = body.mode === undefined ? 'consult' : body.mode;
+  if (!['consult', 'demo', 'brief'].includes(mode)) throw new ApiError(400, 'invalid_request');
   const messages = body.messages.map((m, i) => {
     // Строго чередуем роли; system/developer из браузера не принимаются.
     if (!m || m.role !== (i % 2 === 0 ? 'user' : 'assistant') || typeof m.content !== 'string' ||
@@ -13,17 +15,17 @@ export function validate(body) {
     return { role: m.role, content: m.content.trim() };
   });
   if (messages.at(-1).role !== 'user' || messages.reduce((n, m) => n + m.content.length, 0) > 16000) throw new ApiError(400, 'invalid_request');
-  return { lang: body.lang, messages };
+  return { lang: body.lang, mode, messages };
 }
 export async function answer(body, { apiKey, model = 'gpt-4.1-mini', fetchImpl = fetch, timeoutMs = 20000 }) {
-  const { lang, messages } = validate(body);
+  const { lang, mode, messages } = validate(body);
   if (!apiKey) throw new ApiError(503, 'not_configured');
   let response;
   try {
     response = await fetchImpl('https://api.openai.com/v1/responses', {
       method: 'POST',
       headers: { Authorization: `Bearer ${apiKey}`, 'Content-Type': 'application/json' },
-      body: JSON.stringify({ model, instructions: instructions(lang), input: messages, max_output_tokens: 600, store: false }),
+      body: JSON.stringify({ model, instructions: instructions(lang, mode), input: messages, max_output_tokens: 600, store: false }),
       signal: AbortSignal.timeout(timeoutMs),
     });
   } catch { throw new ApiError(502, 'upstream_unavailable'); }

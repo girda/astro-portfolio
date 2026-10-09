@@ -48,3 +48,17 @@ test('HTTP origin, content-type, JSON, size and request limits', async () => {
     assert.equal(calls, 6);
   } finally { server.closeAllConnections(); await new Promise(resolve => server.close(resolve)); }
 });
+
+test('mode is validated and demo/brief instructions are selected server-side', async () => {
+  for (const mode of ['system', {}, null, '']) assert.throws(() => validate({ ...body, mode }));
+  assert.equal(validate(body).mode, 'consult');
+  for (const mode of ['consult', 'demo', 'brief']) {
+    await answer({ ...body, mode }, { apiKey: 'test', fetchImpl: async (_, opts) => {
+      const request = JSON.parse(opts.body);
+      assert.equal(request.instructions.includes('DEMO MODE:'), mode === 'demo');
+      assert.equal(request.instructions.includes('BRIEF MODE:'), mode === 'brief');
+      assert.match(request.instructions, /You are Pixel/);
+      return Response.json(output);
+    }});
+  }
+});
