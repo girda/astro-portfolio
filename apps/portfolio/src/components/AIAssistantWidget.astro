@@ -6,11 +6,11 @@ interface Props {
 const { lang = 'de' } = Astro.props;
 const copy = {
   de: {
-    greeting: 'Hi! Ich bin Artems KI-Assistent. Frag mich zu Projekten, Preisen oder Websites.',
-    title: 'HIRDA CAT',
+    greeting: 'Hi, ich bin Pixel — Artems KI-Kater. Du hast eine Idee? Ich bin ganz Ohr.',
+    title: 'Pixel',
     status: 'DIGITALER ASSISTENT · DEMO',
-    subtitle: 'WAS MÖCHTEST DU WISSEN?',
-    open: 'HIRDA CAT öffnen',
+    subtitle: 'KI-Assistent',
+    open: 'Pixel öffnen',
     close: 'Chat schließen',
     dismiss: 'Hinweis schließen',
     placeholder: 'Deine Frage an mich …',
@@ -20,14 +20,13 @@ const copy = {
     prices: 'Preise',
     services: 'Leistungen',
     contact: 'Kontakt',
-    disclaimer: 'Demo-Modus: Antworten sind noch nicht mit einer KI verbunden.',
   },
   ru: {
-    greeting: 'Привет! Я ИИ-помощник Артёма. Спроси меня о проектах, ценах или сайтах.',
-    title: 'HIRDA CAT',
+    greeting: 'Привет, я Pixel — ИИ-кот Артёма. Есть идея? Я весь во внимании.',
+    title: 'Pixel',
     status: 'ЦИФРОВОЙ ПОМОЩНИК · ДЕМО',
-    subtitle: 'ЧТО ТЕБЯ ИНТЕРЕСУЕТ?',
-    open: 'Открыть HIRDA CAT',
+    subtitle: 'ИИ-помощник',
+    open: 'Открыть Pixel',
     close: 'Закрыть чат',
     dismiss: 'Закрыть подсказку',
     placeholder: 'Твой вопрос …',
@@ -37,14 +36,13 @@ const copy = {
     prices: 'Цены',
     services: 'Услуги',
     contact: 'Контакты',
-    disclaimer: 'Демо-режим: ответы пока не подключены к ИИ.',
   },
   en: {
-    greeting: 'Hi! I’m Artem’s AI assistant. Ask me about projects, pricing or websites.',
-    title: 'HIRDA CAT',
+    greeting: 'Hi, I’m Pixel — Artem’s AI cat. Got an idea? I’m all ears.',
+    title: 'Pixel',
     status: 'DIGITAL ASSISTANT · DEMO',
-    subtitle: 'WHAT WOULD YOU LIKE TO KNOW?',
-    open: 'Open HIRDA CAT',
+    subtitle: 'AI assistant',
+    open: 'Open Pixel',
     close: 'Close chat',
     dismiss: 'Dismiss hint',
     placeholder: 'Ask me anything …',
@@ -54,7 +52,6 @@ const copy = {
     prices: 'Pricing',
     services: 'Services',
     contact: 'Contact',
-    disclaimer: 'Demo mode: responses are not connected to AI yet.',
   },
 }[lang];
 const robotSrc = `${import.meta.env.BASE_URL}ai/robot-cat.webp`;
@@ -65,8 +62,9 @@ const avatarSrc = `${import.meta.env.BASE_URL}ai/face-default.webp`;
   <!-- Закрывает фон, но чат остаётся отдельным виджетом. -->
   <div class="cat-backdrop" data-cat-backdrop hidden aria-hidden="true"></div>
   <div class="cat-bubble" data-cat-bubble hidden>
-    <button class="bubble-text" type="button" data-cat-bubble-open aria-label={copy.open}>{copy.greeting}</button>
-    <button class="bubble-close" type="button" data-cat-dismiss aria-label={copy.dismiss}>×</button>
+    <svg class="bubble-shape" viewBox="0 0 300 160" preserveAspectRatio="none" aria-hidden="true"><path d="M40 132C12 135 0 119 4 96C-4 76 5 55 24 49C20 25 43 10 67 16C79-3 112-4 132 10C154-3 183 1 196 17C224 4 252 18 254 38C283 36 303 58 294 82C307 106 287 131 265 130C245 150 216 141 204 136C184 149 154 144 139 136C113 149 85 142 77 134C61 141 49 139 40 132Z"/></svg>
+    <button class="bubble-text" type="button" data-cat-bubble-open aria-label={`${copy.open}: ${copy.greeting}`}><span class="bubble-code" aria-hidden="true">&lt;hello /&gt;</span><span data-cat-greeting>{copy.greeting}</span></button>
+    <button class="bubble-close" type="button" data-cat-dismiss aria-label={copy.dismiss}><svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" aria-hidden="true"><path d="m6 6 12 12M18 6 6 18"/></svg></button>
   </div>
 
   <button class="cat-launcher" type="button" data-cat-launcher aria-expanded="false" aria-controls="hirda-cat-panel" aria-label={copy.open}>
@@ -82,6 +80,7 @@ const avatarSrc = `${import.meta.env.BASE_URL}ai/face-default.webp`;
       <div class="head-copy">
 
         <h2 id="hirda-cat-title">{copy.title}</h2>
+        <p>{copy.subtitle}</p>
 
       </div>
       <button class="cat-close" type="button" data-cat-close aria-label={copy.close}>
@@ -91,7 +90,7 @@ const avatarSrc = `${import.meta.env.BASE_URL}ai/face-default.webp`;
 
     <div class="cat-conversation" data-cat-conversation role="log" aria-live="polite" aria-label="Chat">
 
-      <div class="chat-message is-bot">{copy.welcome}</div>
+      <div class="chat-message is-bot" data-cat-intro data-welcome={copy.welcome}>{copy.welcome}</div>
       <div class="cat-topics" data-cat-topics>
         <button type="button" data-cat-topic="projects"><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="4" width="18" height="16" rx="3"/><path d="M3 9h18M8 9v11"/></svg>{copy.projects}</button>
         <button type="button" data-cat-topic="prices"><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M19 7a7 7 0 1 0 0 10M4 10h11M4 14h10"/></svg>{copy.prices}</button>
@@ -108,7 +107,6 @@ const avatarSrc = `${import.meta.env.BASE_URL}ai/face-default.webp`;
           <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m5 12 14-7-4 14-3.1-6.9L5 12Z"/><path d="m12 12 7-7"/></svg>
         </button>
       </form>
-      <p class="cat-notice">{copy.disclaimer}</p>
     </div>
   </section>
 </div>
@@ -155,15 +153,14 @@ const avatarSrc = `${import.meta.env.BASE_URL}ai/face-default.webp`;
     let testAccess = '';
     const testLabel = lang === 'de' ? 'Testzugang: Zugangscode eingeben' : lang === 'ru' ? 'Тестовый доступ: введи код' : 'Test access: enter access code';
     const apiCopy = {
-      de: { notice: 'KI-Test · Nachrichten werden an OpenAI gesendet. Keine sensiblen Daten eingeben.', thinking: 'Ich denke nach …', error: 'Gerade keine Verbindung. Bitte versuche es erneut.', missing: 'Der lokale API-Schlüssel fehlt noch.', limit: 'Zu viele Anfragen. Bitte warte eine Minute.', retry: 'Erneut versuchen' },
-      en: { notice: 'AI test · Messages are sent to OpenAI. Do not enter sensitive data.', thinking: 'Thinking …', error: 'Unable to connect. Please try again.', missing: 'The local API key is not configured yet.', limit: 'Too many requests. Please wait a minute.', retry: 'Try again' },
-      ru: { notice: 'Тест ИИ · Сообщения передаются в OpenAI. Не вводи чувствительные данные.', thinking: 'Думаю …', error: 'Нет соединения. Попробуй ещё раз.', missing: 'Локальный API-ключ пока не настроен.', limit: 'Слишком много запросов. Подожди минуту.', retry: 'Повторить' },
+      de: { thinking: 'Ich denke nach …', error: 'Gerade keine Verbindung. Bitte versuche es erneut.', missing: 'Der lokale API-Schlüssel fehlt noch.', limit: 'Zu viele Anfragen. Bitte warte eine Minute.', retry: 'Erneut versuchen' },
+      en: { thinking: 'Thinking …', error: 'Unable to connect. Please try again.', missing: 'The local API key is not configured yet.', limit: 'Too many requests. Please wait a minute.', retry: 'Try again' },
+      ru: { thinking: 'Думаю …', error: 'Нет соединения. Попробуй ещё раз.', missing: 'Локальный API-ключ пока не настроен.', limit: 'Слишком много запросов. Подожди минуту.', retry: 'Повторить' },
     }[lang];
     const history: { role: 'user' | 'assistant'; content: string }[] = [];
     let busy = false;
     let failedMessage: string | null = null;
     let feedback: HTMLElement | null = null;
-    if (apiUrl) root.querySelector<HTMLElement>('.cat-notice')!.textContent = apiCopy.notice;
     const bubble = root.querySelector<HTMLElement>('[data-cat-bubble]')!;
     const backdrop = root.querySelector<HTMLElement>('[data-cat-backdrop]')!;
     const avatar = root.querySelector<HTMLImageElement>('[data-cat-avatar]')!;
@@ -180,6 +177,15 @@ const avatarSrc = `${import.meta.env.BASE_URL}ai/face-default.webp`;
     const input = root.querySelector<HTMLInputElement>('[data-cat-input]')!;
     const topics = root.querySelector<HTMLElement>('[data-cat-topics]')!;
     let bubbleTimer: number | undefined;
+    let typingTimer: number | undefined;
+    const greeting = root.querySelector<HTMLElement>('[data-cat-greeting]')!;
+    const greetingText = greeting.textContent ?? '';
+    const intro = root.querySelector<HTMLElement>('[data-cat-intro]')!;
+    const agentIntro = {
+      de: 'Ein Assistent wie ich — für dein Unternehmen? Ich kann deine Leistungen erklären, Fragen zu Preisen beantworten und Interessierte zum nächsten Schritt begleiten. Artem richtet mich mit deinen Inhalten und im Stil deiner Website ein. Welche Aufgabe könnte ich dir abnehmen?',
+      en: 'An assistant like me — for your business? I can explain your services, answer pricing questions and guide visitors to the next step. Artem sets me up with your content and your website’s style. What task could I help you with?',
+      ru: 'Хочешь такого помощника для своего бизнеса? Я могу рассказывать об услугах, отвечать на вопросы о ценах и помогать посетителям сделать следующий шаг. Артём настроит меня под твои материалы и дизайн сайта. Какую задачу ты бы мне доверил?',
+    }[lang];
     let shownBubble = false;
     let oldBodyOverflow = '';
     let returnFocus: HTMLElement = launcher;
@@ -230,17 +236,31 @@ const avatarSrc = `${import.meta.env.BASE_URL}ai/face-default.webp`;
     reducedMotion.addEventListener('change', syncBlink);
     document.addEventListener('visibilitychange', syncBlink);
 
-    const dismissBubble = () => { bubble.hidden = true; window.clearTimeout(bubbleTimer); };
+    const dismissBubble = () => { bubble.hidden = true; window.clearTimeout(bubbleTimer); window.clearInterval(typingTimer); };
     const showBubble = () => {
       if (shownBubble || !panel.hidden) return;
       shownBubble = true;
       bubble.hidden = false;
+      // Резервируем высоту полного текста, чтобы тучка не прыгала при печати.
+      greeting.style.minHeight = `${greeting.getBoundingClientRect().height}px`;
+      if (!reducedMotion.matches) {
+        const letters = Array.from(greetingText);
+        let index = 0;
+        greeting.textContent = '';
+        typingTimer = window.setInterval(() => {
+          greeting.textContent = letters.slice(0, ++index).join('');
+          if (index >= letters.length) window.clearInterval(typingTimer);
+        }, 22);
+      }
       bubbleTimer = window.setTimeout(dismissBubble, 8000);
     };
     window.setTimeout(showBubble, 2800);
 
     const openChat = (opener: HTMLElement = launcher) => {
       if (!panel.hidden) return;
+      const isAgentDemo = opener.hasAttribute('data-open-agent');
+      topics.hidden = isAgentDemo;
+      intro.textContent = isAgentDemo ? agentIntro : (intro.dataset.welcome ?? '');
       returnFocus = opener === bubbleOpener ? launcher : opener;
       viewportHeight = window.innerHeight;
       dismissBubble();
@@ -389,7 +409,7 @@ const avatarSrc = `${import.meta.env.BASE_URL}ai/face-default.webp`;
       if (event.key !== 'Tab') return;
       const focusables = Array.from(panel.querySelectorAll<HTMLElement>(
         'button:not([disabled]), input:not([disabled]), a[href]'
-      ));
+      )).filter((element) => element.getClientRects().length > 0);
       if (!focusables.length) return;
       const first = focusables[0];
       const last = focusables[focusables.length - 1];
@@ -479,35 +499,19 @@ const avatarSrc = `${import.meta.env.BASE_URL}ai/face-default.webp`;
     animation: cat-sparkle 5.8s infinite;
   }
 
-  /* Кружочки привязаны к центру головы: якорь меняется вместе с размером кота. */
-  .cat-bubble {
-    --head-x: 47px;
-    position: absolute;
-    z-index: 3;
-    right: 0;
-    bottom: calc(100% + 34px);
-    width: min(272px, calc(100vw - 28px));
-    box-sizing: border-box;
-    padding: 23px 42px 23px 24px;
-    border: 0;
-    border-radius: 48% 44% 42% 39% / 35% 39% 38% 40%;
-    background: #fffaf2;
-    color: #1c252b;
-    filter: drop-shadow(0 7px 0 #b6a995) drop-shadow(0 12px 18px #0004);
-    animation: bubble-in .4s cubic-bezier(.16,.8,.25,1) both;
-  }
-  .cat-bubble::before, .cat-bubble::after {
-    content: '';
-    position: absolute;
-    border-radius: 50%;
-    background: #fffaf2;
-    pointer-events: none;
-  }
-  .cat-bubble::before { width: 16px; height: 16px; right: calc(var(--head-x) + 8px); bottom: -21px; }
-  .cat-bubble::after { width: 8px; height: 8px; right: calc(var(--head-x) - 4px); bottom: -34px; }
-  .bubble-text { display: block; width: 100%; border: 0; padding: 0; background: transparent; color: inherit; text-align: left; font-size: 13px; font-weight: 500; line-height: 1.55; font-family: inherit; cursor: pointer; }
-  .bubble-close { position: absolute; top: 15px; right: 13px; width: 29px; height: 29px; border: 0; border-radius: 50%; color: #596269; background: #20272b10; font: 20px/1 system-ui; cursor: pointer; }
-  .bubble-close:hover { background: #20272b24; }
+  /* Хвостик привязан к голове кота, независимо от ширины облачка. */
+  .cat-bubble { --head-x:47px; position:absolute; z-index:3; right:5px; bottom:calc(100% + 22px); width:min(300px, calc(100vw - 32px)); box-sizing:border-box; padding:31px 35px 35px; color:#293237; filter:drop-shadow(0 12px 22px #0004); animation:bubble-in .35s ease-out both; }
+  .bubble-shape { position:absolute; inset:0; width:100%; height:100%; fill:#f6f2e9; pointer-events:none; }
+  .cat-bubble::after { content:''; position:absolute; right:calc(var(--head-x) - 8px); bottom:-13px; width:27px; height:31px; background:#f6f2e9; clip-path:polygon(0 0,100% 0,78% 100%); transform:rotate(-15deg); }
+  .bubble-text { position:relative; display:block; width:100%; border:0; padding:0; background:transparent; color:inherit; text-align:left; font:500 12px/1.55 var(--font-code); cursor:pointer; }
+  .bubble-code { display:block; margin-bottom:7px; color:#87613f; font-size:10px; }
+  [data-cat-greeting] { display:block; }
+  .bubble-close { position:absolute; top:-12px; right:0; display:grid; place-items:center; width:44px; height:44px; border:0; border-radius:50%; color:#f6f2e9; background:#30383b; box-shadow:0 4px 14px #0003; cursor:pointer; }
+  .bubble-close svg { transition:transform .35s ease, stroke-width .25s; }
+  @media (hover:hover) { .bubble-close:hover svg { transform:rotate(90deg); stroke-width:2.8; } }
+  .cat-topics[hidden] { display:none; }
+  .hirda-cat .cat-launcher:focus { outline:none; border:0; box-shadow:none; }
+  .hirda-cat .cat-launcher:focus-visible img { filter:brightness(1.15); }
 
   /* Панель: отдельно от страницы, больше по высоте, всё ещё не full-screen */
   .cat-panel {
@@ -591,6 +595,7 @@ const avatarSrc = `${import.meta.env.BASE_URL}ai/face-default.webp`;
   }
   .head-version { color: #81929b; font-size: 11px; font-weight: 500; letter-spacing: 0; }
   .head-copy p {
+    text-transform: none;
     display: flex;
     align-items: center;
     gap: 7px;
@@ -750,7 +755,6 @@ const avatarSrc = `${import.meta.env.BASE_URL}ai/face-default.webp`;
     transition: background .2s, transform .2s;
   }
   .cat-compose button:hover { background: #ffc19a; transform: translateY(-1px); }
-  .cat-notice { margin: 9px 3px 0; color: #a9b7bf; text-align: center; font-size: 10px; line-height: 1.4; }
   .hirda-cat button:focus-visible, .hirda-cat a:focus-visible { outline: 2px solid #c1cfcc; outline-offset: 3px; }
   .cat-panel:focus, .hirda-cat input:focus-visible { outline: none; }
   .sr-only { position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip: rect(0,0,0,0); white-space: nowrap; border: 0; }
@@ -774,7 +778,7 @@ const avatarSrc = `${import.meta.env.BASE_URL}ai/face-default.webp`;
     .hirda-cat { right: 9px; bottom: calc(8px + env(safe-area-inset-bottom)); }
     .cat-launcher { width: 80px; height: 86px; }
     .is-open .cat-launcher { visibility: hidden; }
-    .cat-bubble { --head-x: 40px; width: min(252px, calc(100vw - 28px)); padding: 22px 40px 22px 22px; }
+    .cat-bubble { --head-x: 40px; width: min(280px, calc(100vw - 32px)); padding: 30px 32px 34px; }
     .cat-panel {
       position: fixed;
       right: 11px;
@@ -817,6 +821,7 @@ const avatarSrc = `${import.meta.env.BASE_URL}ai/face-default.webp`;
   }
   @media (prefers-reduced-motion: reduce) {
     .cat-backdrop, .cat-launcher, .launcher-glow, .cat-spark, .cat-bubble, .cat-panel { animation: none !important; }
+    .bubble-close svg { transition:none; }
     .cat-close, .cat-topics button, .cat-compose button { transition: none !important; }
   }
 </style>

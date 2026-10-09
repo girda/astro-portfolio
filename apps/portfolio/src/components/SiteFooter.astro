@@ -50,6 +50,14 @@ const links = en
     nav a:hover, .back-top:hover { color: var(--brand-accent); }
     .back-top:hover svg { transform: translateY(-3px); }
   }
+  /* Справа оставляем место фиксированному коту, чтобы он не закрывал ссылки. */
+  @media (min-width: 761px) {
+    .footer-inner { padding-right:140px; padding-block:56px 32px; }
+    .footer-top { grid-template-columns:minmax(0,1fr) minmax(240px,.7fr); gap:64px; }
+    .footer-bottom { margin-top:64px; }
+    .back-top { top:-72px; right:0; }
+    .footer-signature { font:11px/1.6 var(--font-code); }
+  }
   @media (max-width: 760px) {
     .site-footer { margin-top: 16px; }
     .footer-inner { padding-block: 32px 24px; }
