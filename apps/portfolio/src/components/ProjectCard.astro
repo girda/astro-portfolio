@@ -40,8 +40,8 @@ const statusLabel =
 >
   <div class="tile-preview">
     <div class="device-composition" aria-hidden="true">
-      <div class="device device-desktop"><div class="browser-bar"><i></i><i></i><i></i></div><img src={preview} alt="" width="1280" height="800" loading="lazy" decoding="async" /></div>
-      <div class="device device-tablet"><div class="browser-bar"><i></i></div><img src={`${import.meta.env.BASE_URL}previews/${projectId}-tablet.png`} alt="" width="768" height="1024" loading="lazy" decoding="async" /></div>
+      <div class="device device-desktop"><div class="browser-bar"><i></i><i></i><i></i><span class="browser-address"><svg viewBox="0 0 16 16" width="7" height="7" fill="none" stroke="currentColor" aria-hidden="true"><rect x="4" y="7" width="8" height="6" rx="1"/><path d="M5 7V5a3 3 0 0 1 6 0v2"/></svg></span><span class="browser-tools">＋</span></div><img src={preview} alt="" width="1280" height="800" loading="lazy" decoding="async" /></div>
+      <div class="device device-tablet"><div class="tablet-camera"></div><img src={`${import.meta.env.BASE_URL}previews/${projectId}-tablet.png`} alt="" width="768" height="1024" loading="lazy" decoding="async" /></div>
       <div class="device device-phone"><div class="phone-speaker"></div><img src={`${import.meta.env.BASE_URL}previews/${projectId}-mobile.png`} alt="" width="390" height="844" loading="lazy" decoding="async" /></div>
     </div>
     <span class={`project-badge project-badge--${status}`}>

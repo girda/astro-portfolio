@@ -4,12 +4,15 @@
   z-index: 2;
   display: inline-flex;
   align-items: center;
-  padding: 5px 10px;
+  justify-content: center;
+  height: 26px;
+  box-sizing: border-box;
+  padding: 0 10px;
   border-radius: 100px;
   border: 1px solid #fff3;
   background: #7050aa;
   color: #fff;
-  font: 600 10px/1.4 var(--font-code);
+  font: 600 10px/1 var(--font-code);
   letter-spacing: .025em;
   text-transform: none;
   box-shadow: 0 3px 12px #0003;
@@ -23,4 +26,4 @@
   .project-badge { inset: 10px 10px auto auto; }
 }
 
-#main .project-badge { font: 600 11px/1.4 var(--font-body); }
+#main .project-badge { font: 600 11px/1 var(--font-body); }

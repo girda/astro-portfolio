@@ -1,26 +1,9 @@
 ---
+import pricing from "../data/pricing.json";
 interface Props { lang: string }
 const { lang } = Astro.props;
 const en = lang === "en";
-const rows = en ? [
-  ["Landingpage", "from €490", "A single-page website with one clear goal.", "Up to 5 sections, based on an existing design concept adapted to your business. Responsive layout, supplied text and images, basic SEO setup. One language and two revision rounds included."],
-  ["Business website", "from €790", "More room for your business.", "Up to 4 pages, a consistent design, responsive layout, a contact form and basic SEO setup. Based on an existing design concept, with supplied content. One language and two revision rounds included."],
-  ["Website with CMS", "from €1,290", "Update your content yourself.", "A small business website with an established content management system. Edit text, images, services and prices yourself. Includes CMS setup, an introduction and two revision rounds. Page count and editable content are agreed before the project starts."],
-  ["Custom web application", "On request", "Functions tailored to your workflow.", "Customer accounts, booking workflows or integrations: scope, implementation and pricing are agreed individually. These functions are not included in the website packages."],
-  ["Additional language", "from €150", "Reach visitors in another language.", "From €150 for a onepager or €250 for a website with up to 4 pages. Includes a language switcher, integration of supplied translations and layout checks. Translation and editing are quoted separately."],
-  ["Map & directions", "Included", "Make your business easy to find.", "A simple map for one address or a directions link is included in the website package. Multiple locations, filters and custom map features are quoted separately. Any provider fees are additional."],
-  ["Redesign & maintenance", "On request", "Keep your website moving forward.", "Design updates, new content, fixes and additional features. I review the existing website first and agree the scope and price with you. Ongoing maintenance is a separate service, not an automatic subscription."],
-  ["Monthly maintenance", "On request", "A reliable contact after launch.", "An optional monthly agreement for content changes, technical checks and updates. Included hours, response times, backups and cancellation terms are agreed in advance. Hosting and licences are separate; additional work is quoted before it starts."],
-] : [
-  ["Landingpage", "ab 490 €", "Eine einseitige Website mit einem klaren Ziel.", "Bis zu 5 Abschnitte auf Basis eines vorhandenen Designkonzepts, angepasst an dein Unternehmen. Mobile Ansicht, Einbindung deiner Texte und Bilder sowie SEO-Grundeinstellungen. Eine Sprache und zwei Korrekturrunden sind inklusive."],
-  ["Business-Website", "ab 790 €", "Mehr Raum für dein Unternehmen.", "Bis zu 4 Seiten mit einheitlichem Design, mobiler Ansicht, Kontaktformular und SEO-Grundeinstellungen. Auf Basis eines vorhandenen Designkonzepts und bereitgestellter Inhalte. Eine Sprache und zwei Korrekturrunden sind inklusive."],
-  ["Website mit CMS", "ab 1.290 €", "Inhalte selbst bearbeiten.", "Eine kleine Unternehmenswebsite mit einem bewährten Redaktionssystem. Texte, Bilder, Leistungen und Preise kannst du selbst ändern. Einrichtung, Einweisung und zwei Korrekturrunden sind inklusive. Seitenumfang und bearbeitbare Inhalte legen wir vorab gemeinsam fest."],
-  ["Individuelle Webanwendung", "Auf Anfrage", "Funktionen für deine Abläufe.", "Kundenbereich, Buchungsabläufe oder Schnittstellen: Umfang, Umsetzung und Preis stimmen wir individuell ab. Diese Funktionen sind nicht Bestandteil der Website-Pakete."],
-  ["Weitere Sprache", "ab 150 €", "Dein Angebot in einer weiteren Sprache.", "Ab 150 € für einen Landingpage oder ab 250 € für eine Website mit bis zu 4 Seiten. Inklusive Sprachumschalter, Einbindung bereitgestellter Übersetzungen und Prüfung der Darstellung. Übersetzung und Textredaktion berechne ich separat nach Umfang."],
-  ["Karte & Anfahrt", "Inklusive", "Damit man dein Unternehmen findet.", "Eine einfache Karte für einen Standort oder ein Routenlink ist im Website-Paket enthalten. Mehrere Standorte, Filter und individuelle Kartenfunktionen kalkuliere ich separat. Eventuelle Gebühren des Kartenanbieters kommen hinzu."],
-  ["Redesign & Pflege", "Auf Anfrage", "Damit deine Website mitwächst.", "Design-Updates, neue Inhalte, Fehlerbehebung und zusätzliche Funktionen. Nach einer Prüfung deiner bestehenden Website vereinbaren wir Umfang und Preis. Laufende Pflege ist eine separate Leistung und kein automatisches Abo."],
-  ["Monatliche Betreuung", "Auf Anfrage", "Auch nach dem Start für dich da.", "Optionaler monatlicher Service für Inhaltsänderungen, technische Prüfungen und Updates. Zeitkontingent, Reaktionszeiten, Backups und Kündigungsbedingungen vereinbaren wir vorab. Hosting und Lizenzen sind separat; Mehrarbeit wird vorher abgestimmt."],
-];
+const rows = pricing[en ? "en" : "de"];
 ---
 <section id="pricing" class="pricing" aria-labelledby="pricing-title">
   <p class="pricing-eyebrow">{en ? "PACKAGES & EXTRAS" : "PAKETE & EXTRAS"}</p>
@@ -85,7 +68,7 @@ const rows = en ? [
   .price-item.is-expanded { border-color: #f5a56855; background: linear-gradient(115deg, #ffffff06, #f5a5680d); }
   summary { list-style: none; cursor: pointer; display: grid; grid-template-columns: minmax(0,1fr) minmax(150px,auto) 28px; gap: 40px; align-items: center; padding: 24px; border-radius: 14px; }
   summary::-webkit-details-marker { display: none; }
-  summary:focus-visible { outline: 2px solid var(--brand-accent); outline-offset: 3px; }
+  summary:focus-visible { outline: 2px solid #c1cfcc; outline-offset: 3px; }
   .price-label { display: grid; gap: 5px; min-width: 0; }
   .price-title { overflow-wrap: anywhere; hyphens: auto; }
   .price-title { font-size: clamp(17px,2vw,22px); font-weight: 600; }

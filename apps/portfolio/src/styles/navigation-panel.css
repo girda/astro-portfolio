@@ -121,7 +121,7 @@ body.menu-open {
 
 /* Обводка нужна только при навигации с клавиатуры. */
 section.studio-hero .mobile-menu summary:focus-visible {
-  outline: 2px solid var(--brand-accent);
+  outline: 2px solid #c1cfcc;
   outline-offset: 2px;
 }
 @media (hover: hover) {

@@ -1,19 +1,19 @@
-/* svh учитывает панели браузера и не дёргает экран при их скрытии. */
+/* Динамическая высота следует за видимой областью телефона. */
 @media (max-width: 760px) {
   section.studio-hero[data-studio] {
-    height: 100svh;
+    height: 100dvh;
     min-height: 0;
   }
   section.studio-hero .hero-nav { padding-block: 10px 4px; }
-  section.studio-hero .hero-copy { padding-top: clamp(6px, 1.4svh, 16px); }
-  section.studio-hero .hero-eyebrow { font-size: 9px; margin-bottom: clamp(10px, 1.8svh, 18px); }
-  section.studio-hero h1 { font-size: clamp(24px, min(7.3vw, 4.1svh), 44px); line-height: 1.13; }
-  section.studio-hero .hero-intro { font-size: clamp(12px, 1.65svh, 15px); line-height: 1.45; margin-block: clamp(10px, 1.8svh, 18px); }
+  section.studio-hero .hero-copy { padding-top: clamp(6px, 1.4dvh, 16px); }
+  section.studio-hero .hero-eyebrow { font-size: 9px; margin-bottom: clamp(10px, 1.8dvh, 18px); }
+  section.studio-hero h1 { font-size: clamp(24px, min(7.3vw, 4.1dvh), 44px); line-height: 1.13; }
+  section.studio-hero .hero-intro { font-size: clamp(12px, 1.65dvh, 15px); line-height: 1.45; margin-block: clamp(10px, 1.8dvh, 18px); }
   section.studio-hero .hero-actions :is(a, button) { min-height: 44px; padding: 10px 14px; font-size: 11px; }
   /* Размер всей сцены меняется равномерно: лишнее обрезается, а не растягивается. */
   section.studio-hero .art-plane {
-    inset: auto auto clamp(0px, calc(750px - 100svh), 100px) 50%;
-    bottom: calc(-1 * clamp(0px, calc(750px - 100svh), 100px));
+    inset: auto auto clamp(0px, calc(750px - 100dvh), 100px) 50%;
+    bottom: calc(-1 * clamp(0px, calc(750px - 100dvh), 100px));
     height: max(100%, 200vw);
     width: auto;
     aspect-ratio: 887 / 1773;

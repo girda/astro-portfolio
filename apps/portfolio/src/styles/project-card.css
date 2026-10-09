@@ -9,7 +9,7 @@
   transition: border-color .25s, box-shadow .25s;
 }
 #main .project-tile:focus-visible {
-  outline: 2px solid #efbd8f;
+  outline: 2px solid #c1cfcc;
   outline-offset: 5px;
 }
 .tile-preview {
@@ -85,16 +85,21 @@
 .tile-preview { aspect-ratio:1.35; background:radial-gradient(ellipse at 42% 45%,#c3a47b28,transparent 65%),linear-gradient(135deg,#303b3e,#20282c); }
 .device-composition { position:absolute; inset:12% 6% 8%; perspective:1000px; }
 .device { position:absolute; overflow:hidden; border:1px solid #ffffff45; background:#242729; box-shadow:0 18px 32px #0005; }
-.device-desktop { width:87%; left:0; top:2%; border-radius:8px; transform:rotate(-5deg); }
-.browser-bar { height:20px; display:flex; align-items:center; gap:4px; padding:0 8px; background:#e9e6e2; color:#626464; }
-.browser-bar i { width:4px; height:4px; border-radius:50%; background:#b9b9b5; }
-.browser-bar i:first-child { background:#d7a097; }.browser-bar i:nth-child(2) { background:#d5bc86; }.browser-bar i:nth-child(3) { background:#9fba9e; }
-.browser-bar span { margin:auto; font:7px/1 var(--font-code); }
+/* Рамки устройств декоративные: скриншоты сохраняют исходные пропорции. */
+.device-desktop { width:87%; left:0; top:2%; border-radius:9px; transform:rotate(-4deg); border:1px solid #d5d7d9; }
+.browser-bar { height:25px; display:flex; align-items:center; gap:4px; padding:0 8px; background:linear-gradient(#f4f4f5,#dedee1); color:#81858a; }
+.browser-bar i { flex:0 0 5px; height:5px; border-radius:50%; box-shadow:inset 0 0 0 .5px #0002; }
+.browser-bar i:first-child { background:#ff6058; }.browser-bar i:nth-child(2) { background:#febc2e; }.browser-bar i:nth-child(3) { background:#28c840; }
+.browser-address { display:flex; align-items:center; justify-content:center; width:45%; height:13px; margin:auto; border-radius:4px; background:#fff9; box-shadow:0 0 0 .5px #0001; }
+.browser-tools { font:12px/1 system-ui; }
 .tile-preview .device img { width:100%; height:auto; display:block; object-fit:cover; transform:none; }
-.device-tablet { width:33%; right:0; bottom:4%; border:4px solid #747b7e; border-radius:12px; transform:rotate(7deg); }
-.device-phone { width:19%; left:51%; bottom:0; border:3px solid #adb3b3; border-radius:12px; transform:rotate(-7deg); }
-.phone-speaker { position:absolute; top:3px; left:33%; width:34%; height:5px; border-radius:10px; background:#161a1b; z-index:1; }
-.device-tablet .browser-bar { height:13px; padding-inline:4px; }.device-tablet .browser-bar span { font-size:5px; }
+.device-tablet { width:33%; right:0; bottom:4%; padding:7px 5px; border:2px solid #9da3aa; border-radius:14px; background:#111315; transform:rotate(6deg); box-shadow:0 15px 25px #0007,inset 0 0 0 1px #333; }
+.device-tablet img { border-radius:7px; }
+.tablet-camera { position:absolute; left:50%; top:2px; width:3px; height:3px; border-radius:50%; background:#304458; }
+.device-phone { width:19%; left:51%; bottom:0; padding:3px; border:2px solid #b2b5ba; border-radius:19px; background:#101112; transform:rotate(-6deg); box-shadow:0 15px 25px #0007,inset 0 0 0 1px #353638; }
+.device-phone img { border-radius:13px; }
+.phone-speaker { position:absolute; top:7px; left:34%; width:32%; height:7px; border-radius:10px; background:#101112; z-index:1; }
+.device-phone::after { content:""; position:absolute; bottom:7px; left:35%; width:30%; height:2px; border-radius:2px; background:#fff; box-shadow:0 0 2px #000; }
 @media(hover:hover) and (prefers-reduced-motion:no-preference) {
  .device { transition:translate .45s cubic-bezier(.2,.7,.2,1); }
  .project-tile:hover .device-desktop { translate:0 -4px; }.project-tile:hover .device-tablet { translate:2px -6px; }.project-tile:hover .device-phone { translate:-2px -3px; }

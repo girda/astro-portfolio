@@ -75,14 +75,14 @@ const avatarSrc = `${import.meta.env.BASE_URL}ai/face-default.webp`;
     <span class="launcher-glow" aria-hidden="true"></span>
   </button>
 
-  <section class="cat-panel" id="hirda-cat-panel" data-cat-panel role="dialog" aria-modal="true" aria-labelledby="hirda-cat-title" hidden>
+  <section class="cat-panel" id="hirda-cat-panel" data-cat-panel tabindex="-1" role="dialog" aria-modal="true" aria-labelledby="hirda-cat-title" hidden>
     <div class="cat-accent-bar" aria-hidden="true"></div>
     <header class="cat-head">
       <div class="head-avatar" aria-hidden="true"><img data-cat-avatar src={avatarSrc} alt="" width="350" height="330" decoding="async" /></div>
       <div class="head-copy">
-        <div class="head-kicker">HIRDA / AI EXPERIENCE</div>
-        <h2 id="hirda-cat-title">{copy.title}<span class="head-version"> / 01</span></h2>
-        <p><span class="status-dot" aria-hidden="true"></span>{copy.status}</p>
+
+        <h2 id="hirda-cat-title">{copy.title}</h2>
+
       </div>
       <button class="cat-close" type="button" data-cat-close aria-label={copy.close}>
         <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><path d="M5 5 19 19M19 5 5 19" /></svg>
@@ -90,13 +90,13 @@ const avatarSrc = `${import.meta.env.BASE_URL}ai/face-default.webp`;
     </header>
 
     <div class="cat-conversation" data-cat-conversation role="log" aria-live="polite" aria-label="Chat">
-      <p class="chat-intro"><span class="chat-intro-line"></span>{copy.subtitle}<span class="chat-intro-line"></span></p>
+
       <div class="chat-message is-bot">{copy.welcome}</div>
       <div class="cat-topics" data-cat-topics>
-        <button type="button" data-cat-topic="projects"><span>✳</span>{copy.projects}<span>↗</span></button>
-        <button type="button" data-cat-topic="prices"><span>€</span>{copy.prices}<span>↗</span></button>
-        <button type="button" data-cat-topic="services"><span>✦</span>{copy.services}<span>↗</span></button>
-        <button type="button" data-cat-topic="contact"><span>↗</span>{copy.contact}<span>↗</span></button>
+        <button type="button" data-cat-topic="projects"><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="4" width="18" height="16" rx="3"/><path d="M3 9h18M8 9v11"/></svg>{copy.projects}</button>
+        <button type="button" data-cat-topic="prices"><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M19 7a7 7 0 1 0 0 10M4 10h11M4 14h10"/></svg>{copy.prices}</button>
+        <button type="button" data-cat-topic="services"><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="7" width="18" height="14" rx="3"/><path d="M8 7V5a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2M3 12a23 23 0 0 0 18 0M12 11v3"/></svg>{copy.services}</button>
+        <button type="button" data-cat-topic="contact"><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 11.5a8.5 8.5 0 0 1-8.5 8.5H4l-1 1v-9.5a8.5 8.5 0 0 1 17 0Z"/><path d="M8 10h8M8 14h5"/></svg>{copy.contact}</button>
       </div>
     </div>
 
@@ -150,6 +150,20 @@ const avatarSrc = `${import.meta.env.BASE_URL}ai/face-default.webp`;
   if (root) {
     const lang: Lang = root.dataset.lang === 'ru' || root.dataset.lang === 'en' ? root.dataset.lang : 'de';
     const texts = dictionary[lang];
+    // Публичный URL задаётся при сборке; ключ OpenAI здесь никогда не используется.
+    const apiUrl = import.meta.env.DEV ? 'http://127.0.0.1:8787/api/chat' : (import.meta.env.PUBLIC_ASSISTANT_API_URL || '');
+    let testAccess = '';
+    const testLabel = lang === 'de' ? 'Testzugang: Zugangscode eingeben' : lang === 'ru' ? 'Тестовый доступ: введи код' : 'Test access: enter access code';
+    const apiCopy = {
+      de: { notice: 'KI-Test · Nachrichten werden an OpenAI gesendet. Keine sensiblen Daten eingeben.', thinking: 'Ich denke nach …', error: 'Gerade keine Verbindung. Bitte versuche es erneut.', missing: 'Der lokale API-Schlüssel fehlt noch.', limit: 'Zu viele Anfragen. Bitte warte eine Minute.', retry: 'Erneut versuchen' },
+      en: { notice: 'AI test · Messages are sent to OpenAI. Do not enter sensitive data.', thinking: 'Thinking …', error: 'Unable to connect. Please try again.', missing: 'The local API key is not configured yet.', limit: 'Too many requests. Please wait a minute.', retry: 'Try again' },
+      ru: { notice: 'Тест ИИ · Сообщения передаются в OpenAI. Не вводи чувствительные данные.', thinking: 'Думаю …', error: 'Нет соединения. Попробуй ещё раз.', missing: 'Локальный API-ключ пока не настроен.', limit: 'Слишком много запросов. Подожди минуту.', retry: 'Повторить' },
+    }[lang];
+    const history: { role: 'user' | 'assistant'; content: string }[] = [];
+    let busy = false;
+    let failedMessage: string | null = null;
+    let feedback: HTMLElement | null = null;
+    if (apiUrl) root.querySelector<HTMLElement>('.cat-notice')!.textContent = apiCopy.notice;
     const bubble = root.querySelector<HTMLElement>('[data-cat-bubble]')!;
     const backdrop = root.querySelector<HTMLElement>('[data-cat-backdrop]')!;
     const avatar = root.querySelector<HTMLImageElement>('[data-cat-avatar]')!;
@@ -239,7 +253,7 @@ const avatarSrc = `${import.meta.env.BASE_URL}ai/face-default.webp`;
       launcher.setAttribute('aria-expanded', 'true');
       // На телефоне не открываем клавиатуру сразу: посетитель видит дизайн и подсказки.
       if (window.matchMedia('(min-width: 601px)').matches) input.focus();
-      else closer.focus({ preventScroll: true });
+      else panel.focus({ preventScroll: true });
       syncBlink();
       showEmotion(faceHappy, 750);
       scheduleViewport();
@@ -265,12 +279,62 @@ const avatarSrc = `${import.meta.env.BASE_URL}ai/face-default.webp`;
       if (action) {
         const link = document.createElement('a');
         link.className = 'cat-action';
-        link.textContent = `${action.label} ↗`;
+        link.textContent = action.label;
         link.href = action.anchor;
         link.addEventListener('click', () => closeChat(false));
         log.insertBefore(link, topics);
       }
       log.scrollTop = log.scrollHeight;
+    }
+
+    async function sendToAgent(value: string, retry = false) {
+      if (busy) return;
+      if (apiUrl && !import.meta.env.DEV && !testAccess) {
+        testAccess = window.prompt(testLabel)?.trim() || '';
+        if (!testAccess) return;
+      }
+      busy = true;
+      feedback?.remove();
+      if (!retry) addMessage(value, 'user');
+      failedMessage = null;
+      feedback = document.createElement('div');
+      feedback.className = 'chat-message is-bot';
+      feedback.setAttribute('role', 'status');
+      feedback.textContent = apiCopy.thinking;
+      log.insertBefore(feedback, topics);
+      log.scrollTop = log.scrollHeight;
+      const controls = [...form.querySelectorAll<HTMLButtonElement | HTMLInputElement>('button,input'), ...topics.querySelectorAll<HTMLButtonElement>('button')];
+      controls.forEach(control => { control.disabled = true; });
+      form.setAttribute('aria-busy', 'true');
+      try {
+        const response = await fetch(apiUrl, {
+          method: 'POST', headers: { 'Content-Type': 'application/json', ...(testAccess ? { Authorization: `Bearer ${testAccess}` } : {}) },
+          body: JSON.stringify({ lang, messages: [...history.slice(-10), { role: 'user', content: value }] }),
+          signal: AbortSignal.timeout(25000),
+        });
+        const result = await response.json();
+        if (!response.ok) throw new Error(result.error || 'unavailable');
+        if (typeof result.text !== 'string' || !result.text.trim() || result.text.length > 4000) throw new Error('invalid_response');
+        feedback.remove(); feedback = null;
+        history.push({ role: 'user', content: value }, { role: 'assistant', content: result.text });
+        if (history.length > 10) history.splice(0, history.length - 10);
+        addMessage(result.text, 'bot');
+        showEmotion(faceHappy, 750);
+      } catch (error) {
+        failedMessage = value;
+        const code = error instanceof Error ? error.message : '';
+        if (code === 'unauthorized') testAccess = '';
+        feedback!.textContent = code === 'not_configured' ? apiCopy.missing : code === 'rate_limited' ? apiCopy.limit : apiCopy.error;
+        const button = document.createElement('button');
+        button.type = 'button'; button.className = 'cat-retry'; button.textContent = apiCopy.retry;
+        button.addEventListener('click', () => { if (failedMessage) void sendToAgent(failedMessage, true); });
+        feedback!.append(button);
+      } finally {
+        busy = false;
+        controls.forEach(control => { control.disabled = false; });
+        form.removeAttribute('aria-busy');
+        log.scrollTop = log.scrollHeight;
+      }
     }
 
     function replyToTopic(topic: Topic, userText: string) {
@@ -303,15 +367,17 @@ const avatarSrc = `${import.meta.env.BASE_URL}ai/face-default.webp`;
     topics.querySelectorAll<HTMLButtonElement>('[data-cat-topic]').forEach((button) => {
       button.addEventListener('click', () => {
         const topic = button.dataset.catTopic as Topic;
-        replyToTopic(topic, texts.names[topic]);
+        if (apiUrl) void sendToAgent(texts.names[topic]);
+        else replyToTopic(topic, texts.names[topic]);
       });
     });
 
     form.addEventListener('submit', (event) => {
       event.preventDefault();
       const value = input.value.trim();
-      if (!value) return;
+      if (!value || busy) return;
       input.value = '';
+      if (apiUrl) { void sendToAgent(value); return; }
       const topic = detectTopic(value);
       if (topic) replyToTopic(topic, value);
       else { addMessage(value, 'user'); addMessage(texts.unknown, 'bot'); }
@@ -339,6 +405,10 @@ const avatarSrc = `${import.meta.env.BASE_URL}ai/face-default.webp`;
 </script>
 
 <style>
+  .cat-compose button:disabled, .cat-topics button:disabled { opacity: .5; cursor: wait; }
+  .cat-conversation :global(.cat-retry) { display: block; margin-top: 10px; padding: 8px 12px; border: 1px solid #a7bab460; border-radius: 8px; background: #ffffff0a; color: inherit; font: inherit; cursor: pointer; }
+  .cat-conversation :global(.chat-message) { white-space: pre-wrap; overflow-wrap: anywhere; }
+
   .hirda-cat {
     --cat-accent: #ffa36b;
     --cat-muted: #a9b6bc;
@@ -409,33 +479,34 @@ const avatarSrc = `${import.meta.env.BASE_URL}ai/face-default.webp`;
     animation: cat-sparkle 5.8s infinite;
   }
 
-  /* Приветственная реплика над котом */
+  /* Кружочки привязаны к центру головы: якорь меняется вместе с размером кота. */
   .cat-bubble {
+    --head-x: 47px;
     position: absolute;
     z-index: 3;
     right: 0;
-    bottom: calc(100% + 19px);
-    width: min(262px, calc(100vw - 28px));
-    padding: 15px 40px 16px 17px;
-    border-radius: 27px;
-    border: 1px solid #eadbc9;
+    bottom: calc(100% + 34px);
+    width: min(272px, calc(100vw - 28px));
+    box-sizing: border-box;
+    padding: 23px 42px 23px 24px;
+    border: 0;
+    border-radius: 48% 44% 42% 39% / 35% 39% 38% 40%;
     background: #fffaf2;
     color: #1c252b;
-    box-shadow: 0 14px 36px #0005, 0 3px 8px #0002;
+    filter: drop-shadow(0 7px 0 #b6a995) drop-shadow(0 12px 18px #0004);
     animation: bubble-in .4s cubic-bezier(.16,.8,.25,1) both;
   }
   .cat-bubble::before, .cat-bubble::after {
     content: '';
     position: absolute;
-    border: 1px solid #eadbc9;
     border-radius: 50%;
     background: #fffaf2;
     pointer-events: none;
   }
-  .cat-bubble::before { width: 15px; height: 15px; right: 46px; bottom: -18px; }
-  .cat-bubble::after { width: 7px; height: 7px; right: 38px; bottom: -32px; }
+  .cat-bubble::before { width: 16px; height: 16px; right: calc(var(--head-x) + 8px); bottom: -21px; }
+  .cat-bubble::after { width: 8px; height: 8px; right: calc(var(--head-x) - 4px); bottom: -34px; }
   .bubble-text { display: block; width: 100%; border: 0; padding: 0; background: transparent; color: inherit; text-align: left; font-size: 13px; font-weight: 500; line-height: 1.55; font-family: inherit; cursor: pointer; }
-  .bubble-close { position: absolute; top: 9px; right: 9px; width: 29px; height: 29px; border: 0; border-radius: 50%; color: #596269; background: #20272b10; font: 20px/1 system-ui; cursor: pointer; }
+  .bubble-close { position: absolute; top: 15px; right: 13px; width: 29px; height: 29px; border: 0; border-radius: 50%; color: #596269; background: #20272b10; font: 20px/1 system-ui; cursor: pointer; }
   .bubble-close:hover { background: #20272b24; }
 
   /* Панель: отдельно от страницы, больше по высоте, всё ещё не full-screen */
@@ -452,12 +523,13 @@ const avatarSrc = `${import.meta.env.BASE_URL}ai/face-default.webp`;
     overflow: hidden;
     border-radius: 23px;
     border: 1px solid rgba(218, 234, 235, .2);
-    background: #111e28;
+    background: #24292c;
     box-shadow: 0 32px 96px #000c, 0 5px 28px #0005, inset 0 1px 0 #ffffff12;
     animation: panel-rise .36s cubic-bezier(.16,.85,.2,1) both;
     isolation: isolate;
   }
   .cat-panel::before {
+    display: none;
     content: '';
     position: absolute;
     z-index: -1;
@@ -469,6 +541,7 @@ const avatarSrc = `${import.meta.env.BASE_URL}ai/face-default.webp`;
     background: radial-gradient(circle, #ff9e5810, transparent 68%);
   }
   .cat-accent-bar {
+    display: none;
     flex: 0 0 2px;
     height: 2px;
     background: linear-gradient(90deg, #ffa36b 0%, #f7c6a8 28%, #ffa36b33 72%, transparent);
@@ -481,7 +554,7 @@ const avatarSrc = `${import.meta.env.BASE_URL}ai/face-default.webp`;
     min-height: 91px;
     padding: 15px 17px;
     border-bottom: 1px solid var(--cat-border);
-    background: linear-gradient(130deg, #20313b 0%, #172631 57%, #16242d 100%);
+    background: #2b3033;
   }
   .head-avatar {
     flex: 0 0 48px;
@@ -553,7 +626,7 @@ const avatarSrc = `${import.meta.env.BASE_URL}ai/face-default.webp`;
     overflow-y: auto;
     overscroll-behavior: contain;
     padding: 24px 18px;
-    background: radial-gradient(ellipse 170px 230px at 100% 0, #34465335, transparent 78%), #0d1923;
+    background: #24292c;
     scrollbar-color: #495d67 #0d1923;
   }
   .chat-intro {
@@ -583,7 +656,7 @@ const avatarSrc = `${import.meta.env.BASE_URL}ai/face-default.webp`;
     color: #f1f4f2;
     border: 1px solid #a5c1be20;
     border-bottom-left-radius: 5px;
-    background: linear-gradient(135deg, #243a45, #20323d);
+    background: #333b3e;
   }
   .cat-conversation :global(.chat-message.is-user) {
     color: #18242c;
@@ -604,20 +677,21 @@ const avatarSrc = `${import.meta.env.BASE_URL}ai/face-default.webp`;
     align-items: center;
     gap: 8px;
     min-width: 0;
-    min-height: 54px;
+    min-height: 44px;
     padding: 11px 12px;
     border-radius: 13px;
     border: 1px solid #59717b7d;
-    background: linear-gradient(145deg, #1c303c, #182a35);
+    background: #303638;
     color: #faf9f4;
     text-align: left;
     font-size: 12px; font-weight: 500; line-height: 1.3; font-family: inherit;
     cursor: pointer;
     transition: border-color .18s, background .18s, transform .18s;
   }
+  .cat-topics button svg { flex-shrink: 0; color: #cbd5d0; }
   .cat-topics button span:first-child { flex: 0 0 16px; color: #ffa36b; font-size: 16px; font-family: ui-monospace, monospace; }
   .cat-topics button span:last-child { margin-left: auto; color: #ffa36b; }
-  .cat-topics button:hover { border-color: #ffa36b; background: #263d49; transform: translateY(-2px); }
+  .cat-topics button:hover { border-color: #a7bab4; background: #394244; transform: translateY(-2px); }
   .cat-topics button:active { transform: scale(.98); }
   .cat-conversation :global(.cat-action) {
     display: inline-flex;
@@ -637,7 +711,7 @@ const avatarSrc = `${import.meta.env.BASE_URL}ai/face-default.webp`;
     flex: 0 0 auto;
     padding: 13px 14px 13px;
     border-top: 1px solid var(--cat-border);
-    background: linear-gradient(145deg, #1c2d38, #162630);
+    background: #272d30;
   }
   .cat-compose {
     display: flex;
@@ -647,10 +721,10 @@ const avatarSrc = `${import.meta.env.BASE_URL}ai/face-default.webp`;
     padding: 5px 5px 5px 13px;
     border: 1px solid #78919757;
     border-radius: 15px;
-    background: #0c1923;
+    background: #202528;
     transition: border-color .2s, box-shadow .2s;
   }
-  .cat-compose:focus-within { border-color: #ffa36b; box-shadow: 0 0 0 3px #ffa36b17; }
+  .cat-compose:focus-within { box-shadow: none; }
   .cat-compose input {
     flex: 1;
     min-width: 0;
@@ -677,7 +751,8 @@ const avatarSrc = `${import.meta.env.BASE_URL}ai/face-default.webp`;
   }
   .cat-compose button:hover { background: #ffc19a; transform: translateY(-1px); }
   .cat-notice { margin: 9px 3px 0; color: #a9b7bf; text-align: center; font-size: 10px; line-height: 1.4; }
-  .hirda-cat button:focus-visible, .hirda-cat a:focus-visible, .hirda-cat input:focus-visible { outline: 2px solid #ffa36b; outline-offset: 3px; }
+  .hirda-cat button:focus-visible, .hirda-cat a:focus-visible { outline: 2px solid #c1cfcc; outline-offset: 3px; }
+  .cat-panel:focus, .hirda-cat input:focus-visible { outline: none; }
   .sr-only { position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip: rect(0,0,0,0); white-space: nowrap; border: 0; }
 
   @keyframes backdrop-in { from { opacity: 0; } to { opacity: 1; } }
@@ -698,13 +773,14 @@ const avatarSrc = `${import.meta.env.BASE_URL}ai/face-default.webp`;
   @media (max-width: 600px) {
     .hirda-cat { right: 9px; bottom: calc(8px + env(safe-area-inset-bottom)); }
     .cat-launcher { width: 80px; height: 86px; }
-    .cat-bubble { right: 0; bottom: calc(100% + 20px); width: min(246px, calc(100vw - 28px)); padding: 14px 38px 15px 16px; }
+    .is-open .cat-launcher { visibility: hidden; }
+    .cat-bubble { --head-x: 40px; width: min(252px, calc(100vw - 28px)); padding: 22px 40px 22px 22px; }
     .cat-panel {
       position: fixed;
       right: 11px;
-      bottom: calc(97px + env(safe-area-inset-bottom));
+      bottom: calc(8px + env(safe-area-inset-bottom));
       width: calc(100vw - 22px);
-      height: min(650px, calc(100dvh - 160px - env(safe-area-inset-bottom)));
+      height: calc(100dvh - 24px - env(safe-area-inset-bottom));
       min-height: 260px;
       border-radius: 22px;
     }
