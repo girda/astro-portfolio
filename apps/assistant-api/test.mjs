@@ -58,6 +58,10 @@ test('mode is validated and demo/brief instructions are selected server-side', a
       assert.equal(request.instructions.includes('DEMO MODE:'), mode === 'demo');
       assert.equal(request.instructions.includes('BRIEF MODE:'), mode === 'brief');
       assert.match(request.instructions, /You are Pixel/);
+      if (mode === 'demo') {
+        assert.equal(request.text.format.strict, true);
+        return Response.json({ status: 'completed', output: [{ type: 'message', role: 'assistant', content: [{ type: 'output_text', text: JSON.stringify({ text: 'Demo', cart: [] }) }] }] });
+      }
       return Response.json(output);
     }});
   }
@@ -76,3 +80,15 @@ test('Turnstile rejects malformed tokens, wrong hostname/action and network fail
   assert.equal(await verifyTurnstile('token', { ...options, fetchImpl }), true);
   assert.equal(await verifyTurnstile('token', { ...options, fetchImpl }), false);
 });
+
+ test('demo cart rejects invented products, duplicates and invalid quantities', async () => {
+  const { cart } = await import('./demo.mjs');
+  assert.deepEqual(cart([{ id: 'coffee', quantity: 2 }]), [{ id: 'coffee', quantity: 2 }]);
+  assert.deepEqual(cart([]), []);
+  for (const rows of [[{ id: 'unknown', quantity: 1 }], [{ id: 'coffee', quantity: -1 }], [{ id: 'coffee', quantity: 21 }], [{ id: 'coffee', quantity: 1.5 }], [{ id: 'coffee', quantity: 1 }, { id: 'coffee', quantity: 2 }]]) {
+    assert.throws(() => cart(rows));
+    await assert.rejects(answer({ ...body, mode: 'demo', cart: rows }, { apiKey: 'test' }), { code: 'invalid_cart' });
+  }
+  const result = await answer({ ...body, mode: 'demo', cart: [] }, { apiKey: 'test', fetchImpl: async () => Response.json({ status: 'completed', output: [{ type: 'message', role: 'assistant', content: [{ type: 'output_text', text: JSON.stringify({ text: 'Demo', cart: [{ id: 'coffee', quantity: 2 }, { id: 'cake', quantity: 1 }] }) }] }] }) });
+  assert.equal(result.cart.reduce((sum, row) => sum + row.quantity * result.catalog.find(p => p.id === row.id).cents, 0), 1270);
+ });

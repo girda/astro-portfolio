@@ -1,3 +1,4 @@
+import { cart, catalog, format, demoInstructions } from './demo.mjs';
 import { instructions } from './knowledge.mjs';
 
 export class ApiError extends Error {
@@ -19,13 +20,15 @@ export function validate(body) {
 }
 export async function answer(body, { apiKey, model = 'gpt-4.1-mini', fetchImpl = fetch, timeoutMs = 20000 }) {
   const { lang, mode, messages } = validate(body);
+  let demoCart;
+  if (mode === 'demo') { try { demoCart = cart(body.cart); } catch { throw new ApiError(400, 'invalid_cart'); } }
   if (!apiKey) throw new ApiError(503, 'not_configured');
   let response;
   try {
     response = await fetchImpl('https://api.openai.com/v1/responses', {
       method: 'POST',
       headers: { Authorization: `Bearer ${apiKey}`, 'Content-Type': 'application/json' },
-      body: JSON.stringify({ model, instructions: instructions(lang, mode), input: messages, max_output_tokens: 600, store: false }),
+      body: JSON.stringify({ model, instructions: instructions(lang, mode) + (mode === 'demo' ? '\n' + demoInstructions(demoCart) : ''), ...(mode === 'demo' ? { text: { format } } : {}), input: messages, max_output_tokens: mode === 'demo' ? 900 : 600, store: false }),
       signal: AbortSignal.timeout(timeoutMs),
     });
   } catch { throw new ApiError(502, 'upstream_unavailable'); }
@@ -37,6 +40,13 @@ export async function answer(body, { apiKey, model = 'gpt-4.1-mini', fetchImpl =
     .flatMap(item => Array.isArray(item.content) ? item.content : [])
     .filter(item => item.type === 'output_text' && typeof item.text === 'string').map(item => item.text).join('\n').trim();
   if (!text || text.length > 4000) throw new ApiError(502, 'invalid_response');
+  if (mode === 'demo') {
+    try {
+      const result = JSON.parse(text);
+      if (typeof result.text !== 'string' || !result.text.trim() || result.text.length > 2000) throw new Error();
+      return { text: result.text, cart: cart(result.cart), catalog };
+    } catch { throw new ApiError(502, 'invalid_response'); }
+  }
   return { text };
 }
 

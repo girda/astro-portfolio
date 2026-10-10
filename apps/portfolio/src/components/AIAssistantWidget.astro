@@ -170,7 +170,7 @@ const avatarSrc = `${import.meta.env.BASE_URL}ai/face-default.webp`;
         const render = () => {
           if (!turnstileWindow.turnstile) { reject(new Error('verification_failed')); return; }
           widgetId = turnstileWindow.turnstile.render(root.querySelector<HTMLElement>('[data-cat-verification]')!, {
-            sitekey: '0x4AAAAAAFS3zEwm2KejbU1v', action: 'pixel_chat', theme: 'dark', size: 'flexible',
+            sitekey: '0x4AAAAAAFS3zEwm2KejbU1v', action: 'pixel_chat', theme: 'dark', size: 'flexible', appearance: 'interaction-only',
             callback: (token: string) => { verificationToken = token; },
             'expired-callback': () => { verificationToken = ''; },
             'error-callback': () => { verificationToken = ''; },
@@ -201,6 +201,49 @@ const avatarSrc = `${import.meta.env.BASE_URL}ai/face-default.webp`;
       demo: { history: [] as Message[], nodes: [] as HTMLElement[], draft: '' },
     };
     let history = sessions.consult.history;
+    let demoCart: { id: string; quantity: number }[] = [];
+    let demoCatalog: { id: string; name: string; cents: number }[] = [];
+    const cartCopy = {
+      de: { open: 'Demo-Warenkorb öffnen', title: 'Dein Demo-Warenkorb', empty: 'Noch leer', note: 'Beispielpreise · Keine Bestellung oder Zahlung', done: 'Demo abschließen', finish: 'So könnte dein Assistent Bestellungen vorbereiten. Diese Demo wurde nicht versendet. Für deinen Betrieb verbinden wir deinen Katalog und die passenden Systeme.', add: 'Mehr', remove: 'Weniger' },
+      en: { open: 'Open demo cart', title: 'Your demo cart', empty: 'Empty for now', note: 'Sample prices · No real order or payment', done: 'Finish demo', finish: 'Your assistant could prepare orders like this. Nothing was sent. For your business, we connect your catalog and the appropriate systems.', add: 'More', remove: 'Less' },
+      ru: { open: 'Открыть демо-корзину', title: 'Твоя демо-корзина', empty: 'Пока пусто', note: 'Примерные цены · Без заказа и оплаты', done: 'Завершить демо', finish: 'Так твой помощник сможет собирать заказы. Мы ничего не отправляли. Для твоего бизнеса подключим свой каталог и нужные сервисы.', add: 'Больше', remove: 'Меньше' },
+    }[lang];
+    const money = (cents: number) => new Intl.NumberFormat(lang, { style: 'currency', currency: 'EUR' }).format(cents / 100);
+    function renderCart() {
+      log.querySelector('[data-demo-cart]')?.remove();
+      const box = document.createElement('details'); box.dataset.demoCart = ''; box.className = 'cat-demo-cart';
+      const summary = document.createElement('summary');
+      const count = demoCart.reduce((n, row) => n + row.quantity, 0);
+      summary.textContent = `${cartCopy.open} (${count})`; box.append(summary);
+      const heading = document.createElement('strong'); heading.textContent = cartCopy.title; box.append(heading);
+      let total = 0;
+      for (const row of demoCart) {
+        const item = demoCatalog.find(item => item.id === row.id)!;
+        total += item.cents * row.quantity;
+        const line = document.createElement('div'); line.className = 'cat-cart-line';
+        const name = document.createElement('span'); name.textContent = `${item.name} × ${row.quantity} · ${money(item.cents * row.quantity)}`;
+        line.append(name);
+        for (const delta of [-1, 1]) {
+          const button = document.createElement('button'); button.type = 'button'; button.textContent = delta < 0 ? '−' : '+';
+          button.setAttribute('aria-label', `${delta < 0 ? cartCopy.remove : cartCopy.add}: ${item.name}`);
+          button.addEventListener('click', () => {
+            if (busy || row.quantity + delta > 20) return;
+            row.quantity += delta; demoCart = demoCart.filter(row => row.quantity > 0);
+            renderCart(); log.querySelector<HTMLDetailsElement>('[data-demo-cart]')!.open = true;
+          }); line.append(button);
+        }
+        box.append(line);
+      }
+      const price = document.createElement('p'); price.textContent = count ? `Total: ${money(total)}` : cartCopy.empty;
+      const note = document.createElement('small'); note.textContent = cartCopy.note;
+      box.append(price, note);
+      if (count) {
+        const done = document.createElement('button'); done.type = 'button'; done.className = 'cat-action'; done.textContent = cartCopy.done;
+        done.addEventListener('click', () => { if (busy) return; addMessage(cartCopy.finish, 'bot'); box.open = false; }); box.append(done);
+      }
+      log.insertBefore(box, topics);
+    }
+
     const handoffCopy = {
       de: { prepare:'Idee für Artem zusammenfassen', request:'Bitte fasse meine echte Projektidee als Nachricht an Artem zusammen.', review:'Entwurf prüfen und bearbeiten', open:'In WhatsApp öffnen', note:'Du prüfst und sendest die Nachricht selbst in WhatsApp.' },
       en: { prepare:'Summarize my idea for Artem', request:'Please summarize my real project idea as a message to Artem.', review:'Review and edit your draft', open:'Open in WhatsApp', note:'You review and send the message yourself in WhatsApp.' },
@@ -231,9 +274,9 @@ const avatarSrc = `${import.meta.env.BASE_URL}ai/face-default.webp`;
     const greetingText = greeting.textContent ?? '';
     const intro = root.querySelector<HTMLElement>('[data-cat-intro]')!;
     const agentIntro = {
-      de: 'Lass uns kurz die Rollen tauschen: Stell dir vor, ich arbeite für dein Unternehmen. In welcher Branche bist du tätig?',
-      en: 'Let’s switch roles for a moment: imagine I work for your business. What industry are you in?',
-      ru: 'Давай ненадолго поменяемся ролями: представь, что я работаю на твой бизнес. Чем ты занимаешься?',
+      de: 'Teste mich als Café-Assistent: Bestelle einen Cappuccino, ein Croissant oder Cheesecake. Ich stelle deinen Demo-Warenkorb zusammen — ganz ohne echte Bestellung.',
+      en: 'Try me as a café assistant: order a cappuccino, croissant or cheesecake. I will build your demo cart — no real order.',
+      ru: 'Попробуй меня в роли помощника кафе: закажи капучино, круассан или чизкейк. Я соберу демо-корзину — без настоящего заказа.',
     }[lang];
     let shownBubble = false;
     let oldBodyOverflow = '';
@@ -395,7 +438,7 @@ const avatarSrc = `${import.meta.env.BASE_URL}ai/face-default.webp`;
         verificationToken = '';
         const response = await fetch(apiUrl, {
           method: 'POST', headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({ lang, turnstileToken, mode: requestMode, messages: [...history.slice(-10), { role: 'user', content: value }] }),
+          body: JSON.stringify({ lang, turnstileToken, mode: requestMode, ...(requestMode === 'demo' ? { cart: demoCart } : {}), messages: [...history.slice(-10), { role: 'user', content: value }] }),
           signal: AbortSignal.timeout(25000),
         });
         const result = await response.json();
@@ -405,6 +448,9 @@ const avatarSrc = `${import.meta.env.BASE_URL}ai/face-default.webp`;
         history.push({ role: 'user', content: value }, { role: 'assistant', content: result.text });
         if (history.length > 10) history.splice(2, history.length - 10);
         addMessage(result.text, 'bot');
+        if (requestMode === 'demo' && Array.isArray(result.cart) && Array.isArray(result.catalog)) {
+          demoCart = result.cart; demoCatalog = result.catalog; renderCart();
+        }
         log.querySelectorAll('[data-prepare-brief]').forEach(node => node.remove());
         if (requestMode === 'brief') {
           const card = document.createElement('div');
@@ -520,7 +566,16 @@ const avatarSrc = `${import.meta.env.BASE_URL}ai/face-default.webp`;
 </script>
 
 <style>
-  .cat-verification { margin-bottom: 8px; }
+  .cat-verification { margin-bottom: 0; }
+  :global(.cat-demo-cart) { margin: 12px 0; padding: 16px; border: 1px solid #ffffff20; border-radius: 16px; background: #ffffff06; }
+  :global(.cat-demo-cart summary) { cursor: pointer; padding: 6px 0; font-weight: 600; }
+  :global(.cat-demo-cart strong) { display: block; margin: 16px 0 12px; }
+  :global(.cat-cart-line) { display: flex; gap: 8px; align-items: center; margin: 12px 0; }
+  :global(.cat-cart-line span) { flex: 1; }
+  :global(.cat-cart-line button) { min-width: 36px; min-height: 36px; border: 0; border-radius: 10px; background: #ffffff12; color: inherit; cursor: pointer; }
+  :global(.cat-demo-cart small) { display: block; opacity: .65; line-height: 1.5; }
+  :global(.cat-demo-cart .cat-action) { margin-top: 12px; }
+
   .cat-verification:empty { display: none; }
   .cat-conversation :global(.cat-brief) { margin:12px 0; padding:14px; border:1px solid #ffffff25; border-radius:14px; }
   .cat-conversation :global(.cat-brief label) { display:block; font-size:12px; color:#cbd5d0; }
