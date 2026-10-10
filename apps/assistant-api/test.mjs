@@ -62,3 +62,17 @@ test('mode is validated and demo/brief instructions are selected server-side', a
     }});
   }
 });
+
+test('Turnstile rejects malformed tokens, wrong hostname/action and network failures', async () => {
+  const { verifyTurnstile } = await import('./turnstile.mjs');
+  const options = { secret: 'test', hostname: 'girda.github.io', ip: '192.0.2.1' };
+  for (const token of [undefined, '', 'a'.repeat(2049)]) assert.equal(await verifyTurnstile(token, { ...options, fetchImpl: () => { throw new Error('must not call'); } }), false);
+  for (const result of [{ success: false }, { success: true, action: 'other', hostname: options.hostname }, { success: true, action: 'pixel_chat', hostname: 'localhost' }]) {
+    assert.equal(await verifyTurnstile('token', { ...options, fetchImpl: async () => Response.json(result) }), false);
+  }
+  assert.equal(await verifyTurnstile('token', { ...options, fetchImpl: async () => { throw new Error('offline'); } }), false);
+  let used = false;
+  const fetchImpl = async () => { const success = !used; used = true; return Response.json({ success, action: 'pixel_chat', hostname: options.hostname }); };
+  assert.equal(await verifyTurnstile('token', { ...options, fetchImpl }), true);
+  assert.equal(await verifyTurnstile('token', { ...options, fetchImpl }), false);
+});

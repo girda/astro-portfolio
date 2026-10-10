@@ -1,6 +1,8 @@
-import { answer, ApiError } from './api.mjs';
+import { verifyTurnstile } from './turnstile.mjs';
+export { ChatBudget } from './budget.mjs';
+import { answer, ApiError, validate } from './api.mjs';
 
-// Закрытый сетевой тест: код доступа хранится в секрете, а не в сборке сайта.
+// Публичный чат: Turnstile, лимит IP и общий устойчивый дневной бюджет.
 export default {
   async fetch(request, env) {
     const origin = request.headers.get('Origin');
@@ -11,10 +13,10 @@ export default {
     if (request.method === 'OPTIONS') return new Response(null, { status: 204, headers: { ...headers, 'Access-Control-Allow-Methods': 'POST, OPTIONS', 'Access-Control-Allow-Headers': 'Content-Type, Authorization' } });
     if (new URL(request.url).pathname !== '/api/chat') return send(404, { error: 'not_found' });
     if (request.method !== 'POST') return send(405, { error: 'method_not_allowed' });
-    if (!env.TEST_ACCESS_TOKEN || env.TEST_ACCESS_TOKEN.length < 24) return send(503, { error: 'not_configured' });
-    if (!(await verifyToken(request.headers.get('Authorization') || '', `Bearer ${env.TEST_ACCESS_TOKEN}`))) return send(401, { error: 'unauthorized' });
-    if (!env.CHAT_LIMITER) return send(503, { error: 'not_configured' });
-    const { success } = await env.CHAT_LIMITER.limit({ key: 'hirda-private-test' });
+    if (!env.TURNSTILE_SECRET || !env.CHAT_LIMITER || !env.CHAT_BUDGET) return send(503, { error: 'not_configured' });
+    const ip = request.headers.get('CF-Connecting-IP');
+    if (!ip) return send(403, { error: 'forbidden' });
+    const { success } = await env.CHAT_LIMITER.limit({ key: ip });
     if (!success) return send(429, { error: 'rate_limited' });
     if (!/^application\/json(?:;|$)/i.test(request.headers.get('Content-Type') || '')) return send(415, { error: 'invalid_content_type' });
     try {
@@ -34,15 +36,13 @@ export default {
       for (const chunk of chunks) { bytes.set(chunk, offset); offset += chunk.byteLength; }
       let body;
       try { body = JSON.parse(new TextDecoder().decode(bytes)); } catch { throw new ApiError(400, 'invalid_request'); }
+      validate(body);
+      const verified = await verifyTurnstile(body.turnstileToken, { secret: env.TURNSTILE_SECRET, hostname: 'girda.github.io', ip });
+      if (!verified) return send(403, { error: 'verification_failed' });
+      if (!(await env.CHAT_BUDGET.getByName('pixel-site-budget').consume())) return send(429, { error: 'daily_limit' });
       return send(200, await answer(body, { apiKey: env.OPENAI_API_KEY, model: env.OPENAI_MODEL }));
     } catch (error) {
       return send(error instanceof ApiError ? error.status : 500, { error: error instanceof ApiError ? error.code : 'internal_error' });
     }
   },
 };
-
-async function verifyToken(provided, expected) {
-  const encoder = new TextEncoder();
-  const hashes = await Promise.all([provided, expected].map(value => crypto.subtle.digest('SHA-256', encoder.encode(value))));
-  return crypto.subtle.timingSafeEqual(hashes[0], hashes[1]);
-}

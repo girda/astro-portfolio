@@ -100,6 +100,7 @@ const avatarSrc = `${import.meta.env.BASE_URL}ai/face-default.webp`;
     </div>
 
     <div class="cat-bottom">
+      <div data-cat-verification class="cat-verification"></div>
       <form class="cat-compose" data-cat-form>
         <label class="sr-only" for="hirda-cat-input">{copy.placeholder}</label>
         <input id="hirda-cat-input" data-cat-input type="text" autocomplete="off" maxlength="350" placeholder={copy.placeholder} />
@@ -151,8 +152,43 @@ const avatarSrc = `${import.meta.env.BASE_URL}ai/face-default.webp`;
     const texts = dictionary[lang];
     // Публичный URL задаётся при сборке; ключ OpenAI здесь никогда не используется.
     const apiUrl = import.meta.env.DEV ? 'http://127.0.0.1:8787/api/chat' : (import.meta.env.PUBLIC_ASSISTANT_API_URL || '');
-    let testAccess = '';
-    const testLabel = lang === 'de' ? 'Testzugang: Zugangscode eingeben' : lang === 'ru' ? 'Тестовый доступ: введи код' : 'Test access: enter access code';
+    const verificationCopy = {
+      de: 'Bitte bestätige die Sicherheitsprüfung und versuche es erneut.',
+      en: 'Please complete the security check and try again.',
+      ru: 'Пройди проверку безопасности и попробуй ещё раз.',
+    }[lang];
+    const dailyCopy = { de: 'Für heute ist das Chat-Limit erreicht. Schreib Artem gerne über das Kontaktformular.', en: 'Today’s chat limit has been reached. Please contact Artem using the contact form.', ru: 'Лимит чата на сегодня исчерпан. Напиши Артёму через форму контактов.' }[lang];
+    type Turnstile = { render: (el: HTMLElement, options: Record<string, unknown>) => string; reset: (id: string) => void };
+    const turnstileWindow = window as Window & { turnstile?: Turnstile };
+    let widgetId: string | undefined;
+    let verificationToken = '';
+    let verificationReady: Promise<void> | undefined;
+    const loadVerification = () => {
+      if (import.meta.env.DEV) return Promise.resolve();
+      if (verificationReady) return verificationReady;
+      verificationReady = new Promise<void>((resolve, reject) => {
+        const render = () => {
+          if (!turnstileWindow.turnstile) { reject(new Error('verification_failed')); return; }
+          widgetId = turnstileWindow.turnstile.render(root.querySelector<HTMLElement>('[data-cat-verification]')!, {
+            sitekey: '0x4AAAAAAFS3zEwm2KejbU1v', action: 'pixel_chat', theme: 'dark', size: 'flexible',
+            callback: (token: string) => { verificationToken = token; },
+            'expired-callback': () => { verificationToken = ''; },
+            'error-callback': () => { verificationToken = ''; },
+          });
+          resolve();
+        };
+        if (turnstileWindow.turnstile) render();
+        else {
+          const script = document.createElement('script');
+          script.src = 'https://challenges.cloudflare.com/turnstile/v0/api.js?render=explicit';
+          script.async = true;
+          script.onload = render;
+          script.onerror = () => { script.remove(); verificationReady = undefined; reject(new Error('verification_failed')); };
+          document.head.append(script);
+        }
+      });
+      return verificationReady;
+    };
     const apiCopy = {
       de: { thinking: 'Ich denke nach …', error: 'Gerade keine Verbindung. Bitte versuche es erneut.', missing: 'Der lokale API-Schlüssel fehlt noch.', limit: 'Zu viele Anfragen. Bitte warte eine Minute.', retry: 'Erneut versuchen' },
       en: { thinking: 'Thinking …', error: 'Unable to connect. Please try again.', missing: 'The local API key is not configured yet.', limit: 'Too many requests. Please wait a minute.', retry: 'Try again' },
@@ -295,6 +331,7 @@ const avatarSrc = `${import.meta.env.BASE_URL}ai/face-default.webp`;
       backdrop.hidden = false;
       panel.hidden = false;
       root.classList.add('is-open');
+      void loadVerification().catch(() => {});
       oldBodyOverflow = document.body.style.overflow;
       document.body.style.overflow = 'hidden';
       launcher.setAttribute('aria-expanded', 'true');
@@ -336,10 +373,6 @@ const avatarSrc = `${import.meta.env.BASE_URL}ai/face-default.webp`;
 
     async function sendToAgent(value: string, retry = false, requestMode: 'consult' | 'demo' | 'brief' = mode) {
       if (busy) return;
-      if (apiUrl && !import.meta.env.DEV && !testAccess) {
-        testAccess = window.prompt(testLabel)?.trim() || '';
-        if (!testAccess) { input.value = value; return; }
-      }
       busy = true;
       feedback?.remove();
       if (!retry) addMessage(value, 'user');
@@ -354,9 +387,15 @@ const avatarSrc = `${import.meta.env.BASE_URL}ai/face-default.webp`;
       controls.forEach(control => { control.disabled = true; });
       form.setAttribute('aria-busy', 'true');
       try {
+        if (!import.meta.env.DEV) {
+          await loadVerification();
+          if (!verificationToken) throw new Error('verification_failed');
+        }
+        const turnstileToken = verificationToken;
+        verificationToken = '';
         const response = await fetch(apiUrl, {
-          method: 'POST', headers: { 'Content-Type': 'application/json', ...(testAccess ? { Authorization: `Bearer ${testAccess}` } : {}) },
-          body: JSON.stringify({ lang, mode: requestMode, messages: [...history.slice(-10), { role: 'user', content: value }] }),
+          method: 'POST', headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ lang, turnstileToken, mode: requestMode, messages: [...history.slice(-10), { role: 'user', content: value }] }),
           signal: AbortSignal.timeout(25000),
         });
         const result = await response.json();
@@ -398,13 +437,14 @@ const avatarSrc = `${import.meta.env.BASE_URL}ai/face-default.webp`;
         failedMessage = value;
         failedKind = requestMode;
         const code = error instanceof Error ? error.message : '';
-        if (code === 'unauthorized') testAccess = '';
-        feedback!.textContent = code === 'not_configured' ? apiCopy.missing : code === 'rate_limited' ? apiCopy.limit : apiCopy.error;
+        feedback!.textContent = code === 'verification_failed' ? verificationCopy : code === 'daily_limit' ? dailyCopy : code === 'not_configured' ? apiCopy.missing : code === 'rate_limited' ? apiCopy.limit : apiCopy.error;
         const button = document.createElement('button');
         button.type = 'button'; button.className = 'cat-retry'; button.textContent = apiCopy.retry;
         button.addEventListener('click', () => { if (failedMessage) void sendToAgent(failedMessage, true, failedKind); });
         feedback!.append(button);
       } finally {
+        if (widgetId !== undefined) turnstileWindow.turnstile?.reset(widgetId);
+        verificationToken = '';
         busy = false;
         controls.forEach(control => { control.disabled = false; });
         form.removeAttribute('aria-busy');
@@ -480,6 +520,8 @@ const avatarSrc = `${import.meta.env.BASE_URL}ai/face-default.webp`;
 </script>
 
 <style>
+  .cat-verification { margin-bottom: 8px; }
+  .cat-verification:empty { display: none; }
   .cat-conversation :global(.cat-brief) { margin:12px 0; padding:14px; border:1px solid #ffffff25; border-radius:14px; }
   .cat-conversation :global(.cat-brief label) { display:block; font-size:12px; color:#cbd5d0; }
   .cat-conversation :global(.cat-brief textarea) { display:block; box-sizing:border-box; width:100%; margin:10px 0; padding:12px; border:1px solid #ffffff30; border-radius:8px; background:#24292c; color:#fff; font:inherit; font-size:16px; resize:vertical; }
