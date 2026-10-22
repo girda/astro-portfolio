@@ -1,0 +1,33 @@
+---
+interface Props {
+  name: string;
+  label: string;
+  placeholder?: string;
+  required?: boolean;
+  textarea?: boolean;
+  autocomplete?: string;
+}
+const {
+  name,
+  label,
+  placeholder = "",
+  required = false,
+  textarea = false,
+  autocomplete,
+} = Astro.props;
+---
+
+<label class="field">
+  <span>{label}</span>
+  {textarea ? (
+    <textarea name={name} placeholder={placeholder} rows={4} maxlength="2000" />
+  ) : (
+    <input
+      name={name}
+      placeholder={placeholder}
+      required={required}
+      autocomplete={autocomplete}
+      maxlength="200"
+    />
+  )}
+</label>

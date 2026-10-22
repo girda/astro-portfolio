@@ -1,0 +1,10 @@
+<svg preserveAspectRatio="none" overflow="visible" style="display: block;" width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+<g id="Lucide / git-compare-arrows">
+<path id="Vector" d="M6.66667 5C6.66667 6.38071 5.54738 7.5 4.16667 7.5C2.78595 7.5 1.66667 6.38071 1.66667 5C1.66667 3.61929 2.78595 2.5 4.16667 2.5C5.54738 2.5 6.66667 3.61929 6.66667 5Z" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" stroke="#244D42"/>
+<path id="Vector_2" d="M10 5H14.1667C14.6087 5 15.0326 5.17559 15.3452 5.48816C15.6577 5.80072 15.8333 6.22464 15.8333 6.66667V12.5" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" stroke="#244D42"/>
+<path id="Vector_3" d="M12.5 7.5L10 5L12.5 2.5" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" stroke="#244D42"/>
+<path id="Vector_4" d="M18.3333 15C18.3333 16.3807 17.214 17.5 15.8333 17.5C14.4526 17.5 13.3333 16.3807 13.3333 15C13.3333 13.6193 14.4526 12.5 15.8333 12.5C17.214 12.5 18.3333 13.6193 18.3333 15Z" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" stroke="#244D42"/>
+<path id="Vector_5" d="M10 15H5.83333C5.39131 15 4.96738 14.8244 4.65482 14.5118C4.34226 14.1993 4.16667 13.7754 4.16667 13.3333V7.5" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" stroke="#244D42"/>
+<path id="Vector_6" d="M7.5 12.5L10 15L7.5 17.5" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" stroke="#244D42"/>
+</g>
+</svg>

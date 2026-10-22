@@ -1,0 +1,568 @@
+---
+import "../styles/global.css";
+import Logo from "../components/Logo.astro";
+import Icon from "../components/Icon.astro";
+import Button from "../components/Button.astro";
+import InputField from "../components/InputField.astro";
+import VehicleCard from "../components/VehicleCard.astro";
+import { navigation, vehicles, ownership } from "../data/site";
+const base = import.meta.env.BASE_URL;
+const asset = (n: string) => `${base}assets/${n}`;
+const canonical = Astro.site ? new URL(base, Astro.site).href : undefined;
+---
+
+<!doctype html>
+<html lang="de">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <meta name="theme-color" content="#244d42" />
+    <title>Autohaus Lindenhof — Dein nächstes Auto.</title>
+    <meta
+      name="description"
+      content="Entdecke Autohaus Lindenhof: Fahrzeuge, persönliche Beratung und Probefahrten. Ein interaktives Designkonzept von HIRDA."
+    />
+    <meta
+      property="og:title"
+      content="Autohaus Lindenhof — Dein nächstes Auto."
+    />
+    <meta property="og:type" content="website" />
+    <meta
+      property="og:description"
+      content="Persönlich. Vor Ort. Lindenhof. — Ein Designkonzept von HIRDA."
+    />
+    <meta
+      property="og:image"
+      content={
+        Astro.site
+          ? new URL(
+              asset("desktop-imgLindenhofShowroomForestGreenSignage.png"),
+              Astro.site,
+            ).href
+          : asset("desktop-imgLindenhofShowroomForestGreenSignage.png")
+      }
+    />
+    {canonical && <link rel="canonical" href={canonical} />}
+    <link
+      rel="icon"
+      href={asset("desktop-imgLindenhofLAndRoadForestGreen.svg")}
+      type="image/svg+xml"
+    />
+    <link
+      rel="preload"
+      href={asset("dm-sans-400.ttf")}
+      as="font"
+      type="font/ttf"
+      crossorigin
+    />
+  </head>
+  <body>
+    <a class="skip-link" href="#main">
+      Zum Inhalt
+    </a>
+    <header class="site-header">
+      <div class="header-top">
+        <button
+          class="menu-trigger"
+          aria-label="Menü öffnen"
+          aria-haspopup="dialog"
+          aria-controls="navigation-dialog"
+        >
+          <Icon name="menu" />
+          <span>Menü</span>
+        </button>
+        <Logo />
+        <div class="header-actions">
+          <a href="#fahrzeuge">
+            <Icon name="car" />
+            <span>Fahrzeuge</span>
+          </a>
+          <a href="#kontakt">
+            <Icon name="calendar" />
+            <span>Probefahrt</span>
+          </a>
+          <a href="#standorte">
+            <Icon name="pin" />
+            <span>Kontakt</span>
+          </a>
+        </div>
+      </div>
+      <nav class="header-nav" aria-label="Hauptnavigation">
+        {navigation.map((label) => (
+          <button data-development>{label}</button>
+        ))}
+      </nav>
+    </header>
+    <main id="main">
+      <section class="hero" aria-labelledby="hero-title">
+        <picture>
+          <source
+            media="(max-width: 640px)"
+            srcset={asset("mobile-imgPortraitShowroomFullLindenhofSignage.png")}
+          />
+          <img
+            class="hero-image"
+            src={asset("desktop-imgLindenhofShowroomForestGreenSignage.png")}
+            alt="Lichtdurchfluteter Lindenhof-Salon mit Fahrzeugen und persönlicher Beratung — KI-generiertes Bild"
+            fetchpriority="high"
+            width="1536"
+            height="1024"
+          />
+        </picture>
+        <div class="hero-gradient"></div>
+        <div class="hero-copy">
+          <p class="eyebrow">LINDENHOF ENTDECKERTAGE</p>
+          <h1 id="hero-title">
+            Dein nächstes Auto.
+            <br />
+            Dein neuer Anfang.
+          </h1>
+          <p>Entdecke unsere Auswahl und finde dein nächstes Lieblingsauto.</p>
+          <Button href="#fahrzeuge">Fahrzeuge entdecken</Button>
+        </div>
+      </section>
+      <section
+        class="section models paper"
+        id="fahrzeuge"
+        aria-labelledby="models-title"
+      >
+        <div class="container">
+          <p class="eyebrow">FAHRZEUGE ENTDECKEN</p>
+          <h2 id="models-title">Welches Auto passt zu dir?</h2>
+          <div class="filters" role="group" aria-label="Fahrzeugkategorien">
+            {["Alle Modelle", "Kompakt", "Limousine", "Roadster"].map(
+              (label, i) => (
+                <button
+                  class:list={["filter", { active: i === 0 }]}
+                  aria-pressed={i === 0 ? "true" : "false"}
+                  data-filter={label}
+                >
+                  {label}
+                </button>
+              ),
+            )}
+          </div>
+          <div class="vehicle-carousel" aria-label="Demofahrzeuge" tabindex="0">
+            {vehicles.map((v) => (
+              <VehicleCard vehicle={v} />
+            ))}
+          </div>
+          <div class="carousel-controls">
+            <span class="carousel-count" aria-live="polite">
+              01 / 03
+            </span>
+            <div>
+              <button
+                class="icon-button border"
+                data-slide="-1"
+                aria-label="Vorheriges Fahrzeug"
+              >
+                <Icon name="left" />
+              </button>
+              <button
+                class="icon-button border"
+                data-slide="1"
+                aria-label="Nächstes Fahrzeug"
+              >
+                <Icon name="right" />
+              </button>
+            </div>
+          </div>
+          <p class="caption">
+            Beispielfahrzeuge im Designkonzept · Keine aktuellen
+            Verkaufsangebote.
+          </p>
+        </div>
+      </section>
+      <section
+        class="section paper"
+        id="beratung"
+        aria-labelledby="advice-title"
+      >
+        <div class="container advice-grid">
+          <div class="advice-copy">
+            <p class="eyebrow">LINDENHOF ASSISTENT</p>
+            <h2 id="advice-title">
+              Noch unsicher?
+              <br />
+              Finden wir dein Auto.
+            </h2>
+            <p>
+              Erzähl uns, was dir wichtig ist. Wir helfen dir, die passende
+              Richtung zu finden.
+            </p>
+            <Button id="advice-start">Beratung ausprobieren</Button>
+          </div>
+          <div class="assistant-panel">
+            <h3>Was soll dein nächstes Auto können?</h3>
+            <p>
+              Viel Platz, entspannt pendeln oder am Wochenende einfach
+              losfahren?
+            </p>
+            <div class="assistant-choices">
+              <button data-advice="familie">Platz für die Familie</button>
+              <button data-advice="alltag">Entspannt zur Arbeit</button>
+              <button data-advice="spass">Fahrspaß am Wochenende</button>
+            </div>
+            <form class="assistant-input">
+              <label for="advice-input">
+                Oder beschreibe deinen Wunsch in eigenen Worten.
+              </label>
+              <div>
+                <input
+                  id="advice-input"
+                  name="wish"
+                  placeholder="Was ist dir wichtig?"
+                  maxlength="300"
+                  required
+                />
+                <button
+                  class="icon-button"
+                  type="submit"
+                  aria-label="Wunsch absenden"
+                >
+                  <Icon name="right" />
+                </button>
+              </div>
+            </form>
+            <div
+              id="advice-result"
+              class="advice-result"
+              aria-live="polite"
+              hidden
+            ></div>
+            <p class="caption">
+              Interaktive Auswahl-Demo · Kein KI-Modell verbunden.
+            </p>
+          </div>
+        </div>
+      </section>
+      <section class="section" aria-labelledby="film-title">
+        <div class="container stack">
+          <p class="eyebrow">MORGEN FÄHRT MIT</p>
+          <h2 id="film-title">Mehr erleben. Weiter denken.</h2>
+          <p class="section-intro">
+            Entdecke neue Perspektiven — unterwegs und hinter dem Lenkrad.
+          </p>
+          <div class="film">
+            <video
+              id="driving-film"
+              loop
+              muted
+              playsinline
+              preload="none"
+              poster={asset("desktop-imgDrivingFilmPoster.png")}
+              data-src={asset("driving-film.mp4")}
+              aria-label="Fahrzeug auf einer Küstenstraße"
+            ></video>
+            <div class="film-shade"></div>
+            <button class="film-play" aria-label="Film abspielen">
+              <Icon name="play" />
+              Film ansehen
+            </button>
+            <button class="film-pause" hidden aria-label="Film pausieren">
+              Pause
+            </button>
+          </div>
+        </div>
+      </section>
+      <section
+        class="section ownership"
+        id="erwerb"
+        aria-labelledby="ownership-title"
+      >
+        <div class="container stack">
+          <div class="section-heading">
+            <p class="eyebrow">DEIN WEG ZUM AUTO</p>
+            <h2 id="ownership-title">Dein Auto. Dein Weg.</h2>
+            <p class="section-intro">
+              Kaufen, leasen oder dein Auto in Zahlung geben. Finde den Weg, der
+              zu dir passt.
+            </p>
+          </div>
+          <div class="tabs" role="tablist" aria-label="Weg zum Fahrzeug">
+            {ownership.map((item, i) => (
+              <button
+                role="tab"
+                id={`tab-${item.id}`}
+                aria-controls={`panel-${item.id}`}
+                aria-selected={i === 0 ? "true" : "false"}
+                tabindex={i === 0 ? 0 : -1}
+              >
+                <span class="tab-desktop">{item.label}</span>
+                <span class="tab-mobile">{item.short}</span>
+              </button>
+            ))}
+          </div>
+          {ownership.map((item, i) => (
+            <div
+              role="tabpanel"
+              id={`panel-${item.id}`}
+              aria-labelledby={`tab-${item.id}`}
+              hidden={i !== 0}
+              class="ownership-panel"
+            >
+              <div class="ownership-copy">
+                <h3>{item.label}</h3>
+                <p>{item.description}</p>
+                <Button href="#kontakt" data-interest={item.label}>
+                  {item.cta}
+                </Button>
+              </div>
+              <img
+                src={asset(item.image)}
+                alt={item.alt}
+                loading="lazy"
+                width="1536"
+                height="1024"
+              />
+            </div>
+          ))}
+        </div>
+      </section>
+      <section class="section" id="ueber-uns" aria-labelledby="about-title">
+        <div class="container about-grid">
+          <img
+            class="about-photo"
+            src={asset("desktop-imgLindenhofShowroomAiGenerated.png")}
+            alt="Persönliche Schlüsselübergabe im Lindenhof-Salon — KI-generiertes Bild"
+            loading="lazy"
+            width="1536"
+            height="1024"
+          />
+          <div class="about-copy">
+            <p class="eyebrow">AUTOHAUS LINDENHOF</p>
+            <h2 id="about-title">
+              Persönlich.
+              <br />
+              Vor Ort. Lindenhof.
+            </h2>
+            <p>
+              Ein Auto wählt man nicht nur auf dem Bildschirm. Bei uns kannst du
+              Modelle in Ruhe kennenlernen, Fragen stellen und selbst Probe
+              fahren.
+            </p>
+            <p>
+              Vom ersten Vergleich bis zur Übergabe: Wir begleiten dich bei der
+              Entscheidung und erklären dir die nächsten Schritte verständlich.
+            </p>
+          </div>
+        </div>
+      </section>
+      <section
+        class="section paper"
+        id="kontakt"
+        aria-labelledby="contact-title"
+      >
+        <div class="container stack">
+          <div class="section-heading">
+            <p class="eyebrow">WIR FREUEN UNS AUF DICH</p>
+            <h2 id="contact-title">
+              Dein nächster Schritt?
+              <br />
+              Eine Probefahrt.
+            </h2>
+            <p class="section-intro">
+              Sag uns, welches Auto dich interessiert. Wir melden uns bei dir
+              und stimmen den Termin persönlich ab.
+            </p>
+          </div>
+          <div class="contact-grid">
+            <form id="test-drive-form">
+              <div class="form-row">
+                <InputField
+                  name="name"
+                  label="Dein Name"
+                  placeholder="Vor- und Nachname"
+                  required
+                  autocomplete="name"
+                />
+                <InputField
+                  name="contact"
+                  label="Telefon oder E-Mail"
+                  placeholder="So erreichen wir dich"
+                  required
+                  autocomplete="email"
+                />
+              </div>
+              <InputField
+                name="vehicle"
+                label="Dein Wunschauto"
+                placeholder="Modell oder Fahrzeug (optional)"
+              />
+              <InputField
+                name="message"
+                label="Deine Nachricht"
+                placeholder="Was möchtest du uns mitgeben? (optional)"
+                textarea
+              />
+              <p class="caption">
+                Wir verwenden deine Angaben, um deine Anfrage zu beantworten.
+                Mehr dazu in der{" "}
+                <button type="button" class="text-link" data-development>
+                  Datenschutzerklärung
+                </button>
+                .
+              </p>
+              <Button type="submit">Probefahrt anfragen</Button>
+              <p class="caption demo-form-note">
+                Demo: Deine Eingaben bleiben im Browser. Es wird keine Anfrage
+                versendet.
+              </p>
+            </form>
+            <aside class="contact-card">
+              <h3>Komm vorbei.</h3>
+              <strong>Autohaus Lindenhof</strong>
+              <p>
+                Musterstraße 12
+                <br />
+                80331 München
+              </p>
+              <p>
+                Montag–Freitag&nbsp; 09:00–18:00
+                <br />
+                Samstag&nbsp; 10:00–14:00
+              </p>
+              <span class="green">kontakt@lindenhof.example</span>
+              <small>
+                Demodaten — kein reales Autohaus.
+                <br />
+                Adresse und Öffnungszeiten sind Platzhalter.
+              </small>
+            </aside>
+          </div>
+        </div>
+      </section>
+      <section
+        class="section locations"
+        id="standorte"
+        aria-labelledby="locations-title"
+      >
+        <div class="container stack">
+          <h2 id="locations-title">Lindenhof in deiner Nähe.</h2>
+          <p class="caption">Demo-Standorte · Schematische Standortübersicht</p>
+          <div
+            class="location-map"
+            role="img"
+            aria-label="Schematische Standortkarte mit drei Lindenhof-Markierungen für München, Garching und Service"
+          >
+            <picture>
+              <source
+                media="(max-width:640px)"
+                srcset={asset("mobile-imgEditableMapRoadsIllustration.svg")}
+              />
+              <img
+                class="map-roads"
+                src={asset("desktop-imgEditableMapRoadsIllustration.svg")}
+                alt=""
+                loading="lazy"
+              />
+            </picture>
+            {[
+              { label: "München", class: "munich" },
+              { label: "Garching", class: "garching" },
+              { label: "Service", class: "service" },
+            ].map((p) => (
+              <span class:list={["map-pin", p.class]}>
+                <span>
+                  <img
+                    src={asset("desktop-imgLindenhofLAndRoadWhite.svg")}
+                    alt=""
+                  />
+                </span>
+                <small>{p.label}</small>
+              </span>
+            ))}
+          </div>
+          <div class="address-grid">
+            {[
+              {
+                name: "Lindenhof München",
+                address: "Musterstraße 12 · 80331 München",
+              },
+              {
+                name: "Lindenhof Garching",
+                address: "Beispielweg 8 · 85748 Garching",
+              },
+            ].map((location) => (
+              <div class="address-card">
+                <h3>{location.name}</h3>
+                <p>{location.address}</p>
+                <small>Demoadresse — kein realer Standort</small>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+    </main>
+    <footer class="site-footer">
+      <div class="container">
+        <div class="footer-top">
+          <Logo light />
+          <nav aria-label="Footernavigation">
+            {navigation.map((label) => (
+              <button data-development>{label}</button>
+            ))}
+          </nav>
+        </div>
+        <div class="footer-bottom">
+          <a
+            href={
+              import.meta.env.PROD
+                ? `${base.replace(/demos\/lindenhof\/$/, "")}`
+                : "http://localhost:4321/"
+            }
+          >
+            Demo-Konzept von HIRDA
+          </a>
+          <div>
+            <button data-development>Impressum</button>
+            <button data-development>Datenschutz</button>
+          </div>
+        </div>
+        <p>
+          Fiktives Autohaus. KI-generierte Showroom- und Fahrzeugbilder; Film:
+          Yaroslav Shuraev / Pexels. Keine Verkaufsangebote.
+        </p>
+      </div>
+    </footer>
+    <dialog
+      id="development-dialog"
+      class="dialog"
+      aria-labelledby="dialog-title"
+    >
+      <div class="dialog-toolbar">
+        <span>LINDENHOF</span>
+        <button class="close-button" data-close aria-label="Fenster schließen">
+          <Icon name="close" />
+        </button>
+      </div>
+      <h2 id="dialog-title">Hier entsteht etwas Neues.</h2>
+      <p id="dialog-message">
+        Dieser Bereich ist noch in Entwicklung. Entdecke inzwischen unsere
+        Fahrzeuge oder stelle uns deine Fragen direkt.
+      </p>
+      <Button data-close>Verstanden</Button>
+    </dialog>
+    <dialog
+      id="navigation-dialog"
+      class="dialog navigation-dialog"
+      aria-labelledby="menu-title"
+    >
+      <div class="dialog-toolbar">
+        <h2 id="menu-title">Entdecke Lindenhof.</h2>
+        <button class="close-button" data-close aria-label="Menü schließen">
+          <Icon name="close" />
+        </button>
+      </div>
+      <nav aria-label="Mobile Navigation">
+        {navigation.map((label) => (
+          <button data-development>{label}</button>
+        ))}
+      </nav>
+    </dialog>
+    <script>
+      import "../scripts/site";
+    </script>
+  </body>
+</html>

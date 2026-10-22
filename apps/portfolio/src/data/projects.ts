@@ -4,6 +4,7 @@ export const projects = {
   cleaning: { name: "KLAR", port: 4323, status: "demo" },
   autoservice: { name: "WERKRAUM", port: 4324, status: "demo" },
   nails: { name: "STILL", port: 4325, status: "demo" },
+  lindenhof: { name: "LINDENHOF", port: 4326, status: "demo" },
 } satisfies Record<
   string,
   { name: string; port: number; status: ProjectStatus }

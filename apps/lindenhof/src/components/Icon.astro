@@ -1,0 +1,28 @@
+---
+interface Props {
+  name: string;
+  class?: string;
+}
+const { name, class: className = "" } = Astro.props;
+const files: Record<string, string> = {
+  menu: "Frame",
+  close: "LucideX",
+  car: "LucideCar",
+  calendar: "LucideCalendar",
+  pin: "LucidePin",
+  compare: "LucideGitCompareArrows",
+  heart: "LucideHeart",
+  body: "LucideCarFront",
+  users: "LucideUsers",
+  shield: "LucideShieldCheck",
+  gauge: "LucideGauge",
+  left: "LucideChevronLeft",
+  right: "LucideChevronRight",
+  play: "LucideCirclePlay",
+};
+const src = `${import.meta.env.BASE_URL}assets/desktop-img${files[name] || files.car}.svg`;
+---
+
+<span class:list={["icon", className]} aria-hidden="true">
+  <img src={src} alt="" />
+</span>

@@ -18,7 +18,7 @@ jobs:
           node-version: '24'
       - name: Install dependencies
         run: |
-          for app in portfolio barbershop cleaning autoservice nails; do
+          for app in portfolio barbershop cleaning autoservice nails lindenhof; do
             npm ci --prefix "apps/$app"
           done
       - name: Build all sites

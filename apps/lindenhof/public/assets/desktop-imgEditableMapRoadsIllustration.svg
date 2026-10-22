@@ -1,0 +1,25 @@
+<svg preserveAspectRatio="none" overflow="visible" style="display: block;" width="1296" height="420" viewBox="0 0 1296 420" fill="none" xmlns="http://www.w3.org/2000/svg">
+<g id="Editable map roads / illustration" clip-path="url(#clip0_0_224)">
+<path id="Vector" d="M1296 0H0V420H1296V0Z" fill="#EAF0EB"/>
+<path id="Vector_2" d="M0 40L190 10L305 100L190 210L0 160V40ZM830 0H1010L960 130L860 155L830 0ZM980 320L1160 210L1296 275V420H1090L980 320Z" fill="#D5E3D7"/>
+<path id="Vector_3" d="M700 -30C640 75 815 110 720 195C625 280 790 320 700 450" stroke-width="30" stroke="#B7D6DA"/>
+<g id="Group">
+<path id="Vector_4" d="M-30 310L300 160L590 190L920 40L1340 70" stroke-width="22" stroke="#D9DED8"/>
+<path id="Vector_5" d="M190 -40L390 110L490 270L890 350L1280 270" stroke-width="22" stroke="#D9DED8"/>
+<path id="Vector_6" d="M70 450L300 270L620 60L940 200L1340 380" stroke-width="22" stroke="#D9DED8"/>
+</g>
+<g id="Group_2">
+<path id="Vector_7" d="M-30 310L300 160L590 190L920 40L1340 70" stroke-width="16" stroke-linecap="round" stroke="white"/>
+<path id="Vector_8" d="M190 -40L390 110L490 270L890 350L1280 270" stroke-width="16" stroke-linecap="round" stroke="white"/>
+<path id="Vector_9" d="M70 450L300 270L620 60L940 200L1340 380" stroke-width="16" stroke-linecap="round" stroke="white"/>
+</g>
+<g id="Group_3">
+<path id="Vector_10" d="M0 110L104.912 144.257M104.912 144.257L490 270L440 420M104.912 144.257L130 0M104.912 144.257L90 230L360 420M880 0L830 255L1020 420M1120 0L1070 240L1296 110" stroke-width="6" stroke="white"/>
+</g>
+</g>
+<defs>
+<clipPath id="clip0_0_224">
+<rect width="1296" height="420" fill="white"/>
+</clipPath>
+</defs>
+</svg>

@@ -46,7 +46,7 @@ const base = import.meta.env.BASE_URL.replace(/\/$/, "");
               category={project.category}
               status={projects[project.id].status}
               lang={lang}
-              preview={`${base}/previews/${project.id === "barbershop" ? "barbershop-2026.png" : `${project.id}.jpg`}`}
+              preview={`${base}/previews/${project.id === "barbershop" ? "barbershop-2026.png" : project.id === "lindenhof" ? "lindenhof.png" : `${project.id}.jpg`}`}
               name={projects[project.id].name}
               open={openLabel}
               href={projectHref(project.id)}

@@ -7,7 +7,7 @@ const base = (process.env.PAGES_BASE || '/astro-portfolio/').replace(/\/?$/, '/'
 const site = process.env.SITE_URL;
 rmSync(destination, { recursive: true, force: true });
 mkdirSync(destination, { recursive: true });
-for (const app of ['portfolio', 'barbershop', 'cleaning', 'autoservice', 'nails']) {
+for (const app of ['portfolio', 'barbershop', 'cleaning', 'autoservice', 'nails', 'lindenhof']) {
   const folder = resolve(root, 'apps', app);
   const suffix = app === 'portfolio' ? '' : `demos/${app}/`;
   const result = spawnSync(process.execPath, [resolve(folder, 'node_modules/astro/bin/astro.mjs'), 'build'], {

@@ -1,0 +1,25 @@
+---
+interface Props {
+  light?: boolean;
+  compact?: boolean;
+  href?: string;
+}
+const {
+  light = false,
+  compact = false,
+  href = import.meta.env.BASE_URL,
+} = Astro.props;
+const mark = `${import.meta.env.BASE_URL}assets/desktop-imgLindenhofLAndRoad${light ? "White1" : "ForestGreen"}.svg`;
+---
+
+<a
+  class:list={["brand", { light, compact }]}
+  href={href}
+  aria-label="Autohaus Lindenhof — Startseite"
+>
+  <img class="brand-mark" src={mark} alt="" />
+  <span class="brand-word">
+    <small>AUTOHAUS</small>
+    <span>Lindenhof</span>
+  </span>
+</a>
