@@ -57,29 +57,29 @@ export const ownership = [
     label: "Kaufen & finanzieren",
     short: "Kaufen & finanzieren",
     description:
-      "Ein Auto, das zu dir passt. Ein Zahlungsweg, der zu deinem Budget passt.",
+      "Ein Auto, das zu dir passt — mit einem Zahlungsweg, den du verstehst. Kaufpreis, Anzahlung, Laufzeit und Gesamtkosten gehören gemeinsam auf den Tisch. Ein konkretes Angebot würde persönlich erstellt.",
     cta: "Möglichkeiten besprechen",
     image: "desktop-imgPhotoKaufenFinanzieren.png",
-    alt: "Beratung an einem silbernen Fahrzeug im hellen Lindenhof-Salon — KI-generiertes Bild",
+    alt: "Beratung an einem silbernen Fahrzeug im hellen Lindenhof-Salon",
   },
   {
     id: "leasing",
     label: "Leasing entdecken",
     short: "Leasing",
     description:
-      "Fahren mit planbarer Laufzeit. Wir erklären dir die Optionen verständlich.",
+      "Ein Fahrzeug nutzen, ohne es dauerhaft zu übernehmen. Laufzeit, Jahreskilometer und Rückgabe passen idealerweise zu deinem Alltag. Konditionen und Verfügbarkeit werden individuell besprochen.",
     cta: "Leasing anfragen",
     image: "ownership-leasing.png",
-    alt: "Schlüsselübergabe neben einem roten Fahrzeug — KI-generiertes Bild",
+    alt: "Schlüsselübergabe neben einem roten Fahrzeug",
   },
   {
     id: "inzahlungnahme",
     label: "Inzahlungnahme",
     short: "Inzahlungnahme",
     description:
-      "Dein bisheriges Auto kann der erste Schritt zum nächsten sein.",
+      "Dein bisheriges Auto kann der erste Schritt zum nächsten sein. Modell, Laufleistung, Ausstattung und Zustand bilden die Grundlage einer Bewertung — eine verlässliche Einschätzung braucht die persönliche Besichtigung.",
     cta: "Bewertung anfragen",
     image: "ownership-tradein.png",
-    alt: "Gemeinsame Fahrzeugbewertung im Lindenhof-Salon — KI-generiertes Bild",
+    alt: "Gemeinsame Fahrzeugbewertung im Lindenhof-Salon",
   },
 ];

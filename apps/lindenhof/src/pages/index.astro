@@ -104,7 +104,7 @@ const canonical = Astro.site ? new URL(base, Astro.site).href : undefined;
           <img
             class="hero-image"
             src={asset("desktop-imgLindenhofShowroomForestGreenSignage.png")}
-            alt="Lichtdurchfluteter Lindenhof-Salon mit Fahrzeugen und persönlicher Beratung — KI-generiertes Bild"
+            alt="Lichtdurchfluteter Lindenhof-Salon mit Fahrzeugen und persönlicher Beratung"
             fetchpriority="high"
             width="1536"
             height="1024"
@@ -326,7 +326,7 @@ const canonical = Astro.site ? new URL(base, Astro.site).href : undefined;
           <img
             class="about-photo"
             src={asset("desktop-imgLindenhofShowroomAiGenerated.png")}
-            alt="Persönliche Schlüsselübergabe im Lindenhof-Salon — KI-generiertes Bild"
+            alt="Persönliche Schlüsselübergabe im Lindenhof-Salon"
             loading="lazy"
             width="1536"
             height="1024"
@@ -339,15 +339,26 @@ const canonical = Astro.site ? new URL(base, Astro.site).href : undefined;
               Vor Ort. Lindenhof.
             </h2>
             <p>
-              Ein Auto wählt man nicht nur auf dem Bildschirm. Bei uns kannst du
-              Modelle in Ruhe kennenlernen, Fragen stellen und selbst Probe
-              fahren.
+              Ein Auto wählt man nicht nur auf dem Bildschirm. Sitzposition,
+              Kofferraum, Übersicht und Fahrgefühl zeigen erst beim Kennenlernen,
+              ob ein Modell zu deinem Alltag passt. Eine Probefahrt schafft Raum
+              für genau diese Fragen.
             </p>
             <p>
-              Vom ersten Vergleich bis zur Übergabe: Wir begleiten dich bei der
-              Entscheidung und erklären dir die nächsten Schritte verständlich.
+              Vom ersten Vergleich bis zur Übergabe gehören auch die Details dazu:
+              vorhandene Ausstattung, Unterlagen und ein verständlicher Blick auf
+              die Kosten. Das Lindenhof-Konzept zeigt diesen Weg ohne Zeitdruck —
+              als Demo, nicht als echtes Verkaufsangebot.
             </p>
           </div>
+          <figure class="showroom-moment">
+            <img src={asset("lindenhof-consultation.webp")} alt="Persönliche Beratung am Tisch im Lindenhof-Salon" width="1672" height="941" loading="lazy" />
+            <figcaption><h3>Erst vergleichen. Dann entscheiden.</h3><p>Deine Wege, dein Platzbedarf und deine Fragen geben der Beratung die Richtung. Gemeinsam werden aus vielen Möglichkeiten die passenden nächsten Schritte.</p></figcaption>
+          </figure>
+          <figure class="showroom-moment">
+            <img src={asset("lindenhof-delivery.webp")} alt="Schlüsselübergabe neben einer blauen Limousine im Lindenhof-Salon" width="1672" height="941" loading="lazy" />
+            <figcaption><h3>Ein guter Start gehört dazu.</h3><p>Bei einer Übergabe zählen auch die kleinen Details: Bedienung kennenlernen, Unterlagen durchgehen und offene Fragen in Ruhe klären.</p></figcaption>
+          </figure>
         </div>
       </section>
       <section
@@ -522,7 +533,7 @@ const canonical = Astro.site ? new URL(base, Astro.site).href : undefined;
           </div>
         </div>
         <p>
-          Fiktives Autohaus. KI-generierte Showroom- und Fahrzeugbilder; Film:
+          Fiktives Autohaus. Film:
           Yaroslav Shuraev / Pexels. Keine Verkaufsangebote.
         </p>
       </div>
