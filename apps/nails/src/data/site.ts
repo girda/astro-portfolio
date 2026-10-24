@@ -58,7 +58,7 @@ export const services = [
 ];
 const image=(file:string)=>`${import.meta.env.BASE_URL}images/${file}`;
 export const photos = [
- {src:image('beauty-hero.webp'),alt:'KI-Visualisierung: Hairstyling in einem hellen Beauty-Salon',author:'HIRDA',url:'https://girda.github.io/astro-portfolio/',caption:'Haare & Styling'},
- {src:image('spa-room.webp'),alt:'KI-Visualisierung: ruhiger Spa- und Massageraum',author:'HIRDA',url:'https://girda.github.io/astro-portfolio/',caption:'Spa & Pflege'},
- {src:image('manicure-v2.webp'),alt:'KI-Visualisierung: sorgfältige Maniküre in Bordeaux',author:'HIRDA',url:'https://girda.github.io/astro-portfolio/',caption:'Nägel & Farbe'},
+ {src:image('beauty-hero.webp'),alt:'Hairstyling in einem hellen Beauty-Salon',author:'HIRDA',url:'https://girda.github.io/astro-portfolio/',caption:'Haare & Styling'},
+ {src:image('spa-room.webp'),alt:'ruhiger Spa- und Massageraum',author:'HIRDA',url:'https://girda.github.io/astro-portfolio/',caption:'Spa & Pflege'},
+ {src:image('manicure-v2.webp'),alt:'sorgfältige Maniküre in Bordeaux',author:'HIRDA',url:'https://girda.github.io/astro-portfolio/',caption:'Nägel & Farbe'},
 ];

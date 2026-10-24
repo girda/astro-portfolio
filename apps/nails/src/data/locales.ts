@@ -35,12 +35,12 @@ const content = {
     "bookingNote": "Keine echte Buchung. Diese Auswahl bleibt im Browser; nichts wird gesendet oder reserviert.",
     "summary": "Deine Auswahl",
     "galleryIntro": "Ein Gefühl für STILL.",
-    "galleryNote": "KI-generierte Inspirationen für dieses Salonkonzept. Keine echten Kundenarbeiten oder Mitarbeiterinnen.",
+    "galleryNote": "Inspirationen für dieses Salonkonzept. Keine echten Kundenarbeiten oder Mitarbeiterinnen.",
     "all": "Alle",
     "color": "Looks",
     "care": "Spa & Pflege",
     "studioIntro": "Ein Ort. Viele gute Momente.",
-    "studioText": "Vom präzisen Schnitt bis zum ruhigen Spa-Ritual: STILL verbindet Beauty und Wohlbefinden in einer klaren, persönlichen Salonidee. Ein Designkonzept von HIRDA, kein echter Salon.",
+    "studioText": "Ein Schnitt, der im Alltag funktioniert. Gepflegte Nägel, die zu deinem Stil passen. Eine bewusste Pause vom Tempo draußen. Bei STILL beginnt jede Behandlung mit deinen Wünschen; Ablauf, Zeit und passende Pflege werden vorab besprochen. Die Bilder zeigen eine Salonidee von HIRDA, keinen echten Betrieb.",
     "address": "Adresse",
     "contact": "Kontakt",
     "hours": "Öffnungszeiten",
@@ -69,19 +69,19 @@ const content = {
     "treatments": [
       {
         "name": "Schnitt & Styling",
-        "text": "Ein Schnitt, der zu dir passt, mit Pflege und persönlichem Styling."
+        "text": "Haarstruktur, Länge und dein täglicher Aufwand geben die Richtung vor. Dazu ein Finish und Styling-Tipps für zu Hause."
       },
       {
         "name": "Farbe & Glanz",
-        "text": "Farbwunsch und Haarzustand gemeinsam besprechen. Materialumfang nach Beratung."
+        "text": "Sanfte Veränderung oder ein neuer Ton? Farbziel, bisherige Behandlungen und Haarzustand werden vor dem Farbservice besprochen."
       },
       {
         "name": "Classic Maniküre",
-        "text": "Nägel formen, Nagelhaut pflegen und ein natürliches Finish."
+        "text": "Form, Länge und Pflege für einen natürlichen, gepflegten Look. Das Finish richtet sich nach deinem Stil und Alltag."
       },
       {
         "name": "Maniküre mit Gel-Lack",
-        "text": "Sorgfältige Maniküre und deine Wunschfarbe. Entfernung separat abstimmen."
+        "text": "Eine klare Form und Farbe nach deinem Geschmack. Vorhandenes Material, Entfernung und gewünschtes Finish werden vorher abgestimmt."
       },
       {
         "name": "Wellness-Massage",
@@ -139,12 +139,12 @@ const content = {
     "bookingNote": "Это не настоящая запись. Выбор остаётся в браузере; ничего не отправляется и не бронируется.",
     "summary": "Твой выбор",
     "galleryIntro": "Атмосфера STILL.",
-    "galleryNote": "ИИ-изображения для концепции салона. Это не реальные работы, клиенты или сотрудники.",
+    "galleryNote": "Визуальные идеи салона. Это не реальные работы, клиенты или сотрудники.",
     "all": "Все",
     "color": "Образы",
     "care": "SPA и уход",
     "studioIntro": "Одно место. Много приятных моментов.",
-    "studioText": "От точной стрижки до спокойного SPA-ритуала: STILL объединяет красоту и уход в концепции персонального салона. Демо-проект HIRDA, не настоящий салон.",
+    "studioText": "Стрижка для твоего ритма жизни, ухоженные ногти и спокойная пауза в течение дня. Сначала обсудим пожелания, время и уход, затем выберем процедуру. Это концепция салона от HIRDA, а не настоящий бизнес.",
     "address": "Адрес",
     "contact": "Контакты",
     "hours": "Часы работы",
@@ -243,12 +243,12 @@ const content = {
     "bookingNote": "This is not a real booking. Your selection stays in this browser; nothing is sent or reserved.",
     "summary": "Your selection",
     "galleryIntro": "A feeling for STILL.",
-    "galleryNote": "AI-generated inspiration for this salon concept. Not real client work or staff.",
+    "galleryNote": "Inspiration for this salon concept. Not real client work or staff.",
     "all": "All",
     "color": "Looks",
     "care": "Spa & care",
     "studioIntro": "One place. Many good moments.",
-    "studioText": "From a precise cut to a quiet spa ritual, STILL brings beauty and wellbeing together in a personal salon concept. A HIRDA design demo, not a real salon.",
+    "studioText": "A cut that works in everyday life, nails that suit your style and a deliberate pause from a busy day. At STILL, your wishes come first; treatment, timing and care are discussed before you begin. This is a HIRDA salon concept, not a real business.",
     "address": "Address",
     "contact": "Contact",
     "hours": "Opening hours",
