@@ -1,4 +1,4 @@
-> 24.10.2026: STILL Beauty & Spa, WERKRAUM, Karten/Filter/Preise und gemeinsame Animationen umgesetzt und geprüft. [Bericht](audit/beauty-auto-portfolio-2026-10-24.md). Commit/push vom Nutzer beauftragt; Veröffentlichung siehe Bericht.
+> 24.10.2026: STILL Beauty & Spa, WERKRAUM, Karten/Filter/Preise und gemeinsame Animationen umgesetzt und geprüft. [Bericht](audit/beauty-auto-portfolio-2026-10-24.md). Опубликовано: e1ed035, CI build/deploy пройдены.
 
 > 24.10.2026: KLAR, VOLTEX, FIXORA и GRÜNWERK реализованы локально. Figma desktop/mobile и UI-компоненты — на проверке у Артёма. Не опубликовано. [Отчёт и ссылки](audit/service-demos-2026-10-24.md).
 
