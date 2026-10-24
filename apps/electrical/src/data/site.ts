@@ -1,7 +1,7 @@
 import type {TradeSite} from '../../../../packages/ui/trade-types';
 export const site = {
   "kind": "electrical",
-  "name": "VOLTEX",
+  "name": "STROMWERK",
   "tagline": "Elektroservice",
   "eyebrow": "Energie für Zuhause & Unternehmen",
   "headline": [
@@ -10,43 +10,43 @@ export const site = {
   ],
   "description": "Klar geplant. Sorgfältig umgesetzt. Dein Konzept für moderne Elektrotechnik — vom Licht bis zur smarten Steuerung.",
   "hero": "electrician.webp",
-  "heroAlt": "KI-Visualisierung: Elektriker prüft einen spannungsfreien Verteiler",
+  "heroAlt": "Elektriker prüft einen spannungsfreien Verteiler",
   "servicesTitle": "Komplette Lösungen für deine Elektrik",
-  "servicesIntro": "Eine klare Auswahl für unterschiedliche Anforderungen.",
+  "servicesIntro": "Vom einzelnen Anschluss bis zur Modernisierung: Entscheidend ist, was du heute brauchst und was morgen dazukommen könnte.",
   "services": [
     {
       "icon": "house",
       "title": "Installation & Leitungen",
-      "text": "Durchdachte Elektroinstallation für Neu- und Umbauten."
+      "text": "Neue Räume brauchen Anschlüsse an den richtigen Stellen. Licht, Steckdosen und Leitungswege werden gemeinsam mit der Nutzung geplant."
     },
     {
       "icon": "lightbulb",
       "title": "Licht & Beleuchtung",
-      "text": "Lichtkonzepte für drinnen und draußen."
+      "text": "Arbeitslicht in der Küche, angenehmes Licht im Wohnraum oder Orientierung im Außenbereich: Funktion und Atmosphäre gehören zusammen."
     },
     {
       "icon": "panel-left",
       "title": "Verteiler & Modernisierung",
-      "text": "Bestehende Anlagen gezielt weiterdenken."
+      "text": "Welche Geräte kommen hinzu? Was ist bereits vorhanden? Zustand, Platzbedarf und künftige Nutzung bilden die Grundlage der Modernisierung."
     },
     {
       "icon": "plug",
       "title": "Steckdosen & Schalter",
-      "text": "Praktische Anschlüsse dort, wo du sie brauchst."
+      "text": "Mehr Komfort ohne Verlängerungskabel: Positionen, Bedienung und vorhandene Installation vor einem Umbau gemeinsam prüfen."
     },
     {
       "icon": "zap",
       "title": "Schutz & Prüfung",
-      "text": "Sicherheit und Zustand fachlich beurteilen lassen."
+      "text": "Auffälligkeiten fachlich einordnen und den passenden Prüfumfang klären. Erst die Ursache verstehen, dann eine Maßnahme festlegen."
     },
     {
       "icon": "building-2",
       "title": "Gewerbe & Büro",
-      "text": "Technik passend zu deinen Arbeitsabläufen."
+      "text": "Arbeitsplätze, Beleuchtung und Technik auf den Betriebsablauf abstimmen. Mögliche Ausfallzeiten werden vor der Umsetzung besprochen."
     }
   ],
   "aboutTitle": "Technik verstehen. Gemeinsam weiterdenken.",
-  "aboutText": "Ob neue Beleuchtung, Modernisierung oder ein größeres Vorhaben: Gute Elektroplanung beginnt damit, deinen Bedarf zu verstehen. VOLTEX zeigt, wie ein zeitgemäßer Fachbetrieb Leistungen übersichtlich und persönlich präsentieren kann.",
+  "aboutText": "Gute Elektrotechnik fällt im Alltag oft kaum auf — bis etwas fehlt. Stromwerk verbindet verständliche Beratung mit einer Planung, die Räume, Geräte und Gewohnheiten berücksichtigt. Bestehende Anlagen werden zuerst beurteilt; Umfang, Material und nächste Schritte werden vor einer Umsetzung abgestimmt.",
   "aboutPoints": [
     "Zuhause & Gewerbe",
     "Bedarf zuerst klären",
@@ -74,28 +74,32 @@ export const site = {
     {
       "icon": "message-circle",
       "title": "Vorhaben beschreiben",
-      "text": "Was möchtest du installieren oder verändern?"
+      "text": "Raum, geplante Geräte und vorhandene Anlage beschreiben. Fotos können bei einer späteren persönlichen Abstimmung helfen."
     },
     {
       "icon": "scan-line",
       "title": "Bedarf klären",
-      "text": "Anlage, Umfang und Besonderheiten besprechen."
+      "text": "Vor Ort wären Zustand, Anschlussmöglichkeiten und gewünschte Nutzung zu prüfen. Nicht jede Anlage lässt sich gleich erweitern."
     },
     {
       "icon": "calendar-days",
       "title": "Umsetzung planen",
-      "text": "Leistungen und einen möglichen Termin abstimmen."
+      "text": "Ein nachvollziehbares Angebot bildet die Grundlage. Material, Arbeitsschritte und mögliche Unterbrechungen werden gemeinsam abgestimmt."
     },
     {
       "icon": "shield-check",
       "title": "Ergebnis prüfen",
-      "text": "Dokumentation und Übergabe passend zur Aufgabe."
+      "text": "Nach einer echten Ausführung gehören die erforderlichen Prüfungen und eine verständliche Einweisung zum vereinbarten Umfang."
     }
   ],
   "faq": [
     [
+      "Was hilft bei der Vorbereitung einer Anfrage?",
+      "Beschreibe den Raum, dein Vorhaben und vorhandene Geräte. Bei einem Umbau sind Pläne oder die gewünschte Position neuer Anschlüsse hilfreich. Arbeiten an der Anlage gehören in die Hände qualifizierter Fachkräfte."
+    ],
+    [
       "Gibt es einen echten Notdienst?",
-      "Nein. VOLTEX ist ein Demo-Konzept ohne Notdienst. Bei einer akuten Gefahr nutze die zuständigen örtlichen Notfallstellen."
+      "Nein. STROMWERK ist ein Demo-Konzept ohne Notdienst. Bei einer akuten Gefahr nutze die zuständigen örtlichen Notfallstellen."
     ],
     [
       "Ist das ein echter Betrieb?",
