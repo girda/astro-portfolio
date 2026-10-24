@@ -10,33 +10,33 @@ export const site = {
   ],
   "description": "Ein Platz zum Ankommen. Zum Durchatmen. Zum Draußensein. Entdecke ein Gartenkonzept, das Natur und deinen Alltag zusammenbringt.",
   "hero": "garden.webp",
-  "heroAlt": "KI-Visualisierung eines naturnahen Gartens mit Natursteinweg und Holzterrasse",
+  "heroAlt": "naturnahen Gartens mit Natursteinweg und Holzterrasse",
   "servicesTitle": "Was deinen Garten besonders macht.",
-  "servicesIntro": "Von einer frischen Idee bis zur Pflege, die alles zusammenhält.",
+  "servicesIntro": "Ein stimmiger Garten verbindet schöne Materialien mit Pflanzen, die zum Standort passen — und einem Pflegeaufwand, der zu dir passt.",
   "services": [
     {
       "icon": "sprout",
       "title": "Gartenplanung",
-      "text": "Aus deinen Wünschen wird ein stimmiges Konzept."
+      "text": "Ein Sitzplatz in der Abendsonne, Raum zum Spielen oder weniger Pflege: Nutzung, Boden und Licht geben der Planung ihre Richtung."
     },
     {
       "icon": "flower-2",
       "title": "Pflanzen & Beete",
-      "text": "Lebendige Strukturen für jede Jahreszeit."
+      "text": "Farben, Höhen und Blütezeiten schaffen ein lebendiges Gesamtbild. Die Pflanzenauswahl wird an Standort und Pflegeaufwand angepasst."
     },
     {
       "icon": "layers",
       "title": "Wege & Terrassen",
-      "text": "Lieblingsplätze aus Holz und Naturstein."
+      "text": "Wege verbinden, Terrassen laden zum Bleiben ein. Material, Gefälle, Entwässerung und Anschlüsse an das Haus werden zusammen betrachtet."
     },
     {
       "icon": "trees",
       "title": "Gartenpflege",
-      "text": "Damit dein Garten Zeit zum Wachsen hat."
+      "text": "Rückschnitt, Beetpflege oder ein saisonaler Start: Umfang und Zeitpunkt richten sich nach Pflanzenbestand und den Bedürfnissen deines Gartens."
     }
   ],
   "aboutTitle": "Nicht irgendein Garten. Sondern deiner.",
-  "aboutText": "Morgens mit dem Kaffee nach draußen. Abends noch ein bisschen bleiben. Ein schöner Garten sieht nicht nur gut aus — er passt dazu, wie du leben möchtest.",
+  "aboutText": "Morgens mit dem Kaffee nach draußen. Abends noch ein bisschen bleiben. Ein Garten soll nicht nur auf einem Foto funktionieren, sondern über die Jahreszeiten hinweg. Deshalb beginnt Grünwerk mit deinem Alltag: Wo möchtest du sitzen, was soll wachsen und wie viel Zeit möchtest du in die Pflege investieren?",
   "aboutPoints": [
     "Standort und Jahreszeiten berücksichtigen",
     "Pflanzen und Materialien bewusst auswählen",
@@ -64,25 +64,29 @@ export const site = {
     {
       "icon": "coffee",
       "title": "Kennenlernen",
-      "text": "Wie möchtest du deinen Garten nutzen?"
+      "text": "Wünsche, Nutzung und vorhandene Lieblingsplätze besprechen. Auch ein einzelnes Beet kann ein guter Anfang sein."
     },
     {
       "icon": "ruler",
       "title": "Ideen entwickeln",
-      "text": "Pflanzen, Materialien und Flächen zusammendenken."
+      "text": "Sonne, Boden, Wege und Pflanzenbestand betrachten. Daraus entsteht eine nachvollziehbare Richtung für Gestaltung und Materialien."
     },
     {
       "icon": "shovel",
       "title": "Umsetzung planen",
-      "text": "Umfang, Etappen und einen möglichen Ablauf klären."
+      "text": "Die Arbeiten in sinnvolle Etappen aufteilen. Zugänglichkeit, Jahreszeit und Pflegebedarf fließen in die Abstimmung ein."
     },
     {
       "icon": "leaf",
       "title": "Weiterwachsen",
-      "text": "Pflege und Entwicklung im Blick behalten."
+      "text": "Ein Garten verändert sich. Passende Pflege und die Entwicklung der Pflanzen gehören deshalb von Anfang an zur Planung."
     }
   ],
   "faq": [
+    [
+      "Wie entsteht ein Garten mit überschaubarem Pflegeaufwand?",
+      "Entscheidend sind standortgerechte Pflanzen, gut erreichbare Flächen und eine Gestaltung, die zu deiner verfügbaren Zeit passt. Pflegeleicht bedeutet nicht pflegefrei; der gewünschte Aufwand sollte bereits in der Planung besprochen werden."
+    ],
     [
       "Kann ich auch nur einen Teil des Gartens verändern?",
       "Ja, das Konzept berücksichtigt einzelne Beete, Wege oder eine Terrasse ebenso wie eine größere Neugestaltung. Ein echter Umfang würde persönlich abgestimmt."
