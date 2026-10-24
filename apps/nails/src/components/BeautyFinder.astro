@@ -1,0 +1,15 @@
+---
+import {copy,type Language} from '../data/locales';
+import {photos} from '../data/site';
+import Icon from '../../../../packages/ui/Icon.astro';
+interface Props {lang:Language}
+const {lang}=Astro.props;const t=copy[lang];
+const labels={de:{eye:'Dein Moment. Deine Wahl.',title:'Womit möchtest du anfangen?',text:'Wähle eine Richtung. Entdecke den Ablauf, die Dauer und einen Beispielpreis — ganz ohne lange Suche.',tabs:['Haare','Nägel','Auszeit'],price:'Demo-Beispiel',choose:'Diese Behandlung wählen'},ru:{eye:'Твоё время. Твой выбор.',title:'С чего начнём?',text:'Выбери направление. Посмотри состав процедуры, длительность и примерную стоимость — без долгого поиска.',tabs:['Волосы','Ногти','Отдых'],price:'Демопример',choose:'Выбрать процедуру'},en:{eye:'Your moment. Your choice.',title:'Where would you like to start?',text:'Choose a direction. Explore the treatment, timing and example price without a long search.',tabs:['Hair','Nails','Time out'],price:'Demo example',choose:'Choose this treatment'}}[lang];
+const indices=[0,2,4];const pictures=[photos[0],photos[2],photos[1]];const money=new Intl.NumberFormat(lang,{style:'currency',currency:'EUR'});
+---
+<section class="beauty-finder" id="beauty-finder"><div class="wrap finder-layout"><div><p class="eyebrow">{labels.eye}</p><h2>{labels.title}</h2><p>{labels.text}</p><div class="finder-tabs" role="tablist" aria-label={t.services}>{labels.tabs.map((label,i)=><button id={`beauty-tab-${i}`} type="button" role="tab" aria-controls={`beauty-panel-${i}`} aria-selected={i===0?'true':'false'} tabindex={i===0?0:-1} data-beauty-tab={i}>{label}</button>)}</div></div><div>{indices.map((index,i)=><article class="finder-panel" id={`beauty-panel-${i}`} role="tabpanel" aria-labelledby={`beauty-tab-${i}`} hidden={i!==0}><img src={pictures[i].src} alt={t.categories[i===0?0:i===1?1:2]} width="800" height="650" loading="lazy"/><div><p class="eyebrow">0{i+1} / STILL</p><h3>{t.treatments[index].name}</h3><p>{t.treatments[index].text}</p><span class="finder-price">{t.treatments[index].time} {t.minutes} · {labels.price} {money.format(t.treatments[index].price)}</span><a class="text-link" href="#booking" data-service={index}>{labels.choose}<Icon name="arrow-right"/></a></div></article>)}</div></div></section>
+<script>
+ const tabs=[...document.querySelectorAll<HTMLButtonElement>('[data-beauty-tab]')];
+ const activate=(tab:HTMLButtonElement)=>{for(const item of tabs){const active=item===tab;item.setAttribute('aria-selected',String(active));item.tabIndex=active?0:-1;document.getElementById(item.getAttribute('aria-controls')!)!.hidden=!active;}};
+ tabs.forEach((tab,index)=>{tab.addEventListener('click',()=>activate(tab));tab.addEventListener('keydown',e=>{let next=index;if(e.key==='ArrowRight')next=(index+1)%tabs.length;else if(e.key==='ArrowLeft')next=(index-1+tabs.length)%tabs.length;else if(e.key==='Home')next=0;else if(e.key==='End')next=tabs.length-1;else return;e.preventDefault();activate(tabs[next]);tabs[next].focus();});});
+</script>
