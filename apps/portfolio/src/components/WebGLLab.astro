@@ -1,0 +1,189 @@
+---
+const base = import.meta.env.BASE_URL.replace(/\/$/, "");
+---
+
+<section class="lab" aria-labelledby="lab-title">
+  <header class="lab-nav">
+    <a class="wordmark" href={`${base}/`} aria-label="HIRDA — main portfolio">HIRDA<span>®</span></a>
+    <span class="lab-tag">EXPERIMENT 001 / WEBGL</span>
+    <a class="back" href={`${base}/`}>BACK TO PORTFOLIO <span aria-hidden="true">↗</span></a>
+  </header>
+
+  <main>
+    <div class="hero">
+      <div class="hero-top"><span>INDEPENDENT DIGITAL CREATIVE</span><span>DESIGN · DEVELOPMENT · AI</span></div>
+      <h1 id="lab-title"><span class="line">DIGITAL</span><span class="line outline">WITHOUT</span><span class="line">LIMITS<span class="period">.</span></span></h1>
+      <div class="sculpture" id="sculpture" aria-label="Interactive abstract liquid-like 3D sculpture" role="img">
+        <div class="sculpture-fallback" aria-hidden="true"></div>
+        <canvas id="sculpture-canvas" aria-hidden="true"></canvas>
+      </div>
+      <p class="hero-intro">I build expressive websites and digital experiences where design, animation and technology become one.</p>
+      <div class="hero-bottom"><span class="availability"><i></i> AVAILABLE FOR PROJECTS</span><a href="#selected">SCROLL TO EXPLORE <span aria-hidden="true">↓</span></a></div>
+      <span class="side-label">MOVE YOUR CURSOR / EXPLORE THE FORM</span>
+    </div>
+
+    <section class="selected" id="selected" aria-labelledby="selected-title">
+      <div class="section-head"><span>01 / SELECTED DIRECTIONS</span><span>DESIGN IN MOTION</span></div>
+      <h2 id="selected-title">Not another<br /><em>ordinary</em> website.</h2>
+      <div class="concept-grid">
+        <article class="concept concept-one"><div class="concept-art"><span>01</span><strong>FORM<br />FOLLOWS<br />FEELING.</strong><div class="concept-orbit" aria-hidden="true"></div></div><div class="concept-meta"><h3>Immersive experiences</h3><p>Motion, depth and storytelling</p></div></article>
+        <article class="concept concept-two"><div class="concept-art"><span>02</span><div class="concept-sphere" aria-hidden="true"></div><strong>IDEAS<br />IN MOTION.</strong></div><div class="concept-meta"><h3>Creative development</h3><p>Modern frontend and WebGL</p></div></article>
+      </div>
+    </section>
+    <section class="outro"><span>02 / THE NEXT CHAPTER</span><h2>LET’S MAKE<br /><em>SOMETHING</em><br />UNEXPECTED.</h2><a class="outro-cta" href={`${base}/#contact`}>START A CONVERSATION <span>↗</span></a></section>
+  </main>
+  <footer class="lab-footer"><span>© HIRDA — CREATIVE EXPERIMENT</span><span>BUILT WITH ASTRO + THREE.JS</span><a href={`${base}/`}>MAIN SITE ↗</a></footer>
+</section>
+
+<style>
+  :global(html){scroll-behavior:smooth}
+  :global(body){margin:0;background:#07080b;color:#e9eaf0}
+  :global(*){box-sizing:border-box}
+  .lab{--acid:#d7fa64;--muted:#92949e;background:#07080b;color:#e9eaf0;font-family:Arial,Helvetica,sans-serif;overflow:hidden}
+  .lab a{color:inherit;text-decoration:none}.lab a:focus-visible{outline:2px solid var(--acid);outline-offset:5px}
+  .lab-nav{height:92px;padding:0 clamp(24px,4.5vw,86px);display:flex;justify-content:space-between;align-items:center;position:relative;z-index:8}
+  .wordmark{font-size:25px;letter-spacing:-.09em;font-weight:800}.wordmark span{font-size:10px;letter-spacing:0;vertical-align:top;margin-left:3px}
+  .lab-tag,.back,.hero-top,.hero-bottom,.side-label,.section-head,.concept-art>span,.outro>span,.outro-cta,.lab-footer{font-size:10px;letter-spacing:.18em;font-weight:700}
+  .lab-tag{color:var(--muted)}.back{border-bottom:1px solid #555961;padding:10px 0}.back span{color:var(--acid);font-size:15px}
+  .hero{min-height:min(880px,calc(100svh - 92px));position:relative;isolation:isolate;padding:clamp(36px,5vw,70px) clamp(24px,4.5vw,86px) 38px;display:flex;flex-direction:column;justify-content:space-between}
+  .hero-top,.hero-bottom,.section-head{display:flex;justify-content:space-between;gap:16px}.hero-top{color:#aaaeba}
+  .hero h1{position:relative;z-index:2;margin:30px 0 0;font-size:clamp(76px,13.5vw,250px);line-height:.79;letter-spacing:-.105em;font-weight:850;max-width:1300px;pointer-events:none}
+  .line{display:block;white-space:nowrap;animation:revealUp 1.2s both cubic-bezier(.16,1,.3,1)}.line:nth-child(2){animation-delay:.14s}.line:nth-child(3){animation-delay:.28s}
+  .outline{color:transparent;-webkit-text-stroke:1px #ced0da}.period{color:var(--acid)}
+  .sculpture{position:absolute;width:min(64vw,850px);height:min(73vh,750px);right:-6%;top:9%;z-index:1;pointer-events:none}
+  .sculpture canvas{display:block;width:100%;height:100%;opacity:0;transition:opacity .5s}.sculpture.is-ready canvas{opacity:1}
+  .sculpture-fallback{position:absolute;inset:17%;border-radius:43% 57% 55% 45% / 56% 36% 64% 44%;background:radial-gradient(circle at 28% 27%,#e8c6ff 0%,#8d62ef 15%,#322370 37%,#111525 62%,#baff7b 89%,#11151d 100%);filter:drop-shadow(0 0 70px #7150ef55);transform:rotate(-20deg)}
+  .sculpture.is-ready .sculpture-fallback{display:none}
+  .hero-intro{position:relative;z-index:2;max-width:265px;margin:80px 0 45px;font-size:16px;line-height:1.55;color:#aeb0bd}
+  .hero-bottom{position:relative;z-index:2;border-top:1px solid #474952;padding-top:25px;color:#d0d2db}
+  .hero-bottom a span{font-size:16px;color:var(--acid);margin-left:10px}.availability{display:flex;align-items:center;gap:9px}.availability i{width:6px;height:6px;border-radius:100%;background:var(--acid);box-shadow:0 0 15px var(--acid)}
+  .side-label{position:absolute;right:3%;bottom:24%;writing-mode:vertical-rl;color:#a4a5ad}
+  .selected{padding:140px clamp(24px,4.5vw,86px)}.section-head{color:var(--muted);border-top:1px solid #45464e;padding-top:22px}
+  .selected h2{font-size:clamp(60px,9vw,155px);letter-spacing:-.09em;line-height:.87;margin:100px 0}.selected h2 em,.outro em{font-family:Georgia,serif;font-weight:400;color:var(--acid)}
+  .concept-grid{display:grid;grid-template-columns:1fr 1fr;gap:22px}.concept-art{height:clamp(300px,42vw,600px);background:#171926;position:relative;overflow:hidden;padding:30px;display:flex;align-items:flex-end}.concept-art>span{position:absolute;top:30px;left:30px;color:#a6a8b2}
+  .concept-art strong{position:relative;z-index:2;font-size:clamp(34px,5vw,86px);letter-spacing:-.075em;line-height:.95}
+  .concept-one .concept-art{background:radial-gradient(circle at 68% 42%,#55408d,#15131d 60%,#0d0e16)}
+  .concept-orbit{position:absolute;top:2%;right:-21%;width:90%;aspect-ratio:1;border:3px solid #a8a1e8;border-radius:47% 53% 60% 40%;box-shadow:25px 18px 50px #baabff33,-15px -20px 40px #fff4;transform:rotate(35deg)}
+  .concept-two .concept-art{background:radial-gradient(circle at 55% 30%,#1e3242,#0b121a 65%)}
+  .concept-sphere{position:absolute;width:70%;aspect-ratio:1;border-radius:50%;top:-16%;right:-8%;background:radial-gradient(circle at 35% 30%,#ddfd89,#5d858c 18%,#16283b 38%,#080a10 66%,#ae8afa 90%);box-shadow:0 30px 70px #000a}
+  .concept-meta{display:flex;justify-content:space-between;gap:12px;padding-top:20px}.concept-meta h3{font-size:19px;font-weight:500;margin:0}.concept-meta p{color:var(--muted);font-size:13px;margin:3px 0}
+  .outro{padding:110px clamp(24px,4.5vw,86px) 150px;border-top:1px solid #42434b}.outro>span{color:var(--muted)}.outro h2{font-size:clamp(65px,11vw,175px);letter-spacing:-.095em;line-height:.83;margin:65px 0 80px}.outro-cta{display:inline-flex;justify-content:space-between;align-items:center;gap:90px;padding:22px 27px;background:var(--acid);color:#111!important}.outro-cta span{font-size:21px}
+  .lab-footer{border-top:1px solid #41434a;display:flex;justify-content:space-between;gap:15px;padding:30px clamp(24px,4.5vw,86px);color:var(--muted)}
+  @keyframes revealUp{from{opacity:0;transform:translateY(65px);filter:blur(9px)}to{opacity:1;transform:translateY(0);filter:blur(0)}}
+  @media(max-width:800px){.lab-nav{height:70px}.lab-tag{display:none}.hero{min-height:770px;padding-top:80px}.hero-top span:last-child{display:none}.hero h1{font-size:clamp(65px,15vw,130px);margin-top:90px}.sculpture{width:110vw;height:570px;top:20%;right:-40%;opacity:.87}.hero-intro{margin-top:210px}.side-label{display:none}.concept-grid{grid-template-columns:1fr}.selected{padding-top:90px}.selected h2{margin:80px 0}.concept-art{height:430px}.concept-meta{flex-direction:column}.outro{padding-top:80px}.lab-footer{flex-wrap:wrap}}
+  @media(max-width:480px){.hero{min-height:710px}.hero h1{font-size:16vw}.sculpture{width:120vw;right:-48%;height:520px;top:20%}.hero-intro{font-size:14px;max-width:200px;margin-top:180px}.hero-bottom{font-size:8px}.hero-top{font-size:8px}.concept-art{height:360px}.concept-art strong{font-size:45px}.selected h2{font-size:17vw}.outro h2{font-size:15vw}.lab-footer{font-size:8px}}
+  @media(prefers-reduced-motion:reduce){:global(html){scroll-behavior:auto}.line{animation:none}}
+</style>
+
+<script>
+  import * as THREE from "three";
+  const mount = document.getElementById("sculpture");
+  const canvas = document.getElementById("sculpture-canvas") as HTMLCanvasElement | null;
+  if (mount && canvas) {
+    const reduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    const coarse = window.matchMedia("(pointer: coarse)").matches;
+    let renderer: THREE.WebGLRenderer | undefined;
+    let raf = 0;
+    let stopped = false;
+    const pointer = new THREE.Vector2(0, 0);
+    try {
+      renderer = new THREE.WebGLRenderer({ canvas, alpha: true, antialias: !coarse, powerPreference: coarse ? "low-power" : "high-performance" });
+      renderer.setPixelRatio(Math.min(window.devicePixelRatio, coarse ? 1.3 : 1.75));
+      renderer.outputColorSpace = THREE.SRGBColorSpace;
+      const scene = new THREE.Scene();
+      const camera = new THREE.PerspectiveCamera(38, 1, .1, 100);
+      camera.position.z = 7;
+      const uniforms = {
+        uTime: { value: 0 },
+        uPointer: { value: new THREE.Vector2(0,0) },
+        uScroll: { value: 0 }
+      };
+      const geometry = new THREE.IcosahedronGeometry(1.95, coarse ? 32 : 48);
+      const material = new THREE.ShaderMaterial({
+        uniforms, transparent: true,
+        vertexShader: `
+          uniform float uTime; uniform vec2 uPointer; uniform float uScroll;
+          varying vec3 vNormal; varying vec3 vPosition;
+          void main(){
+            vec3 p=position;
+            float wave=sin(p.x*2.8+uTime*.65)*sin(p.y*2.1-uTime*.47)*sin(p.z*2.4+uTime*.29);
+            float ripple=sin(p.y*5.1+p.x*2.7+uTime*.5)*.08;
+            p+=normal*(wave*.31+ripple);
+            p.x+=sin(p.y*1.4+uTime*.23)*.12+uPointer.x*.08;
+            p.y+=cos(p.x*1.2+uTime*.27)*.1-uScroll*.08;
+            vNormal=normalize(normalMatrix*normal);
+            vec4 mv=modelViewMatrix*vec4(p,1.0);
+            vPosition=mv.xyz;
+            gl_Position=projectionMatrix*mv;
+          }`,
+        fragmentShader: `
+          precision highp float;
+          varying vec3 vNormal; varying vec3 vPosition;
+          uniform float uTime;
+          void main(){
+            vec3 n=normalize(vNormal);
+            vec3 viewDir=normalize(-vPosition);
+            float rim=pow(1.0-max(dot(n,viewDir),0.0),2.5);
+            float flow=sin(n.x*8.0+n.y*4.0+uTime*.42);
+            float sheen=smoothstep(-.25,.85,flow+rim*.95);
+            vec3 base=mix(vec3(.018,.024,.052),vec3(.28,.13,.52),sheen);
+            base=mix(base,vec3(.75,1.0,.47),pow(rim,2.0)*.85);
+            base+=vec3(.38,.22,.7)*pow(max(dot(n,normalize(vec3(-.3,.85,1.0))),0.0),7.0);
+            float light=.45+.55*max(dot(n,normalize(vec3(-.6,.8,1.0))),0.0);
+            gl_FragColor=vec4(base*light+rim*vec3(.06,.15,.22),1.0);
+          }`
+      });
+      const sculpture = new THREE.Mesh(geometry, material);
+      sculpture.rotation.set(.2, -.3, .25);
+      scene.add(sculpture);
+      const resize = () => {
+        if (!renderer) return;
+        const rect = mount.getBoundingClientRect();
+        const w = Math.max(1, rect.width), h = Math.max(1, rect.height);
+        camera.aspect = w/h; camera.updateProjectionMatrix();
+        renderer.setSize(w,h,false);
+      };
+      const ro = new ResizeObserver(resize);
+      ro.observe(mount);
+      resize();
+      mount.classList.add("is-ready");
+      const onPointer = (event: PointerEvent) => {
+        if (coarse) return;
+        pointer.set(event.clientX / window.innerWidth * 2 - 1, -(event.clientY / window.innerHeight * 2 - 1));
+      };
+      let scrollProgress = 0;
+      const onScroll = () => { scrollProgress = Math.min(1, window.scrollY / Math.max(1, window.innerHeight)); };
+      window.addEventListener("pointermove", onPointer, { passive: true });
+      window.addEventListener("scroll", onScroll, { passive: true });
+      const timer = new THREE.Clock();
+      const tick = () => {
+        if (stopped || !renderer) return;
+        const elapsed = reduced ? 0 : timer.getElapsedTime();
+        uniforms.uTime.value = elapsed;
+        uniforms.uPointer.value.lerp(pointer,.03);
+        uniforms.uScroll.value += (scrollProgress - uniforms.uScroll.value)*.04;
+        sculpture.rotation.y += (pointer.x*.27 + elapsed*.07 - sculpture.rotation.y)*.015;
+        sculpture.rotation.x += (-pointer.y*.17 + .22 - sculpture.rotation.x)*.015;
+        renderer.render(scene,camera);
+        if (!reduced) raf=window.requestAnimationFrame(tick);
+      };
+      const onVisibility = () => {
+        if (document.hidden) window.cancelAnimationFrame(raf);
+        else if (!stopped && !reduced) { timer.getDelta(); raf=requestAnimationFrame(tick); }
+      };
+      document.addEventListener("visibilitychange",onVisibility);
+      tick();
+      window.addEventListener("pagehide", () => {
+        stopped=true;window.cancelAnimationFrame(raf);
+        ro.disconnect();
+        window.removeEventListener("pointermove",onPointer);
+        window.removeEventListener("scroll",onScroll);
+        document.removeEventListener("visibilitychange",onVisibility);
+        geometry.dispose();material.dispose();renderer?.dispose();
+      },{once:true});
+    } catch(e) {
+      console.warn("WebGL unavailable; showing visual fallback.",e);
+      renderer?.dispose();
+    }
+  }
+</script>
