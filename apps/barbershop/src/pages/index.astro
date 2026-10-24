@@ -1,4 +1,5 @@
 ---
+import ReviewCarousel from '../../../../packages/ui/ReviewCarousel.astro';
 import '../styles/paper.css';
 import '../styles/dialog.css';
 import Brand from '../components/Brand.astro';
@@ -71,7 +72,8 @@ const canonical = Astro.site ? new URL(Astro.url.pathname, Astro.site).href : un
       <div id="fragen" class="section-block faq-wrap"><div class="container"><Faq items={site.faq} /></div></div>
       <div class="section-block contact-wrap"><div class="container"><Contact /></div></div>
       <section class="closing"><div class="container closing-inner"><div><p class="kicker">BEREIT FÜR FRISCHEN WIND?</p><h2>Dein Stuhl.<br /><em>Dein nächster Look.</em></h2></div><div><button class="btn" type="button" data-open-booking aria-haspopup="dialog" aria-controls="booking-dialog" hidden>Leistung auswählen</button><p class="small-note">Demo ansehen · Keine echte Buchung</p></div></div></section>
-    </main>
+    <ReviewCarousel project="barbershop" />
+</main>
     <footer class="paper-footer container"><div class="footer-top"><Brand /><nav aria-label="Footer-Navigation">{navigation.filter(link => link.desktop).map(link => <a href={link.href}>{link.label}</a>)}</nav><a class="back-top" href="#top" aria-label="Nach oben"><Icon name="chevron-left" /></a></div><div class="footer-bottom"><span>© {new Date().getFullYear()} KANT · Fiktiver Salon</span><span>Designkonzept von HIRDA · Keine echte Terminbuchung</span></div></footer>
     <BookingDialog /><PhoneDialog /><Motion />
     <script>

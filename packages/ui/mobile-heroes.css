@@ -1,0 +1,35 @@
+/* На небольшом экране сюжет показывается целиком, отдельно от читаемого текста. */
+@media(max-width:1024px){
+ body[data-demo] :is(.main-hero>.hero-photo,.scene img){object-fit:contain}
+ body:is([data-demo=electrical],[data-demo=homeservice],[data-demo=gardens],[data-demo=cleaning]) .main-hero{display:flex;flex-direction:column;min-height:0}
+ body:is([data-demo=electrical],[data-demo=homeservice],[data-demo=gardens],[data-demo=cleaning]) .main-hero>.hero-photo{position:relative;inset:auto;order:2;width:100%;height:auto;max-height:none;aspect-ratio:auto;object-fit:contain;z-index:0;filter:none}
+ body:is([data-demo=electrical],[data-demo=homeservice],[data-demo=gardens],[data-demo=cleaning]) .main-hero>.hero-overlay{display:none}
+ body:is([data-demo=electrical],[data-demo=homeservice],[data-demo=gardens],[data-demo=cleaning]) .main-hero>.shell{order:1}
+ body:is([data-demo=electrical],[data-demo=homeservice],[data-demo=gardens],[data-demo=cleaning]) .hero-copy{min-height:0;padding-block:34px}
+ body[data-demo=electrical] .voltage-cut{display:none}
+ body[data-demo=gardens] .main-hero{background:#244a38}
+ body[data-demo=barbershop] .hero .scene{height:auto;clip-path:none}
+ body[data-demo=barbershop] .hero .scene img{width:100%;height:auto;aspect-ratio:auto;object-fit:contain}
+ body[data-demo=autoservice] main>.hero{display:flex;flex-direction:column;min-height:0;height:auto;padding-bottom:0}
+ body[data-demo=autoservice] main>.hero:after{display:none}
+ body[data-demo=autoservice] main>.hero>.hero-photo{position:relative;inset:auto;order:2;width:100%;height:auto;z-index:0;margin-top:30px}
+ body[data-demo=autoservice] main>.hero>.hero-photo img{width:100%;height:auto;object-fit:contain;aspect-ratio:auto}
+ body[data-demo=nails] .hero.wrap:not(.editorial-hero){display:flex;flex-direction:column;min-height:0;padding:32px 20px 0}
+ body[data-demo=nails] .hero.wrap:not(.editorial-hero):after{display:none}
+ body[data-demo=nails] .hero:not(.editorial-hero) .hero-art{position:relative;inset:auto;order:2;width:calc(100% + 40px);height:auto;margin:28px -20px 0;z-index:0}
+ body[data-demo=nails] .hero:not(.editorial-hero) .hero-art img{height:auto;width:100%;object-fit:contain}
+ body[data-demo=ecohomes] main>.hero{display:flex;flex-direction:column;height:auto;min-height:0;max-height:none;background:var(--paper,#f7f5ed);color:var(--ink,#183e2c)}
+ body[data-demo=ecohomes] main>.hero>img{position:relative;inset:auto;order:2;width:100%;height:auto;object-fit:contain;z-index:0}
+ body[data-demo=ecohomes] .hero-shade{display:none}
+ body[data-demo=ecohomes] .hero-copy{padding-block:34px}
+ body[data-demo=ecohomes] .hero .eyebrow,body[data-demo=ecohomes] .hero h1 em{color:#31543f}
+ body[data-demo=ecohomes] .hero-description{color:#58685c}
+ body[data-demo=ecohomes] .hero .button{background:#31543f;color:#fff}
+ body[data-demo=ecohomes] .hero-foot{position:relative;inset:auto;order:3;padding-block:20px;color:#58685c}
+ body[data-demo=lindenhof] main>.hero{display:flex;flex-direction:column;min-height:0;height:auto;background:#f2f4ef}
+ body[data-demo=lindenhof] .hero>picture{position:relative;inset:auto;display:block;order:2;width:100%;height:auto}
+ body[data-demo=lindenhof] .hero .hero-image{position:relative;inset:auto;width:100%;height:auto;object-fit:contain}
+ body[data-demo=lindenhof] .hero-gradient{display:none}
+ body[data-demo=lindenhof] .hero-copy{position:relative;inset:auto;margin:0;padding:36px 24px;color:var(--lh-ink,#17211e);max-width:none}
+ body[data-demo=lindenhof] .hero-copy h1,body[data-demo=lindenhof] .hero-copy p{color:inherit;text-shadow:none}
+}

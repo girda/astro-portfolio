@@ -1,0 +1,29 @@
+---
+import Icon from './Icon.astro';
+import {reviewExamples,reviewLabels} from './review-examples';
+interface Props {project:keyof typeof reviewExamples;lang?:'de'|'ru'|'en'}
+const {project,lang='de'}=Astro.props;
+const t=reviewLabels[lang];
+const items=reviewExamples[project][lang]??reviewExamples[project].de;
+---
+<section class="demo-reviews" data-review-carousel aria-label={t.title}>
+  <div class="review-heading"><div><p class="review-eyebrow">{t.eyebrow}</p><h2>{t.title}</h2><p class="review-note">{t.note}</p></div><div class="review-controls" hidden><button type="button" data-review-prev aria-label={t.prev}><Icon name="arrow-left"/></button><button type="button" data-review-next aria-label={t.next}><Icon name="arrow-right"/></button></div></div>
+  <div class="review-track" tabindex="0" aria-label={t.track}>
+    {items.map((text,index)=><article class="review-card"><p class="review-index">0{index+1} / {t.example}</p><blockquote>{text}</blockquote><div class="review-person"><span aria-hidden="true">{['LM','JK','AS'][index]}</span><div><strong>{['Lea M.','Jonas K.','Anna S.'][index]}</strong><small>{t.fiction}</small></div></div></article>)}
+  </div>
+</section>
+<script>
+  for(const root of document.querySelectorAll<HTMLElement>('[data-review-carousel]')){
+    const track=root.querySelector<HTMLElement>('.review-track')!,prev=root.querySelector<HTMLButtonElement>('[data-review-prev]')!,next=root.querySelector<HTMLButtonElement>('[data-review-next]')!,controls=root.querySelector<HTMLElement>('.review-controls')!;
+    const reduced=matchMedia('(prefers-reduced-motion: reduce)');
+    const sync=()=>{const max=track.scrollWidth-track.clientWidth;controls.hidden=max<3;prev.disabled=track.scrollLeft<=2;next.disabled=track.scrollLeft>=max-2;};
+    const step=(direction:number)=>track.scrollBy({left:direction*((track.firstElementChild?.getBoundingClientRect().width??track.clientWidth)+20),behavior:reduced.matches?'instant':'smooth'});
+    prev.addEventListener('click',()=>step(-1));next.addEventListener('click',()=>step(1));track.addEventListener('scroll',sync,{passive:true});track.addEventListener('keydown',e=>{if(e.target!==track)return;if(e.key==='ArrowRight'||e.key==='ArrowLeft'){e.preventDefault();step(e.key==='ArrowRight'?1:-1);}});new ResizeObserver(sync).observe(track);sync();
+  }
+</script>
+<style>
+  .demo-reviews{--review-ink:var(--ink,#20312d);--review-muted:var(--muted,#68706b);--review-line:var(--line,#b9c2bc);--review-accent:var(--accent,var(--pink,var(--brick,#537d6a)));width:min(1280px,calc(100% - 48px));margin:0 auto;padding-block:76px;color:var(--review-ink);font-family:inherit}
+  .review-heading{display:flex;justify-content:space-between;gap:28px;align-items:end;margin-bottom:30px}.review-eyebrow{font-size:10px;font-weight:600;line-height:1.5;letter-spacing:.13em;text-transform:uppercase;color:var(--review-accent);margin:0 0 14px}.review-heading h2{font:inherit;font-size:clamp(30px,3vw,44px);font-weight:500;line-height:1.15;letter-spacing:-.035em;margin:0 0 16px}.review-note{font-size:12px;line-height:1.7;color:var(--review-muted);max-width:600px;margin:0}.review-controls:not([hidden]){display:flex;gap:9px;flex-shrink:0}.review-controls button{display:grid;place-items:center;width:45px;height:45px;border:1px solid var(--review-line);background:transparent;color:inherit;border-radius:50%;cursor:pointer}.review-controls svg{width:20px;height:20px}.review-controls button:disabled{opacity:.3;cursor:default}.review-controls button:focus-visible,.review-track:focus-visible{outline:2px solid currentColor;outline-offset:4px}.review-track{display:flex;gap:20px;overflow-x:auto;scroll-snap-type:x mandatory;scrollbar-width:thin;scrollbar-color:var(--review-line) transparent;overscroll-behavior-inline:contain;padding:3px 1px 20px}.review-card{box-sizing:border-box;flex:0 0 calc((100% - 40px)/3);min-width:0;display:flex;flex-direction:column;scroll-snap-align:start;border:1px solid var(--review-line);border-radius:8px;padding:28px;background:color-mix(in srgb,var(--review-accent) 3%,transparent)}.review-index{font-size:10px;letter-spacing:.08em;color:var(--review-muted);margin:0 0 25px}.review-card blockquote{font-size:18px;line-height:1.65;letter-spacing:-.02em;margin:0 0 30px;flex:1}.review-person{display:flex;gap:12px;align-items:center}.review-person>span{width:40px;height:40px;display:grid;place-items:center;font-size:11px;border:1px solid var(--review-line);border-radius:50%;color:var(--review-accent)}.review-person strong{display:block;font-size:12px;font-weight:500}.review-person small{display:block;font-size:10px;color:var(--review-muted);margin-top:4px}
+  :global(body[data-demo=autoservice]) .demo-reviews{--review-ink:#f0f5f8;--review-accent:#a9d9ed}
+  @media(max-width:900px){.review-card{flex-basis:calc((100% - 20px)/2)}}@media(max-width:600px){.demo-reviews{width:calc(100% - 40px);padding-block:52px}.review-heading{display:block}.review-controls:not([hidden]){margin-top:22px}.review-card{flex-basis:92%;padding:24px}.review-card blockquote{font-size:17px}.review-heading h2{font-size:32px}}
+</style>
