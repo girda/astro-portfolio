@@ -1,3 +1,5 @@
+> 24.10.2026: немецкие названия Stromwerk/Hauswerk, полезные тексты 9 демо, знак Hauswerk и два фото Lindenhof готовы локально. Каждый сайт сохранён отдельным коммитом; push не выполнялся. [Отчёт](audit/german-brands-copy-2026-10-24.md).
+
 > 24.10.2026: STILL Beauty & Spa, WERKRAUM, Karten/Filter/Preise und gemeinsame Animationen umgesetzt und geprüft. [Bericht](audit/beauty-auto-portfolio-2026-10-24.md). Опубликовано: e1ed035, CI build/deploy пройдены.
 
 > 24.10.2026: KLAR, VOLTEX, FIXORA и GRÜNWERK реализованы локально. Figma desktop/mobile и UI-компоненты — на проверке у Артёма. Не опубликовано. [Отчёт и ссылки](audit/service-demos-2026-10-24.md).

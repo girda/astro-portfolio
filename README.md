@@ -11,8 +11,8 @@ One repository for the portfolio and nine independent Astro demos.
 | STILL Nail Atelier (DE/RU/EN) | `/astro-portfolio/demos/nails/` | `npm run dev --prefix apps/nails` |
 | Lindenhof Autohaus | `/astro-portfolio/demos/lindenhof/` | `npm run dev --prefix apps/lindenhof` |
 | Eichenhain Ecohomes | `/astro-portfolio/demos/ecohomes/` | `npm run dev --prefix apps/ecohomes` |
-| VOLTEX Electrical | `/astro-portfolio/demos/electrical/` | `npm run dev --prefix apps/electrical` |
-| FIXORA Home Service | `/astro-portfolio/demos/homeservice/` | `npm run dev --prefix apps/homeservice` |
+| STROMWERK Electrical | `/astro-portfolio/demos/electrical/` | `npm run dev --prefix apps/electrical` |
+| HAUSWERK Home Service | `/astro-portfolio/demos/homeservice/` | `npm run dev --prefix apps/homeservice` |
 | GRÜNWERK Gardens | `/astro-portfolio/demos/gardens/` | `npm run dev --prefix apps/gardens` |
 
 Use Node.js 24. Install each app with `npm ci --prefix apps/<app>`.

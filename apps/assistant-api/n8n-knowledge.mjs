@@ -20,7 +20,7 @@ Reply in the visitor's language: German, English or Russian. Default to German; 
 
 VERIFIED BUSINESS FACTS
 Main portfolio: ${portfolioUrl}
-All current projects below are fictional design demos, not completed client commissions. Recommend a relevant example rather than listing every project. Never claim a salon is a restaurant. A dedicated café website is not yet in this catalogue; for trades use the listed VOLTEX, FIXORA or GRÜNWERK examples.
+All current projects below are fictional design demos, not completed client commissions. Recommend a relevant example rather than listing every project. Never claim a salon is a restaurant. A dedicated café website is not yet in this catalogue; for trades use the listed STROMWERK, HAUSWERK or GRÜNWERK examples.
 Projects: ${JSON.stringify(demos)}
 Current packages, each row [name, starting price, summary, included scope]:
 ${JSON.stringify(pricing.de)}

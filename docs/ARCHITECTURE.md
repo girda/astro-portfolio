@@ -12,7 +12,7 @@ flowchart TD
   SEO --> Endpoints["sitemap.xml и robots.txt"]
   Endpoints --> Output
   Build --> Studio["apps/portfolio: студия DE и EN"]
-  Build --> Demos["9 демо: KANT, KLAR, WERKRAUM, STILL, Lindenhof, Eichenhain, VOLTEX, FIXORA, GRÜNWERK"]
+  Build --> Demos["9 демо: KANT, KLAR, WERKRAUM, STILL, Lindenhof, Eichenhain, STROMWERK, HAUSWERK, GRÜNWERK"]
   Studio --> Output["Общий статический dist"]
   Demos --> Output
   Output --> Pages["GitHub Pages: /astro-portfolio/"]
@@ -38,8 +38,8 @@ flowchart TD
 | Lindenhof | `apps/lindenhof` | авто в data, фильтры/сравнение в scripts | Демо, не реальный inventory API |
 | Eichenhain | `apps/ecohomes` | подбор домов/энергии и формы | Демо |
 | Pixel API | `apps/assistant-api` | validate, knowledge, scenarios, budget | OpenAI Responses, Turnstile, Durable Object |
-| VOLTEX | `apps/electrical` | `data/site.ts`, TradePage, electrical theme | Локальная demo-сводка |
-| FIXORA | `apps/homeservice` | `data/site.ts`, TradePage, homeservice theme | Локальная demo-сводка |
+| STROMWERK | `apps/electrical` | `data/site.ts`, TradePage, electrical theme | Локальная demo-сводка |
+| HAUSWERK | `apps/homeservice` | `data/site.ts`, TradePage, homeservice theme | Локальная demo-сводка |
 | GRÜNWERK | `apps/gardens` | `data/site.ts`, TradePage, фильтр идей | Локальная demo-сводка |
 | Restaurant | Ещё нет отдельного app | Сценарий кафе в Pixel не является сайтом ресторана | Не реализовано |
 

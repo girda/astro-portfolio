@@ -6,8 +6,8 @@ export const projects = {
   cleaning: { name: "KLAR", category: "Website für einen Reinigungsservice", port: 4323, status: "demo", group: "handwerk", accent: "#8bcbc1" },
   autoservice: { name: "WERKRAUM", category: "Website für eine Autowerkstatt", port: 4324, status: "demo", group: "automotive", accent: "#a9d9ed" },
   nails: { name: "STILL", category: "Website für Beauty, Haare & Spa", port: 4325, status: "demo", group: "beauty", accent: "#9c6c80" },
-  electrical: { name: "VOLTEX", category: "Website für einen Elektrofachbetrieb", port: 4329, status: "demo", group: "handwerk", accent: "#d4b949" },
-  homeservice: { name: "FIXORA", category: "Website für Montage & Hausservice", port: 4330, status: "demo", group: "handwerk", accent: "#719ae7" },
+  electrical: { name: "STROMWERK", category: "Website für einen Elektrofachbetrieb", port: 4329, status: "demo", group: "handwerk", accent: "#d4b949" },
+  homeservice: { name: "HAUSWERK", category: "Website für Montage & Hausservice", port: 4330, status: "demo", group: "handwerk", accent: "#719ae7" },
   gardens: { name: "GRÜNWERK", category: "Website für Garten- und Landschaftsbau", port: 4331, status: "demo", group: "handwerk", accent: "#99b880" },
 } satisfies Record<
   string,
