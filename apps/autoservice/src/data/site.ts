@@ -2,11 +2,11 @@ export const site = {
  name: 'WERKRAUM', city: 'München', email: 'service@werkraum.example', phone: '+49 000 1234567', address:'Musterstraße 24, 80331 München',
  photo: `${import.meta.env.BASE_URL}images/workshop-v2.webp`,
  services:[
- {name:'Inspektion',category:'WARTUNG',text:'Ein genauer Blick auf die Technik. Mit einem Wartungsumfang, der zu deinem Fahrzeug passt.',price:'ab 149 €',detail:'Beispielpreis für die Arbeitsleistung; Teile und Betriebsstoffe separat.',icon:'01'},
- {name:'Ölwechsel',category:'MOTOR',text:'Frisches Öl, neuer Filter. Für das, was dein Fahrzeug jeden Tag antreibt.',price:'ab 89 €',detail:'Beispielpaket inkl. Filter und bis zu 4 Litern Standard-Motoröl.',icon:'02'},
+ {name:'Inspektion',category:'WARTUNG',text:'Wartung nach Fahrzeug, Laufleistung und Servicehistorie. Flüssigkeiten, Verschleiß und anstehende Intervalle werden gemeinsam betrachtet.',price:'ab 149 €',detail:'Beispielpreis für die Arbeitsleistung; Teile und Betriebsstoffe separat.',icon:'01'},
+ {name:'Ölwechsel',category:'MOTOR',text:'Ölspezifikation und Füllmenge müssen zum Motor passen. Filter und benötigte Betriebsstoffe werden vor dem Wechsel abgestimmt.',price:'ab 89 €',detail:'Beispielpaket inkl. Filter und bis zu 4 Litern Standard-Motoröl.',icon:'02'},
  {name:'Bremsenservice',category:'SICHERHEIT',text:'Scheiben, Beläge und Bremsflüssigkeit im Blick. Reparaturen erst nach Rücksprache.',price:'Nach Prüfung',detail:'Der Umfang richtet sich nach Fahrzeug und Zustand.',icon:'03'},
  {name:'Räderwechsel',category:'SAISON',text:'Sommer oder Winter: Wir wechseln deinen bereits montierten Radsatz.',price:'ab 39 €',detail:'Beispielpreis für vier Kompletträder, ohne Auswuchten.',icon:'04'},
- {name:'Fehlerdiagnose',category:'ELEKTRONIK',text:'Wenn eine Leuchte Fragen aufwirft, beginnt die Antwort mit einer systematischen Diagnose.',price:'ab 49 €',detail:'Auslesen des Fehlerspeichers und erste Einschätzung.',icon:'05'},
+ {name:'Fehlerdiagnose',category:'ELEKTRONIK',text:'Fehlercodes sind ein Anfang, keine fertige Diagnose. Symptome und Auftreten helfen, die Ursache gezielt einzugrenzen.',price:'ab 49 €',detail:'Auslesen des Fehlerspeichers und erste Einschätzung.',icon:'05'},
  ],
  faq:[
  {q:'Kann ich mit jeder Automarke kommen?',a:'Das Werkstattkonzept ist markenoffen. Ob eine konkrete Arbeit möglich wäre, würde anhand von Modell, Baujahr und Motorisierung geprüft.'},
@@ -20,7 +20,7 @@ export const siteRu = { ...site, services: [
   {
     "name": "Техобслуживание",
     "category": "ОБСЛУЖИВАНИЕ",
-    "text": "Внимание к каждой системе. Объём обслуживания подбирается под твой автомобиль.",
+    "text": "Обслуживание с учётом модели, пробега и сервисной истории. Проверяем, какие интервалы, жидкости и изнашиваемые детали требуют внимания.",
     "price": "от 149 €",
     "detail": "Примерная стоимость работ; детали и расходные материалы оплачиваются отдельно.",
     "icon": "01"
@@ -28,7 +28,7 @@ export const siteRu = { ...site, services: [
   {
     "name": "Замена масла",
     "category": "ДВИГАТЕЛЬ",
-    "text": "Свежее масло и новый фильтр для двигателя, который работает каждый день.",
+    "text": "Спецификация и объём масла должны соответствовать двигателю. Фильтр, материалы и состав работ согласовываются до замены.",
     "price": "от 89 €",
     "detail": "Пример пакета с фильтром и до 4 литров стандартного моторного масла.",
     "icon": "02"
@@ -52,7 +52,7 @@ export const siteRu = { ...site, services: [
   {
     "name": "Диагностика",
     "category": "ЭЛЕКТРОНИКА",
-    "text": "Загорелась лампа на панели? Начнём с последовательного поиска причины.",
+    "text": "Код ошибки — начало проверки, а не готовый диагноз. Симптомы и условия появления помогают последовательно найти причину.",
     "price": "от 49 €",
     "detail": "Считывание кодов ошибок и первичная оценка.",
     "icon": "05"
