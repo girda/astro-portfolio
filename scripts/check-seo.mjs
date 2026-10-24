@@ -26,10 +26,11 @@ for (const [path, file] of [['/', 'index.html'], ['/en/', 'en/index.html']]) {
 }
 const lab = read('cat-lab/index.html');
 assert.match(lab, /name="robots" content="noindex, follow"/);
+assert.match(read('lab/index.html'), /name="robots" content="noindex,\s*follow"/);
 assert.ok(existsSync(join(output, 'de/index.html')), 'Legacy /de/ redirect missing');
 const sitemap = read('sitemap.xml');
 assert.equal((sitemap.match(/<url>/g) || []).length, config.indexable ? 2 : 0);
-assert.doesNotMatch(sitemap, /cat-lab|demos\/|localhost/);
+assert.doesNotMatch(sitemap, /(?:cat-)?lab|demos\/|localhost/);
 const robots = read('robots.txt');
 if (config.base !== '/') assert.doesNotMatch(robots, /User-agent:|Disallow:/);
 if (config.indexable) assert.ok(robots.includes(absoluteSiteUrl('/sitemap.xml', config)));
