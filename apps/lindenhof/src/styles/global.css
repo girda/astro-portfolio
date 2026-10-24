@@ -460,8 +460,7 @@ textarea:focus-visible {
   object-fit: contain;
   pointer-events: none;
   transition:
-    opacity 0.45s,
-    transform 0.6s;
+    opacity 0.12s ease-out;
 }
 .vehicle-photo .vehicle-angle {
   opacity: 0;
@@ -519,14 +518,7 @@ textarea:focus-visible {
   display: flex;
   gap: 12px;
 }
-@media (hover: hover) {
-  .vehicle-card:hover .vehicle-angle {
-    opacity: 1;
-  }
-  .vehicle-card:hover .vehicle-photo > img:first-child {
-    opacity: 0;
-  }
-}
+
 .advice-grid {
   display: grid;
   grid-template-columns: 560fr 620fr;
@@ -1399,3 +1391,5 @@ textarea:focus-visible {
 .showroom-moment figcaption{padding-top:22px}
 .showroom-moment h3{font-size:clamp(22px,2vw,28px);line-height:1.2;margin-bottom:12px;letter-spacing:-.035em}
 .showroom-moment p{font-size:16px;line-height:1.65;color:var(--lh-muted);max-width:55ch}
+
+.vehicle-photo[data-angle="true"]>img:first-child{visibility:hidden}.vehicle-photo[data-angle="true"]>.vehicle-angle{opacity:1}.vehicle-photo[data-switching]{opacity:0}.vehicle-photo{transition:opacity .1s ease-out}@media(prefers-reduced-motion:reduce){.vehicle-photo,.vehicle-photo img{transition:none}}
