@@ -1,0 +1,10 @@
+/* Локальная полировка типографики, без изменений сетки и устройства карточек. */
+#main :is(h2, h3), .studio-hero h1 { text-wrap: balance; }
+#main .section-description { text-wrap: pretty; }
+#main > section[id] { scroll-margin-top: 32px; }
+#main .tile-category { line-height: 1.5; }
+#main .tile-bottom { row-gap: 12px; }
+@media (hover: hover) and (prefers-reduced-motion: no-preference) {
+  #main .tile-link svg { transition: translate 180ms ease; }
+  #main .project-tile:is(:hover, :focus-visible) .tile-link svg { translate: 2px -2px; }
+}

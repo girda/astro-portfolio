@@ -37,26 +37,24 @@ const id = `demo-menu-${name.toLowerCase().replace(/[^a-z0-9]/g, "")}`;
   <p>Ein Designkonzept von HIRDA</p>
 </dialog>
 <script>
-  document
-    .querySelectorAll<HTMLDialogElement>("[data-demo-menu]")
-    .forEach((menu) => {
-      const trigger = document.querySelector<HTMLButtonElement>(
-        `[aria-controls="${menu.id}"]`,
-      )!;
-      trigger.addEventListener("click", () => {
-        menu.showModal();
-        trigger.setAttribute("aria-expanded", "true");
-      });
+  import { onPageReady } from './page-lifecycle';
+  onPageReady(() => {
+    const events = new AbortController();
+    const options = {signal: events.signal};
+    const desktop = matchMedia('(min-width:901px)');
+    for (const menu of document.querySelectorAll<HTMLDialogElement>('[data-demo-menu]')) {
+      const trigger = document.querySelector<HTMLButtonElement>(`[aria-controls="${menu.id}"]`);
+      if (!trigger) continue;
       const close = () => menu.close();
-      menu.querySelector("[data-menu-close]")?.addEventListener("click", close);
-      menu
-        .querySelectorAll("a")
-        .forEach((a) => a.addEventListener("click", close));
-      menu.addEventListener("close", () =>
-        trigger.setAttribute("aria-expanded", "false"),
-      );
-      matchMedia("(min-width:901px)").addEventListener("change", (e) => {
-        if (e.matches && menu.open) menu.close();
-      });
-    });
+      trigger.addEventListener('click', () => {
+        if (menu.open) return;
+        menu.showModal(); trigger.setAttribute('aria-expanded', 'true');
+      }, options);
+      menu.querySelector('[data-menu-close]')?.addEventListener('click', close, options);
+      menu.querySelectorAll('a').forEach(link => link.addEventListener('click', close, options));
+      menu.addEventListener('close', () => trigger.setAttribute('aria-expanded', 'false'), options);
+      desktop.addEventListener('change', () => { if (desktop.matches && menu.open) close(); }, options);
+    }
+    return () => events.abort();
+  });
 </script>
