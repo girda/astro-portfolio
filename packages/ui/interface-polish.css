@@ -1,0 +1,12 @@
+/* Малые улучшения читаемости; палитра и композиция остаются у приложения. */
+body[data-demo] :is(h1, h2, h3) { text-wrap: balance; }
+body[data-demo] :is(.section-intro, .section-head, .section-heading) > p { text-wrap: pretty; }
+body[data-demo] :is(section[id], form[id]) { scroll-margin-top: 96px; }
+body[data-demo] :is(.button, .cta, .text-link) { text-underline-offset: .2em; }
+body[data-demo] :is(button, a, summary):focus-visible { outline-offset: 5px; }
+body[data-demo] .review-controls button:not(:disabled):hover {
+  background: color-mix(in srgb, currentColor 8%, transparent);
+}
+@media (pointer: coarse) {
+  body[data-demo] :is(.review-controls button, .demo-menu-trigger, [data-menu-close]) { min-width: 44px; min-height: 44px; }
+}

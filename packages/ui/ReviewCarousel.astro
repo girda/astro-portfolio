@@ -13,13 +13,8 @@ const items=reviewExamples[project][lang]??reviewExamples[project].de;
   </div>
 </section>
 <script>
-  for(const root of document.querySelectorAll<HTMLElement>('[data-review-carousel]')){
-    const track=root.querySelector<HTMLElement>('.review-track')!,prev=root.querySelector<HTMLButtonElement>('[data-review-prev]')!,next=root.querySelector<HTMLButtonElement>('[data-review-next]')!,controls=root.querySelector<HTMLElement>('.review-controls')!;
-    const reduced=matchMedia('(prefers-reduced-motion: reduce)');
-    const sync=()=>{const max=track.scrollWidth-track.clientWidth;controls.hidden=max<3;prev.disabled=track.scrollLeft<=2;next.disabled=track.scrollLeft>=max-2;};
-    const step=(direction:number)=>track.scrollBy({left:direction*((track.firstElementChild?.getBoundingClientRect().width??track.clientWidth)+20),behavior:reduced.matches?'instant':'smooth'});
-    prev.addEventListener('click',()=>step(-1));next.addEventListener('click',()=>step(1));track.addEventListener('scroll',sync,{passive:true});track.addEventListener('keydown',e=>{if(e.target!==track)return;if(e.key==='ArrowRight'||e.key==='ArrowLeft'){e.preventDefault();step(e.key==='ArrowRight'?1:-1);}});new ResizeObserver(sync).observe(track);sync();
-  }
+  import { initReviewCarousels } from './review-carousel';
+  initReviewCarousels();
 </script>
 <style>
   .demo-reviews{--review-ink:var(--ink,#20312d);--review-muted:var(--muted,#68706b);--review-line:var(--line,#b9c2bc);--review-accent:var(--accent,var(--pink,var(--brick,#537d6a)));width:min(1280px,calc(100% - 48px));margin:0 auto;padding-block:76px;color:var(--review-ink);font-family:inherit}

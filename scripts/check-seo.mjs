@@ -4,6 +4,8 @@ import { resolve, join } from 'node:path';
 import { createSiteConfig } from '../apps/portfolio/src/config/site.ts';
 import { canonicalUrl, pageAlternates, absoluteSiteUrl } from '../apps/portfolio/src/lib/seo.ts';
 
+import { DEMO_APPS } from './projects.mjs';
+
 const output = resolve(process.argv[2] || 'dist');
 const config = createSiteConfig({ origin: process.env.SITE_URL, base: process.env.PAGES_BASE || '/astro-portfolio/', indexable: process.env.SITE_INDEXABLE !== 'false' });
 const read = path => readFileSync(join(output, path), 'utf8');
@@ -34,7 +36,7 @@ if (config.indexable) assert.ok(robots.includes(absoluteSiteUrl('/sitemap.xml', 
 // Демо не меняем; проверяем, что сборщик сохранил их адреса.
 if (existsSync(join(output, 'demos'))) {
   const home = read('index.html');
-  for (const id of ['barbershop', 'cleaning', 'autoservice', 'nails', 'lindenhof', 'ecohomes', 'electrical', 'homeservice', 'gardens']) {
+  for (const id of DEMO_APPS) {
     assert.ok(existsSync(join(output, 'demos', id, 'index.html')), `Missing demo ${id}`);
     assert.ok(home.includes(`${config.base}demos/${id}/`), `Missing demo link ${id}`);
   }
