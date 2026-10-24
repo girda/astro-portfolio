@@ -1,0 +1,16 @@
+---
+const {services,name}=Astro.props;
+---
+<div class="form-panel"><form class="quote-form" data-quote-form data-business={name}>
+<div class="form-row"><label>Dein Name (Demo)<input name="name" autocomplete="name" placeholder="Vorname" maxlength="80" required/></label><label>Deine PLZ<input name="postcode" inputmode="numeric" pattern="[0-9]{5}" placeholder="80331" maxlength="5" required/></label></div>
+<label>Worum geht es?<select name="service" required>{services.map((s:{title:string})=><option>{s.title}</option>)}</select></label>
+<label>Deine Idee<textarea name="message" rows="4" placeholder="Was möchtest du verändern oder erledigen lassen?" maxlength="1200" required></textarea></label>
+<button type="submit" class="cta">Demo-Anfrage vorbereiten</button><p class="form-note">Dieses Unternehmen ist ein Designkonzept. Deine Eingaben bleiben in diesem Browser und werden nicht gespeichert oder versendet.</p>
+<output class="form-feedback" aria-live="polite"></output>
+</form></div>
+<script>
+document.querySelectorAll<HTMLFormElement>('[data-quote-form]').forEach(form=>{
+ form.addEventListener('submit',event=>{event.preventDefault();const data=new FormData(form);const out=form.querySelector<HTMLOutputElement>('output')!;out.textContent=`Dein Demo-Entwurf ist bereit.\n${data.get('service')} · PLZ ${data.get('postcode')}\n${data.get('message')}\n\nEs wurde nichts versendet oder gebucht.`;});
+ document.querySelectorAll<HTMLElement>('[data-service-choice]').forEach(link=>link.addEventListener('click',()=>{const select=form.querySelector<HTMLSelectElement>('select')!;const value=link.dataset.serviceChoice;if([...select.options].some(o=>o.value===value))select.value=value!;}));
+});
+</script>

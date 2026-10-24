@@ -1,6 +1,9 @@
-# KLAR cleaning demo
+# KLAR — Reinigungsservice
 
-Run `npm run dev` from this directory. Default port: 4323.
-Build: `npm run build`.
+Локальный редизайн по предоставленному PureHaven-референсу. Фото — ИИ-визуализации. Калькулятор и сводка работают в браузере, данные не отправляются.
 
-Demo only: no bookings or personal data are sent. Edit services and example prices in src/data/site.ts. Hero image loads from Unsplash; attribution is in the footer.
+`npm ci`, `npm run dev -- --background` (4323), `npm run build`.
+
+Цены/комнаты/FAQ: `src/data/site.ts`; секции: `src/pages/index.astro`; тема: `src/styles/purehaven.css`; база: `packages/ui/service-base.css`. Услуги-витрина и преимущества локальны странице. Реальных контактов бизнеса нет.
+
+[Медиа](../../docs/SERVICE_DEMOS_MEDIA.md) · [Figma и QA](../../docs/audit/service-demos-2026-10-24.md). В этой задаче не опубликовано.

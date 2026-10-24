@@ -3,6 +3,8 @@ import "../styles/atmosphere.css";
 import "../styles/typography.css";
 import "../styles/rhythm.css";
 import { heroCopy } from "../data/hero";
+import { createSiteConfig } from "../config/site";
+import { pageSeo } from "../lib/seo";
 import ReturnVisit from "../components/ReturnVisit.astro";
 import ScrollHeadings from "../components/ScrollHeadings.astro";
 import SectionMotion from "../components/SectionMotion.astro";
@@ -10,6 +12,9 @@ interface Props {
   title: string;
   description: string;
   lang?: "de" | "ru" | "en";
+  noindex?: boolean;
+  canonicalPath?: string;
+  socialImage?: string;
 }
 
 const { lang = "de" } = Astro.props;
@@ -17,11 +22,21 @@ const locale = lang === "en" ? "en" : "de";
 const copy = heroCopy[locale];
 const title = Astro.props.title;
 const description = Astro.props.description;
-// Абсолютные адреса нужны ботам мессенджеров; localhost в метаданные не попадает.
-const origin = Astro.site ?? new URL("https://girda.github.io");
-const base = import.meta.env.BASE_URL;
-const canonical = new URL(`${base}${locale === "en" ? "en/" : ""}`, origin).href;
-const image = new URL(`${base}social/hirda-${locale}-2026.png`, origin).href;
+// Единые URL и политика индексации используются также статическими SEO endpoints.
+const config = createSiteConfig({
+  origin: Astro.site,
+  base: import.meta.env.BASE_URL,
+  indexable: import.meta.env.PROD && import.meta.env.SITE_INDEXABLE !== "false",
+});
+const seo = pageSeo({
+  path: Astro.props.canonicalPath ?? Astro.url.pathname,
+  locale,
+  config,
+  noindex: Astro.props.noindex,
+  image: Astro.props.socialImage,
+});
+const canonical = seo.canonical;
+const image = seo.image;
 ---
 
 <!doctype html>
@@ -34,6 +49,8 @@ const image = new URL(`${base}social/hirda-${locale}-2026.png`, origin).href;
     <title>{title}</title>
     <ReturnVisit />
     <link rel="canonical" href={canonical} />
+    <meta name="robots" content={seo.robots} />
+    {seo.alternates.map(item => <link rel="alternate" hreflang={item.lang} href={item.href} />)}
     <meta property="og:type" content="website" />
     <meta property="og:site_name" content="HIRDA" />
     <meta property="og:title" content={title} />

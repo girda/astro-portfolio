@@ -60,7 +60,7 @@ test('mode is validated and demo/brief instructions are selected server-side', a
       assert.match(request.instructions, /You are Pixel/);
       if (mode === 'demo') {
         assert.equal(request.text.format.strict, true);
-        return Response.json({ status: 'completed', output: [{ type: 'message', role: 'assistant', content: [{ type: 'output_text', text: JSON.stringify({ text: 'Demo', cart: [] }) }] }] });
+        return Response.json({ status: 'completed', output: [{ type: 'message', role: 'assistant', content: [{ type: 'output_text', text: JSON.stringify({ text: 'Demo', choices: [], summary: '', cart: [] }) }] }] });
       }
       return Response.json(output);
     }});
@@ -89,6 +89,6 @@ test('Turnstile rejects malformed tokens, wrong hostname/action and network fail
     assert.throws(() => cart(rows));
     await assert.rejects(answer({ ...body, mode: 'demo', cart: rows }, { apiKey: 'test' }), { code: 'invalid_cart' });
   }
-  const result = await answer({ ...body, mode: 'demo', cart: [] }, { apiKey: 'test', fetchImpl: async () => Response.json({ status: 'completed', output: [{ type: 'message', role: 'assistant', content: [{ type: 'output_text', text: JSON.stringify({ text: 'Demo', cart: [{ id: 'coffee', quantity: 2 }, { id: 'cake', quantity: 1 }] }) }] }] }) });
+  const result = await answer({ ...body, mode: 'demo', cart: [] }, { apiKey: 'test', fetchImpl: async () => Response.json({ status: 'completed', output: [{ type: 'message', role: 'assistant', content: [{ type: 'output_text', text: JSON.stringify({ text: 'Demo', choices: [], summary: '', cart: [{ id: 'coffee', quantity: 2 }, { id: 'cake', quantity: 1 }] }) }] }] }) });
   assert.equal(result.cart.reduce((sum, row) => sum + row.quantity * result.catalog.find(p => p.id === row.id).cents, 0), 1270);
  });

@@ -1,0 +1,62 @@
+---
+import Icon from "./Icon.astro";
+interface Props {
+  links: { label: string; href: string }[];
+  name: string;
+  label?: string;
+}
+const { links, name, label = "Menü" } = Astro.props;
+const id = `demo-menu-${name.toLowerCase().replace(/[^a-z0-9]/g, "")}`;
+---
+
+<button
+  class="demo-menu-trigger"
+  type="button"
+  aria-label={label}
+  aria-haspopup="dialog"
+  aria-controls={id}
+  aria-expanded="false"
+>
+  <Icon name="menu" />
+</button>
+<dialog class="demo-menu" id={id} data-demo-menu>
+  <div class="demo-menu-top">
+    <strong>{name}</strong>
+    <button type="button" data-menu-close aria-label={label==="Меню"?"Закрыть меню":label==="Menu"?"Close menu":"Menü schließen"}>
+      <Icon name="x" />
+    </button>
+  </div>
+  <nav aria-label={label}>
+    {links.map((link, i) => (
+      <a href={link.href} style={`--i:${i}`}>
+        <span>{link.label}</span>
+        <Icon name="chevron-right" />
+      </a>
+    ))}
+  </nav>
+  <p>Ein Designkonzept von HIRDA</p>
+</dialog>
+<script>
+  document
+    .querySelectorAll<HTMLDialogElement>("[data-demo-menu]")
+    .forEach((menu) => {
+      const trigger = document.querySelector<HTMLButtonElement>(
+        `[aria-controls="${menu.id}"]`,
+      )!;
+      trigger.addEventListener("click", () => {
+        menu.showModal();
+        trigger.setAttribute("aria-expanded", "true");
+      });
+      const close = () => menu.close();
+      menu.querySelector("[data-menu-close]")?.addEventListener("click", close);
+      menu
+        .querySelectorAll("a")
+        .forEach((a) => a.addEventListener("click", close));
+      menu.addEventListener("close", () =>
+        trigger.setAttribute("aria-expanded", "false"),
+      );
+      matchMedia("(min-width:901px)").addEventListener("change", (e) => {
+        if (e.matches && menu.open) menu.close();
+      });
+    });
+</script>

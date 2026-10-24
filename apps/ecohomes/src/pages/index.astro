@@ -1,0 +1,689 @@
+---
+import Icon from "../../../../packages/ui/Icon.astro";
+import DemoMenu from "../../../../packages/ui/DemoMenu.astro";
+import "../../../../packages/ui/foundations.css";
+import "../styles/global.css";
+import Motion from "../components/Motion.astro";
+const base = import.meta.env.BASE_URL;
+const asset = (name: string) => `${base}images/${name}.webp`;
+const links = [
+  { label: "Unsere Häuser", href: "#haeuser" },
+  { label: "Energie", href: "#energie" },
+  { label: "So bauen wir", href: "#ablauf" },
+  { label: "Dein Haus finden", href: "#hausfinder" },
+  { label: "Kontakt", href: "#kontakt" },
+];
+const houses = [
+  {
+    id: "lichtung",
+    name: "Lichtung",
+    type: "Familienhaus",
+    area: "ca. 160 m²",
+    rooms: "5 Zimmer",
+    image: "lichtung",
+    text: "Viel Licht. Viel Leben. Ein offenes Erdgeschoss und Rückzugsorte für alle.",
+    features: ["Zwei Geschosse", "Offene Wohnküche", "Flexibles Arbeitszimmer"],
+  },
+  {
+    id: "wiesenblick",
+    name: "Wiesenblick",
+    type: "Bungalow",
+    area: "ca. 125 m²",
+    rooms: "4 Zimmer",
+    image: "wiesenblick",
+    text: "Alles auf einer Ebene. Mit fließenden Übergängen zwischen drinnen und draußen.",
+    features: ["Wohnen auf einer Ebene", "Geschützte Terrasse", "Kurze Wege"],
+  },
+  {
+    id: "hain",
+    name: "Hain",
+    type: "Kompakthaus",
+    area: "ca. 105 m²",
+    rooms: "4 Zimmer",
+    image: "hain",
+    text: "Weniger Fläche. Mehr Möglichkeiten. Klar geplant, mit Raum für deine Ideen.",
+    features: [
+      "Kompakter Grundriss",
+      "Zwei Geschosse",
+      "Platz für ein Homeoffice",
+    ],
+  },
+];
+const energy = [
+  {
+    id: "solar",
+    icon: "solar-panel",
+    title: "Sonne nutzen.",
+    text: "Photovoltaik kann einen Teil des Strombedarfs direkt am Haus decken. Dachfläche, Ausrichtung und Verschattung bestimmen, was sinnvoll ist.",
+    detail: "Photovoltaik",
+    sub: "Das Dach denkt mit.",
+  },
+  {
+    id: "heat",
+    icon: "thermometer",
+    title: "Wärme weiterdenken.",
+    text: "Eine Wärmepumpe nutzt Umweltwärme. Zusammen mit einer abgestimmten Gebäudehülle und Wärmeverteilung entsteht ein ganzheitliches Konzept.",
+    detail: "Wärmepumpe",
+    sub: "Wärme als System.",
+  },
+  {
+    id: "storage",
+    icon: "battery-charging",
+    title: "Energie passend einsetzen.",
+    text: "Ein Speicher kann selbst erzeugten Strom zeitversetzt verfügbar machen. Ob und wie groß er sinnvoll ist, wird für das konkrete Haus geprüft.",
+    detail: "Stromspeicher",
+    sub: "Gut verbunden.",
+  },
+];
+const faq = [
+  [
+    "Ist jedes Holzhaus automatisch nachhaltig?",
+    "Nein. Materialherkunft, Planung, Herstellung, Betrieb und Nutzungsdauer spielen zusammen. Für ein echtes Bauvorhaben müssten diese Punkte konkret bewertet werden.",
+  ],
+  [
+    "Was kostet ein Haus?",
+    "Grundstück, Größe, Ausstattung und Ausbaustufe verändern den Umfang stark. Deshalb zeigt dieses Designkonzept keine scheinbar verbindlichen Baupreise. Eine Beratung würde mit deinem Bedarf und Budget beginnen.",
+  ],
+  [
+    "Kann ich den Grundriss verändern?",
+    "Die drei Modelle sind fiktive Entwurfsideen. In einem realen Projekt würden Grundstück, Baurecht und persönliche Wünsche gemeinsam geprüft.",
+  ],
+  [
+    "Ist der Hausfinder eine KI?",
+    "Nein. Die Auswahl ist eine transparente lokale Demo anhand deiner Angaben. Sie sendet keine Daten und ersetzt keine Architektur- oder Energieberatung.",
+  ],
+  [
+    "Kann ich hier eine Beratung buchen?",
+    "Die Form erstellt nur eine Vorschau. Es gibt keinen echten Anbieter, keine Reservierung und keinen Versand deiner Angaben.",
+  ],
+];
+---
+
+<!doctype html>
+<html lang="de">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <meta name="theme-color" content="#264d3e" />
+    <meta
+      name="description"
+      content="Eichenhain — Häuser & Energie. Ein interaktives HIRDA-Designkonzept für modernen Holzhausbau mit Energie aus Sonne, Wärme und durchdachter Planung."
+    />
+    <title>Eichenhain — Häuser & Energie · HIRDA Demo</title>
+    <link rel="icon" href={`${base}brand.svg`} type="image/svg+xml" />
+  </head>
+  <body data-demo="ecohomes">
+    <a class="skip" href="#main">
+      Zum Inhalt
+    </a>
+    <header class="site-header">
+      <div class="header-wrap">
+        <a class="brand" href={base} aria-label="Eichenhain Startseite">
+          <svg
+            width="34"
+            height="38"
+            viewBox="0 0 34 38"
+            fill="none"
+            aria-hidden="true"
+          >
+            <path
+              d="M3 18 17 5l14 13M8 15v18h18V15M17 18v15M12 1v6M22 1v6"
+              stroke="currentColor"
+              stroke-width="1.5"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+            />
+          </svg>
+          <span>
+            eichenhain<small>HÄUSER & ENERGIE</small>
+          </span>
+        </a>
+        <nav class="desktop-nav" aria-label="Hauptnavigation">
+          {links.slice(0, 3).map((l) => (
+            <a href={l.href}>{l.label}</a>
+          ))}
+        </nav>
+        <a class="button header-cta" href="#hausfinder">
+          Dein Haus entdecken
+        </a>
+        <DemoMenu name="Eichenhain" links={links} />
+      </div>
+    </header>
+    <main id="main">
+      <section class="hero">
+        <img
+          src={asset("lichtung")}
+          alt="KI-Visualisierung eines Holzhauses mit Solardach vor einer bayerischen Berglandschaft"
+          width="1672"
+          height="941"
+          fetchpriority="high"
+        />
+        <div class="hero-shade"></div>
+        <div class="container hero-copy">
+          <p class="eyebrow">NATÜRLICH BAUEN. WEITERDENKEN.</p>
+          <h1>
+            Ein Zuhause für dich.
+            <br />
+            <em>Gedacht für morgen.</em>
+          </h1>
+          <p class="hero-description">
+            Architektur aus Holz. Energie von der Sonne.
+            <br />
+            Und Raum für das Leben, das du dir wünschst.
+          </p>
+          <a class="button pale" href="#haeuser">
+            Finde dein Haus <Icon name="arrow-right" />
+          </a>
+        </div>
+        <div class="container hero-foot">
+          <span>Holzbau · Photovoltaik · Wärmepumpe</span>
+          <span>Ein Designkonzept von HIRDA</span>
+        </div>
+      </section>
+      <section class="section homes" id="haeuser">
+        <div class="container">
+          <div class="section-heading" data-motion>
+            <div>
+              <p class="eyebrow">RAUM FÜR DEINE IDEEN</p>
+              <h2>
+                So individuell
+                <br />
+                <em>wie dein Leben.</em>
+              </h2>
+            </div>
+            <p>
+              Drei Hausideen als Ausgangspunkt. Dein Alltag und deine Wünsche
+              machen daraus etwas Eigenes.
+            </p>
+          </div>
+          <div class="home-filters" role="group" aria-label="Haustypen">
+            {["Alle Häuser", "Familienhaus", "Bungalow", "Kompakthaus"].map(
+              (f, i) => (
+                <button
+                  type="button"
+                  data-filter={f}
+                  aria-pressed={i === 0 ? "true" : "false"}
+                >
+                  {f}
+                </button>
+              ),
+            )}
+          </div>
+          <div class="house-grid">
+            {houses.map((h, i) => (
+              <article class="house-card" data-type={h.type} data-motion>
+                <div class="house-photo">
+                  <img
+                    src={asset(h.image)}
+                    alt={`KI-Architekturvisualisierung: ${h.name}`}
+                    width="1536"
+                    height="1024"
+                    loading="lazy"
+                  />
+                  <button
+                    class="save-button"
+                    type="button"
+                    data-save={h.id}
+                    aria-label={`${h.name} merken`}
+                    aria-pressed="false"
+                  >
+                    <Icon name="heart" />
+                  </button>
+                  <span>{h.type}</span>
+                </div>
+                <div class="house-body">
+                  <div class="house-title">
+                    <h3>{h.name}</h3>
+                    <Icon name="move-up-right" />
+                  </div>
+                  <p>{h.text}</p>
+                  <div class="house-facts">
+                    <span>
+                      <Icon name="ruler" />
+                      {h.area}
+                    </span>
+                    <span>
+                      <Icon name="columns-2" />
+                      {h.rooms}
+                    </span>
+                  </div>
+                  <button class="text-button" type="button" data-house={i}>
+                    Hausidee entdecken
+                    <Icon name="chevron-right" />
+                  </button>
+                </div>
+              </article>
+            ))}
+          </div>
+          <p class="caption">
+            Fiktive Hausmodelle und Beispielgrößen · KI-Visualisierungen · Keine
+            Verkaufsangebote
+          </p>
+        </div>
+      </section>
+      <section class="section energy" id="energie">
+        <div class="container">
+          <div class="section-heading" data-motion>
+            <div>
+              <p class="eyebrow">VON ANFANG AN ZUSAMMENGEDACHT</p>
+              <h2>
+                Ein Haus.
+                <br />
+                <em>Ein Energiesystem.</em>
+              </h2>
+            </div>
+            <p>
+              Nicht einzelne Geräte, sondern ein Konzept, das zu Gebäude und
+              Nutzung passt. Entdecke, wie die Bausteine zusammenspielen.
+            </p>
+          </div>
+          <div class="energy-layout">
+            <div class="energy-visual" data-motion>
+              <img
+                src={asset("lichtung")}
+                alt="Schematische Position der Energietechnik am KI-Hausmodell"
+                width="1672"
+                height="941"
+                loading="lazy"
+              />
+              {energy.map((e, i) => (
+                <button
+                  type="button"
+                  class={`energy-pin pin-${e.id}`}
+                  data-energy={i}
+                  aria-label={e.detail}
+                  aria-pressed={i === 0 ? "true" : "false"}
+                >
+                  <Icon name={e.icon} />
+                  <span>{e.detail}</span>
+                </button>
+              ))}
+              <span class="visual-note">
+                Illustrative Darstellung · keine technische Planung
+              </span>
+            </div>
+            <div class="energy-content">
+              <div
+                class="energy-tabs"
+                role="tablist"
+                aria-label="Energiebausteine"
+              >
+                {energy.map((e, i) => (
+                  <button
+                    type="button"
+                    role="tab"
+                    data-energy={i}
+                    id={`energy-tab-${i}`}
+                    aria-controls={`energy-panel-${i}`}
+                    aria-selected={i === 0 ? "true" : "false"}
+                    tabindex={i === 0 ? 0 : -1}
+                  >
+                    <Icon name={e.icon} />
+                    <span>{e.detail}</span>
+                  </button>
+                ))}
+              </div>
+              {energy.map((e, i) => (
+                <div
+                  role="tabpanel"
+                  id={`energy-panel-${i}`}
+                  aria-labelledby={`energy-tab-${i}`}
+                  hidden={i !== 0}
+                >
+                  <p class="eyebrow">{e.sub}</p>
+                  <h3>{e.title}</h3>
+                  <p>{e.text}</p>
+                  <a class="text-button" href="#kontakt">
+                    Gemeinsam weiterdenken
+                    <Icon name="chevron-right" />
+                  </a>
+                </div>
+              ))}
+            </div>
+          </div>
+          <div class="material-note">
+            <Icon name="trees" />
+            <p>
+              <strong>
+                Holz ist der Anfang. Gute Planung macht den Unterschied.
+              </strong>
+              <br />
+              Gebäudehülle, sommerlicher Wärmeschutz und Materialien gehören
+              genauso zum Gespräch wie die Haustechnik.
+            </p>
+          </div>
+        </div>
+      </section>
+      <section class="section finder" id="hausfinder">
+        <div class="container finder-layout">
+          <div data-motion>
+            <p class="eyebrow">DEIN ZUHAUSE BEGINNT MIT DIR</p>
+            <h2>
+              Was braucht
+              <br />
+              <em>dein Leben?</em>
+            </h2>
+            <p>
+              Ein paar Wünsche reichen für eine erste Richtung. Probier aus,
+              welche Hausidee zu dir passen könnte.
+            </p>
+            <span class="finder-note">
+              <Icon name="sliders-horizontal" />
+              Lokale Auswahl-Demo. Keine KI-Beratung.
+            </span>
+          </div>
+          <form id="house-finder" class="finder-card">
+            <fieldset>
+              <legend>Was ist dir besonders wichtig?</legend>
+              <div class="choice-grid">
+                <label>
+                  <input type="radio" name="priority" value="family" checked />
+                  <Icon name="users" />
+                  <span>Platz für die Familie</span>
+                </label>
+                <label>
+                  <input type="radio" name="priority" value="level" />
+                  <Icon name="house" />
+                  <span>Alles auf einer Ebene</span>
+                </label>
+                <label>
+                  <input type="radio" name="priority" value="compact" />
+                  <Icon name="ruler" />
+                  <span>Bewusst kompakt</span>
+                </label>
+              </div>
+            </fieldset>
+            <label class="field">
+              Wie weit bist du?
+              <select name="stage">
+                <option>Ich sammle erste Ideen</option>
+                <option>Ich suche ein Grundstück</option>
+                <option>Ich habe ein Grundstück</option>
+              </select>
+            </label>
+            <button class="button" type="submit">
+              Meine Hausidee finden <Icon name="arrow-right" />
+            </button>
+            <div id="finder-result" hidden aria-live="polite"></div>
+          </form>
+        </div>
+      </section>
+      <section class="section process" id="ablauf">
+        <div class="container">
+          <div class="section-heading" data-motion>
+            <div>
+              <p class="eyebrow">VOM GUTEN GEFÜHL ZUM KLAREN PLAN</p>
+              <h2>
+                Schritt für Schritt.
+                <br />
+                <em>Gemeinsam mit dir.</em>
+              </h2>
+            </div>
+            <p>
+              Ein Hausbau wirft viele Fragen auf. Ein guter Prozess macht die
+              nächsten Schritte verständlich.
+            </p>
+          </div>
+          <div class="process-grid">
+            {[
+              {
+                icon: "message-circle",
+                title: "Erst zuhören.",
+                text: "Dein Alltag, deine Ideen, dein Budget. Wir beginnen mit den richtigen Fragen.",
+              },
+              {
+                icon: "ruler",
+                title: "Dann konkret werden.",
+                text: "Grundstück, Grundriss, Materialien und Energie. Daraus entsteht eine abgestimmte Planung.",
+              },
+              {
+                icon: "house",
+                title: "Zuhause ankommen.",
+                text: "Ein klarer Umfang und nachvollziehbare Schritte begleiten die Umsetzung.",
+              },
+            ].map((s) => (
+              <article data-motion>
+                <span class="process-icon">
+                  <Icon name={s.icon} />
+                </span>
+                <h3>{s.title}</h3>
+                <p>{s.text}</p>
+              </article>
+            ))}
+          </div>
+        </div>
+      </section>
+      <section class="section story">
+        <div class="container story-grid">
+          <div class="story-image" data-motion>
+            <img
+              src={asset("wiesenblick")}
+              alt="Lichtdurchfluteter Wohnbereich im KI-generierten Holzbungalow"
+              width="1536"
+              height="1024"
+              loading="lazy"
+            />
+          </div>
+          <div data-motion>
+            <p class="eyebrow">EICHENHAIN / DAS KONZEPT</p>
+            <h2>
+              Weniger beliebig.
+              <br />
+              <em>Mehr Zuhause.</em>
+            </h2>
+            <p>
+              Wir mögen Häuser, die nicht laut sein müssen. Gute Proportionen,
+              ehrliche Materialien und Tageslicht schaffen Räume, in denen man
+              gerne bleibt.
+            </p>
+            <p>
+              Dieses HIRDA-Konzept zeigt, wie sich moderner Hausbau digital
+              erleben lässt: verständlich, persönlich und mit Platz für deine
+              eigenen Vorstellungen.
+            </p>
+            <a href="#kontakt" class="text-button">
+              Über deine Ideen sprechen
+              <Icon name="chevron-right" />
+            </a>
+          </div>
+        </div>
+      </section>
+      <section class="section faq-section">
+        <div class="container faq-layout">
+          <div data-motion>
+            <p class="eyebrow">GUT ZU WISSEN</p>
+            <h2>
+              Gute Fragen.
+              <br />
+              <em>Klare Antworten.</em>
+            </h2>
+          </div>
+          <div class="faq">
+            {faq.map(([q, a]) => (
+              <details>
+                <summary>
+                  {q}
+                  <Icon name="chevron-down" />
+                </summary>
+                <div class="answer">
+                  <p>{a}</p>
+                </div>
+              </details>
+            ))}
+          </div>
+        </div>
+      </section>
+      <section class="section contact" id="kontakt">
+        <div class="container contact-layout">
+          <div data-motion>
+            <p class="eyebrow">DEINE IDEE VERDIENT EIN GESPRÄCH</p>
+            <h2>
+              Lass uns über
+              <br />
+              <em>dein Zuhause reden.</em>
+            </h2>
+            <p>
+              Was stellst du dir vor? Teile deine Wünsche und sieh dir an, wie
+              eine erste Anfrage aussehen könnte.
+            </p>
+            <div class="contact-details">
+              <span>
+                <Icon name="map-pin" />
+                Musterweg 8 · 80331 München
+              </span>
+              <span>
+                <Icon name="mail" />
+                hallo@eichenhain.example
+              </span>
+            </div>
+            <p class="caption">
+              Fiktiver Anbieter und Demoadresse.
+              <br />
+              Keine echte Kontaktaufnahme über diese Seite.
+            </p>
+          </div>
+          <form id="consultation" class="contact-form">
+            <div class="form-row">
+              <label class="field">
+                Dein Name
+                <input
+                  name="name"
+                  required
+                  autocomplete="name"
+                  maxlength="120"
+                  placeholder="Vor- und Nachname"
+                />
+              </label>
+              <label class="field">
+                Deine E-Mail
+                <input
+                  name="email"
+                  type="email"
+                  required
+                  autocomplete="email"
+                  maxlength="200"
+                  placeholder="name@beispiel.de"
+                />
+              </label>
+            </div>
+            <label class="field">
+              Deine Hausidee
+              <select name="house">
+                <option>Noch offen</option>
+                <option>Lichtung</option>
+                <option>Wiesenblick</option>
+                <option>Hain</option>
+              </select>
+            </label>
+            <label class="field">
+              Was ist dir wichtig?
+              <textarea
+                name="message"
+                rows="4"
+                maxlength="2000"
+                placeholder="Deine Wünsche, dein Grundstück, deine Fragen …"
+              ></textarea>
+            </label>
+            <button class="button" type="submit">
+              Anfrage als Demo ansehen
+              <Icon name="arrow-right" />
+            </button>
+            <p class="caption">
+              Deine Angaben bleiben im Browser. Diese Demo versendet nichts.
+            </p>
+          </form>
+        </div>
+      </section>
+    </main>
+    <footer class="site-footer">
+      <div class="container">
+        <div class="footer-top">
+          <a class="brand" href="#main">
+            <span>
+              eichenhain<small>HÄUSER & ENERGIE</small>
+            </span>
+          </a>
+          <nav aria-label="Footernavigation">
+            {links.map((l) => (
+              <a href={l.href}>{l.label}</a>
+            ))}
+          </nav>
+          <a href="#main" class="top-button" aria-label="Nach oben">
+            <Icon name="arrow-left" />
+          </a>
+        </div>
+        <div class="footer-bottom">
+          <span>
+            © {new Date().getFullYear()} Eichenhain · Fiktives Designkonzept
+          </span>
+          <a
+            href={
+              import.meta.env.PROD
+                ? base.replace(/demos\/ecohomes\/$/, "")
+                : "http://localhost:4321/"
+            }
+          >
+            Entworfen von HIRDA
+          </a>
+        </div>
+        <p class="caption">
+          Alle Häuser und Bilder sind KI-generierte Entwurfsideen. Keine Bau-,
+          Energie- oder Förderberatung.
+        </p>
+      </div>
+    </footer>
+    <dialog id="house-dialog" aria-labelledby="house-title">
+      <button
+        type="button"
+        class="close"
+        data-close
+        aria-label="Fenster schließen"
+      >
+        <Icon name="x" />
+      </button>
+      <img id="house-dialog-image" alt="" />
+      <div class="house-dialog-body">
+        <p class="eyebrow">DEINE HAUSIDEE</p>
+        <h2 id="house-title"></h2>
+        <p id="house-dialog-text"></p>
+        <ul id="house-dialog-features"></ul>
+        <p class="caption">
+          Fiktives Modell. Grundriss und Ausstattung müssten individuell geplant
+          werden.
+        </p>
+        <a class="button" id="house-inquire" href="#kontakt">
+          Über diese Idee sprechen
+          <Icon name="arrow-right" />
+        </a>
+      </div>
+    </dialog>
+    <dialog id="form-dialog" aria-labelledby="form-title">
+      <button
+        type="button"
+        class="close"
+        data-close
+        aria-label="Fenster schließen"
+      >
+        <Icon name="x" />
+      </button>
+      <p class="eyebrow">DEINE VORSCHAU</p>
+      <h2 id="form-title">Ein guter Anfang.</h2>
+      <p>So könnte deine Anfrage aussehen. Es wurde nichts versendet.</p>
+      <dl id="form-summary"></dl>
+      <button type="button" class="button" data-close>
+        Angaben bearbeiten
+      </button>
+    </dialog>
+    <script
+      type="application/json"
+      id="house-data"
+      set:html={JSON.stringify(
+        houses.map((h) => ({ ...h, image: asset(h.image) })),
+      )}
+    />
+    <script>
+      import "../scripts/site";
+    </script>
+    <Motion />
+  </body>
+</html>

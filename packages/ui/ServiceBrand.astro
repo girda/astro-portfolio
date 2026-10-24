@@ -1,0 +1,11 @@
+---
+interface Props {name:string; tagline:string; kind:'cleaning'|'electrical'|'homeservice'|'gardens';}
+const {name,tagline,kind}=Astro.props;
+---
+<a class="brand" href={import.meta.env.BASE_URL} aria-label={`${name} – Startseite`}>
+<svg class="brand-mark" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+{kind==='cleaning' && <><path d="m24 5 18 18-18 20L6 23 24 5Z" stroke="currentColor" stroke-width="4" stroke-linejoin="round"/><path d="M24 33 15 24c-5-6 5-11 9-4 4-7 14-2 9 4l-9 9Z" fill="currentColor"/></>}
+{kind==='electrical' && <><path d="M28 1 5 28h15l-5 19L44 16H28l7-15h-7Z" fill="currentColor"/><path d="m28 1-8 27H5L28 1Z" fill="#ffe96b"/><path d="m20 28-5 19 29-31-24 12Z" fill="#f6a500"/></>}
+{kind==='homeservice' && <><path d="M5 13 19 5h23L29 17H18v10L5 35V13Z" fill="#008cff"/><path d="m18 27 13-8h11L29 31H18v11L5 48V35l13-8Z" fill="#005fff"/><path d="m5 13 13 4 11-12H19L5 13Z" fill="#27caff"/></>}
+{kind==='gardens' && <><path d="M39 7C15 6 5 20 12 32c12 13 27-2 27-25Z" fill="currentColor"/><path d="M9 42 31 17" stroke="#e9efdb" stroke-width="2.4" stroke-linecap="round"/><path d="m20 29-1-9M25 24h9" stroke="#e9efdb" stroke-width="2" stroke-linecap="round"/></>}
+</svg><span class="brand-word">{name}<small>{tagline}</small></span></a>

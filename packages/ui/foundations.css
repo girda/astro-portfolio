@@ -1,0 +1,319 @@
+@font-face {
+  font-family: "HIRDA Sans";
+  src: url("./fonts/dm-sans-400.ttf") format("truetype");
+  font-weight: 400;
+  font-display: swap;
+}
+@font-face {
+  font-family: "HIRDA Sans";
+  src: url("./fonts/dm-sans-500.ttf") format("truetype");
+  font-weight: 500;
+  font-display: swap;
+}
+@font-face {
+  font-family: "HIRDA Sans";
+  src: url("./fonts/dm-sans-700.ttf") format("truetype");
+  font-weight: 700;
+  font-display: swap;
+}
+/* Общая шкала Lindenhof; цвет и характер принадлежат каждому демосайту. */
+body[data-demo] {
+  --demo-space: clamp(64px, 7vw, 104px);
+  --demo-gutter: clamp(20px, 5vw, 72px);
+  --demo-radius: 8px;
+  font-family: "HIRDA Sans", Arial, sans-serif;
+  -webkit-font-smoothing: antialiased;
+}
+body[data-demo] :is(.wrap, .container) {
+  width: 100%;
+  max-width: 1440px;
+  margin-inline: auto;
+  padding-inline: var(--demo-gutter);
+}
+body[data-demo] :is(.section, .section-space) {
+  padding-block: var(--demo-space);
+}
+body[data-demo] h2 {
+  font-size: clamp(32px, 4vw, 52px);
+  line-height: 1.12;
+  letter-spacing: -0.04em;
+  text-wrap: balance;
+}
+body[data-demo] h3 {
+  font-size: clamp(21px, 2.2vw, 27px);
+  line-height: 1.2;
+  letter-spacing: -0.025em;
+}
+body[data-demo] :is(.section-head, .section-heading) {
+  gap: 32px;
+  margin-bottom: 40px;
+  align-items: end;
+}
+body[data-demo] :is(.section-head, .section-heading) > p {
+  max-width: 440px;
+  font-size: 16px;
+  line-height: 1.65;
+}
+body[data-demo] :is(.eyebrow, .category) {
+  font-size: 11px;
+  font-weight: 700;
+  line-height: 1.4;
+  letter-spacing: 0.12em;
+}
+body[data-demo] .button {
+  min-height: 48px;
+  padding: 14px 23px;
+  border-radius: 6px;
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+  font-size: 14px;
+  font-weight: 500;
+  line-height: 1.35;
+  text-align: center;
+  box-shadow: none;
+  transition:
+    background 0.2s,
+    box-shadow 0.2s;
+}
+body[data-demo] .button:hover {
+  transform: none;
+  box-shadow: 0 5px 18px #00000012;
+}
+body[data-demo] .button.small {
+  min-height: 44px;
+  font-size: 13px;
+}
+body[data-demo] .demo-icon {
+  width: 24px;
+  height: 24px;
+  flex-shrink: 0;
+  vertical-align: middle;
+  stroke-width: 1.65;
+}
+body[data-demo] .button .demo-icon {
+  width: 18px;
+  height: 18px;
+}
+body[data-demo] :is(.service-grid, .service-list, .steps, .gallery) {
+  gap: 24px;
+}
+body[data-demo] :is(.service-card, .service, .contact-card) {
+  border-radius: var(--demo-radius);
+}
+body[data-demo] input,
+body[data-demo] textarea,
+body[data-demo] select {
+  font-size: 16px;
+  min-height: 48px;
+  border-radius: 6px;
+  line-height: 1.5;
+}
+body[data-demo] select {
+  appearance: none;
+  padding-right: 44px;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%235b6661' stroke-width='1.6' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='m6 9 6 6 6-6'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 14px center;
+  background-size: 18px;
+}
+body[data-demo] :is(a, button, summary, input, textarea, select):focus-visible {
+  outline: 2px solid var(--demo-accent);
+  outline-offset: 4px;
+}
+body[data-demo] summary {
+  min-height: 64px;
+  font-size: 16px;
+  gap: 24px;
+}
+body[data-demo] :is(.faq, .room-list) .answer p {
+  font-size: 15px;
+  line-height: 1.75;
+}
+body[data-demo] dialog {
+  border: 1px solid #ffffff24;
+  border-radius: 12px;
+  padding: 32px;
+  max-height: calc(100dvh - 32px);
+}
+body[data-demo] dialog::backdrop {
+  background: #0c1618a6;
+  backdrop-filter: blur(8px);
+}
+body[data-demo] :is(.close, .dialog-top > button) {
+  display: grid;
+  place-items: center;
+  width: 44px;
+  height: 44px;
+  border: 0;
+  border-radius: 50%;
+  background: transparent;
+}
+body[data-demo] :is(.close, .dialog-top > button):hover {
+  background: #7b8d8018;
+}
+body[data-demo] footer {
+  font-size: 13px;
+  line-height: 1.65;
+}
+.demo-menu-trigger {
+  display: none;
+  align-items: center;
+  justify-content: center;
+  width: 44px;
+  height: 44px;
+  padding: 0;
+  background: transparent;
+  border: 0;
+  color: inherit;
+}
+body[data-demo] dialog.demo-menu {
+  position: fixed;
+  inset: 0;
+  width: 100%;
+  max-width: none;
+  height: 100dvh;
+  max-height: none;
+  margin: 0;
+  padding: 26px var(--demo-gutter);
+  border: 0;
+  border-radius: 0;
+  background: var(--demo-menu-bg, #f5f6f1);
+  color: var(--demo-menu-ink, #203b2e);
+}
+.demo-menu-top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 24px;
+}
+.demo-menu-top strong {
+  font-size: 22px;
+  letter-spacing: -0.05em;
+}
+.demo-menu-top button {
+  display: grid;
+  place-items: center;
+  width: 44px;
+  height: 44px;
+  padding: 0;
+  border: 0;
+  background: transparent;
+  color: inherit;
+}
+.demo-menu nav {
+  display: flex !important;
+  flex-direction: column;
+  gap: 0 !important;
+  margin: clamp(40px, 12vh, 120px) 0 40px !important;
+  width: 100% !important;
+  order: initial !important;
+}
+.demo-menu nav a {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 20px;
+  border-bottom: 1px solid #74887833;
+  padding: 20px 0;
+  font-size: clamp(26px, 5vw, 40px);
+  line-height: 1.15;
+  letter-spacing: -0.035em;
+}
+.demo-menu nav svg {
+  color: var(--demo-accent);
+}
+.demo-menu > p {
+  font-size: 12px;
+  opacity: 0.65;
+}
+@media (max-width: 900px) {
+  .demo-menu-trigger {
+    display: inline-flex;
+  }
+  body[data-demo="cleaning"] .header > nav,
+  body[data-demo="autoservice"] .header > nav:not(.languages),
+  body[data-demo="nails"] header > .main-nav {
+    display: none;
+  }
+  body[data-demo="nails"] header .languages {
+    margin-left: auto;
+  }
+  body[data-demo] .header {
+    gap: 16px;
+  }
+  body[data-demo="cleaning"] .city {
+    margin-left: auto;
+  }
+  body[data-demo="autoservice"] .languages {
+    margin-left: auto;
+  }
+}
+@media (max-width: 700px) {
+  body[data-demo] {
+    --demo-space: 56px;
+    --demo-gutter: 20px;
+  }
+  body[data-demo] :is(.section-head, .section-heading) {
+    display: block;
+    margin-bottom: 28px;
+  }
+  body[data-demo] :is(.section-head, .section-heading) > p {
+    margin-top: 20px;
+  }
+  body[data-demo] :is(.form-row, .calc-grid) {
+    gap: 16px;
+  }
+  body[data-demo] .button {
+    min-height: 48px;
+  }
+  body[data-demo] dialog:not(.demo-menu) {
+    padding: 28px 22px;
+  }
+  body[data-demo="cleaning"] .header > .button.small {
+    display: none;
+  }
+  body[data-demo="autoservice"] .header > .button.small {
+    display: none;
+  }
+}
+@media (prefers-reduced-motion: no-preference) {
+  .demo-menu[open] {
+    animation: demo-menu-in 0.35s cubic-bezier(0.2, 0.7, 0.2, 1);
+  }
+  .demo-menu[open] nav a {
+    animation: demo-item-in 0.35s calc(var(--i) * 0.035s) both;
+  }
+  @keyframes demo-menu-in {
+    from {
+      opacity: 0;
+      clip-path: inset(0 0 100% 0);
+    }
+    to {
+      opacity: 1;
+      clip-path: inset(0);
+    }
+  }
+  @keyframes demo-item-in {
+    from {
+      opacity: 0;
+      transform: translateY(14px);
+    }
+    to {
+      opacity: 1;
+      transform: none;
+    }
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  body[data-demo] {
+    scroll-behavior: auto;
+  }
+  body[data-demo] *,
+  body[data-demo] *::before,
+  body[data-demo] *::after {
+    animation: none !important;
+    transition: none !important;
+  }
+}

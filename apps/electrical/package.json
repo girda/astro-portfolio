@@ -1,0 +1,17 @@
+{
+  "name": "electrical-demo",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "engines": {
+    "node": ">=22.12.0"
+  },
+  "scripts": {
+    "dev": "astro dev --port 4329",
+    "build": "astro build",
+    "preview": "astro preview --port 4329"
+  },
+  "dependencies": {
+    "astro": "^7.3.5"
+  }
+}

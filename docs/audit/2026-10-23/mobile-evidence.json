@@ -1,0 +1,60 @@
+[
+  {
+    "demo": "barbershop",
+    "brokenImages": [],
+    "forms": 3,
+    "h1": "GUTER SCHNITT.\nKLARE KANTE.",
+    "scroll": 390,
+    "title": "KANT — Barbershop mit Charakter · Demo",
+    "width": 390
+  },
+  {
+    "demo": "cleaning",
+    "brokenImages": [],
+    "forms": 1,
+    "h1": "Ein sauberes Zuhause.\nMehr Zeit für dich.",
+    "scroll": 390,
+    "title": "KLAR — Mehr Zeit fürs Leben. · Demo",
+    "width": 390
+  },
+  {
+    "demo": "autoservice",
+    "brokenImages": [],
+    "forms": 1,
+    "h1": "DEIN AUTO.\nUNSER HANDWERK.",
+    "scroll": 390,
+    "title": "WERKRAUM — Auto-Service mit klarem Plan · Demo",
+    "width": 390
+  },
+  {
+    "demo": "nails",
+    "brokenImages": [
+      null
+    ],
+    "forms": 1,
+    "h1": "Deine Nägel.\nDein kleiner Luxus.",
+    "scroll": 390,
+    "title": "Deine Nägel. · STILL Nail Atelier",
+    "width": 390
+  },
+  {
+    "demo": "lindenhof",
+    "brokenImages": [],
+    "forms": 2,
+    "h1": "Dein nächstes Auto.\nDein neuer Anfang.",
+    "scroll": 390,
+    "title": "Autohaus Lindenhof — Dein nächstes Auto.",
+    "width": 390
+  },
+  {
+    "demo": "ecohomes",
+    "brokenImages": [
+      null
+    ],
+    "forms": 2,
+    "h1": "Ein Zuhause für dich.\nGedacht für morgen.",
+    "scroll": 390,
+    "title": "Eichenhain — Häuser & Energie · HIRDA Demo",
+    "width": 390
+  }
+]

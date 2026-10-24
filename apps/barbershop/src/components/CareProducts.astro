@@ -1,0 +1,65 @@
+---
+import Icon from './Icon.astro';
+import { careProducts } from '../data/site';
+const base = import.meta.env.BASE_URL.replace(/\/$/, '');
+---
+<section id="pflege" class="care section-block" aria-labelledby="care-title">
+  <div class="container care-layout">
+    <figure class="care-photo" data-reveal><img src={`${base}/images/care-generated.jpg`} width="1536" height="1024" alt="KI-generierte Beispielprodukte: Styling-Tiegel, Bartöl und Haarwäsche mit KANT-Etiketten" loading="lazy" /><figcaption>Beispielprodukte · KI-generiertes Motiv</figcaption></figure>
+    <div class="care-copy" data-reveal>
+      <p class="kicker">PFLEGE FÜR ZU HAUSE</p><h2 id="care-title">Der Look bleibt.<br /><em>Auch nach dem Termin.</em></h2>
+      <p class="section-intro">Nicht mehr Produkte. Die passenden. Entdecke die Pflege für dein Haar und deinen Bart — gemeinsam mit dem Barber.</p>
+      <div class="care-viewport" tabindex="0" role="region" aria-roledescription="Karussell" aria-label="Pflege auswählen — Pfeiltasten oder ziehen">
+        <div class="care-track">{careProducts.map(product => <article class="care-item"><p class="care-category">{product.category}</p><h3>{product.title}</h3><p>{product.description}</p><button class="btn secondary" type="button" data-open-care data-product={product.title} aria-haspopup="dialog" aria-controls="care-dialog" hidden>Beim Barber fragen</button></article>)}</div>
+      </div>
+      <div class="care-controls" hidden><button type="button" data-care-prev aria-label="Vorheriges Pflegeprodukt"><Icon name="chevron-left" /></button><p class="care-status" aria-live="polite"></p><button type="button" data-care-next aria-label="Nächstes Pflegeprodukt"><Icon name="chevron-right" /></button></div>
+      <p class="small-note">Demonstrationssortiment · Keine Bestellung und keine Zahlung.</p>
+    </div>
+  </div>
+</section>
+<dialog id="care-dialog" aria-labelledby="care-title-dialog">
+  <div class="dialog-content"><form method="dialog" class="close-form"><button class="close-button" aria-label="Dialog schließen"><Icon name="x" /></button></form>
+    <p class="kicker">DEMO · PFLEGEBERATUNG</p><h2 id="care-title-dialog">Was passt zu dir?</h2>
+    <p class="description care-selection"></p><p>Bei einem echten Beratungsgespräch würde dein Barber Haarstruktur, Haut und gewünschtes Finish mit dir abstimmen.</p>
+    <p class="small-note">Hier wird keine Anfrage gesendet. Die Auswahl bleibt nur in diesem geöffneten Dialog.</p>
+  </div>
+</dialog>
+<script>
+  import EmblaCarousel from 'embla-carousel';
+  import { careProducts } from '../data/site';
+  const viewport = document.querySelector<HTMLElement>('.care-viewport');
+  const controls = document.querySelector<HTMLElement>('.care-controls');
+  const dialog = document.querySelector<HTMLDialogElement>('#care-dialog');
+  if (dialog) document.querySelectorAll<HTMLButtonElement>('[data-open-care]').forEach(button => {
+    button.hidden = false;
+    button.addEventListener('click', () => {
+      const selection = dialog.querySelector<HTMLElement>('.care-selection');
+      if (selection) selection.textContent = `Deine Auswahl: ${button.dataset.product}.`;
+      dialog.showModal();
+    });
+  });
+  if (viewport && controls) {
+    const reduced = matchMedia('(prefers-reduced-motion: reduce)');
+    const carousel = EmblaCarousel(viewport, { align: 'start', containScroll: 'trimSnaps', duration: 22 });
+    const prev = controls.querySelector<HTMLButtonElement>('[data-care-prev]')!;
+    const next = controls.querySelector<HTMLButtonElement>('[data-care-next]')!;
+    const status = controls.querySelector<HTMLElement>('.care-status')!;
+    const update = () => {
+      prev.disabled = !carousel.canScrollPrev(); next.disabled = !carousel.canScrollNext();
+      status.textContent = careProducts[carousel.selectedScrollSnap()]?.title ?? '';
+    };
+    prev.addEventListener('click', () => carousel.scrollPrev(reduced.matches));
+    next.addEventListener('click', () => carousel.scrollNext(reduced.matches));
+    viewport.addEventListener('keydown', event => {
+      // Клавиши внутри кнопки не должны перехватываться каруселью.
+      if (event.target !== viewport || !['ArrowLeft', 'ArrowRight', 'Home', 'End'].includes(event.key)) return;
+      event.preventDefault();
+      if (event.key === 'ArrowLeft') carousel.scrollPrev(reduced.matches);
+      if (event.key === 'ArrowRight') carousel.scrollNext(reduced.matches);
+      if (event.key === 'Home') carousel.scrollTo(0, reduced.matches);
+      if (event.key === 'End') carousel.scrollTo(careProducts.length - 1, reduced.matches);
+    });
+    carousel.on('select', update).on('reInit', update); controls.hidden = false; update();
+    document.addEventListener('astro:before-swap', () => carousel.destroy(), { once: true });
+  }
+</script>

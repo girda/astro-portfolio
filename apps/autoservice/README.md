@@ -1,5 +1,7 @@
 # WERKRAUM Auto-Service
 
-German portfolio demo. Run npm run dev (port 4324). Build with npm run build.
+DE/RU demo. Inhalte/Beispielpreise: src/data/site.ts; Theme: src/styles/workshop.css. Lokales KI-Bild: public/images/workshop-hero.webp; Google Maps ist extern. Das Formular erzeugt eine lokale Demo-Summary, keine Buchung oder Datenübermittlung.
 
-Edit services, prices and contact placeholders in src/data/site.ts. Form data stays in the browser; no booking or sending. Image loads from Unsplash; map loads from Google.
+Start: npm run dev -- --background. Build: npm run build.
+
+Figma, Tests und Medien: ../../docs/audit/beauty-auto-portfolio-2026-10-24.md.

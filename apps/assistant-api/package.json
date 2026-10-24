@@ -8,7 +8,8 @@
   "scripts": {
     "dev": "node --watch --env-file-if-exists=.env server.mjs",
     "start": "node --env-file-if-exists=.env server.mjs",
-    "test": "node --test test.mjs"
+    "test": "node --test test.mjs",
+    "leads": "node lead-server.mjs"
   },
   "devDependencies": {
     "wrangler": "^4.149.0"

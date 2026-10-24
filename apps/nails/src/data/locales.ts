@@ -1,25 +1,26 @@
+import {services} from './site';
 export const languages = ["de", "ru", "en"] as const;
 export type Language = typeof languages[number];
 export const pages = ["home", "services", "gallery", "studio"] as const;
 export type Page = typeof pages[number];
 export const pathFor = (lang: Language, page: Page) => (lang === "de" ? "/" : `/${lang}/`) + (page === "home" ? "" : `${page}/`);
-export const copy = {
+const content = {
   "de": {
     "home": "Startseite",
     "services": "Behandlungen & Preise",
     "gallery": "Inspiration",
-    "studio": "Atelier & Kontakt",
+    "studio": "Salon & Kontakt",
     "demo": "Demo von HIRDA. · Kein echtes Studio · Beispielpreise",
     "book": "Termin wählen",
     "skip": "Zum Inhalt",
     "language": "Sprache wählen",
-    "hero1": "Deine Nägel.",
-    "hero2": "Dein kleiner Luxus.",
-    "intro": "Frische Farbe, feine Details und Zeit nur für dich. Entdecke dein Nail-Ritual in unserem Münchner Studio-Konzept.",
+    "hero1": "Dein Moment.",
+    "hero2": "Ganz bei dir.",
+    "intro": "Haare, Nägel und kleine Auszeiten. Entdecke Beauty und Wohlbefinden, die zu dir passen.",
     "viewServices": "Behandlungen entdecken",
-    "signature": "Kleine Details. Große Freude.",
-    "serviceIntro": "Natürlich gepflegt oder mit einem Farbakzent: Wähle die Behandlung, die zu dir passt.",
-    "priceNote": "Unverbindliche Demo-Endpreise. Design-Extras und die Entfernung fremden Materials werden separat abgestimmt.",
+    "signature": "Schönheit hat viele Seiten.",
+    "serviceIntro": "Haare, Nägel, Massage und Spa: Entdecke deine Auswahl. Alle Preise und Termine sind unverbindliche Demo-Beispiele.",
+    "priceNote": "Unverbindliche Demo-Endpreise. Länge, Material, Zusatzleistungen und Eignung würden vor einem echten Termin persönlich abgestimmt.",
     "choose": "Auswählen",
     "minutes": "Minuten",
     "consult": "Beratung",
@@ -33,13 +34,13 @@ export const copy = {
     "close": "Schließen",
     "bookingNote": "Keine echte Buchung. Diese Auswahl bleibt im Browser; nichts wird gesendet oder reserviert.",
     "summary": "Deine Auswahl",
-    "galleryIntro": "Ein bisschen Farbe. Ganz viel Persönlichkeit.",
-    "galleryNote": "Stockfotos als Inspiration für dieses Konzept — keine eigenen Kundenarbeiten.",
+    "galleryIntro": "Ein Gefühl für STILL.",
+    "galleryNote": "KI-generierte Inspirationen für dieses Salonkonzept. Keine echten Kundenarbeiten oder Mitarbeiterinnen.",
     "all": "Alle",
-    "color": "Farbe",
-    "care": "Pflege",
-    "studioIntro": "Ein Atelier mit Zeit für dich.",
-    "studioText": "STILL ist die Idee eines persönlichen Nail Ateliers: Wir besprechen deinen Wunsch, stimmen Form und Farbe ab und nehmen uns Zeit für die Pflege. Dieser Auftritt ist ein Portfolio-Konzept, kein echtes Studio.",
+    "color": "Looks",
+    "care": "Spa & Pflege",
+    "studioIntro": "Ein Ort. Viele gute Momente.",
+    "studioText": "Vom präzisen Schnitt bis zum ruhigen Spa-Ritual: STILL verbindet Beauty und Wohlbefinden in einer klaren, persönlichen Salonidee. Ein Designkonzept von HIRDA, kein echter Salon.",
     "address": "Adresse",
     "contact": "Kontakt",
     "hours": "Öffnungszeiten",
@@ -47,67 +48,83 @@ export const copy = {
     "contactNote": "Fiktive Adresse und Kontaktdaten. Nicht erreichbar.",
     "faqTitle": "Gut zu wissen.",
     "q1": "Welche Behandlung passt zu mir?",
-    "a1": "Classic für natürliche Pflege, Gel-Lack für Farbe. Falls du unsicher bist, wähle Beratung in der Demo.",
-    "q2": "Kann ich ein Design mitbringen?",
-    "a2": "Ein Bild ist ein guter Ausgangspunkt. Aufwand und mögliche Zusatzkosten würden vorab besprochen.",
-    "q3": "Ist das Ablösen inklusive?",
-    "a3": "Die Entfernung vorhandenen Materials ist eine eigene Behandlung. Plane sie bei einer echten Anfrage zusätzlich ein.",
+    "a1": "Wähle eine Richtung oder starte mit Beratung. Bei einem echten Termin würden Wünsche und passende Pflege persönlich besprochen.",
+    "q2": "Kann ich mehrere Behandlungen kombinieren?",
+    "a2": "Das wäre nach persönlicher Abstimmung möglich. Die Demo zeigt zunächst eine einzelne Auswahl und bestätigt keine Kombination oder Verfügbarkeit.",
+    "q3": "Was sollte ich vor einem Termin mitteilen?",
+    "a3": "Wünsche, vorhandenes Material und besondere Unverträglichkeiten würden vertraulich mit dem Salon abgestimmt. Bitte keine Gesundheitsdaten in diese Demo eingeben.",
     "q4": "Wird mein Termin verbindlich gebucht?",
     "a4": "Nein. Die Auswahl erzeugt nur eine lokale Vorschau, ohne Zahlung oder Datenübermittlung.",
-    "formTitle": "Zeit für deine Auszeit.",
+    "formTitle": "Zeit für dich. Was darf es sein?",
     "select": "Bitte auswählen",
     "duration": "Dauer",
     "price": "Beispielpreis",
     "unsure": "Nach Absprache",
     "inspiration": "Inspiration ansehen",
-    "footer": "Ein Website-Konzept von HIRDA.",
+    "footer": "STILL Beauty & Spa · Ein Designkonzept von HIRDA",
     "back": "Zurück nach oben",
     "step1": "Wunsch besprechen",
-    "step2": "Form & Farbe wählen",
+    "step2": "Behandlung abstimmen",
     "step3": "Den Moment genießen",
     "treatments": [
       {
+        "name": "Schnitt & Styling",
+        "text": "Ein Schnitt, der zu dir passt, mit Pflege und persönlichem Styling."
+      },
+      {
+        "name": "Farbe & Glanz",
+        "text": "Farbwunsch und Haarzustand gemeinsam besprechen. Materialumfang nach Beratung."
+      },
+      {
         "name": "Classic Maniküre",
-        "text": "Feilen, Nagelhautpflege und ein natürliches Finish.",
-        "price": 35,
-        "time": 40
+        "text": "Nägel formen, Nagelhaut pflegen und ein natürliches Finish."
       },
       {
         "name": "Maniküre mit Gel-Lack",
-        "text": "Sorgfältige Pflege mit deiner Lieblingsfarbe.",
-        "price": 49,
-        "time": 60
+        "text": "Sorgfältige Maniküre und deine Wunschfarbe. Entfernung separat abstimmen."
       },
       {
-        "name": "Naturnagelverstärkung",
-        "text": "Ein dezenter Aufbau auf dem eigenen Nagel.",
-        "price": 59,
-        "time": 75
+        "name": "Wellness-Massage",
+        "text": "Eine ruhige Auszeit für deinen Alltag. Wellness, keine medizinische Behandlung."
       },
       {
-        "name": "Ablösen & Pflege",
-        "text": "Material entfernen, in Form bringen und pflegen.",
-        "price": 25,
-        "time": 30
+        "name": "Spa-Ritual",
+        "text": "Wärme, Pflege und ein entspannter Moment nur für dich."
+      },
+      {
+        "name": "Gesichtspflege",
+        "text": "Sanfte Reinigung und Pflege, abgestimmt auf deine Wünsche."
+      },
+      {
+        "name": "Pediküre",
+        "text": "Gepflegte Füße mit einem natürlichen Finish. Kosmetische Behandlung."
       }
+    ],
+    "ritualLine": "Haare · Nägel · Massage · Spa · Beauty",
+    "categories": [
+      "Haare & Styling",
+      "Maniküre",
+      "Massage",
+      "Spa-Rituale",
+      "Beauty & Pflege"
     ]
   },
   "ru": {
     "home": "Главная",
     "services": "Услуги и цены",
     "gallery": "Вдохновение",
-    "studio": "Студия и контакты",
+    "studio": "Салон и контакты",
     "demo": "Демо от HIRDA. · Не настоящая студия · Примерные цены",
     "book": "Выбрать дату",
     "skip": "К содержимому",
     "language": "Выбор языка",
-    "hero1": "Твои ногти.",
-    "hero2": "Твоя маленькая роскошь.",
-    "intro": "Свежий цвет, тонкие детали и время только для тебя. Найди свой ритуал ухода в концепте нашей мюнхенской студии.",
+    "hero1": "Твой момент.",
+    "hero2": "Для себя.",
+    "intro": "Волосы, ногти и время для отдыха. Уход и красота с вниманием к твоим пожеланиям.",
     "viewServices": "Посмотреть услуги",
-    "signature": "Маленькие детали. Большая радость.",
-    "serviceIntro": "Естественный уход или яркий акцент: выбери процедуру, которая подходит тебе.",
-    "priceNote": "Цены приведены для примера. Дополнительный дизайн и снятие чужого покрытия согласуются отдельно.",
+    "signature": "У красоты много сторон.",
+    "serviceIntro": "Стрижки, маникюр, массаж и SPA. Цены и даты приведены для демонстрации.",
+    "priceNote": "Демонстрационные цены. Длина волос, материалы, дополнительные услуги и подходящий уход уточняются до настоящего визита.",
     "choose": "Выбрать",
     "minutes": "минут",
     "consult": "Консультация",
@@ -121,81 +138,97 @@ export const copy = {
     "close": "Закрыть",
     "bookingNote": "Это не настоящая запись. Выбор остаётся в браузере; ничего не отправляется и не бронируется.",
     "summary": "Твой выбор",
-    "galleryIntro": "Немного цвета. Много характера.",
-    "galleryNote": "Стоковые фотографии для вдохновения — это не наши клиентские работы.",
+    "galleryIntro": "Атмосфера STILL.",
+    "galleryNote": "ИИ-изображения для концепции салона. Это не реальные работы, клиенты или сотрудники.",
     "all": "Все",
-    "color": "Цвет",
-    "care": "Уход",
-    "studioIntro": "Студия, где есть время для тебя.",
-    "studioText": "STILL — идея камерной студии маникюра: обсудить пожелания, выбрать форму и цвет, уделить время уходу. Этот сайт — демонстрационный проект, а не настоящая студия.",
+    "color": "Образы",
+    "care": "SPA и уход",
+    "studioIntro": "Одно место. Много приятных моментов.",
+    "studioText": "От точной стрижки до спокойного SPA-ритуала: STILL объединяет красоту и уход в концепции персонального салона. Демо-проект HIRDA, не настоящий салон.",
     "address": "Адрес",
     "contact": "Контакты",
     "hours": "Часы работы",
     "hoursText": "Вт–Пт 10–19 · Сб 10–16 · По предварительной записи",
     "contactNote": "Вымышленные адрес и контакты. Не для связи.",
     "faqTitle": "Полезно знать.",
-    "q1": "Какую процедуру выбрать?",
-    "a1": "Классический маникюр — для естественного ухода, гель-лак — для цвета. Если сомневаешься, выбери консультацию в демо.",
-    "q2": "Можно принести пример дизайна?",
-    "a2": "Фото поможет понять пожелания. Объём работы и возможную доплату мастер обсудил бы заранее.",
-    "q3": "Снятие покрытия входит в цену?",
-    "a3": "Снятие существующего материала — отдельная процедура. При настоящей записи нужно предусмотреть её дополнительно.",
+    "q1": "Как выбрать процедуру?",
+    "a1": "Выбери направление или консультацию. В настоящем салоне пожелания и уход обсуждают лично.",
+    "q2": "Можно совместить несколько процедур?",
+    "a2": "После индивидуального согласования. Демо показывает одну услугу и не подтверждает свободное время.",
+    "q3": "Что сообщить перед визитом?",
+    "a3": "Пожелания, покрытие и индивидуальные особенности обсуждают с салоном конфиденциально. Не вводи медицинские данные в демо.",
     "q4": "Выбранная дата сразу бронируется?",
     "a4": "Нет. Форма создаёт только локальную карточку, без оплаты и отправки данных.",
-    "formTitle": "Время для себя.",
+    "formTitle": "Время для себя. Что выберешь?",
     "select": "Выбери процедуру",
     "duration": "Длительность",
     "price": "Примерная цена",
     "unsure": "По согласованию",
     "inspiration": "Посмотреть идеи",
-    "footer": "Демо-сайт от HIRDA.",
+    "footer": "STILL Beauty & Spa · Демо-проект HIRDA",
     "back": "Наверх",
     "step1": "Обсудить пожелания",
-    "step2": "Выбрать форму и цвет",
+    "step2": "Подобрать процедуру",
     "step3": "Насладиться моментом",
     "treatments": [
       {
+        "name": "Стрижка и укладка",
+        "text": "Стрижка с уходом и укладкой, подходящая твоему образу."
+      },
+      {
+        "name": "Окрашивание и блеск",
+        "text": "Обсудим цвет и состояние волос. Объём материалов уточняется на консультации."
+      },
+      {
         "name": "Классический маникюр",
-        "text": "Форма, уход за кутикулой и естественный финиш.",
-        "price": 35,
-        "time": 40
+        "text": "Форма ногтей, уход за кутикулой и естественное покрытие."
       },
       {
         "name": "Маникюр с гель-лаком",
-        "text": "Бережный уход и покрытие твоего любимого цвета.",
-        "price": 49,
-        "time": 60
+        "text": "Аккуратный маникюр и выбранный цвет. Снятие покрытия согласуется отдельно."
       },
       {
-        "name": "Укрепление ногтей",
-        "text": "Аккуратное укрепление натуральной ногтевой пластины.",
-        "price": 59,
-        "time": 75
+        "name": "Расслабляющий массаж",
+        "text": "Спокойная пауза в твоём дне. Wellness, не медицинская процедура."
       },
       {
-        "name": "Снятие и уход",
-        "text": "Снятие материала, коррекция формы и уход.",
-        "price": 25,
-        "time": 30
+        "name": "SPA-ритуал",
+        "text": "Тепло, уход и расслабляющий ритуал только для тебя."
+      },
+      {
+        "name": "Уход за лицом",
+        "text": "Бережное очищение и уход с учётом твоих пожеланий."
+      },
+      {
+        "name": "Педикюр",
+        "text": "Уход за стопами и естественное покрытие. Косметическая процедура."
       }
+    ],
+    "ritualLine": "Волосы · Ногти · Массаж · SPA · Уход",
+    "categories": [
+      "Стрижки и укладки",
+      "Маникюр",
+      "Массаж",
+      "SPA-ритуалы",
+      "Красота и уход"
     ]
   },
   "en": {
     "home": "Home",
     "services": "Treatments & prices",
     "gallery": "Inspiration",
-    "studio": "Studio & contact",
+    "studio": "Salon & contact",
     "demo": "Demo by HIRDA. · Not a real studio · Example prices",
     "book": "Choose a date",
     "skip": "Skip to content",
     "language": "Choose language",
-    "hero1": "Your nails.",
-    "hero2": "Your little luxury.",
-    "intro": "Fresh colour, thoughtful details and a moment just for you. Find your nail ritual in our Munich studio concept.",
+    "hero1": "Your moment.",
+    "hero2": "All for you.",
+    "intro": "Hair, nails and a little time out. Discover beauty and wellbeing shaped around you.",
     "viewServices": "Explore treatments",
-    "signature": "Small details. Big joy.",
-    "serviceIntro": "Natural care or a splash of colour: choose the treatment that feels right for you.",
-    "priceNote": "Non-binding demo prices. Design extras and removal of existing material are agreed separately.",
+    "signature": "Beauty has many sides.",
+    "serviceIntro": "Hair, nails, massage and spa. All prices and appointment choices are illustrative demos.",
+    "priceNote": "Illustrative demo prices. Hair length, materials, extras and suitability would be agreed before a real appointment.",
     "choose": "Choose",
     "minutes": "minutes",
     "consult": "Consultation",
@@ -209,63 +242,81 @@ export const copy = {
     "close": "Close",
     "bookingNote": "This is not a real booking. Your selection stays in this browser; nothing is sent or reserved.",
     "summary": "Your selection",
-    "galleryIntro": "A little colour. A lot of personality.",
-    "galleryNote": "Stock photography for inspiration — these are not our own client projects.",
+    "galleryIntro": "A feeling for STILL.",
+    "galleryNote": "AI-generated inspiration for this salon concept. Not real client work or staff.",
     "all": "All",
-    "color": "Colour",
-    "care": "Care",
-    "studioIntro": "A studio with time for you.",
-    "studioText": "STILL is the idea of a personal nail atelier: talking through your wishes, choosing a shape and colour, and taking time for care. This website is a portfolio concept, not a real studio.",
+    "color": "Looks",
+    "care": "Spa & care",
+    "studioIntro": "One place. Many good moments.",
+    "studioText": "From a precise cut to a quiet spa ritual, STILL brings beauty and wellbeing together in a personal salon concept. A HIRDA design demo, not a real salon.",
     "address": "Address",
     "contact": "Contact",
     "hours": "Opening hours",
     "hoursText": "Tue–Fri 10–19 · Sat 10–16 · By appointment",
     "contactNote": "Fictional address and contact details. Not reachable.",
     "faqTitle": "Good to know.",
-    "q1": "Which treatment is right for me?",
-    "a1": "Classic for natural care, gel polish for colour. If you are unsure, select consultation in the demo.",
-    "q2": "Can I bring a design reference?",
-    "a2": "A photo is a good starting point. The scope and any additional cost would be discussed beforehand.",
-    "q3": "Is removal included?",
-    "a3": "Removing existing material is a separate treatment. Allow extra time for it when making a real appointment.",
+    "q1": "Which treatment suits me?",
+    "a1": "Choose a direction or start with a consultation. Preferences and care would be discussed personally.",
+    "q2": "Can I combine treatments?",
+    "a2": "After individual agreement. This demo shows one choice and does not confirm availability or combined appointments.",
+    "q3": "What should I mention beforehand?",
+    "a3": "Preferences, existing products and sensitivities would be discussed privately with the salon. Do not enter health information in this demo.",
     "q4": "Is my selected date booked immediately?",
     "a4": "No. The form creates a local preview only, with no payment or data submission.",
-    "formTitle": "Make time for yourself.",
+    "formTitle": "Time for you. What would you like?",
     "select": "Please choose",
     "duration": "Duration",
     "price": "Example price",
     "unsure": "By arrangement",
     "inspiration": "Explore inspiration",
-    "footer": "A website concept by HIRDA.",
+    "footer": "STILL Beauty & Spa · A HIRDA design concept",
     "back": "Back to top",
     "step1": "Share your wishes",
-    "step2": "Choose shape & colour",
+    "step2": "Agree your treatment",
     "step3": "Enjoy the moment",
     "treatments": [
       {
+        "name": "Cut & styling",
+        "text": "A personal haircut with care and styling to suit your look."
+      },
+      {
+        "name": "Colour & shine",
+        "text": "Discuss your colour and hair condition. Materials are scoped during consultation."
+      },
+      {
         "name": "Classic manicure",
-        "text": "Shaping, cuticle care and a natural finish.",
-        "price": 35,
-        "time": 40
+        "text": "Nail shaping, cuticle care and a natural finish."
       },
       {
         "name": "Gel polish manicure",
-        "text": "Thoughtful care with your favourite colour.",
-        "price": 49,
-        "time": 60
+        "text": "Careful manicure and your preferred colour. Removal agreed separately."
       },
       {
-        "name": "Natural nail overlay",
-        "text": "A subtle overlay on your natural nails.",
-        "price": 59,
-        "time": 75
+        "name": "Wellness massage",
+        "text": "A quiet break in your day. Wellness, not medical treatment."
       },
       {
-        "name": "Removal & care",
-        "text": "Remove existing material, shape and care.",
-        "price": 25,
-        "time": 30
+        "name": "Spa ritual",
+        "text": "Warmth, care and a relaxing moment just for you."
+      },
+      {
+        "name": "Facial care",
+        "text": "Gentle cleansing and care matched to your wishes."
+      },
+      {
+        "name": "Pedicure",
+        "text": "Foot care and a natural finish. A cosmetic treatment."
       }
+    ],
+    "ritualLine": "Hair · Nails · Massage · Spa · Beauty",
+    "categories": [
+      "Hair & styling",
+      "Manicure",
+      "Massage",
+      "Spa rituals",
+      "Beauty & care"
     ]
   }
 };
+function localize(lang: Language) { return {...content[lang], treatments: services.map((service,index)=>({...service,...content[lang].treatments[index]}))}; }
+export const copy = {de:localize('de'),ru:localize('ru'),en:localize('en')};

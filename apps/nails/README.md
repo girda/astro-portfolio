@@ -1,5 +1,7 @@
-# STILL Nail Atelier
+# STILL Beauty & Spa
 
-German portfolio demo. Run npm run dev, then open http://localhost:4325. Build: npm run build.
+DE/RU/EN demo: Haare, Nägel, Massage, Spa und Pflege. Inhalte und gemeinsame Beispielpreise: src/data/site.ts + src/data/locales.ts. Lokale KI-Bilder: public/images. Demo-Auswahl bleibt im Browser, keine Buchung, Zahlung oder Datenübermittlung.
 
-Content: src/data/site.ts. Images load from Unsplash; credits are in the footer. All prices and contact details are fictional. Booking produces a browser-only preview and sends no data.
+Start: npm run dev -- --background. Build: npm run build.
+
+Figma, Tests und Medien: ../../docs/audit/beauty-auto-portfolio-2026-10-24.md.

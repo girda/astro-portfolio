@@ -1,4 +1,5 @@
 ---
+import SiteMotion from '../../../../packages/ui/SiteMotion.astro';
 import "../styles/global.css";
 import Logo from "../components/Logo.astro";
 import Icon from "../components/Icon.astro";
@@ -56,7 +57,7 @@ const canonical = Astro.site ? new URL(base, Astro.site).href : undefined;
       crossorigin
     />
   </head>
-  <body>
+  <body data-demo="lindenhof">
     <a class="skip-link" href="#main">
       Zum Inhalt
     </a>
@@ -564,5 +565,5 @@ const canonical = Astro.site ? new URL(base, Astro.site).href : undefined;
     <script>
       import "../scripts/site";
     </script>
-  </body>
+  <SiteMotion /></body>
 </html>

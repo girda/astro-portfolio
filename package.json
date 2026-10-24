@@ -4,5 +4,9 @@
   "private": true,
   "type": "module",
   "engines": { "node": ">=24" },
-  "scripts": { "build": "node scripts/build.mjs" }
+  "scripts": {
+    "build": "node scripts/build.mjs",
+    "test": "node --test apps/assistant-api/test.mjs apps/assistant-api/lead.test.mjs apps/portfolio/tests/*.test.mjs",
+    "check:seo": "node scripts/check-seo.mjs"
+  }
 }

@@ -1,4 +1,4 @@
-import { cart, catalog, format, demoInstructions } from './demo.mjs';
+import { cart, catalog, format, scenarioInstructions, scenarios } from './demo.mjs';
 import { instructions } from './knowledge.mjs';
 
 export class ApiError extends Error {
@@ -21,6 +21,8 @@ export function validate(body) {
 export async function answer(body, { apiKey, model = 'gpt-4.1-mini', fetchImpl = fetch, timeoutMs = 20000 }) {
   const { lang, mode, messages } = validate(body);
   let demoCart;
+  const scenario = body.scenario ?? 'cafe';
+  if (mode === 'demo' && (!Object.hasOwn(scenarios, scenario) || (body.summary !== undefined && (typeof body.summary !== 'string' || body.summary.length > 1200)))) throw new ApiError(400, 'invalid_request');
   if (mode === 'demo') { try { demoCart = cart(body.cart); } catch { throw new ApiError(400, 'invalid_cart'); } }
   if (!apiKey) throw new ApiError(503, 'not_configured');
   let response;
@@ -28,7 +30,7 @@ export async function answer(body, { apiKey, model = 'gpt-4.1-mini', fetchImpl =
     response = await fetchImpl('https://api.openai.com/v1/responses', {
       method: 'POST',
       headers: { Authorization: `Bearer ${apiKey}`, 'Content-Type': 'application/json' },
-      body: JSON.stringify({ model, instructions: instructions(lang, mode) + (mode === 'demo' ? '\n' + demoInstructions(demoCart) : ''), ...(mode === 'demo' ? { text: { format } } : {}), input: messages, max_output_tokens: mode === 'demo' ? 900 : 600, store: false }),
+      body: JSON.stringify({ model, instructions: instructions(lang, mode) + (mode === 'demo' ? '\n' + scenarioInstructions(scenario, demoCart, body.summary ?? '') + `\nFINAL LANGUAGE RULE: Write ALL text, choices and summary in ${lang}. German examples above are examples only; translate them. Do not repeat the button list in message text.` : ''), ...(mode === 'demo' ? { text: { format } } : {}), input: messages, max_output_tokens: mode === 'demo' ? 900 : 600, store: false }),
       signal: AbortSignal.timeout(timeoutMs),
     });
   } catch { throw new ApiError(502, 'upstream_unavailable'); }
@@ -44,7 +46,10 @@ export async function answer(body, { apiKey, model = 'gpt-4.1-mini', fetchImpl =
     try {
       const result = JSON.parse(text);
       if (typeof result.text !== 'string' || !result.text.trim() || result.text.length > 2000) throw new Error();
-      return { text: result.text, cart: cart(result.cart), catalog };
+      if (!Array.isArray(result.choices) || result.choices.length > 4 || result.choices.some(x => typeof x !== 'string' || !x.trim() || x.length > 80) || typeof result.summary !== 'string' || result.summary.length > 1200) throw new Error();
+      const nextCart = cart(result.cart);
+      if (scenario !== 'cafe' && nextCart.length) throw new Error();
+      return { text: result.text, choices: result.choices, summary: result.summary, cart: nextCart, catalog };
     } catch { throw new ApiError(502, 'invalid_response'); }
   }
   return { text };

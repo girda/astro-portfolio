@@ -1,9 +1,10 @@
 ---
 import icons from '../data/icons.json';
+import Lucide from '../../../../packages/ui/Icon.astro';
 interface Props { name: string; class?: string }
 const { name, class: className = '' } = Astro.props;
 // Оригинальные SVG Tabler (MIT). Дополнительное поле защищает края штрихов.
 const aliases: Record<string, keyof typeof icons> = { comb:'razor-electric', spark:'blade', calendar:'calendar-check', chat:'message-circle', check:'circle-check' };
 const key = aliases[name] ?? name as keyof typeof icons;
 ---
-<svg class={`icon ${className}`} viewBox="-2 -2 28 28" width="24" height="24" fill="none" stroke="currentColor" stroke-width="1.65" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false" set:html={icons[key] ?? icons.scissors} />
+{["phone","x","chevron-right","calendar","chat","check","mail","pin"].includes(name)?<Lucide name={({phone:"phone",x:"x","chevron-right":"chevron-right",calendar:"calendar-check",chat:"message-circle",check:"circle-check",mail:"mail",pin:"map-pin"} as Record<string,string>)[name]} class={`icon ${className}`}/>:<svg class={`icon ${className}`} viewBox="-2 -2 28 28" width="24" height="24" fill="none" stroke="currentColor" stroke-width="1.65" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false" set:html={icons[key] ?? icons.scissors} />}

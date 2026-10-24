@@ -18,15 +18,22 @@ jobs:
           node-version: '24'
       - name: Install dependencies
         run: |
-          for app in portfolio barbershop cleaning autoservice nails lindenhof; do
+          for app in portfolio barbershop cleaning autoservice nails lindenhof ecohomes electrical homeservice gardens; do
             npm ci --prefix "apps/$app"
           done
+      - name: Test API, n8n and SEO helpers
+        run: npm test
       - name: Build all sites
         run: npm run build
         env:
           SITE_URL: https://${{ github.repository_owner }}.github.io
           PAGES_BASE: /astro-portfolio/
           PUBLIC_ASSISTANT_API_URL: ${{ vars.PUBLIC_ASSISTANT_API_URL }}
+      - name: Check generated SEO and demo URLs
+        run: npm run check:seo
+        env:
+          SITE_URL: https://${{ github.repository_owner }}.github.io
+          PAGES_BASE: /astro-portfolio/
       - uses: actions/upload-pages-artifact@v3
         with:
           path: dist

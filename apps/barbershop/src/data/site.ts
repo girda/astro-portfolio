@@ -56,3 +56,21 @@ export const site = {
   },
 ],
 };
+
+// Общие ссылки используют шапка, мобильное меню и футер.
+export const navigation = [
+  { label: 'Leistungen & Preise', href: '#leistungen', desktop: true },
+  { label: 'Der Salon', href: '#studio', desktop: true },
+  { label: 'Looks & Inspiration', href: '#einblicke', desktop: false },
+  { label: 'Pflege', href: '#pflege', desktop: true },
+  { label: 'Dein Besuch', href: '#ablauf', desktop: false },
+  { label: 'Fragen & Antworten', href: '#fragen', desktop: false },
+  { label: 'Kontakt', href: '#kontakt', desktop: true },
+];
+
+// Демонстрационная витрина без корзины, оплаты и заявлений о составе.
+export const careProducts = [
+  { category: 'STYLING', title: 'Styling Clay', description: 'Für Form und Struktur. Welches Finish zu deinem Haar passt, klärt der Barber mit dir.' },
+  { category: 'BARTPFLEGE', title: 'Beard Oil', description: 'Pflege für deinen Bart. Besprich deine Wünsche und Hautverträglichkeit mit dem Barber.' },
+  { category: 'REINIGUNG', title: 'Hair Wash', description: 'Die Grundlage deiner Pflegeroutine. Gemeinsam findet ihr eine passende Reinigung.' },
+];

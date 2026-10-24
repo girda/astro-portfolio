@@ -1,0 +1,403 @@
+{
+  "pages": {
+    "cat-lab/index.html": {
+      "title": "HIRDA CAT / 3D LAB",
+      "description": true,
+      "canonical": "",
+      "robots": null,
+      "hreflang": [],
+      "structuredData": 0,
+      "h1": 1,
+      "h2": 0,
+      "duplicateIds": [],
+      "images": 0,
+      "missingImageAlt": 0,
+      "imagesWithoutDimensions": 0
+    },
+    "de/index.html": {
+      "title": "Redirecting to: /astro-portfolio/",
+      "description": false,
+      "canonical": "/astro-portfolio/",
+      "robots": "noindex",
+      "hreflang": [],
+      "structuredData": 0,
+      "h1": 0,
+      "h2": 0,
+      "duplicateIds": [],
+      "images": 0,
+      "missingImageAlt": 0,
+      "imagesWithoutDimensions": 0
+    },
+    "demos/autoservice/index.html": {
+      "title": "WERKRAUM — Auto-Service mit klarem Plan · Demo",
+      "description": true,
+      "canonical": "",
+      "robots": null,
+      "hreflang": [],
+      "structuredData": 0,
+      "h1": 1,
+      "h2": 6,
+      "duplicateIds": [],
+      "images": 1,
+      "missingImageAlt": 0,
+      "imagesWithoutDimensions": 0
+    },
+    "demos/autoservice/ru/index.html": {
+      "title": "WERKRAUM — Автосервис с понятным планом · Демо",
+      "description": true,
+      "canonical": "",
+      "robots": null,
+      "hreflang": [],
+      "structuredData": 0,
+      "h1": 1,
+      "h2": 6,
+      "duplicateIds": [],
+      "images": 1,
+      "missingImageAlt": 0,
+      "imagesWithoutDimensions": 0
+    },
+    "demos/barbershop/index.html": {
+      "title": "KANT — Barbershop mit Charakter · Demo",
+      "description": true,
+      "canonical": "",
+      "robots": "noindex, nofollow",
+      "hreflang": [],
+      "structuredData": 0,
+      "h1": 1,
+      "h2": 10,
+      "duplicateIds": [],
+      "images": 9,
+      "missingImageAlt": 0,
+      "imagesWithoutDimensions": 7
+    },
+    "demos/cleaning/index.html": {
+      "title": "KLAR — Mehr Zeit fürs Leben. · Demo",
+      "description": true,
+      "canonical": "",
+      "robots": null,
+      "hreflang": [],
+      "structuredData": 0,
+      "h1": 1,
+      "h2": 7,
+      "duplicateIds": [],
+      "images": 1,
+      "missingImageAlt": 0,
+      "imagesWithoutDimensions": 0
+    },
+    "demos/ecohomes/index.html": {
+      "title": "Eichenhain — Häuser & Energie · HIRDA Demo",
+      "description": true,
+      "canonical": "",
+      "robots": null,
+      "hreflang": [],
+      "structuredData": 0,
+      "h1": 1,
+      "h2": 9,
+      "duplicateIds": [],
+      "images": 7,
+      "missingImageAlt": 0,
+      "imagesWithoutDimensions": 1
+    },
+    "demos/lindenhof/index.html": {
+      "title": "Autohaus Lindenhof — Dein nächstes Auto.",
+      "description": true,
+      "canonical": "",
+      "robots": null,
+      "hreflang": [],
+      "structuredData": 0,
+      "h1": 1,
+      "h2": 9,
+      "duplicateIds": [],
+      "images": 42,
+      "missingImageAlt": 0,
+      "imagesWithoutDimensions": 31
+    },
+    "demos/nails/en/gallery/index.html": {
+      "title": "Inspiration · STILL Nail Atelier",
+      "description": true,
+      "canonical": "",
+      "robots": null,
+      "hreflang": [
+        "de",
+        "ru",
+        "en",
+        "x-default"
+      ],
+      "structuredData": 0,
+      "h1": 1,
+      "h2": 2,
+      "duplicateIds": [],
+      "images": 4,
+      "missingImageAlt": 0,
+      "imagesWithoutDimensions": 1
+    },
+    "demos/nails/en/index.html": {
+      "title": "Your nails. · STILL Nail Atelier",
+      "description": true,
+      "canonical": "",
+      "robots": null,
+      "hreflang": [
+        "de",
+        "ru",
+        "en",
+        "x-default"
+      ],
+      "structuredData": 0,
+      "h1": 1,
+      "h2": 5,
+      "duplicateIds": [],
+      "images": 3,
+      "missingImageAlt": 0,
+      "imagesWithoutDimensions": 1
+    },
+    "demos/nails/en/services/index.html": {
+      "title": "Treatments & prices · STILL Nail Atelier",
+      "description": true,
+      "canonical": "",
+      "robots": null,
+      "hreflang": [
+        "de",
+        "ru",
+        "en",
+        "x-default"
+      ],
+      "structuredData": 0,
+      "h1": 1,
+      "h2": 7,
+      "duplicateIds": [],
+      "images": 1,
+      "missingImageAlt": 0,
+      "imagesWithoutDimensions": 1
+    },
+    "demos/nails/en/studio/index.html": {
+      "title": "Studio & contact · STILL Nail Atelier",
+      "description": true,
+      "canonical": "",
+      "robots": null,
+      "hreflang": [
+        "de",
+        "ru",
+        "en",
+        "x-default"
+      ],
+      "structuredData": 0,
+      "h1": 1,
+      "h2": 4,
+      "duplicateIds": [],
+      "images": 2,
+      "missingImageAlt": 0,
+      "imagesWithoutDimensions": 1
+    },
+    "demos/nails/gallery/index.html": {
+      "title": "Inspiration · STILL Nail Atelier",
+      "description": true,
+      "canonical": "",
+      "robots": null,
+      "hreflang": [
+        "de",
+        "ru",
+        "en",
+        "x-default"
+      ],
+      "structuredData": 0,
+      "h1": 1,
+      "h2": 2,
+      "duplicateIds": [],
+      "images": 4,
+      "missingImageAlt": 0,
+      "imagesWithoutDimensions": 1
+    },
+    "demos/nails/index.html": {
+      "title": "Deine Nägel. · STILL Nail Atelier",
+      "description": true,
+      "canonical": "",
+      "robots": null,
+      "hreflang": [
+        "de",
+        "ru",
+        "en",
+        "x-default"
+      ],
+      "structuredData": 0,
+      "h1": 1,
+      "h2": 5,
+      "duplicateIds": [],
+      "images": 3,
+      "missingImageAlt": 0,
+      "imagesWithoutDimensions": 1
+    },
+    "demos/nails/ru/gallery/index.html": {
+      "title": "Вдохновение · STILL Nail Atelier",
+      "description": true,
+      "canonical": "",
+      "robots": null,
+      "hreflang": [
+        "de",
+        "ru",
+        "en",
+        "x-default"
+      ],
+      "structuredData": 0,
+      "h1": 1,
+      "h2": 2,
+      "duplicateIds": [],
+      "images": 4,
+      "missingImageAlt": 0,
+      "imagesWithoutDimensions": 1
+    },
+    "demos/nails/ru/index.html": {
+      "title": "Твои ногти. · STILL Nail Atelier",
+      "description": true,
+      "canonical": "",
+      "robots": null,
+      "hreflang": [
+        "de",
+        "ru",
+        "en",
+        "x-default"
+      ],
+      "structuredData": 0,
+      "h1": 1,
+      "h2": 5,
+      "duplicateIds": [],
+      "images": 3,
+      "missingImageAlt": 0,
+      "imagesWithoutDimensions": 1
+    },
+    "demos/nails/ru/services/index.html": {
+      "title": "Услуги и цены · STILL Nail Atelier",
+      "description": true,
+      "canonical": "",
+      "robots": null,
+      "hreflang": [
+        "de",
+        "ru",
+        "en",
+        "x-default"
+      ],
+      "structuredData": 0,
+      "h1": 1,
+      "h2": 7,
+      "duplicateIds": [],
+      "images": 1,
+      "missingImageAlt": 0,
+      "imagesWithoutDimensions": 1
+    },
+    "demos/nails/ru/studio/index.html": {
+      "title": "Студия и контакты · STILL Nail Atelier",
+      "description": true,
+      "canonical": "",
+      "robots": null,
+      "hreflang": [
+        "de",
+        "ru",
+        "en",
+        "x-default"
+      ],
+      "structuredData": 0,
+      "h1": 1,
+      "h2": 4,
+      "duplicateIds": [],
+      "images": 2,
+      "missingImageAlt": 0,
+      "imagesWithoutDimensions": 1
+    },
+    "demos/nails/services/index.html": {
+      "title": "Behandlungen & Preise · STILL Nail Atelier",
+      "description": true,
+      "canonical": "",
+      "robots": null,
+      "hreflang": [
+        "de",
+        "ru",
+        "en",
+        "x-default"
+      ],
+      "structuredData": 0,
+      "h1": 1,
+      "h2": 7,
+      "duplicateIds": [],
+      "images": 1,
+      "missingImageAlt": 0,
+      "imagesWithoutDimensions": 1
+    },
+    "demos/nails/studio/index.html": {
+      "title": "Atelier & Kontakt · STILL Nail Atelier",
+      "description": true,
+      "canonical": "",
+      "robots": null,
+      "hreflang": [
+        "de",
+        "ru",
+        "en",
+        "x-default"
+      ],
+      "structuredData": 0,
+      "h1": 1,
+      "h2": 4,
+      "duplicateIds": [],
+      "images": 2,
+      "missingImageAlt": 0,
+      "imagesWithoutDimensions": 1
+    },
+    "en/index.html": {
+      "title": "HIRDA — Websites, Web Apps & AI Agents",
+      "description": true,
+      "canonical": "https://girda.github.io/astro-portfolio/en/",
+      "robots": null,
+      "hreflang": [],
+      "structuredData": 0,
+      "h1": 1,
+      "h2": 6,
+      "duplicateIds": [],
+      "images": 40,
+      "missingImageAlt": 0,
+      "imagesWithoutDimensions": 0
+    },
+    "index.html": {
+      "title": "HIRDA — Websites, Web-Apps & KI-Agenten",
+      "description": true,
+      "canonical": "https://girda.github.io/astro-portfolio/",
+      "robots": null,
+      "hreflang": [],
+      "structuredData": 0,
+      "h1": 1,
+      "h2": 6,
+      "duplicateIds": [],
+      "images": 40,
+      "missingImageAlt": 0,
+      "imagesWithoutDimensions": 0
+    }
+  },
+  "missingLocalLinksOrAssets": [],
+  "portfolioJsBundles": [
+    {
+      "file": "three.module.BW-5ozYy.js",
+      "bytes": 567152,
+      "gzip": 140519
+    },
+    {
+      "file": "AIAssistantWidget.astro_astro_type_script_index_0_lang.D-zBBhlS.js",
+      "bytes": 19003,
+      "gzip": 7724
+    },
+    {
+      "file": "RoboCat3D.astro_astro_type_script_index_0_lang.CyppUuaL.js",
+      "bytes": 9749,
+      "gzip": 4327
+    },
+    {
+      "file": "brand-sculpture.BzzdDm06.js",
+      "bytes": 2452,
+      "gzip": 1235
+    },
+    {
+      "file": "BrandSculpture.astro_astro_type_script_index_0_lang.DMZSs8lU.js",
+      "bytes": 2097,
+      "gzip": 1094
+    }
+  ],
+  "robotsFiles": [],
+  "sitemapFiles": [],
+  "potentialTrackedKeyFiles": []
+}

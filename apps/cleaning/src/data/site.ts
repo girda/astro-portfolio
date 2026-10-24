@@ -1,6 +1,6 @@
 export const site = {
   name: 'klar', city: 'München', email: 'hallo@klar.example',
-  photo: 'https://images.unsplash.com/photo-1588089262539-d6506afd1f28?auto=format&fit=crop&w=1800&q=85',
+  photo: `${import.meta.env.BASE_URL}images/living-room-v2.webp`,
   pricing: { base: 59, room: 20, bathroom: 15 },
   extras: [ {id:'oven',name:'Backofen innen',price:15}, {id:'fridge',name:'Kühlschrank innen',price:15}, {id:'windows',name:'Fenster · 2 Stück',price:24} ],
   services: [

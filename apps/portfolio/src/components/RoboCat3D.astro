@@ -1,0 +1,482 @@
+---
+/**
+ * HIRDA RoboCat 3D — standalone interactive Three.js concept.
+ * Add <RoboCat3D /> to any Astro page. No API key, external asset or CDN required.
+ */
+interface Props {
+  compact?: boolean;
+}
+const { compact = false } = Astro.props;
+---
+
+<section class:list={["hirda-robo3d", { "is-compact": compact }]} data-robo3d aria-label="Интерактивная 3D-модель HIRDA CAT">
+  <div class="robo3d-stage" data-stage>
+    <canvas data-canvas aria-label="3D-кот. Перетаскивайте для поворота, нажмите на кота, чтобы помахать лапой."></canvas>
+    <div class="robo3d-floor" aria-hidden="true"></div>
+    <span class="robo3d-sticker">HIRDA <i></i> CAT / THREE.JS</span>
+    <span class="robo3d-hint" data-hint>↔ Поверни кота пальцем или мышкой</span>
+  </div>
+  <div class="robo3d-toolbar" aria-label="Реакции кота">
+    <button type="button" data-mood="wave" aria-label="Приветствие">👋 <span>Привет</span></button>
+    <button type="button" data-mood="happy" aria-label="Радость">✦ <span>Радуется</span></button>
+    <button type="button" data-mood="curious" aria-label="Любопытство">? <span>Думает</span></button>
+    <button type="button" data-mood="reset" aria-label="Сбросить поворот">↺ <span>Сброс</span></button>
+  </div>
+  <p class="robo3d-note" role="status" aria-live="polite" data-status>3D-модель готова к знакомству.</p>
+</section>
+
+<style>
+  .hirda-robo3d {
+    --ink: #0b151e;
+    --cream: #f4eee4;
+    --amber: #ff9e58;
+    --line: rgba(255, 255, 255, .12);
+    width: 100%;
+    color: var(--cream);
+    font-family: ui-monospace, "SFMono-Regular", Menlo, Consolas, monospace;
+  }
+  .robo3d-stage {
+    width: 100%;
+    height: min(65dvh, 630px);
+    min-height: 370px;
+    position: relative;
+    overflow: hidden;
+    border-radius: 24px;
+    border: 1px solid rgba(255, 255, 255, .09);
+    background: radial-gradient(ellipse at 52% 49%, #263849 0%, #142330 48%, #0b141e 91%);
+    isolation: isolate;
+  }
+  .robo3d-stage::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(145deg, rgba(255, 255, 255, .04), transparent 45%);
+    pointer-events: none;
+  }
+  .robo3d-stage canvas {
+    position: relative;
+    display: block;
+    width: 100%;
+    height: 100%;
+    cursor: grab;
+    touch-action: pan-y;
+    outline: none;
+    z-index: 1;
+  }
+  .robo3d-stage canvas:active { cursor: grabbing; }
+  .robo3d-stage canvas:focus-visible { outline: 2px solid var(--amber); outline-offset: -5px; }
+  .robo3d-floor {
+    position: absolute;
+    bottom: 12%;
+    left: 27%;
+    width: 46%;
+    height: 10%;
+    filter: blur(15px);
+    background: radial-gradient(ellipse, rgba(0, 0, 0, .42), transparent 68%);
+    pointer-events: none;
+  }
+  .robo3d-sticker, .robo3d-hint {
+    position: absolute;
+    z-index: 2;
+    color: #cbd0cc;
+    pointer-events: none;
+    font-size: 10px;
+    letter-spacing: .1em;
+  }
+  .robo3d-sticker { left: 22px; top: 21px; font-weight: 700; }
+  .robo3d-sticker i { display: inline-block; width: 6px; height: 6px; background: var(--amber); border-radius: 50%; margin: 0 7px; vertical-align: 1px; }
+  .robo3d-hint { bottom: 23px; left: 50%; transform: translateX(-50%); white-space: nowrap; letter-spacing: .015em; opacity: .67; }
+  .robo3d-toolbar { display: flex; gap: 10px; justify-content: center; flex-wrap: wrap; margin-top: 16px; }
+  .robo3d-toolbar button {
+    cursor: pointer;
+    padding: 12px 18px;
+    border-radius: 13px;
+    border: 1px solid rgba(255, 255, 255, .19);
+    background: #1c2a33;
+    color: #f6f1e8;
+    font-family: inherit;
+    font-size: 12px;
+    transition: background .2s, border-color .2s, transform .2s;
+  }
+  .robo3d-toolbar button:hover { background: #293946; border-color: var(--amber); transform: translateY(-2px); }
+  .robo3d-toolbar button:focus-visible { outline: 2px solid var(--amber); outline-offset: 3px; }
+  .robo3d-toolbar span { margin-left: 4px; }
+  .robo3d-note { font-size: 11px; color: #b9c5cb; text-align: center; margin: 12px 0 0; min-height: 1.4em; }
+  .hirda-robo3d.is-compact .robo3d-stage { height: 180px; min-height: 180px; border: 0; border-radius: 0; background: transparent; }
+  .hirda-robo3d.is-compact .robo3d-toolbar, .hirda-robo3d.is-compact .robo3d-note, .hirda-robo3d.is-compact .robo3d-sticker, .hirda-robo3d.is-compact .robo3d-hint { display: none; }
+  @media(max-width: 600px) {
+    .robo3d-stage { min-height: 390px; height: min(59dvh, 510px); border-radius: 18px; }
+    .robo3d-sticker { left: 15px; top: 15px; font-size: 9px; }
+    .robo3d-toolbar { display: grid; grid-template-columns: repeat(2, 1fr); gap: 8px; }
+    .robo3d-toolbar button { padding: 13px 8px; }
+    .robo3d-hint { font-size: 9px; }
+  }
+  @media(prefers-reduced-motion: reduce) {
+    .robo3d-toolbar button { transition: none; }
+  }
+</style>
+
+<script>
+  import * as THREE from "three";
+  import { RoundedBoxGeometry } from "three/addons/geometries/RoundedBoxGeometry.js";
+
+  type Mood = "idle" | "wave" | "happy" | "curious";
+  const clamp = THREE.MathUtils.clamp;
+
+  function initCat(host: HTMLElement) {
+    if (host.dataset.initialized === "true") return;
+    host.dataset.initialized = "true";
+
+    const stage = host.querySelector<HTMLElement>("[data-stage]");
+    const canvas = host.querySelector<HTMLCanvasElement>("[data-canvas]");
+    const hint = host.querySelector<HTMLElement>("[data-hint]");
+    const status = host.querySelector<HTMLElement>("[data-status]");
+    if (!stage || !canvas) return;
+
+    let renderer: THREE.WebGLRenderer;
+    try {
+      renderer = new THREE.WebGLRenderer({ canvas, antialias: true, alpha: true, powerPreference: "low-power" });
+    } catch {
+      if (status) status.textContent = "WebGL недоступен в этом браузере.";
+      return;
+    }
+    renderer.outputColorSpace = THREE.SRGBColorSpace;
+    renderer.toneMapping = THREE.ACESFilmicToneMapping;
+    renderer.toneMappingExposure = 1.6;
+    renderer.setPixelRatio(Math.min(window.devicePixelRatio || 1, 1.7));
+
+    const scene = new THREE.Scene();
+    const camera = new THREE.PerspectiveCamera(34, 1, .1, 100);
+    camera.position.set(0, 2.05, 8.7);
+    camera.lookAt(0, 1.55, 0);
+    const hemi = new THREE.HemisphereLight(0xebf4ff, 0x292126, 2.9);
+    scene.add(hemi);
+    const key = new THREE.DirectionalLight(0xffecd9, 3.7);
+    key.position.set(-3.8, 6, 6.0);
+    scene.add(key);
+    const coolRim = new THREE.DirectionalLight(0x74b8ee, 2.1);
+    coolRim.position.set(5, 3.5, -4);
+    scene.add(coolRim);
+    const warmFill = new THREE.PointLight(0xff954e, 28, 5.5);
+    warmFill.position.set(0, 2.5, 3.7);
+    scene.add(warmFill);
+
+    const charcoal = new THREE.MeshStandardMaterial({ color: 0x202126, metalness: .38, roughness: .36 });
+    const graphite = new THREE.MeshStandardMaterial({ color: 0x333840, metalness: .52, roughness: .33 });
+    const jointDark = new THREE.MeshStandardMaterial({ color: 0x111318, metalness: .48, roughness: .4 });
+    const visor = new THREE.MeshPhysicalMaterial({ color: 0x0b0d13, metalness: .33, roughness: .16, clearcoat: 1, clearcoatRoughness: .12 });
+    const ivory = new THREE.MeshStandardMaterial({ color: 0xf4ebe0, metalness: .07, roughness: .4 });
+    const amber = new THREE.MeshStandardMaterial({ color: 0xffad50, emissive: 0xff8a1c, emissiveIntensity: 2.35, roughness: .24 });
+    const amberSoft = new THREE.MeshStandardMaterial({ color: 0xffbe75, emissive: 0xff8e2b, emissiveIntensity: 1.05, roughness: .4 });
+    const eyeBlack = new THREE.MeshPhysicalMaterial({ color: 0x060608, roughness: .07, clearcoat: 1 });
+    const whiteHighlight = new THREE.MeshBasicMaterial({ color: 0xffffff });
+
+    const cat = new THREE.Group();
+    scene.add(cat);
+    const head = new THREE.Group();
+    head.position.set(0, 2.12, .18);
+    cat.add(head);
+
+    function rounded(parent: THREE.Object3D, w: number, h: number, d: number, radius: number, mat: THREE.Material, x = 0, y = 0, z = 0) {
+      const mesh = new THREE.Mesh(new RoundedBoxGeometry(w, h, d, 5, radius), mat);
+      mesh.position.set(x, y, z);
+      parent.add(mesh);
+      return mesh;
+    }
+    function ball(parent: THREE.Object3D, r: number, mat: THREE.Material, x: number, y: number, z: number, sx = 1, sy = 1, sz = 1) {
+      const mesh = new THREE.Mesh(new THREE.SphereGeometry(r, 24, 16), mat);
+      mesh.position.set(x, y, z);
+      mesh.scale.set(sx, sy, sz);
+      parent.add(mesh);
+      return mesh;
+    }
+    function ring(parent: THREE.Object3D, radius: number, tube: number, mat: THREE.Material, x: number, y: number, z: number) {
+      const mesh = new THREE.Mesh(new THREE.TorusGeometry(radius, tube, 10, 48), mat);
+      mesh.position.set(x, y, z);
+      parent.add(mesh);
+      return mesh;
+    }
+    function curveLine(parent: THREE.Object3D, points: number[][], radius: number, mat: THREE.Material) {
+      const spline = new THREE.CatmullRomCurve3(points.map(p => new THREE.Vector3(p[0], p[1], p[2])));
+      const mesh = new THREE.Mesh(new THREE.TubeGeometry(spline, 26, radius, 7, false), mat);
+      parent.add(mesh);
+      return mesh;
+    }
+    function cylinderBetween(parent: THREE.Object3D, a: THREE.Vector3, b: THREE.Vector3, radius: number, mat: THREE.Material) {
+      const delta = new THREE.Vector3().subVectors(b, a);
+      const mesh = new THREE.Mesh(new THREE.CylinderGeometry(radius, radius, delta.length(), 14), mat);
+      mesh.position.copy(a).add(b).multiplyScalar(.5);
+      mesh.quaternion.setFromUnitVectors(new THREE.Vector3(0, 1, 0), delta.normalize());
+      parent.add(mesh);
+      return mesh;
+    }
+
+    // Rounded armored head with a dark glass faceplate.
+    rounded(head, 2.30, 1.69, 1.12, .36, graphite);
+    rounded(head, 2.14, 1.46, .20, .40, visor, 0, -.05, .55);
+    rounded(head, .45, .035, .018, .014, jointDark, 0, .77, .51);
+    ball(head, .32, new THREE.MeshBasicMaterial({ color: 0xffffff, transparent: true, opacity: .045, depthWrite: false }), .44, .42, .67, 1.2, .26, .03);
+
+    // Ears: back shell, cream trim and illuminated amber inner panel.
+    function earShape(sx: number, sy: number) {
+      const shape = new THREE.Shape();
+      shape.moveTo(-.45 * sx, -.38 * sy);
+      shape.lineTo(-.24 * sx, .38 * sy);
+      shape.quadraticCurveTo(0, .56 * sy, .21 * sx, .35 * sy);
+      shape.lineTo(.45 * sx, -.38 * sy);
+      shape.closePath();
+      return shape;
+    }
+    function ear(side: number) {
+      const container = new THREE.Group();
+      container.position.set(side * .87, .86, -.12);
+      container.rotation.z = side * -.10;
+      head.add(container);
+      const shell = new THREE.Mesh(new THREE.ExtrudeGeometry(earShape(1, 1), { depth: .15, bevelEnabled: true, bevelThickness: .06, bevelSize: .08, bevelSegments: 3, steps: 1, curveSegments: 12 }), graphite);
+      container.add(shell);
+      const trim = new THREE.Mesh(new THREE.ExtrudeGeometry(earShape(.78, .81), { depth: .06, bevelEnabled: true, bevelThickness: .025, bevelSize: .02, bevelSegments: 2, steps: 1 }), ivory);
+      trim.position.z = .20;
+      container.add(trim);
+      const inner = new THREE.Mesh(new THREE.ExtrudeGeometry(earShape(.50, .56), { depth: .025, bevelEnabled: true, bevelThickness: .01, bevelSize: .006, bevelSegments: 2, steps: 1 }), amber);
+      inner.position.set(0, -.03, .29);
+      container.add(inner);
+      return container;
+    }
+    const earL = ear(-1);
+    const earR = ear(1);
+
+    // Expressive luminous eyes — blinking scales the whole eye unit.
+    const eyes: THREE.Group[] = [];
+    [-1, 1].forEach(side => {
+      const eye = new THREE.Group();
+      eye.position.set(side * .59, .07, .672);
+      head.add(eye);
+      ball(eye, .300, amberSoft, 0, 0, 0, 1, 1, .22);
+      ring(eye, .278, .052, amber, 0, 0, .045);
+      ball(eye, .192, eyeBlack, .025, -.015, .092, 1, 1.08, .55);
+      ball(eye, .052, whiteHighlight, -.065, .102, .205, 1, 1, .4);
+      ball(eye, .023, whiteHighlight, .095, -.097, .193);
+      eyes.push(eye);
+    });
+
+    // Nose, mouth, illuminated whiskers.
+    const nose = new THREE.Mesh(new THREE.ConeGeometry(.087, .105, 3), ivory);
+    nose.rotation.z = Math.PI;
+    nose.rotation.x = Math.PI / 2;
+    nose.position.set(0, -.26, .705);
+    head.add(nose);
+    curveLine(head, [[0, -.35, .691], [-.09, -.43, .69], [-.21, -.42, .678], [-.27, -.38, .674]], .018, ivory);
+    curveLine(head, [[0, -.35, .691], [.09, -.43, .69], [.21, -.42, .678], [.27, -.38, .674]], .018, ivory);
+    for (const side of [-1, 1]) {
+      const x = side * .83;
+      curveLine(head, [[x, -.29, .59], [x + side * .11, -.28, .60], [x + side * .18, -.24, .59]], .023, amber);
+      curveLine(head, [[x, -.39, .58], [x + side * .11, -.38, .60], [x + side * .18, -.35, .58]], .021, amber);
+      ball(head, .25, charcoal, side * 1.09, -.12, .02, .43, .9, .85);
+      ring(head, .145, .042, amberSoft, side * 1.17, -.10, .12);
+    }
+
+    // Antenna and small energy sphere.
+    cylinderBetween(head, new THREE.Vector3(0, .88, -.1), new THREE.Vector3(0, 1.21, -.1), .053, jointDark);
+    ball(head, .15, amber, 0, 1.29, -.10);
+
+    // Torso, creamy bib, lit status marker.
+    rounded(cat, 1.18, 1.26, .87, .38, charcoal, 0, .89, -.15);
+    ball(cat, .48, ivory, 0, .91, .31, .78, 1.06, .20);
+    rounded(cat, .32, .085, .055, .035, amberSoft, 0, 1.13, .429);
+    // Rear haunches and joint circles.
+    for (const side of [-1, 1]) {
+      ball(cat, .46, graphite, side * .55, .46, -.16, .82, 1.02, 1.1);
+      ball(cat, .19, jointDark, side * .79, .58, .24, .28, 1, .44);
+      ring(cat, .137, .038, amberSoft, side * .80, .58, .35);
+    }
+
+    // Two expressive front arms that end in cream paws.
+    const leftArm = new THREE.Group();
+    const rightArm = new THREE.Group();
+    const arms = [leftArm, rightArm];
+    [-1, 1].forEach((side, index) => {
+      const arm = arms[index];
+      arm.position.set(side * .44, 1.16, .30);
+      cat.add(arm);
+      ball(arm, .19, graphite, 0, -.20, .1, .85, 1.6, 1.0);
+      ball(arm, .225, ivory, side * .02, -.63, .18, 1.22, .52, .9);
+      for (let i = -1; i <= 1; i++) {
+        ball(arm, .065, ivory, i * .12, -.70, .325, 1, .65, .72);
+      }
+    });
+    const wavingArm = rightArm;
+    // Feet planted at base, creamy toe details.
+    for (const side of [-1, 1]) {
+      ball(cat, .31, ivory, side * .47, .18, .50, 1.21, .53, 1.2);
+      [-1, 0, 1].forEach(i => {
+        ball(cat, .074, ivory, side * .47 + i * .15, .17, .78, 1, .85, .65);
+      });
+    }
+
+    // Flexible cat tail, amber-tipped.
+    const tail = new THREE.Group();
+    tail.position.set(-.60, .54, -.33);
+    cat.add(tail);
+    curveLine(tail, [[0, 0, 0], [-.43, -.03, -.05], [-.76, .20, -.07], [-.78, .73, -.02], [-.63, 1.08, -.01]], .087, graphite);
+    ball(tail, .20, graphite, -.63, 1.07, -.01);
+    ball(tail, .14, amber, -.63, 1.08, .10);
+
+    const reduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    let mood: Mood = "idle";
+    let moodEnds = 0;
+    let dragging = false;
+    let moved = false;
+    let startX = 0;
+    let startY = 0;
+    let startRot = 0;
+    let targetRot = 0;
+    let dragPointer: number | null = null;
+    let animationFrame = 0;
+    let visible = true;
+    let disposed = false;
+    let lastHeight = 0;
+    let lastWidth = 0;
+
+    const clock = new THREE.Clock();
+    function sizeCanvas() {
+      const width = stage!.clientWidth;
+      const height = stage!.clientHeight;
+      if (!width || !height) return;
+      if (width === lastWidth && height === lastHeight) return;
+      lastWidth = width;
+      lastHeight = height;
+      camera.aspect = width / height;
+      camera.position.z = width < 420 ? 9.65 : 8.7;
+      camera.updateProjectionMatrix();
+      renderer.setSize(width, height, false);
+      render();
+    }
+    function update(time: number) {
+      if (mood !== "idle" && time > moodEnds) mood = "idle";
+      const t = clock.getElapsedTime();
+      cat.rotation.y += (targetRot - cat.rotation.y) * .075;
+      if (!reduced) {
+        cat.position.y = Math.sin(t * 1.7) * .055;
+        head.rotation.z = Math.sin(t * 1.13) * .023;
+        tail.rotation.z = Math.sin(t * 2.05) * .14;
+        earR.rotation.z = -.10 + Math.sin(t * 2.1) * .014;
+        earL.rotation.z = .10 - Math.sin(t * 2.3) * .012;
+      }
+      const blink = !reduced && (t % 5.6 > 5.32 && t % 5.6 < 5.52);
+      eyes.forEach((eye, index) => {
+        const wink = mood === "happy" || (mood === "wave" && index === 1 && Math.sin(t * 11) > .7);
+        const blinkScale = blink || wink ? .095 : mood === "curious" ? 1.10 : 1;
+        eye.scale.y += (blinkScale - eye.scale.y) * .26;
+      });
+      const swing = mood === "wave" ? (-.55 + Math.sin(t * 12) * .23) : 0;
+      wavingArm.rotation.z += (swing - wavingArm.rotation.z) * .14;
+      head.rotation.y += ((mood === "curious" ? -.11 : 0) - head.rotation.y) * .04;
+      head.rotation.x += ((mood === "curious" ? -.09 : 0) - head.rotation.x) * .04;
+    }
+    function render() { if (!disposed) renderer.render(scene, camera); }
+    function frame() {
+      if (!visible || disposed || document.hidden) { animationFrame = 0; return; }
+      update(performance.now());
+      render();
+      animationFrame = reduced ? 0 : requestAnimationFrame(frame);
+    }
+    function ensureAnimation() {
+      if (animationFrame || disposed || !visible || document.hidden) return;
+      animationFrame = requestAnimationFrame(frame);
+    }
+    function setMood(value: Mood) {
+      mood = value;
+      moodEnds = performance.now() + (value === "curious" ? 3200 : 2200);
+      if (status) status.textContent = value === "wave" ? "HIRDA CAT приветствует тебя!" : value === "happy" ? "Кот радуется ✦" : value === "curious" ? "Кот задумался…" : "Поворот сброшен.";
+      if (reduced) { update(performance.now()); render(); }
+    }
+    host.querySelectorAll<HTMLButtonElement>("[data-mood]").forEach(button => {
+      button.addEventListener("click", () => {
+        const value = button.dataset.mood;
+        if (value === "reset") { targetRot = 0; cat.rotation.y = 0; setMood("idle"); }
+        else if (value === "wave" || value === "happy" || value === "curious") setMood(value);
+      });
+    });
+    canvas.addEventListener("pointerdown", event => {
+      if (dragging) return;
+      dragging = true;
+      moved = false;
+      dragPointer = event.pointerId;
+      startX = event.clientX;
+      startY = event.clientY;
+      startRot = targetRot;
+      canvas.setPointerCapture(event.pointerId);
+    });
+    canvas.addEventListener("pointermove", event => {
+      if (!dragging || dragPointer !== event.pointerId) return;
+      if (Math.abs(event.clientX - startX) + Math.abs(event.clientY - startY) > 6) moved = true;
+      targetRot = clamp(startRot + (event.clientX - startX) / Math.max(200, stage!.clientWidth) * 3.3, -1.25, 1.25);
+      if (hint) hint.style.opacity = ".20";
+      if (reduced) { cat.rotation.y = targetRot; render(); }
+    });
+    function endPointer(event: PointerEvent) {
+      if (!dragging || dragPointer !== event.pointerId) return;
+      dragging = false;
+      dragPointer = null;
+      if (!moved) setMood("wave");
+    }
+    canvas.addEventListener("pointerup", endPointer);
+    canvas.addEventListener("pointercancel", endPointer);
+    canvas.addEventListener("keydown", event => {
+      if (event.key === "ArrowLeft" || event.key === "ArrowRight") {
+        event.preventDefault();
+        targetRot = clamp(targetRot + (event.key === "ArrowLeft" ? -.2 : .2), -1.25, 1.25);
+        if (reduced) { cat.rotation.y = targetRot; render(); }
+      }
+      if (event.key === "Enter" || event.key === " ") { event.preventDefault(); setMood("wave"); }
+    });
+    canvas.tabIndex = 0;
+
+    const observer = new ResizeObserver(sizeCanvas);
+    observer.observe(stage);
+    const visibilityObserver = new IntersectionObserver(entries => {
+      visible = entries[0]?.isIntersecting ?? true;
+      if (visible) ensureAnimation();
+      else if (animationFrame) { cancelAnimationFrame(animationFrame); animationFrame = 0; }
+    }, { threshold: .02 });
+    visibilityObserver.observe(stage);
+    const onVisibility = () => {
+      if (document.hidden && animationFrame) { cancelAnimationFrame(animationFrame); animationFrame = 0; }
+      else ensureAnimation();
+    };
+    document.addEventListener("visibilitychange", onVisibility);
+
+    function dispose() {
+      if (disposed) return;
+      disposed = true;
+      cancelAnimationFrame(animationFrame);
+      observer.disconnect();
+      visibilityObserver.disconnect();
+      document.removeEventListener("visibilitychange", onVisibility);
+      scene.traverse(object => {
+        if (object instanceof THREE.Mesh) {
+          object.geometry.dispose();
+        }
+      });
+      const unique = new Set<THREE.Material>();
+      scene.traverse(object => {
+        if (object instanceof THREE.Mesh) {
+          const mats = Array.isArray(object.material) ? object.material : [object.material];
+          mats.forEach(m => unique.add(m));
+        }
+      });
+      unique.forEach(m => m.dispose());
+      renderer.dispose();
+    }
+    document.addEventListener("astro:before-swap", dispose, { once: true });
+    sizeCanvas();
+    render();
+    ensureAnimation();
+  }
+
+  function boot() {
+    document.querySelectorAll<HTMLElement>("[data-robo3d]").forEach(initCat);
+  }
+  boot();
+  document.addEventListener("astro:page-load", boot);
+</script>

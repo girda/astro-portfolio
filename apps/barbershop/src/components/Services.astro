@@ -1,0 +1,21 @@
+---
+import { site } from '../data/site';
+const base = import.meta.env.BASE_URL.replace(/\/$/, '');
+const illustrations = ['service-cut.svg', 'service-beard.svg', 'service-combo-light.svg'];
+---
+<section class="services" id="leistungen" aria-labelledby="services-title">
+  <div class="services-heading" data-reveal>
+    <div><p class="kicker">LEISTUNGEN & PREISE</p><h2 id="services-title">Dein Look.<br /><span>Dein Termin.</span></h2></div>
+    <p>Ein frischer Schnitt. Ein gepflegter Bart.<br />Wähle, was zu dir passt.</p>
+  </div>
+  <div class="service-grid">
+    {site.services.map((service, i) => <article class:list={['service-card', { 'service-featured': i === 2 }]} data-reveal>
+      <div class="service-art"><img src={`${base}/brand/${illustrations[i]}`} width="240" height="160" alt="" loading="lazy" /></div>
+      <div class="service-body"><h3>{service.title}</h3><p>{service.description}</p>
+        <div class="service-meta"><strong>{service.price}</strong><span>{service.duration}</span></div>
+        <button class="btn service-select" type="button" data-open-booking data-service={service.title} aria-label={`${service.title} auswählen`} aria-haspopup="dialog" aria-controls="booking-dialog" hidden>Auswählen</button>
+      </div>
+    </article>)}
+  </div>
+  <p class="services-disclaimer">Demo-Angebot · Alle Preise und Zeiten sind Beispiele.</p>
+</section>

@@ -1,4 +1,4 @@
-node_modules/
+node_modules
 dist/
 .astro/
 .env
@@ -14,3 +14,6 @@ backups/
 .dev.vars
 
 .dev.vars.*
+
+# Локальные заявки Pixel и файлы SQLite не должны попадать в Git.
+apps/assistant-api/.local-data/

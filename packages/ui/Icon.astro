@@ -1,0 +1,25 @@
+---
+import paths from "./icons.json";
+interface Props {
+  name: keyof typeof paths | string;
+  class?: string;
+}
+const { name, class: className = "" } = Astro.props;
+if (!(name in paths)) throw new Error(`Unknown UI icon: ${name}`);
+---
+
+<svg
+  class:list={["demo-icon", className]}
+  xmlns="http://www.w3.org/2000/svg"
+  width="24"
+  height="24"
+  viewBox="0 0 24 24"
+  fill="none"
+  stroke="currentColor"
+  stroke-width="1.65"
+  stroke-linecap="round"
+  stroke-linejoin="round"
+  aria-hidden="true"
+  focusable="false"
+  set:html={paths[name as keyof typeof paths]}
+/>

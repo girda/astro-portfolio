@@ -1,6 +1,6 @@
 export const site = {
  name: 'WERKRAUM', city: 'München', email: 'service@werkraum.example', phone: '+49 000 1234567', address:'Musterstraße 24, 80331 München',
- photo:'https://images.unsplash.com/photo-1643700973089-baa86a1ab9ee?auto=format&fit=crop&w=1800&q=85',
+ photo: `${import.meta.env.BASE_URL}images/workshop-v2.webp`,
  services:[
  {name:'Inspektion',category:'WARTUNG',text:'Ein genauer Blick auf die Technik. Mit einem Wartungsumfang, der zu deinem Fahrzeug passt.',price:'ab 149 €',detail:'Beispielpreis für die Arbeitsleistung; Teile und Betriebsstoffe separat.',icon:'01'},
  {name:'Ölwechsel',category:'MOTOR',text:'Frisches Öl, neuer Filter. Für das, was dein Fahrzeug jeden Tag antreibt.',price:'ab 89 €',detail:'Beispielpaket inkl. Filter und bis zu 4 Litern Standard-Motoröl.',icon:'02'},

@@ -1,0 +1,77 @@
+<script>
+  const reduced = matchMedia('(prefers-reduced-motion: reduce)');
+  const SELECTORS = [
+    '[data-motion]', '.section-intro', '.section-head', '.section-heading',
+    '.pricing-intro', '.pricing-note', '.about-copy > p',
+    '.service-grid > *', '.cleaning-service-grid > *', '.benefit-list > *',
+    '.trust-strip > *', '.steps > *', '.gallery > figure', '.garden-gallery > *',
+    '.contact-layout > *', '.included-layout > *', '.booking-layout > *',
+    '.faq-layout > *', '.services > *', '.service-list > article',
+  ].join(',');
+  const MOTION = {duration: 700, stagger: 65, distance: 20, easing: 'cubic-bezier(.2,.7,.2,1)'};
+  const active = new Set<Animation>();
+  const targets = [...document.querySelectorAll<HTMLElement>(SELECTORS)].filter(element => {
+    // Существующие анимации Pixel, Reveal и автомобильного каталога сохраняют своё управление.
+    return !element.closest('.reveal,[data-reveal],dialog,[data-pixel-widget]')
+      && !element.querySelector('.reveal,[data-reveal]')
+      && !element.parentElement?.closest(SELECTORS);
+  });
+  if (!reduced.matches && 'IntersectionObserver' in window) {
+    const observer = new IntersectionObserver(entries => {
+      for (const entry of entries) {
+        if (!entry.isIntersecting) continue;
+        observer.unobserve(entry.target);
+        if (reduced.matches) continue;
+        const element = entry.target as HTMLElement;
+        const siblings = element.parentElement ? [...element.parentElement.children] : [element];
+        const order = Math.max(0, siblings.indexOf(element)) % 4;
+        const animation = element.animate([
+          {opacity: .16, translate: `0 ${MOTION.distance}px`},
+          {opacity: 1, translate: '0 0'},
+        ], {duration: MOTION.duration, delay: order * MOTION.stagger, easing: MOTION.easing});
+        active.add(animation);
+        animation.onfinish = () => active.delete(animation);
+        animation.oncancel = () => active.delete(animation);
+      }
+    }, {threshold: .08});
+    // Первый экран сразу читается, без ожидания и скрытого контента при отключённом JS.
+    targets.forEach(element => {
+      if (element.getBoundingClientRect().top >= innerHeight * .9) observer.observe(element);
+    });
+    reduced.addEventListener('change', () => {
+      if (!reduced.matches) return;
+      observer.disconnect();
+      active.forEach(animation => animation.cancel());
+      active.clear();
+    });
+  }
+  document.documentElement.dataset.hirdaMotion = 'ready';
+</script>
+<style is:global>
+  body[data-demo] {
+    --motion-fast: 240ms;
+    --motion-image: 700ms;
+    --motion-ease: cubic-bezier(.2,.7,.2,1);
+  }
+  @media (prefers-reduced-motion: no-preference) {
+    body[data-demo] dialog[open] {animation: hirda-dialog-enter 240ms var(--motion-ease);}
+    body[data-demo] :is(.cta,.button,.text-link) > svg:last-child {
+      transition: translate var(--motion-fast) var(--motion-ease);
+    }
+    @keyframes hirda-dialog-enter {
+      from {opacity: 0; translate: 0 10px; scale: .985;}
+      to {opacity: 1; translate: 0 0; scale: 1;}
+    }
+  }
+  @media (hover:hover) and (pointer:fine) and (prefers-reduced-motion:no-preference) {
+    body[data-demo] :is(.cta,.button,.text-link):hover > svg:last-child {translate: 3px 0;}
+    body[data-demo] :is(.photo-service,.garden-gallery article,.service-card) {
+      transition: translate 350ms var(--motion-ease), box-shadow 350ms var(--motion-ease), border-color 350ms;
+    }
+    body[data-demo] :is(.photo-service,.garden-gallery article,.service-card):hover {translate: 0 -3px;}
+    body[data-demo] :is(.photo-service,.garden-gallery article) > img {
+      transition: scale var(--motion-image) var(--motion-ease);
+    }
+    body[data-demo] :is(.photo-service,.garden-gallery article):hover > img {scale: 1.035;}
+  }
+</style>

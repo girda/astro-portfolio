@@ -1,13 +1,17 @@
 export type ProjectStatus = "demo" | "client";
 export const projects = {
-  barbershop: { name: "KANT", port: 4322, status: "demo" },
-  cleaning: { name: "KLAR", port: 4323, status: "demo" },
-  autoservice: { name: "WERKRAUM", port: 4324, status: "demo" },
-  nails: { name: "STILL", port: 4325, status: "demo" },
-  lindenhof: { name: "LINDENHOF", port: 4326, status: "demo" },
+  lindenhof: { name: "LINDENHOF", category: "Website für ein Autohaus", port: 4326, status: "demo", group: "automotive", accent: "#849f83" },
+  ecohomes: { name: "EICHENHAIN", category: "Website für Holzhausbau & Energie", port: 4328, status: "demo", group: "handwerk", accent: "#a3936b" },
+  barbershop: { name: "KANT", category: "Website für einen Barbershop", port: 4322, status: "demo", group: "beauty", accent: "#a66d54" },
+  cleaning: { name: "KLAR", category: "Website für einen Reinigungsservice", port: 4323, status: "demo", group: "handwerk", accent: "#8bcbc1" },
+  autoservice: { name: "WERKRAUM", category: "Website für eine Autowerkstatt", port: 4324, status: "demo", group: "automotive", accent: "#a9d9ed" },
+  nails: { name: "STILL", category: "Website für Beauty, Haare & Spa", port: 4325, status: "demo", group: "beauty", accent: "#9c6c80" },
+  electrical: { name: "VOLTEX", category: "Website für einen Elektrofachbetrieb", port: 4329, status: "demo", group: "handwerk", accent: "#d4b949" },
+  homeservice: { name: "FIXORA", category: "Website für Montage & Hausservice", port: 4330, status: "demo", group: "handwerk", accent: "#719ae7" },
+  gardens: { name: "GRÜNWERK", category: "Website für Garten- und Landschaftsbau", port: 4331, status: "demo", group: "handwerk", accent: "#99b880" },
 } satisfies Record<
   string,
-  { name: string; port: number; status: ProjectStatus }
+  { name: string; category: string; port: number; status: ProjectStatus; group: "automotive" | "beauty" | "handwerk"; accent: string }
 >;
 export type ProjectId = keyof typeof projects;
 

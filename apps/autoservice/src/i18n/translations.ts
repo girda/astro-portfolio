@@ -1,5 +1,7 @@
 export type Language = "de" | "ru";
 export const ru: Record<string,string> = {
+  "Technik verstehen. Klar beraten.": "Понятная техника. Честная консультация.",
+  "Dein Auto.": "Твой автомобиль.",
   "Zum Inhalt": "К содержимому",
   "PORTFOLIO-KONZEPT VON HIRDA.": "ДЕМО-ПРОЕКТ HIRDA.",
   "Kein echter Betrieb · alle Angaben sind Beispiele.": "Не настоящий автосервис · все данные для примера.",

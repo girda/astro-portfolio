@@ -1,12 +1,14 @@
 ---
 import Brand from './Brand.astro';
 import Icon from './Icon.astro';
-const links = [ ['Leistungen & Preise','#leistungen'], ['Der Salon','#studio'], ['Looks & Inspiration','#einblicke'], ['Dein Besuch','#ablauf'], ['Fragen & Antworten','#fragen'], ['Kontakt & Standort','#kontakt'] ];
+import { navigation } from '../data/site';
+const links = navigation.filter(link => link.desktop).map(link => [link.label, link.href]);
+const allLinks = navigation.map(link => [link.label, link.href]);
 ---
 <nav class="desktop-navigation" aria-label="Hauptnavigation">
   {links.map(([label, href]) => <a href={href}>{label}</a>)}
 </nav>
-<button class="button header-button desktop-booking" type="button" data-open-phone hidden>Termin vereinbaren</button>
+<button class="button header-button desktop-booking" type="button" data-open-booking aria-haspopup="dialog" aria-controls="booking-dialog" hidden>Termin buchen</button>
 <div class="header-actions">
   <button class="phone-trigger" type="button" data-open-phone aria-label="Telefon und Terminvereinbarung" aria-haspopup="dialog" aria-controls="phone-dialog" hidden><Icon name="phone" /></button>
   <button class="menu-trigger" type="button" aria-label="Menü öffnen" aria-haspopup="dialog" aria-controls="kant-menu" aria-expanded="false" hidden><span></span><span></span></button>
@@ -16,12 +18,12 @@ const links = [ ['Leistungen & Preise','#leistungen'], ['Der Salon','#studio'], 
     <div class="menu-top"><Brand /><button class="menu-close" type="button" aria-label="Menü schließen"><Icon name="x" /></button></div>
     <div class="menu-content">
       <div class="menu-art" aria-hidden="true"><Icon name="scissors" /><span>GUTES<br />HANDWERK.<br /><em>KLARE<br />HALTUNG.</em></span></div>
-      <nav aria-label="Seitenbereiche"><p class="eyebrow">DEIN WEG ZU KANT</p>{links.map(([label, href],i) => <a href={href} style={`--order:${i}`}><span>{label}</span><Icon name="chevron-right" /></a>)}</nav>
+      <nav aria-label="Seitenbereiche"><p class="eyebrow">DEIN WEG ZU KANT</p>{allLinks.map(([label, href],i) => <a href={href} style={`--order:${i}`}><span>{label}</span><Icon name="chevron-right" /></a>)}</nav>
     </div>
     <div class="menu-bottom"><span>HAAR. BART. CHARAKTER.</span><button class="text-link" type="button" data-menu-phone>Termin telefonisch vereinbaren</button></div>
   </div>
 </dialog>
-<noscript><nav class="fallback-navigation" aria-label="Hauptnavigation">{links.map(([label,href])=><a href={href}>{label}</a>)}</nav></noscript>
+<noscript><nav class="fallback-navigation" aria-label="Hauptnavigation">{allLinks.map(([label,href])=><a href={href}>{label}</a>)}</nav></noscript>
 <script>
   const menu = document.querySelector<HTMLDialogElement>('#kant-menu');
   const trigger = document.querySelector<HTMLButtonElement>('.menu-trigger');

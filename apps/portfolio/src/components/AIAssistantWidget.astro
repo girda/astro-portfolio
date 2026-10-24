@@ -101,6 +101,7 @@ const avatarSrc = `${import.meta.env.BASE_URL}ai/face-default.webp`;
 
     <div class="cat-bottom">
       <div data-cat-verification class="cat-verification"></div>
+      <p class="cat-wait-hint" data-cat-wait-hint role="status" aria-live="polite"></p>
       <form class="cat-compose" data-cat-form>
         <label class="sr-only" for="hirda-cat-input">{copy.placeholder}</label>
         <input id="hirda-cat-input" data-cat-input type="text" autocomplete="off" maxlength="350" placeholder={copy.placeholder} />
@@ -114,6 +115,9 @@ const avatarSrc = `${import.meta.env.BASE_URL}ai/face-default.webp`;
 
 <script>
   import { whatsappNumber } from "../config/contact";
+  import { createN8nChatClient } from "../scripts/pixel-n8n";
+  import { createLeadCard, enquiryText } from "../scripts/pixel-lead";
+  import "../styles/pixel-lead.css";
   type Lang = 'de' | 'ru' | 'en';
   type Topic = 'projects' | 'prices' | 'services' | 'contact';
   const dictionary = {
@@ -150,7 +154,10 @@ const avatarSrc = `${import.meta.env.BASE_URL}ai/face-default.webp`;
   if (root) {
     const lang: Lang = root.dataset.lang === 'ru' || root.dataset.lang === 'en' ? root.dataset.lang : 'de';
     const texts = dictionary[lang];
-    // Публичный URL задаётся при сборке; ключ OpenAI здесь никогда не используется.
+    // n8n доступен только в dev: production-сборка сохраняет прежний публичный API.
+    const n8nChatUrl = import.meta.env.DEV ? (import.meta.env.PUBLIC_N8N_CHAT_URL?.trim() || '') : '';
+    const n8nChat = import.meta.env.DEV && n8nChatUrl ? createN8nChatClient(n8nChatUrl) : null;
+    const leadEndpoint = import.meta.env.DEV && n8nChat ? (import.meta.env.PUBLIC_PIXEL_LEADS_URL?.trim().replace(/\/$/, '') || '') : '';
     const apiUrl = import.meta.env.DEV ? 'http://127.0.0.1:8787/api/chat' : (import.meta.env.PUBLIC_ASSISTANT_API_URL || '');
     const verificationCopy = {
       de: 'Bitte bestätige die Sicherheitsprüfung und versuche es erneut.',
@@ -201,6 +208,8 @@ const avatarSrc = `${import.meta.env.BASE_URL}ai/face-default.webp`;
       demo: { history: [] as Message[], nodes: [] as HTMLElement[], draft: '' },
     };
     let history = sessions.consult.history;
+    let scenario: 'cafe' | 'auto' | 'house' | 'workshop' | null = null;
+    let demoSummary = '';
     let demoCart: { id: string; quantity: number }[] = [];
     let demoCatalog: { id: string; name: string; cents: number }[] = [];
     const cartCopy = {
@@ -274,10 +283,44 @@ const avatarSrc = `${import.meta.env.BASE_URL}ai/face-default.webp`;
     const greetingText = greeting.textContent ?? '';
     const intro = root.querySelector<HTMLElement>('[data-cat-intro]')!;
     const agentIntro = {
-      de: 'Teste mich als Café-Assistent: Bestelle einen Cappuccino, ein Croissant oder Cheesecake. Ich stelle deinen Demo-Warenkorb zusammen — ganz ohne echte Bestellung.',
-      en: 'Try me as a café assistant: order a cappuccino, croissant or cheesecake. I will build your demo cart — no real order.',
-      ru: 'Попробуй меня в роли помощника кафе: закажи капучино, круассан или чизкейк. Я соберу демо-корзину — без настоящего заказа.',
+      de: 'Vier Demos. Viele Möglichkeiten. Teste, wie ich berate, Angebote finde und Anfragen vorbereite. Mit den richtigen Schnittstellen kann ich noch viel mehr. Wähle ein Business:',
+      en: 'Four demos. Many possibilities. Try how I advise, recommend and prepare enquiries. With the right integrations I can do much more. Choose a business:',
+      ru: 'Четыре демо — много возможностей. Попробуй, как я консультирую, рекомендую и собираю заявки. С нужными интеграциями я умею гораздо больше. Выбери сферу:',
     }[lang];
+    const scenarioNames = { de: ['Café', 'Auto · Kauf & Miete', 'Eco-Haus', 'Werkstatt'], en: ['Café', 'Cars · Buy & rent', 'Eco home', 'Workshop'], ru: ['Кафе', 'Авто · покупка и аренда', 'Эко-дом', 'СТО'] }[lang];
+    function showScenarios() {
+      log.querySelector('[data-scenarios]')?.remove();
+      const grid = document.createElement('div'); grid.dataset.scenarios = ''; grid.className = 'cat-scenarios';
+      (['cafe', 'auto', 'house', 'workshop'] as const).forEach((key, index) => {
+        const button = document.createElement('button'); button.type = 'button'; button.textContent = scenarioNames[index];
+        button.addEventListener('click', () => {
+          if (busy) { showWaitHint(); return; }
+          scenario = key; demoSummary = ''; demoCart = []; history.splice(0);
+          n8nChat?.resetSession('demo');
+          Array.from(log.children).filter(node => node !== intro && node !== topics && node !== grid).forEach(node => node.remove());
+          grid.remove();
+          // n8n получает только chatInput: выбранную сферу передаём в стартовом сообщении.
+          const startMessage = {
+            de: `Starte die Demo für ${scenarioNames[index]} und stelle mir deine erste Frage.`,
+            en: `Start the ${scenarioNames[index]} demo and ask your first question.`,
+            ru: `Начни демо для сферы «${scenarioNames[index]}» и задай первый вопрос.`,
+          }[lang];
+          void sendToAgent(startMessage);
+        }); grid.append(button);
+      }); log.insertBefore(grid, topics);
+    }
+    function showDemoActions(choices: string[]) {
+      log.querySelectorAll('[data-demo-actions]').forEach(node => node.remove());
+      const group = document.createElement('div'); group.dataset.demoActions = ''; group.className = 'cat-demo-actions';
+      for (const choice of choices) {
+        const button = document.createElement('button'); button.type = 'button'; button.textContent = choice;
+        button.addEventListener('click', () => void sendToAgent(choice)); group.append(button);
+      }
+      const hint = document.createElement('small'); hint.textContent = { de: 'Du kannst auch einfach selbst schreiben.', en: 'You can always write your own answer.', ru: 'Можно просто написать свой ответ.' }[lang]; group.append(hint);
+      const change = document.createElement('button'); change.type = 'button'; change.textContent = { de: 'Andere Demo testen', en: 'Try another demo', ru: 'Другой сценарий' }[lang];
+      change.addEventListener('click', () => { if (busy) { showWaitHint(); return; } showScenarios(); log.scrollTop = log.scrollHeight; }); group.append(change);
+      log.insertBefore(group, topics);
+    }
     let shownBubble = false;
     let oldBodyOverflow = '';
     let returnFocus: HTMLElement = launcher;
@@ -293,7 +336,7 @@ const avatarSrc = `${import.meta.env.BASE_URL}ai/face-default.webp`;
       if (panel.hidden) return;
       const height = visualViewport?.height ?? window.innerHeight;
       const keyboard = matchMedia('(max-width: 600px)').matches &&
-        document.activeElement === input && viewportHeight - height > 100;
+        panel.contains(document.activeElement) && document.activeElement?.matches('input, textarea') && viewportHeight - height > 100;
       root.classList.toggle('has-keyboard', keyboard);
       root.style.setProperty('--cat-visible-height', `${height}px`);
       root.style.setProperty('--cat-visible-top', `${visualViewport?.offsetTop ?? 0}px`);
@@ -305,8 +348,8 @@ const avatarSrc = `${import.meta.env.BASE_URL}ai/face-default.webp`;
     visualViewport?.addEventListener('resize', scheduleViewport);
     visualViewport?.addEventListener('scroll', scheduleViewport);
     window.addEventListener('resize', scheduleViewport);
-    input.addEventListener('focus', scheduleViewport);
-    input.addEventListener('blur', scheduleViewport);
+    panel.addEventListener('focusin', scheduleViewport);
+    panel.addEventListener('focusout', scheduleViewport);
 
     const resetEmotion = () => {
       clearTimeout(emotionTimer);
@@ -366,6 +409,7 @@ const avatarSrc = `${import.meta.env.BASE_URL}ai/face-default.webp`;
         failedMessage = null;
       }
       topics.hidden = isAgentDemo;
+      if (isAgentDemo && !scenario) showScenarios();
       intro.textContent = isAgentDemo ? agentIntro : (intro.dataset.welcome ?? '');
       returnFocus = opener === bubbleOpener ? launcher : opener;
       viewportHeight = window.innerHeight;
@@ -414,8 +458,19 @@ const avatarSrc = `${import.meta.env.BASE_URL}ai/face-default.webp`;
       log.scrollTop = log.scrollHeight;
     }
 
+    const waitHint = root.querySelector<HTMLElement>('[data-cat-wait-hint]')!;
+    const showWaitHint = () => {
+      waitHint.textContent = {
+        de: 'Warte kurz auf Pixels Antwort.',
+        en: 'Please wait for Pixel’s reply.',
+        ru: 'Дождись ответа Pixel.',
+      }[lang];
+    };
+
     async function sendToAgent(value: string, retry = false, requestMode: 'consult' | 'demo' | 'brief' = mode) {
-      if (busy) return;
+      if (busy) { showWaitHint(); return; }
+      if (requestMode === 'demo' && !scenario) { showScenarios(); return; }
+      waitHint.textContent = '';
       busy = true;
       feedback?.remove();
       if (!retry) addMessage(value, 'user');
@@ -426,7 +481,9 @@ const avatarSrc = `${import.meta.env.BASE_URL}ai/face-default.webp`;
       feedback.textContent = apiCopy.thinking;
       log.insertBefore(feedback, topics);
       log.scrollTop = log.scrollHeight;
-      const controls = [...form.querySelectorAll<HTMLButtonElement | HTMLInputElement>('button,input'), ...topics.querySelectorAll<HTMLButtonElement>('button')];
+      // Поле остаётся активным: Enter сохраняет фокус и можно набрать следующий черновик.
+      // Кнопка отправки активна: повторное нажатие показывает подсказку, без нового запроса.
+      const controls = [...topics.querySelectorAll<HTMLButtonElement>('button')];
       controls.forEach(control => { control.disabled = true; });
       form.setAttribute('aria-busy', 'true');
       try {
@@ -434,25 +491,42 @@ const avatarSrc = `${import.meta.env.BASE_URL}ai/face-default.webp`;
           await loadVerification();
           if (!verificationToken) throw new Error('verification_failed');
         }
-        const turnstileToken = verificationToken;
-        verificationToken = '';
-        const response = await fetch(apiUrl, {
-          method: 'POST', headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({ lang, turnstileToken, mode: requestMode, ...(requestMode === 'demo' ? { cart: demoCart } : {}), messages: [...history.slice(-10), { role: 'user', content: value }] }),
-          signal: AbortSignal.timeout(25000),
-        });
-        const result = await response.json();
-        if (!response.ok) throw new Error(result.error || 'unavailable');
+        let result;
+        if (n8nChat) {
+          result = await n8nChat.send(value, mode);
+        } else {
+          const turnstileToken = verificationToken;
+          verificationToken = '';
+          const response = await fetch(apiUrl, {
+            method: 'POST', headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ lang, turnstileToken, mode: requestMode, ...(requestMode === 'demo' ? { cart: demoCart, scenario, summary: demoSummary } : {}), messages: [...history.slice(-10), { role: 'user', content: value }] }),
+            signal: AbortSignal.timeout(25000),
+          });
+          result = await response.json();
+          if (!response.ok) throw new Error(result.error || 'unavailable');
+        }
         if (typeof result.text !== 'string' || !result.text.trim() || result.text.length > 4000) throw new Error('invalid_response');
         feedback.remove(); feedback = null;
         history.push({ role: 'user', content: value }, { role: 'assistant', content: result.text });
         if (history.length > 10) history.splice(2, history.length - 10);
         addMessage(result.text, 'bot');
         if (requestMode === 'demo' && Array.isArray(result.cart) && Array.isArray(result.catalog)) {
-          demoCart = result.cart; demoCatalog = result.catalog; renderCart();
+          demoCart = result.cart; demoCatalog = result.catalog; demoSummary = result.summary ?? '';
+          if (scenario === 'cafe') renderCart();
+          if (demoSummary) {
+            log.querySelector('[data-demo-summary]')?.remove();
+            const details = document.createElement('details'); details.dataset.demoSummary = ''; details.className = 'cat-demo-cart';
+            const title = document.createElement('summary'); title.textContent = { de: 'Dein Demo-Entwurf', en: 'Your demo draft', ru: 'Черновик демо-заявки' }[lang];
+            const body = document.createElement('p'); body.textContent = demoSummary; details.append(title, body); log.insertBefore(details, topics);
+          }
+          showDemoActions(result.choices ?? []);
         }
         log.querySelectorAll('[data-prepare-brief]').forEach(node => node.remove());
-        if (requestMode === 'brief') {
+        if (requestMode === 'brief' && mode === 'consult' && leadEndpoint && n8nChat) {
+          log.querySelectorAll('[data-lead-card]:not([data-lead-saved])').forEach(node => node.remove());
+          log.insertBefore(createLeadCard({ endpoint: leadEndpoint, sessionId: n8nChat.getSessionId('consult'), lang, draft: enquiryText(history.slice(0, -2)) }), topics);
+          log.scrollTop = log.scrollHeight;
+        } else if (requestMode === 'brief') {
           const card = document.createElement('div');
           card.className = 'cat-brief';
           const label = document.createElement('label');
@@ -471,11 +545,21 @@ const avatarSrc = `${import.meta.env.BASE_URL}ai/face-default.webp`;
           const note = document.createElement('p'); note.textContent = handoffCopy.note;
           card.append(label, link, note);
           log.insertBefore(card, topics);
-        } else if (history.length >= 4) {
+        } else if (history.length >= (leadEndpoint && mode === 'consult' ? 2 : 4)) {
           const prepare = document.createElement('button');
           prepare.type = 'button'; prepare.className = 'cat-retry'; prepare.dataset.prepareBrief = '';
-          prepare.textContent = handoffCopy.prepare;
-          prepare.addEventListener('click', () => void sendToAgent(handoffCopy.request, false, 'brief'));
+          prepare.textContent = leadEndpoint && mode === 'consult'
+            ? { de: 'Anfrage vorbereiten', en: 'Prepare enquiry', ru: 'Подготовить заявку' }[lang]
+            : handoffCopy.prepare;
+          prepare.addEventListener('click', () => {
+            if (busy) { showWaitHint(); return; }
+            if (leadEndpoint && n8nChat && mode === 'consult') {
+              log.querySelectorAll('[data-lead-card]:not([data-lead-saved])').forEach(node => node.remove());
+              const card = createLeadCard({ endpoint: leadEndpoint, sessionId: n8nChat.getSessionId('consult'), lang, draft: enquiryText(history) });
+              log.insertBefore(card, topics); prepare.remove(); log.scrollTop = log.scrollHeight;
+              card.querySelector<HTMLInputElement>('input')?.focus({ preventScroll: true });
+            } else void sendToAgent(handoffCopy.request, false, 'brief');
+          });
           log.insertBefore(prepare, topics);
         }
         showEmotion(faceHappy, 750);
@@ -492,6 +576,7 @@ const avatarSrc = `${import.meta.env.BASE_URL}ai/face-default.webp`;
         if (widgetId !== undefined) turnstileWindow.turnstile?.reset(widgetId);
         verificationToken = '';
         busy = false;
+        waitHint.textContent = '';
         controls.forEach(control => { control.disabled = false; });
         form.removeAttribute('aria-busy');
         log.scrollTop = log.scrollHeight;
@@ -528,17 +613,19 @@ const avatarSrc = `${import.meta.env.BASE_URL}ai/face-default.webp`;
     topics.querySelectorAll<HTMLButtonElement>('[data-cat-topic]').forEach((button) => {
       button.addEventListener('click', () => {
         const topic = button.dataset.catTopic as Topic;
-        if (apiUrl) void sendToAgent(texts.names[topic]);
+        if (n8nChat || apiUrl) void sendToAgent(texts.names[topic]);
         else replyToTopic(topic, texts.names[topic]);
       });
     });
 
     form.addEventListener('submit', (event) => {
       event.preventDefault();
+      if (busy) { showWaitHint(); return; }
       const value = input.value.trim();
-      if (!value || busy) return;
+      if (!value) return;
+      if (mode === 'demo' && !scenario) { showScenarios(); return; }
       input.value = '';
-      if (apiUrl) { void sendToAgent(value); return; }
+      if (n8nChat || apiUrl) { void sendToAgent(value); return; }
       const topic = detectTopic(value);
       if (topic) replyToTopic(topic, value);
       else { addMessage(value, 'user'); addMessage(texts.unknown, 'bot'); }
@@ -566,6 +653,14 @@ const avatarSrc = `${import.meta.env.BASE_URL}ai/face-default.webp`;
 </script>
 
 <style>
+  :global(.cat-scenarios) { display:grid; grid-template-columns:1fr 1fr; gap:10px; margin:18px 0; }
+  :global(.cat-scenarios button), :global(.cat-demo-actions button) { font:inherit; color:inherit; text-align:left; border:1px solid #ffffff20; background:linear-gradient(140deg,#ffffff08,#ffffff02); border-radius:14px; padding:14px; cursor:pointer; transition:background .2s; }
+  :global(.cat-scenarios button:hover), :global(.cat-demo-actions button:hover) { background:#ffffff12; }
+  :global(.cat-demo-actions) { display:flex; flex-wrap:wrap; gap:8px; margin:14px 0; }
+  :global(.cat-demo-actions small) { flex-basis:100%; color:#aab5b5; }
+  :global(.cat-demo-actions button) { font-size:13px; padding:10px 13px; }
+  .cat-wait-hint { margin: 0; padding: 0 4px 8px; color: #c3cdcc; font-size: 12px; line-height: 1.5; }
+  .cat-wait-hint:empty { display: none; }
   .cat-verification { margin-bottom: 0; }
   :global(.cat-demo-cart) { margin: 12px 0; padding: 16px; border: 1px solid #ffffff20; border-radius: 16px; background: #ffffff06; }
   :global(.cat-demo-cart summary) { cursor: pointer; padding: 6px 0; font-weight: 600; }

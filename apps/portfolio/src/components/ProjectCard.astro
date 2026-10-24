@@ -1,6 +1,7 @@
 ---
 import "../styles/project-badges.css";
 import "../styles/project-card.css";
+import DeviceIcon from "./DeviceIcon.astro";
 interface Props {
   href: string;
   title?: string;
@@ -10,6 +11,8 @@ interface Props {
   preview: string;
   projectId: string;
   name: string;
+  group: string;
+  accent: string;
   open: string;
 }
 const {
@@ -18,6 +21,8 @@ const {
   preview,
   projectId,
   name,
+  group,
+  accent,
   open,
   status = "demo",
   lang = "de",
@@ -30,29 +35,147 @@ const statusLabel =
       : lang === "ru"
         ? "Клиентский проект"
         : "Kundenprojekt";
+// Адрес — подпись демонстрации, а не выдуманный зарегистрированный домен.
+const address = `${name.toLowerCase().normalize("NFKD").replace(/[\u0300-\u036f]/g, "").replace(/[^a-z0-9]/g, "")}.demo`;
+const base = import.meta.env.BASE_URL;
+const displayName = name.charAt(0).toUpperCase() + name.slice(1).toLowerCase();
 ---
 
 <a
   class="project-card project-tile"
+  data-project-group={group}
+  style={`--scene-accent:${accent}`}
   href={href}
   target="_blank"
   rel="noopener noreferrer"
 >
   <div class="tile-preview">
     <div class="device-composition" aria-hidden="true">
-      <div class="device device-desktop"><div class="browser-bar"><i></i><i></i><i></i><span class="browser-address"><svg viewBox="0 0 16 16" width="7" height="7" fill="none" stroke="currentColor" aria-hidden="true"><rect x="4" y="7" width="8" height="6" rx="1"/><path d="M5 7V5a3 3 0 0 1 6 0v2"/></svg></span><span class="browser-tools">＋</span></div><img src={preview} alt="" width="1280" height="800" loading="lazy" decoding="async" /></div>
-      <div class="device device-tablet"><div class="tablet-camera"></div><img src={`${import.meta.env.BASE_URL}previews/${projectId}-tablet.png`} alt="" width="768" height="1024" loading="lazy" decoding="async" /></div>
-      <div class="device device-phone"><div class="phone-speaker"></div><img src={`${import.meta.env.BASE_URL}previews/${projectId}-mobile.png`} alt="" width="390" height="844" loading="lazy" decoding="async" /></div>
+      <div class="device device-desktop real-device">
+        <img class="device-frame" src={`${base}devices/macbook-pro.webp`} alt="" width="1200" height="800" loading="lazy" />
+        <div class="desktop-screen">
+          <div class="browser-bar">
+            <span class="window-controls">
+              <i></i>
+              <i></i>
+              <i></i>
+            </span>
+            <DeviceIcon name="panel-left" />
+            <span class="browser-history">
+              <DeviceIcon name="chevron-left" />
+              <DeviceIcon name="chevron-right" />
+            </span>
+            <span class="browser-address">
+              <DeviceIcon name="lock-keyhole" />
+              <span>{address}</span>
+              <DeviceIcon name="rotate-cw" />
+            </span>
+            <span class="browser-utilities">
+              <DeviceIcon name="share" />
+              <DeviceIcon name="plus" />
+              <DeviceIcon name="panels-top-left" />
+            </span>
+          </div>
+          <img
+            src={preview}
+            alt=""
+            width="1440"
+            height="950"
+            loading="lazy"
+            decoding="async"
+          />
+        </div>
+        <div class="laptop-chin"></div>
+      </div>
+      <div class="device device-tablet real-device">
+        <img class="device-frame" src={`${base}devices/ipad-pro.webp`} alt="" width="800" height="1200" loading="lazy" />
+        <span class="tablet-camera"></span>
+        <span class="hardware-button"></span>
+        <div class="tablet-screen">
+          <div class="tablet-status">
+            <span>9:41</span>
+            <span>
+              <DeviceIcon name="wifi" />
+              <DeviceIcon name="battery-full" />
+            </span>
+          </div>
+          <div class="tablet-browser">
+            <DeviceIcon name="panel-left" />
+            <DeviceIcon name="chevron-left" />
+            <span>
+              <DeviceIcon name="lock-keyhole" />
+              {address}
+            </span>
+            <DeviceIcon name="share" />
+            <DeviceIcon name="plus" />
+          </div>
+          <img
+            src={`${base}previews/${projectId}-tablet.png`}
+            alt=""
+            width="820"
+            height="1040"
+            loading="lazy"
+            decoding="async"
+          />
+          <span class="home-indicator"></span>
+        </div>
+      </div>
+      <div class="device device-phone real-device">
+        <img class="device-frame" src={`${base}devices/iphone-17-pro.webp`} alt="" width="1311" height="2708" loading="lazy" />
+        <span class="phone-action hardware-button"></span>
+        <span class="phone-volume hardware-button"></span>
+        <span class="phone-power hardware-button"></span>
+        <div class="phone-screen">
+          <div class="phone-status">
+            <span>9:41</span>
+            <span>
+              <DeviceIcon name="signal" />
+              <DeviceIcon name="wifi" />
+              <DeviceIcon name="battery-full" />
+            </span>
+          </div>
+          <span class="phone-island">
+            <i></i>
+          </span>
+          <img
+            src={`${base}previews/${projectId}-mobile.png`}
+            alt=""
+            width="402"
+            height="760"
+            loading="lazy"
+            decoding="async"
+          />
+          <div class="phone-safari">
+            <div class="safari-address">
+              <span>aA</span>
+              <span>
+                <DeviceIcon name="lock-keyhole" />
+                {address}
+              </span>
+              <DeviceIcon name="rotate-cw" />
+            </div>
+            <div class="safari-tools">
+              <DeviceIcon name="chevron-left" />
+              <DeviceIcon name="chevron-right" />
+              <DeviceIcon name="share" />
+              <DeviceIcon name="book-open" />
+              <DeviceIcon name="panels-top-left" />
+            </div>
+          </div>
+          <span class="home-indicator"></span>
+        </div>
+      </div>
     </div>
-    <span class={`project-badge project-badge--${status}`}>
-      {statusLabel}
-    </span>
+    <span class={`project-badge project-badge--${status}`}>{statusLabel}</span>
   </div>
   <div class="tile-details">
     <p class="tile-category">{category}</p>
     <div class="tile-bottom">
-      <h3 class="tile-title">{name}</h3>
-      <span class="tile-link">{open}</span>
+      <h3 class="tile-title">{displayName}</h3>
+      <span class="tile-link">
+        {open}
+        <DeviceIcon name="external-link" />
+      </span>
     </div>
   </div>
 </a>

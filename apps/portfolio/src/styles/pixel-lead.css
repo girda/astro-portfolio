@@ -1,0 +1,10 @@
+.cat-conversation .cat-lead { min-width:0; color:inherit; }
+.cat-conversation .cat-lead label { margin-top:12px; }
+.cat-conversation .cat-lead input { display:block; box-sizing:border-box; width:100%; margin:8px 0; padding:12px; border:1px solid #ffffff30; border-radius:8px; background:#24292c; color:#fff; font:inherit; font-size:16px; min-width:0; }
+.cat-conversation .cat-lead :is(input,textarea):read-only { color:#d4dfdc; background:#ffffff05; }
+.cat-conversation .cat-lead :is(input,textarea,button):focus-visible { outline:2px solid #c3cdcc; outline-offset:3px; }
+.cat-conversation .cat-lead button { max-width:100%; white-space:normal; }
+.cat-conversation .cat-lead button:disabled { opacity:.6; cursor:default; }
+.cat-conversation .cat-lead [hidden] { display:none; }
+.cat-conversation .cat-lead [role=status] { overflow-wrap:anywhere; }
+.cat-conversation .cat-lead [role=status]:empty { display:none; }

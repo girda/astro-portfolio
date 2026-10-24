@@ -1,43 +1,36 @@
-# Astro Starter Kit: Minimal
+# KANT · Ink & Paper
+
+Демонстрационный сайт вымышленного барбершопа: Astro, TypeScript в клиентских сценариях, CSS, Embla Carousel. Два локальных семейства шрифтов — Oswald и Arimo.
+
+## Запуск
+
+Из этой папки:
 
 ```sh
-npm create astro@latest -- --template minimal
+npm run dev -- --background --host 127.0.0.1 --port 4322
+npm run build
 ```
 
-> 🧑‍🚀 **Seasoned astronaut?** Delete this file. Have fun!
+Управление сервером: `npm run astro -- dev status`, `npm run astro -- dev logs`, `npm run astro -- dev stop`.
 
-## 🚀 Project Structure
+## Где менять
 
-Inside of your Astro project, you'll see the following folders and files:
+- `src/pages/index.astro`: композиция страницы и metadata.
+- `src/data/site.ts`: услуги, цены, FAQ, контакты, навигация и витрина ухода.
+- `src/data/lookbook.json`: шесть снимков галереи и известные источники.
+- `src/components/`: меню, услуги, галерея, уход, FAQ, контакты и demo-диалоги.
+- `src/styles/approved-paper.css`: утверждённая основа первого экрана/услуг.
+- `src/styles/paper.css`: общая тема и адаптивность остальных секций.
+- `src/assets/fonts/`: локальные WOFF2 и OFL.
+- `public/brand/`, `public/images/`: логотип, SVG и фотографии.
 
-```text
-/
-├── public/
-├── src/
-│   └── pages/
-│       └── index.astro
-└── package.json
-```
+Стили прежней версии сохранены для истории, но `index.astro` подключает бумажную тему. Бронирование и подбор ухода демонстрационные: нет backend, оплаты или отправки персональных данных. Карта Google загружается по отдельному нажатию; координаты относятся к примеру, а не к реальному салону.
 
-Astro looks for `.astro` or `.md` files in the `src/pages/` directory. Each page is exposed as a route based on its file name.
+## Макеты и проверка
 
-There's nothing special about `src/components/`, but that's where we like to put any Astro/React/Vue/Svelte/Preact components.
+- [Figma desktop](https://www.figma.com/design/ANuoq1eztxc8nSw5VzJoSc?node-id=42-8)
+- [Figma mobile](https://www.figma.com/design/ANuoq1eztxc8nSw5VzJoSc?node-id=42-211)
+- [Отчёт проверки](../../docs/audit/kant-2026-10-23.md)
+- [Медиа и лицензии](docs/MEDIA.md)
 
-Any static assets, like images, can be placed in the `public/` directory.
-
-## 🧞 Commands
-
-All commands are run from the root of the project, from a terminal:
-
-| Command                   | Action                                           |
-| :------------------------ | :----------------------------------------------- |
-| `npm install`             | Installs dependencies                            |
-| `npm run dev`             | Starts local dev server at `localhost:4321`      |
-| `npm run build`           | Build your production site to `./dist/`          |
-| `npm run preview`         | Preview your build locally, before deploying     |
-| `npm run astro ...`       | Run CLI commands like `astro add`, `astro check` |
-| `npm run astro -- --help` | Get help using the Astro CLI                     |
-
-## 👀 Want to learn more?
-
-Feel free to check [our documentation](https://docs.astro.build) or jump into our [Discord server](https://astro.build/chat).
+Для production используются `SITE_URL` и `SITE_BASE`; base должен включать путь сайта на GitHub Pages. Сайт намеренно имеет noindex/nofollow как demo-концепт. Перед публикацией требуется подтвердить происхождение первых трёх старых фотографий галереи. См. отчёт.
