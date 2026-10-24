@@ -32,7 +32,7 @@ document.querySelectorAll<HTMLButtonElement>("[data-house]").forEach((button) =>
       "#house-dialog-image",
     )!;
     img.src = h.image;
-    img.alt = `KI-Visualisierung ${h.name}`;
+    img.alt = `Hausentwurf ${h.name}`;
     document.getElementById("house-dialog-text")!.textContent = h.text;
     document.getElementById("house-dialog-features")!.replaceChildren(
       ...h.features.map((feature) => {
