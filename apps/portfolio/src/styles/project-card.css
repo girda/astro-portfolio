@@ -505,5 +505,21 @@
 .real-device .phone-screen>img{height:calc(100% - 13.8cqw)}
 @media(max-width:700px){.device-composition{inset:14% 6% 8%}}
 
-/* Согласованная сцена: оттенок проекта из data/projects.ts. */
-#main .project-tile{border-color:color-mix(in srgb,var(--scene-accent) 25%,transparent);border-radius:12px;background:#28322f}.tile-preview{background:radial-gradient(ellipse at 40% 45%,color-mix(in srgb,var(--scene-accent) 30%,transparent),transparent 64%),linear-gradient(135deg,#313d35,#192a25)}.device-composition{inset:9% 4% 6%;perspective:1500px}.device-desktop.real-device{width:126%;left:-19%;top:0;transform:perspective(1500px) rotateY(7deg) rotateZ(-3deg)}.device-tablet.real-device{width:39%;right:-4%;bottom:-9%;transform:rotate(7deg)}.device-phone.real-device{width:20%;left:61%;bottom:-2%;transform:rotate(-5deg)}.tile-details{padding:20px 24px}.project-tile .device{transition:transform .65s cubic-bezier(.2,.7,.2,1),translate .5s}.project-tile .tile-category{font-size:13px;margin-bottom:10px}@media(hover:hover) and (pointer:fine) and (prefers-reduced-motion:no-preference){.project-tile:hover .device-desktop{transform:perspective(1500px) rotateY(0deg) rotateZ(-1deg);translate:0 -5px}.project-tile:hover .device-phone{translate:-3px -7px}.project-tile:hover .device-tablet{translate:3px -5px}#main .project-tile:hover{border-color:color-mix(in srgb,var(--scene-accent) 70%,transparent)}}@media(max-width:700px){.device-composition{inset:11% 5% 7%}.device-desktop.real-device{width:122%;left:-18%}.tile-details{padding:20px}}@media(prefers-reduced-motion:reduce){.project-tile .device{transition:none!important}}
+/* Полные устройства остаются внутри сцены и при наведении. */
+#main .project-tile { border-color:color-mix(in srgb,var(--scene-accent) 25%,transparent);border-radius:12px;background:#27302f; }
+.tile-preview { aspect-ratio:1.28; background:radial-gradient(ellipse at 45% 40%,color-mix(in srgb,var(--scene-accent) 17%,transparent),transparent 70%),#202b2b; }
+.device-composition { inset:6% 4% 7%;perspective:1500px; }
+.device-desktop.real-device { width:96%;left:2%;top:7%;transform:perspective(1500px) rotateY(4deg) rotateZ(-3deg); }
+.device-tablet.real-device { width:33%;right:0;bottom:0;transform:rotate(6deg); }
+.device-phone.real-device { width:18%;left:65%;bottom:0;transform:rotate(-5deg); }
+.tile-details { padding:22px 24px 25px; }
+#main .tile-category { font-size:13px;line-height:1.55;margin-bottom:10px; }
+#main .tile-description { color:#bfc9c3;font-size:14px;line-height:1.7;margin:12px 0 0;max-width:48ch; }
+.project-tile .device { transition:transform .5s cubic-bezier(.2,.7,.2,1),translate .4s; }
+@media(hover:hover) and (pointer:fine) and (prefers-reduced-motion:no-preference) {
+ .project-tile:hover .device-desktop { transform:perspective(1500px) rotateY(0) rotateZ(-1deg);translate:0 -3px; }
+ .project-tile:hover .device-phone { translate:-2px -4px; }.project-tile:hover .device-tablet { translate:2px -3px; }
+ #main .project-tile:hover { border-color:color-mix(in srgb,var(--scene-accent) 65%,transparent); }
+}
+@media(max-width:700px) { .tile-preview{aspect-ratio:1.18}.device-composition{inset:7% 3%}.device-desktop.real-device{width:96%;left:2%;top:10%}.tile-details{padding:20px}.tile-bottom{flex-wrap:wrap;gap:4px 16px}#main .tile-description{font-size:14px} }
+@media(prefers-reduced-motion:reduce){.project-tile .device{transition:none!important}}

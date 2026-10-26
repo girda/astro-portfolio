@@ -5,10 +5,9 @@
   z-index: -1;
   pointer-events: none;
   background:
-    radial-gradient(ellipse 75% 18% at 105% 36%, color-mix(in srgb, var(--brand-accent) 20.39%, transparent), transparent 75%),
-    radial-gradient(ellipse 65% 21% at -10% 64%, #82906126, transparent 76%),
-    radial-gradient(ellipse 65% 20% at 95% 95%, color-mix(in srgb, var(--brand-accent) 18.82%, transparent), transparent 75%),
-    linear-gradient(180deg, #22282c 20%, #24282a 50%, #202625 78%, #25282a);
+    radial-gradient(ellipse 65% 12% at 100% 35%, #ad704c0c, transparent 72%),
+    radial-gradient(ellipse 60% 15% at 0% 68%, #8fa18b0d, transparent 76%),
+    linear-gradient(180deg, #22282c 15%, #20282a 52%, #202827 80%, #22292a);
 }
 
 .site-atmosphere::after {
@@ -79,3 +78,9 @@ body {
   background: var(--brand-accent);
   color: #22282c;
 }
+
+/* Тихая координатная сетка и дуги не конкурируют с содержимым. */
+.site-atmosphere::before {content:"";position:absolute;inset:850px 0 0;opacity:.2;background-image:linear-gradient(#a8bbb70c 1px,transparent 1px),linear-gradient(90deg,#a8bbb70c 1px,transparent 1px);background-size:96px 96px;mask-image:linear-gradient(transparent,#000 12%,#000 80%,transparent);}
+#main .projects {position:relative;isolation:isolate;}
+#main .projects::before {content:"";position:absolute;right:0;top:90px;width:340px;aspect-ratio:1;border:1px solid #b3bda91a;border-radius:50%;box-shadow:0 0 0 45px #b3bda906,0 0 0 90px #b3bda903;pointer-events:none;z-index:-1;}
+@media(max-width:700px){.site-atmosphere::before{background-size:64px 64px}#main .projects::before{width:220px;right:0;top:70px}}

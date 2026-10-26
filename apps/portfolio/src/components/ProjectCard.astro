@@ -1,6 +1,7 @@
 ---
 import "../styles/project-badges.css";
 import "../styles/project-card.css";
+import { projectPresentation } from "../data/project-presentation";
 import DeviceIcon from "./DeviceIcon.astro";
 interface Props {
   href: string;
@@ -38,6 +39,8 @@ const statusLabel =
 // Адрес — подпись демонстрации, а не выдуманный зарегистрированный домен.
 const address = `${name.toLowerCase().normalize("NFKD").replace(/[\u0300-\u036f]/g, "").replace(/[^a-z0-9]/g, "")}.demo`;
 const base = import.meta.env.BASE_URL;
+const presentation = projectPresentation[projectId as keyof typeof projectPresentation]?.[lang === "en" ? "en" : "de"];
+const demoLabel = lang === "en" ? "Open demo" : lang === "ru" ? "Открыть демо" : "Demo öffnen";
 const displayName = name.charAt(0).toUpperCase() + name.slice(1).toLowerCase();
 ---
 
@@ -169,13 +172,14 @@ const displayName = name.charAt(0).toUpperCase() + name.slice(1).toLowerCase();
     <span class={`project-badge project-badge--${status}`}>{statusLabel}</span>
   </div>
   <div class="tile-details">
-    <p class="tile-category">{category}</p>
+    <p class="tile-category">{presentation?.category ?? category}</p>
     <div class="tile-bottom">
       <h3 class="tile-title">{displayName}</h3>
       <span class="tile-link">
-        {open}
+        {demoLabel}
         <DeviceIcon name="external-link" />
       </span>
     </div>
+    <p class="tile-description">{presentation?.description}</p>
   </div>
 </a>

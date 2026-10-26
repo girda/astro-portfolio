@@ -6,6 +6,7 @@ import StudioHero from "./StudioHero.astro";
 import BaseLayout from "../layouts/BaseLayout.astro";
 import ProjectCard from "./ProjectCard.astro";
 import Reveal from "./Reveal.astro";
+import PixelExperience from "./PixelExperience.astro";
 import Services from "./Services.astro";
 import SiteFooter from "./SiteFooter.astro";
 import Contact from "./Contact.astro";
@@ -78,11 +79,8 @@ const base = import.meta.env.BASE_URL.replace(/\/$/, "");
         : "Mir ist wichtig, dass deine Website zu dir passt, dein Angebot verständlich macht und auf jedem Bildschirm gut funktioniert."}</p></div>
       <BrandSculpture lang={lang} />
     </section>
-    <Services
-      title={t.servicesTitle}
-      description={t.servicesDescription}
-      items={t.services}
-    />
+    <Services lang={lang} />
+    <PixelExperience lang={lang} />
     <Pricing lang={lang} />
     <Contact lang={lang} />
   </main>
