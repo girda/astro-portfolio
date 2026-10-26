@@ -3,6 +3,7 @@ const $ = <T extends Element = HTMLElement>(selector: string) =>
 const $$ = <T extends Element = HTMLElement>(selector: string) =>
   Array.from(document.querySelectorAll<T>(selector));
 import {showDevelopment} from './navigation';
+import { initOwnershipTabs } from './ownership-tabs';
 const carousel = $(".vehicle-carousel");
 const cards = $$<HTMLElement>(".vehicle-card");
 function visibleCards() {
@@ -99,29 +100,7 @@ $$<HTMLButtonElement>("[data-save]").forEach((button) => {
     }
   });
 });
-const tabs = $$<HTMLButtonElement>("[role=tab]");
-const tablist=document.querySelector<HTMLElement>('[role=tablist]')!;
-const indicator=document.createElement('span');indicator.className='tab-indicator';indicator.setAttribute('aria-hidden','true');tablist.append(indicator);
-function moveIndicator(){const active=tabs.find(t=>t.getAttribute('aria-selected')==='true');if(active){tablist.style.setProperty('--tab-left',active.offsetLeft+'px');tablist.style.setProperty('--tab-width',active.offsetWidth+'px');}}
-function activateTab(button: HTMLButtonElement) {
- tabs.forEach(tab=>{const active=tab===button;tab.setAttribute('aria-selected',String(active));tab.tabIndex=active?0:-1;document.getElementById(tab.getAttribute('aria-controls')!)!.hidden=!active;});moveIndicator();
-}
-new ResizeObserver(moveIndicator).observe(tablist);document.fonts.ready.then(moveIndicator);moveIndicator();
-tabs.forEach((button, index) => {
-  button.addEventListener("click", () => activateTab(button));
-  button.addEventListener("keydown", (event) => {
-    let target = index;
-    if (event.key === "ArrowRight") target = (index + 1) % tabs.length;
-    else if (event.key === "ArrowLeft")
-      target = (index + tabs.length - 1) % tabs.length;
-    else if (event.key === "Home") target = 0;
-    else if (event.key === "End") target = tabs.length - 1;
-    else return;
-    event.preventDefault();
-    activateTab(tabs[target]);
-    tabs[target].focus();
-  });
-});
+initOwnershipTabs();
 $$<HTMLAnchorElement>("[data-interest]").forEach((button) =>
   button.addEventListener("click", () => {
     $<HTMLInputElement>("input[name=vehicle]").value =

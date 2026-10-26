@@ -971,7 +971,6 @@ textarea:focus-visible {
   display: flex;
   flex-direction: column;
   gap: 22px;
-  animation: dialog-in 0.2s ease-out;
 }
 .dialog-toolbar {
   display: flex;
@@ -1025,16 +1024,6 @@ textarea:focus-visible {
   padding: 8px 0;
   font-size: 20px;
   line-height: 1.4;
-}
-@keyframes dialog-in {
-  from {
-    opacity: 0;
-    transform: translateY(10px);
-  }
-  to {
-    opacity: 1;
-    transform: none;
-  }
 }
 @media (max-width: 1100px) {
   .container {

@@ -1,6 +1,8 @@
+import { gsap } from 'gsap';
+import { motion, prefersReducedMotion } from './motion';
 import { onPageReady } from '../../../../packages/ui/page-lifecycle';
 
-const reduced = () => matchMedia('(prefers-reduced-motion:reduce)').matches;
+const reduced = prefersReducedMotion;
 const desktopHover = () => matchMedia('(min-width:1025px) and (hover:hover) and (pointer:fine)').matches;
 
 export function showDevelopment(custom?: string) {
@@ -24,27 +26,40 @@ export function initNavigation() {
 
     let closePending: Promise<void> | undefined;
     let oldOverflow = '';
+    let drawerTween: gsap.core.Tween | undefined;
     const closeMenu = (): Promise<void> => {
       if (closePending) return closePending;
       if (!menu.open) return Promise.resolve();
-      menu.classList.add('is-closing');
-      const animation = reduced() ? Promise.resolve() : menu.animate(
-        [{ transform: 'translateX(0)' }, { transform: 'translateX(-100%)' }],
-        { duration: 240, easing: 'cubic-bezier(.4,0,1,1)' },
-      ).finished;
-      closePending = animation.catch(() => {}).then(() => {
-        menu.close();
-        menu.classList.remove('is-closing');
-        closePending = undefined;
-      });
+      closePending = new Promise<void>(resolve => {
+        const finish = () => {
+          if (menu.open) menu.close();
+          gsap.set(menu, { clearProps: 'transform' });
+          resolve();
+        };
+        drawerTween?.kill();
+        if (reduced()) finish();
+        else drawerTween = gsap.to(menu, {
+          xPercent: -100, duration: motion.drawerDuration,
+          ease: motion.ease, overwrite: true, onComplete: finish,
+        });
+      }).finally(() => { closePending = undefined; });
       return closePending;
     };
 
     trigger.addEventListener('click', () => {
+      if (menu.open || closePending) return;
       oldOverflow = document.body.style.overflow;
       document.body.style.overflow = 'hidden';
       menu.showModal();
       trigger.setAttribute('aria-expanded', 'true');
+      drawerTween?.kill();
+      if (!reduced()) drawerTween = gsap.fromTo(menu, { xPercent: -100 }, {
+        xPercent: 0, duration: motion.drawerDuration, ease: motion.ease,
+        overwrite: true, onComplete: () => { gsap.set(menu, { clearProps: 'transform' }); },
+      });
+    }, options);
+    matchMedia('(prefers-reduced-motion: reduce)').addEventListener('change', event => {
+      if (event.matches) drawerTween?.progress(1);
     }, options);
     menu.addEventListener('cancel', event => {
       event.preventDefault();
@@ -66,8 +81,8 @@ export function initNavigation() {
       }, options));
     });
     document.querySelectorAll<HTMLElement>('[data-development]').forEach(button => {
-      button.addEventListener('click', () => {
-        if (menu.open) menu.close();
+      button.addEventListener('click', async () => {
+        await closeMenu();
         showDevelopment();
       }, options);
     });
@@ -77,6 +92,15 @@ export function initNavigation() {
     const closeDropdowns = () => dropdowns.forEach(details => { details.open = false; });
     for (const details of dropdowns) {
       details.addEventListener('toggle', () => {
+        const submenu = details.querySelector<HTMLElement>(':scope > .submenu');
+        if (submenu) {
+          gsap.killTweensOf(submenu);
+          gsap.set(submenu, { clearProps: 'opacity,transform' });
+          if (details.open && !reduced()) gsap.fromTo(submenu, { opacity: 0, y: 6 }, {
+            opacity: 1, y: 0, duration: 0.18, ease: motion.ease,
+            clearProps: 'opacity,transform', overwrite: true,
+          });
+        }
         if (!details.open) return;
         const siblings = details.parentElement?.parentElement?.querySelectorAll<HTMLDetailsElement>(':scope > li > details');
         siblings?.forEach(other => { if (other !== details) other.open = false; });
@@ -131,8 +155,14 @@ export function initNavigation() {
 
     return () => {
       events.abort();
+      drawerTween?.progress(1).kill();
+      gsap.set(menu, { clearProps: 'transform' });
       observer.disconnect();
       timers.forEach(clearTimeout);
+      header.querySelectorAll('.submenu').forEach(submenu => {
+        gsap.killTweensOf(submenu);
+        gsap.set(submenu, { clearProps: 'opacity,transform' });
+      });
       if (menu.open) menu.close();
       document.body.style.overflow = oldOverflow;
     };

@@ -46,13 +46,6 @@ html { scroll-padding-top: calc(var(--lh-compact-height) + 20px); }
 .film-play:hover, .film-pause:hover { background: #10261eb5; box-shadow: 0 0 0 6px #ffffff15; }
 .film-pause[hidden] { display: none; }
 
-@media (prefers-reduced-motion: no-preference) {
-  .hero-copy { animation: hero-copy-in 800ms var(--lh-ease) both; }
-  .hero picture { animation: hero-photo-in 1000ms var(--lh-ease) both; }
-}
-@keyframes hero-copy-in { from { opacity: .25; translate: -28px 0; } to { opacity: 1; translate: 0 0; } }
-@keyframes hero-photo-in { from { opacity: .5; translate: 28px 0; } to { opacity: 1; translate: 0 0; } }
-
 /* Затемнение только слева, где текст расположен поверх фото. */
 body[data-demo=lindenhof] .hero-gradient {
   background: linear-gradient(90deg, #0c2019d9, #0c201970 40%, transparent 76%);
@@ -136,7 +129,6 @@ body[data-demo=lindenhof] .hero-gradient {
 }
 @media (prefers-reduced-motion: reduce) {
   .vehicle-photo > img:first-child { transition: none; }
-  .hero-copy, .hero picture { animation: none; }
 }
 body[data-demo=lindenhof] main :is(section[id], form[id]) { scroll-margin-top: 0; }
 body[data-demo=lindenhof] { overflow-x: clip; }
