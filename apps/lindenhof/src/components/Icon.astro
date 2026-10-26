@@ -24,5 +24,5 @@ const src = `${import.meta.env.BASE_URL}assets/desktop-img${files[name] || files
 ---
 
 <span class:list={["icon", className]} aria-hidden="true">
-  <img src={src} alt="" />
+  {name==='compare'?<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v17M5 21h14M4 7h16M6 7 2 14h8L6 7Zm12 0-4 7h8l-4-7Z"/></svg>:<img src={src} alt="" />}
 </span>

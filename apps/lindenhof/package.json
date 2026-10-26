@@ -12,6 +12,7 @@
     "preview": "astro preview --port 4326"
   },
   "dependencies": {
-    "astro": "^7.3.5"
+    "astro": "^7.3.5",
+    "leaflet": "^1.9.4"
   }
 }

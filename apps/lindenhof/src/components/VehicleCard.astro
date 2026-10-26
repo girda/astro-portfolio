@@ -33,7 +33,7 @@ const asset = (name: string) => `${import.meta.env.BASE_URL}assets/${name}`;
   <div class="vehicle-photo">
     <img
       src={asset(v.image)}
-      alt={`${v.name} — Demofahrzeug`}
+      alt={v.name}
       loading="lazy"
       width="464"
       height="310"
@@ -58,29 +58,17 @@ const asset = (name: string) => `${import.meta.env.BASE_URL}assets/${name}`;
         </li>
       ))}
     </ul>
-    <Button data-development>Modell entdecken</Button>
+    <Button href={`${import.meta.env.BASE_URL}fahrzeuge/${v.id}/`}>Modell entdecken</Button>
   </div>
 </article>
 
 <script>
-  for(const card of document.querySelectorAll<HTMLElement>('.vehicle-card')){
-    const photo=card.querySelector<HTMLElement>('.vehicle-photo')!;
-    const alternate=photo.querySelector<HTMLImageElement>('.vehicle-angle')!;
-    const reduced=matchMedia('(prefers-reduced-motion: reduce)');
-    let ready=false,wanted=false,timer:ReturnType<typeof setTimeout>|undefined;
-    const show=()=>{
-      clearTimeout(timer);
-      if(!ready)return;
-      if(reduced.matches){photo.dataset.angle=String(wanted);photo.removeAttribute('data-switching');return;}
-      photo.setAttribute('data-switching','');
-      timer=setTimeout(()=>{photo.dataset.angle=String(wanted);photo.removeAttribute('data-switching');},100);
-    };
-    // Смена ракурса доступна только после декодирования: на hover нет сетевой паузы.
-    const prepare=async()=>{try{alternate.loading='eager';await alternate.decode();ready=true;if(wanted)show();}catch{/* Основной снимок остаётся видимым при ошибке загрузки. */}};
-    const observer=new IntersectionObserver(entries=>{if(entries.some(e=>e.isIntersecting)){observer.disconnect();void prepare();}},{rootMargin:'300px'});observer.observe(card);
-    card.addEventListener('pointerenter',e=>{if(e.pointerType==='mouse'){wanted=true;show();}});
-    card.addEventListener('pointerleave',()=>{wanted=false;show();});
-    card.addEventListener('focusin',()=>{wanted=true;show();});
-    card.addEventListener('focusout',e=>{if(!card.contains(e.relatedTarget as Node)){wanted=false;show();}});
-  }
+ for(const card of document.querySelectorAll<HTMLElement>('.vehicle-card')){
+  const photo=card.querySelector<HTMLElement>('.vehicle-photo')!,alternate=photo.querySelector<HTMLImageElement>('.vehicle-angle')!;
+  let ready=false,wanted=false;
+  const sync=()=>{photo.dataset.angle=String(ready&&wanted);};
+  const observer=new IntersectionObserver(entries=>{if(entries.some(e=>e.isIntersecting)){observer.disconnect();alternate.loading='eager';alternate.decode().then(()=>{ready=true;sync();}).catch(()=>{});}},{rootMargin:'400px'});observer.observe(card);
+  card.addEventListener('pointerenter',e=>{if(e.pointerType==='mouse'){wanted=true;sync();}});card.addEventListener('pointerleave',()=>{wanted=false;sync();});
+  card.addEventListener('focusin',()=>{wanted=true;sync();});card.addEventListener('focusout',e=>{if(!card.contains(e.relatedTarget as Node)){wanted=false;sync();}});
+ }
 </script>

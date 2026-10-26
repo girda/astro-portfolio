@@ -2,68 +2,16 @@ const $ = <T extends Element = HTMLElement>(selector: string) =>
   document.querySelector<T>(selector)!;
 const $$ = <T extends Element = HTMLElement>(selector: string) =>
   Array.from(document.querySelectorAll<T>(selector));
-const development = $<HTMLDialogElement>("#development-dialog");
-const menu = $<HTMLDialogElement>("#navigation-dialog");
-const message = $("#dialog-message");
-const title = $("#dialog-title");
-function showDevelopment(custom?: string) {
-  if (menu.open) menu.close();
-  title.textContent = custom
-    ? "Danke fürs Ausprobieren."
-    : "Hier entsteht etwas Neues.";
-  message.textContent =
-    custom ||
-    "Dieser Bereich ist noch in Entwicklung. Entdecke inzwischen unsere Fahrzeuge oder stelle uns deine Fragen direkt.";
-  if (!development.open) development.showModal();
-}
-$$("[data-development]").forEach((button) =>
-  button.addEventListener("click", () => showDevelopment()),
-);
-$(".menu-trigger").addEventListener("click", () => menu.showModal());
-$$<HTMLDialogElement>("dialog").forEach((dialog) => {
-  dialog
-    .querySelectorAll("[data-close]")
-    .forEach((button) =>
-      button.addEventListener("click", () => dialog.close()),
-    );
-  dialog.addEventListener("click", (event) => {
-    if (event.target === dialog) {
-      const r = dialog.getBoundingClientRect();
-      if (
-        event.clientX < r.left ||
-        event.clientX > r.right ||
-        event.clientY < r.top ||
-        event.clientY > r.bottom
-      )
-        dialog.close();
-    }
-  });
-});
+import {showDevelopment} from './navigation';
 const carousel = $(".vehicle-carousel");
 const cards = $$<HTMLElement>(".vehicle-card");
-const counter = $(".carousel-count");
 function visibleCards() {
   return cards.filter((card) => !card.hidden);
 }
-function updateCounter() {
-  const visible = visibleCards();
-  const nearest = visible.reduce(
-    (best, card, index) =>
-      Math.abs(
-        card.getBoundingClientRect().left -
-          carousel.getBoundingClientRect().left,
-      ) < best.distance
-        ? {
-            index,
-            distance: Math.abs(
-              card.getBoundingClientRect().left -
-                carousel.getBoundingClientRect().left,
-            ),
-          }
-        : best,
-    { index: 0, distance: Infinity },
-  );
-  counter.textContent = `${String(nearest.index + 1).padStart(2, "0")} / ${String(visible.length).padStart(2, "0")}`;
+function updateCarouselControls() {
+ const max=carousel.scrollWidth-carousel.clientWidth;
+ document.querySelector<HTMLButtonElement>('[data-slide="-1"]')?.toggleAttribute('disabled',carousel.scrollLeft<=2);
+ document.querySelector<HTMLButtonElement>('[data-slide="1"]')?.toggleAttribute('disabled',carousel.scrollLeft>=max-2);
 }
 $$<HTMLButtonElement>("[data-filter]").forEach((button) =>
   button.addEventListener("click", () => {
@@ -79,7 +27,7 @@ $$<HTMLButtonElement>("[data-filter]").forEach((button) =>
           card.dataset.category !== button.dataset.filter),
     );
     carousel.scrollLeft = 0;
-    updateCounter();
+    updateCarouselControls();
   }),
 );
 $$<HTMLButtonElement>("[data-slide]").forEach((button) =>
@@ -126,7 +74,7 @@ window.addEventListener("pointerup", () => {
   drag = null;
   carousel.classList.remove("dragging");
 });
-carousel.addEventListener("scroll", updateCounter, { passive: true });
+carousel.addEventListener("scroll", updateCarouselControls, { passive: true });
 let favorites: string[] = [];
 try {
   const raw = JSON.parse(localStorage.getItem("lindenhof:favorites") || "[]");
@@ -152,15 +100,13 @@ $$<HTMLButtonElement>("[data-save]").forEach((button) => {
   });
 });
 const tabs = $$<HTMLButtonElement>("[role=tab]");
+const tablist=document.querySelector<HTMLElement>('[role=tablist]')!;
+const indicator=document.createElement('span');indicator.className='tab-indicator';indicator.setAttribute('aria-hidden','true');tablist.append(indicator);
+function moveIndicator(){const active=tabs.find(t=>t.getAttribute('aria-selected')==='true');if(active){tablist.style.setProperty('--tab-left',active.offsetLeft+'px');tablist.style.setProperty('--tab-width',active.offsetWidth+'px');}}
 function activateTab(button: HTMLButtonElement) {
-  tabs.forEach((tab) => {
-    const active = tab === button;
-    tab.setAttribute("aria-selected", String(active));
-    tab.tabIndex = active ? 0 : -1;
-    const panel = document.getElementById(tab.getAttribute("aria-controls")!)!;
-    panel.hidden = !active;
-  });
+ tabs.forEach(tab=>{const active=tab===button;tab.setAttribute('aria-selected',String(active));tab.tabIndex=active?0:-1;document.getElementById(tab.getAttribute('aria-controls')!)!.hidden=!active;});moveIndicator();
 }
+new ResizeObserver(moveIndicator).observe(tablist);document.fonts.ready.then(moveIndicator);moveIndicator();
 tabs.forEach((button, index) => {
   button.addEventListener("click", () => activateTab(button));
   button.addEventListener("keydown", (event) => {
@@ -187,7 +133,7 @@ $("#test-drive-form").addEventListener("submit", (event) => {
   const form = event.currentTarget as HTMLFormElement;
   if (!form.reportValidity()) return;
   showDevelopment(
-    "Dies ist ein Designkonzept: Deine Anfrage wurde nicht versendet. Die eingegebenen Daten bleiben ausschließlich in deinem Browser.",
+    "Deine Angaben sind vorbereitet. Der Versand ist noch in Entwicklung; deine Anfrage wurde nicht übermittelt.",
   );
 });
 // Это локальная подборка по трём демомоделям, без имитации ответа подключённого ИИ.
@@ -195,7 +141,7 @@ function advise(wish: string) {
   const result = $("#advice-result");
   const value = wish.toLowerCase();
   let text =
-    "Für deinen Alltag lohnt sich ein Blick auf den Mazda3: ein kompakter Einstieg in unsere Demo-Auswahl.";
+    "Für deinen Alltag lohnt sich ein Blick auf den Mazda3: ein kompakter Einstieg in unsere Auswahl.";
   if (/famil|platz|kind|koffer|komfort|bmw/.test(value))
     text =
       "Wenn Platz und Komfort wichtig sind, wäre die BMW Limousine ein guter Ausgangspunkt. Prüfe bei einer Probefahrt, wie sich Sitzposition und Innenraum für dich anfühlen.";
@@ -281,3 +227,5 @@ if ("IntersectionObserver" in window) {
 document.addEventListener("visibilitychange", () => {
   if (document.hidden) stopVideo();
 });
+
+new ResizeObserver(updateCarouselControls).observe(carousel);updateCarouselControls();

@@ -1,12 +1,3 @@
-export const navigation = [
-  "Fahrzeuge",
-  "Finanzierung",
-  "Leasing",
-  "Service",
-  "Über uns",
-  "Standorte",
-  "Kontakt",
-];
 export const vehicles = [
   {
     id: "mazda",
@@ -50,6 +41,8 @@ export const vehicles = [
       ["gauge", "Fahrgefühl bei einer Probefahrt"],
     ],
   },
+  {id:'peugeot',brand:'PEUGEOT',name:'Peugeot 308',category:'Kompakt',description:'Markanter Auftritt. Dein Alltag im Blick.',image:'peugeot-308.webp',angle:'peugeot-308.webp',features:[['body','Kompakter Fünftürer'],['users','Innenraum gemeinsam entdecken'],['shield','Ausstattung am Fahrzeug vergleichen']]},
+  {id:'volkswagen',brand:'VOLKSWAGEN',name:'Volkswagen Golf',category:'Kompakt',description:'Vertraut im Alltag. Offen für neue Wege.',image:'volkswagen-golf.webp',angle:'volkswagen-golf.webp',features:[['body','Kompakter Fünftürer'],['users','Platzbedarf persönlich prüfen'],['gauge','Fahrgefühl bei einer Probefahrt']]},
 ];
 export const ownership = [
   {

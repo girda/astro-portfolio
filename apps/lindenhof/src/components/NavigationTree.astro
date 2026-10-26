@@ -1,0 +1,6 @@
+---
+import {type MenuItem,menuHref} from '../data/navigation';
+interface Props {items:MenuItem[];depth?:number;drawer?:boolean}
+const {items,depth=1,drawer=false}=Astro.props;const base=import.meta.env.BASE_URL;
+---
+<ul class:list={['menu-tree',`menu-depth-${depth}`,{'drawer-tree':drawer}]}>{items.map(item=><li>{item.children?<details><summary>{item.label}<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><path d="m9 6 6 6-6 6"/></svg></summary><div class="submenu">{item.path&&<a class="menu-overview" href={menuHref(item.path,base)}>{item.label} im Überblick</a>}<Astro.self items={item.children} depth={depth+1} drawer={drawer}/></div></details>:item.path?<a href={menuHref(item.path,base)}>{item.label}</a>:<button type="button" data-development>{item.label}<span>↗</span></button>}</li>)}</ul>

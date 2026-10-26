@@ -11,3 +11,12 @@ Photorealistic natural editorial photograph for the fictional German car dealers
 ## lindenhof-delivery.webp
 
 Photorealistic natural editorial commercial photograph for fictional German Autohaus Lindenhof, wide horizontal 16:9. Friendly sales advisor in charcoal blazer handing a car key to a smiling adult female customer beside a beautiful realistic deep blue BMW sedan, 3/4 front view, in a clean bright European car delivery bay. Natural candid interaction, customer and advisor both fully visible waist up on right, car occupies center and left, realistic anatomy and key. Warm oak showroom detail, cream walls and muted forest-green branding, leafy trees outside floor to ceiling windows. Small tasteful exact wall signage 'Autohaus Lindenhof' with a simple geometric forest green L road mark. Modern premium editorial photography, natural daylight, believable proportions, no giant ribbons or confetti, no stock-photo exaggerated handshake, no promotional copy, no watermark.
+
+## Автомобили каталога, 26.10.2026
+
+`peugeot-308.webp` и `volkswagen-golf.webp` созданы встроенным OpenAI ImageGen как студийные визуализации реальных моделей для демонстрационного каталога, не фотографии конкретных продаваемых автомобилей. Прозрачный фон сохранён, WebP 1200 px. Не используются как подтверждение наличия, комплектации или официального партнёрства.
+
+Постановка Peugeot: реалистичный зелёный Peugeot 308, передний левый ракурс, автомобиль целиком, студийное освещение, чистая геометрия, прозрачный фон, без текста и водяных знаков.
+Постановка Volkswagen: реалистичный серебристый Volkswagen Golf, передний левый ракурс, автомобиль целиком, то же студийное освещение и масштаб, прозрачный фон, без текста и водяных знаков.
+
+Картографическая подложка сайта: тайлы `tile.openstreetmap.org`, атрибуция © OpenStreetMap contributors. В Figma подложка карты сохранена как отдельный графический ресурс, а маркеры/адреса редактируются отдельно. Правила использования карты: https://operations.osmfoundation.org/policies/tiles/ ; данные: https://www.openstreetmap.org/copyright .
