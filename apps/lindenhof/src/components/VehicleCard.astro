@@ -38,14 +38,6 @@ const asset = (name: string) => `${import.meta.env.BASE_URL}assets/${name}`;
       width="464"
       height="310"
     />
-    <img
-      class="vehicle-angle"
-      src={asset(v.angle)}
-      alt=""
-      loading="lazy"
-      width="464"
-      height="310"
-    />
   </a>
   <div class="vehicle-info">
     <h3><a href={`${import.meta.env.BASE_URL}fahrzeuge/${v.id}/`}>{v.name}</a></h3>
@@ -61,14 +53,3 @@ const asset = (name: string) => `${import.meta.env.BASE_URL}assets/${name}`;
     <Button href={`${import.meta.env.BASE_URL}fahrzeuge/${v.id}/`}>Modell entdecken</Button>
   </div>
 </article>
-
-<script>
- for(const card of document.querySelectorAll<HTMLElement>('.vehicle-card')){
-  const photo=card.querySelector<HTMLElement>('.vehicle-photo')!,alternate=photo.querySelector<HTMLImageElement>('.vehicle-angle')!;
-  let ready=false,wanted=false;
-  const sync=()=>{photo.dataset.angle=String(ready&&wanted);};
-  const observer=new IntersectionObserver(entries=>{if(entries.some(e=>e.isIntersecting)){observer.disconnect();alternate.loading='eager';alternate.decode().then(()=>{ready=true;sync();}).catch(()=>{});}},{rootMargin:'400px'});observer.observe(card);
-  card.addEventListener('pointerenter',e=>{if(e.pointerType==='mouse'){wanted=true;sync();}});card.addEventListener('pointerleave',()=>{wanted=false;sync();});
-  card.addEventListener('focusin',()=>{wanted=true;sync();});card.addEventListener('focusout',e=>{if(!card.contains(e.relatedTarget as Node)){wanted=false;sync();}});
- }
-</script>

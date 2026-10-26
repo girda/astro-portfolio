@@ -6,7 +6,6 @@ export const vehicles = [
     category: "Kompakt",
     description: "Kompakt. Aber voller Charakter.",
     image: "desktop-imgVehicleCutout.png",
-    angle: "mazda-studio-angle.png",
     features: [
       ["body", "Kompaktklasse"],
       ["users", "Platz für bis zu 5 Personen"],
@@ -20,7 +19,6 @@ export const vehicles = [
     category: "Limousine",
     description: "Mehr Raum für deinen Alltag.",
     image: "desktop-imgVehicleCutout1.png",
-    angle: "bmw-studio-angle.png",
     features: [
       ["body", "Limousine"],
       ["users", "Platz für bis zu 5 Personen"],
@@ -34,15 +32,14 @@ export const vehicles = [
     category: "Roadster",
     description: "Für Wege, die sich lohnen.",
     image: "desktop-imgVehicleCutout2.png",
-    angle: "porsche-studio-angle.png",
     features: [
       ["body", "Offener Zweisitzer"],
       ["users", "Platz für 2 Personen"],
       ["gauge", "Fahrgefühl bei einer Probefahrt"],
     ],
   },
-  {id:'peugeot',brand:'PEUGEOT',name:'Peugeot 308',category:'Kompakt',description:'Markanter Auftritt. Dein Alltag im Blick.',image:'peugeot-308.webp',angle:'peugeot-308.webp',features:[['body','Kompakter Fünftürer'],['users','Innenraum gemeinsam entdecken'],['shield','Ausstattung am Fahrzeug vergleichen']]},
-  {id:'volkswagen',brand:'VOLKSWAGEN',name:'Volkswagen Golf',category:'Kompakt',description:'Vertraut im Alltag. Offen für neue Wege.',image:'volkswagen-golf.webp',angle:'volkswagen-golf.webp',features:[['body','Kompakter Fünftürer'],['users','Platzbedarf persönlich prüfen'],['gauge','Fahrgefühl bei einer Probefahrt']]},
+  {id:'peugeot',brand:'PEUGEOT',name:'Peugeot 308',category:'Kompakt',description:'Markanter Auftritt. Dein Alltag im Blick.',image:'peugeot-308.webp',features:[['body','Kompakter Fünftürer'],['users','Innenraum gemeinsam entdecken'],['shield','Ausstattung am Fahrzeug vergleichen']]},
+  {id:'volkswagen',brand:'VOLKSWAGEN',name:'Volkswagen Golf',category:'Kompakt',description:'Vertraut im Alltag. Offen für neue Wege.',image:'volkswagen-golf.webp',features:[['body','Kompakter Fünftürer'],['users','Platzbedarf persönlich prüfen'],['gauge','Fahrgefühl bei einer Probefahrt']]},
 ];
 export const ownership = [
   {

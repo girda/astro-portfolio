@@ -71,7 +71,7 @@ const canonical = Astro.site ? new URL(base, Astro.site).href : undefined;
       <section class="hero" aria-labelledby="hero-title">
         <picture>
           <source
-            media="(max-width: 1024px)"
+            media="(max-width: 640px)"
             srcset={asset("showroom-portrait.webp")}
             width="900"
             height="1350"
@@ -144,7 +144,6 @@ const canonical = Astro.site ? new URL(base, Astro.site).href : undefined;
               Richtung zu finden.
             </p>
             <Button id="advice-start">Beratung ausprobieren</Button>
-            <div class="advice-car" aria-hidden="true"><svg viewBox="0 0 440 170" fill="none" xmlns="http://www.w3.org/2000/svg"><g stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M31 111 40 87Q44 77 61 75L104 69 151 31Q160 24 180 24H270Q286 24 300 36L337 69 389 79Q406 83 411 98L415 119 392 129H368M91 130h205M39 130H27V111H48"/><path d="m117 69 42-34h33v34Zm86-34h64q11 0 19 8l29 26H203ZM107 80h223M202 79v39M323 80l10 36M169 89h15M278 89h15M40 99h28l10 10H37M379 89h25M395 111h18"/><circle cx="70" cy="128" r="26"/><circle cx="70" cy="128" r="15"/><circle cx="338" cy="128" r="26"/><circle cx="338" cy="128" r="15"/><path d="M70 113v30m-15-15h30m253-15v30m-15-15h30M18 160h410"/></g></svg></div>
           </div>
           <div class="assistant-panel">
             <h3>Was soll dein nächstes Auto können?</h3>
