@@ -20,3 +20,11 @@ Photorealistic natural editorial commercial photograph for fictional German Auto
 Постановка Volkswagen: реалистичный серебристый Volkswagen Golf, передний левый ракурс, автомобиль целиком, то же студийное освещение и масштаб, прозрачный фон, без текста и водяных знаков.
 
 Картографическая подложка сайта: тайлы `tile.openstreetmap.org`, атрибуция © OpenStreetMap contributors. В Figma подложка карты сохранена как отдельный графический ресурс, а маркеры/адреса редактируются отдельно. Правила использования карты: https://operations.osmfoundation.org/policies/tiles/ ; данные: https://www.openstreetmap.org/copyright .
+
+## Вертикальный первый экран, 26.10.2026
+
+`showroom-portrait.webp` — новая вертикальная композиция встроенного ImageGen по существующему изображению салона. На сайте900×1350, WebP quality87, около193KB. В Figma используется исходный PNG. Это вымышленная сцена, не фотография сотрудников/покупателей конкретной компании.
+
+Точный запрос:
+
+> Create a NEW portrait 2:3 editorial photograph of the same fictional Autohaus Lindenhof showroom as the reference, art directed for a premium mobile website hero. Preserve the exact recognizable forest-green L road logo and wall lettering 'AUTOHAUS Lindenhof', bright limestone walls, oak vertical slats and large daylight windows. Composition: wall sign fully visible and clearly readable in upper quarter, a beautiful realistic silver BMW sedan fully visible bumper to bumper in lower-middle, front three-quarter angle facing slightly left, small friendly male advisor in dark blazer showing the car to a casually dressed adult customer at the car's right side, both naturally engaged and wholly inside the frame, no giant foreground host. More intimate vertical composition, realistic perspective, enough room around car, minimal empty ceiling and floor. Warm daylight, refined German dealership, believable anatomy, no extra advertising text, no UI, no watermark. Do not paste a horizontal image into a portrait frame; recompose the room and subjects naturally for a vertical photograph. Need portrait 1024x1536.

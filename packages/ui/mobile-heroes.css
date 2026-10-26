@@ -27,10 +27,4 @@
  body[data-demo=ecohomes] .hero-description{color:#58685c}
  body[data-demo=ecohomes] .hero .button{background:#31543f;color:#fff}
  body[data-demo=ecohomes] .hero-foot{position:relative;inset:auto;order:3;padding-block:20px;color:#58685c}
- body[data-demo=lindenhof] main>.hero{display:flex;flex-direction:column;min-height:0;height:auto;background:#f2f4ef}
- body[data-demo=lindenhof] .hero>picture{position:relative;inset:auto;display:block;order:2;width:100%;height:auto}
- body[data-demo=lindenhof] .hero .hero-image{position:relative;inset:auto;width:100%;height:auto;object-fit:contain}
- body[data-demo=lindenhof] .hero-gradient{display:none}
- body[data-demo=lindenhof] .hero-copy{position:relative;inset:auto;margin:0;padding:36px 24px;color:var(--lh-ink,#17211e);max-width:none}
- body[data-demo=lindenhof] .hero-copy h1,body[data-demo=lindenhof] .hero-copy p{color:inherit;text-shadow:none}
 }

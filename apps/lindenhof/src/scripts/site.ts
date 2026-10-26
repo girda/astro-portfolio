@@ -196,7 +196,7 @@ function stopVideo() {
 }
 play.addEventListener("click", () => {
   manualPause = false;
-  video.controls = true;
+  video.controls = false;
   void startVideo();
 });
 pause.addEventListener("click", () => {

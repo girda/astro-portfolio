@@ -30,7 +30,7 @@ const asset = (name: string) => `${import.meta.env.BASE_URL}assets/${name}`;
       </button>
     </div>
   </div>
-  <div class="vehicle-photo">
+  <a class="vehicle-photo" href={`${import.meta.env.BASE_URL}fahrzeuge/${v.id}/`} aria-label={`${v.name} entdecken`}>
     <img
       src={asset(v.image)}
       alt={v.name}
@@ -46,9 +46,9 @@ const asset = (name: string) => `${import.meta.env.BASE_URL}assets/${name}`;
       width="464"
       height="310"
     />
-  </div>
+  </a>
   <div class="vehicle-info">
-    <h3>{v.name}</h3>
+    <h3><a href={`${import.meta.env.BASE_URL}fahrzeuge/${v.id}/`}>{v.name}</a></h3>
     <p>{v.description}</p>
     <ul>
       {v.features.map(([icon, label]) => (

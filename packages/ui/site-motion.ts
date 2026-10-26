@@ -30,8 +30,10 @@ export function initSiteMotion() {
         const element = entry.target as HTMLElement;
         const siblings = element.parentElement ? [...element.parentElement.children] : [element];
         const order = Math.max(0, siblings.indexOf(element)) % 4;
+        const direction = element.dataset.motion;
+        const from = direction === 'left' ? '-36px 0' : direction === 'right' ? '36px 0' : `0 ${MOTION.distance}px`;
         const animation = element.animate([
-          {opacity: .16, translate: `0 ${MOTION.distance}px`},
+          {opacity: .16, translate: from},
           {opacity: 1, translate: '0 0'},
         ], {duration: MOTION.duration, delay: order * MOTION.stagger, easing: MOTION.easing});
         active.add(animation);
