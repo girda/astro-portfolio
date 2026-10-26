@@ -27,7 +27,20 @@
   section.studio-hero[data-studio] { height: auto; min-height: 560px; }
 }
 
-@media(min-width:761px) and (max-width:1024px){
- section.studio-hero .art-plane{inset:0;transform:none!important}
- section.studio-hero .studio-image{object-fit:contain;object-position:center bottom}
+/* Планшетная сцена заполняет ширину, а верхняя кромка растворяется в фоне. */
+@media (min-width: 600px) and (max-width: 1024px) {
+  section.studio-hero[data-studio] { height: clamp(680px, 85svh, 820px); min-height: 680px; }
+  section.studio-hero .art-plane {
+    inset: auto 0 0; width: 100%; height: auto; aspect-ratio: 1586 / 992;
+    transform: none !important;
+    -webkit-mask-image: linear-gradient(transparent, #000 100px, #000 calc(100% - 110px), transparent);
+    mask-image: linear-gradient(transparent, #000 100px, #000 calc(100% - 110px), transparent);
+  }
+  section.studio-hero .studio-image { object-fit: contain; object-position: center bottom; -webkit-mask-image: none; mask-image: none; }
+  section.studio-hero .hero-copy { padding-top: 38px; }
+  section.studio-hero .hero-eyebrow { font-size: 10px; }
+  section.studio-hero h1 { font-size: clamp(33px, 4.3vw, 46px); max-width: 52%; }
+  section.studio-hero .hero-intro { max-width: 43%; font-size: 14px; line-height: 1.55; margin-block: 20px; }
+  section.studio-hero .hero-actions { gap: 10px; }
+  section.studio-hero .hero-actions :is(a, button) { min-height: 44px; padding: 11px 14px; font-size: 11px; }
 }
