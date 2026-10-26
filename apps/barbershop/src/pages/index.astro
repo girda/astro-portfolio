@@ -21,8 +21,8 @@ const canonical = Astro.site ? new URL(Astro.url.pathname, Astro.site).href : un
 <html lang="de">
   <head>
     <meta charset="UTF-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>KANT — Haar. Bart. Handwerk. · Designkonzept</title>
-    <meta name="description" content="KANT: ein Barbershop-Designkonzept von HIRDA. Entdecke Schnitte, Bartpflege, Looks und eine persönliche Pflegeauswahl." />
+    <title>KANT — Haar. Bart. Handwerk.</title>
+    <meta name="description" content="KANT: Schnitte, Bart und Pflege mit Charakter. Entdecke Schnitte, Bartpflege, Looks und eine persönliche Pflegeauswahl." />
     <meta name="robots" content="noindex, nofollow" />
     {canonical && <link rel="canonical" href={canonical} />}
     <meta property="og:title" content="KANT — Haar. Bart. Handwerk." />
@@ -34,7 +34,7 @@ const canonical = Astro.site ? new URL(Astro.url.pathname, Astro.site).href : un
   </head>
   <body data-demo="barbershop">
     <a class="skip-link" href="#main">Zum Inhalt</a>
-    <div class="demo">Designkonzept von HIRDA · Kein realer Salon</div>
+
     <header class="paper-header" id="top"><Brand /><Navigation /></header>
     <main id="main">
       <section class="hero" aria-labelledby="hero-title">
@@ -74,7 +74,7 @@ const canonical = Astro.site ? new URL(Astro.url.pathname, Astro.site).href : un
       <section class="closing"><div class="container closing-inner"><div><p class="kicker">BEREIT FÜR FRISCHEN WIND?</p><h2>Dein Stuhl.<br /><em>Dein nächster Look.</em></h2></div><div><button class="btn" type="button" data-open-booking aria-haspopup="dialog" aria-controls="booking-dialog" hidden>Leistung auswählen</button><p class="small-note">Demo ansehen · Keine echte Buchung</p></div></div></section>
     <ReviewCarousel project="barbershop" />
 </main>
-    <footer class="paper-footer container"><div class="footer-top"><Brand /><nav aria-label="Footer-Navigation">{navigation.filter(link => link.desktop).map(link => <a href={link.href}>{link.label}</a>)}</nav><a class="back-top" href="#top" aria-label="Nach oben"><Icon name="chevron-left" /></a></div><div class="footer-bottom"><span>© {new Date().getFullYear()} KANT · Fiktiver Salon</span><span>Designkonzept von HIRDA · Keine echte Terminbuchung</span></div></footer>
+    <footer class="paper-footer container"><div class="footer-top"><Brand /><nav aria-label="Footer-Navigation">{navigation.filter(link => link.desktop).map(link => <a href={link.href}>{link.label}</a>)}</nav><a class="back-top" href="#top" aria-label="Nach oben"><Icon name="chevron-left" /></a></div><div class="footer-bottom"><span>© {new Date().getFullYear()} KANT</span></div></footer>
     <BookingDialog /><PhoneDialog /><Motion />
     <script>
       // Закрытие по фону работает только вне прямоугольника диалога.

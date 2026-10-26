@@ -10,7 +10,7 @@ import Icon from './Icon.astro';
     <h2 id="phone-title">Ruf an.<br />Wir nehmen uns Zeit.</h2>
     <p class="description">Ruf uns an und vereinbare deinen Termin. Wir helfen dir gerne bei der Wahl deiner Behandlung.</p>
     {contact.isDemo ? <span class="phone-number">{contact.phone}</span> : <a class="phone-number" href={`tel:${contact.phone.replace(/[^+\d]/g, '')}`}>{contact.phone}</a>}
-    {contact.isDemo && <p class="phone-note">Designkonzept · Beispielnummer, nicht erreichbar. Es wird kein Anruf ausgelöst.</p>}
+    {contact.isDemo && <p class="phone-note">Beispielnummer, nicht erreichbar. Es wird kein Anruf ausgelöst.</p>}
   </div>
 </dialog>
 <script>

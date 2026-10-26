@@ -61,7 +61,7 @@ const content = {
     "price": "Beispielpreis",
     "unsure": "Nach Absprache",
     "inspiration": "Inspiration ansehen",
-    "footer": "STILL Beauty & Spa · Ein Designkonzept von HIRDA",
+    "footer": "STILL Beauty & Spa",
     "back": "Zurück nach oben",
     "step1": "Wunsch besprechen",
     "step2": "Behandlung abstimmen",
