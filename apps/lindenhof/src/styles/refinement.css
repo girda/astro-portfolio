@@ -47,8 +47,8 @@ html { scroll-padding-top: calc(var(--lh-compact-height) + 20px); }
 .film-pause[hidden] { display: none; }
 
 @media (prefers-reduced-motion: no-preference) {
-  .hero-copy { animation: hero-copy-in 800ms var(--lh-ease) 140ms both; }
-  .hero picture { animation: hero-photo-in 1000ms var(--lh-ease) 220ms both; }
+  .hero-copy { animation: hero-copy-in 800ms var(--lh-ease) both; }
+  .hero picture { animation: hero-photo-in 1000ms var(--lh-ease) both; }
 }
 @keyframes hero-copy-in { from { opacity: .25; translate: -28px 0; } to { opacity: 1; translate: 0 0; } }
 @keyframes hero-photo-in { from { opacity: .5; translate: 28px 0; } to { opacity: 1; translate: 0 0; } }
@@ -80,7 +80,7 @@ body[data-demo=lindenhof] .hero-gradient {
     position: relative;
     width: 100%;
     height: auto;
-    object-fit: contain;
+    object-fit: cover;
   }
   body[data-demo=lindenhof] main > .hero .hero-copy {
     position: relative;
