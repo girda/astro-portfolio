@@ -1,0 +1,19 @@
+<script>
+import {onPageReady} from './page-lifecycle';
+onPageReady(()=>{
+ const events=new AbortController(),options={signal:events.signal};
+ const tip=document.createElement('div');tip.className='hirda-tooltip';tip.id='hirda-help-tooltip';tip.role='tooltip';tip.hidden=true;document.body.append(tip);
+ let current:HTMLElement|null=null,previous:string|null=null;
+ const hide=()=>{if(current){if(previous)current.setAttribute('aria-describedby',previous);else current.removeAttribute('aria-describedby');}current=null;tip.hidden=true;};
+ const show=(node:HTMLElement)=>{const text=node.dataset.tooltip||node.getAttribute('aria-label');if(!text)return;if(current===node)return;hide();current=node;previous=node.getAttribute('aria-describedby');node.setAttribute('aria-describedby',[previous,tip.id].filter(Boolean).join(' '));tip.textContent=text;tip.hidden=false;const rect=node.getBoundingClientRect(),bounds=tip.getBoundingClientRect();tip.style.left=`${Math.max(10,Math.min(innerWidth-bounds.width-10,rect.left+rect.width/2-bounds.width/2))}px`;tip.style.top=`${rect.top>bounds.height+20?rect.top-bounds.height-10:Math.min(innerHeight-bounds.height-10,rect.bottom+10)}px`;};
+ const find=(target:EventTarget|null)=>(target instanceof Element?target.closest<HTMLElement>('[data-tooltip],button[aria-label],a[aria-label]'):null);
+ document.addEventListener('pointerover',e=>{if(e.pointerType==='touch')return;const n=find(e.target);if(n)show(n);},options);
+ document.addEventListener('pointerout',e=>{if(current&&!current.contains(e.relatedTarget as Node))hide();},options);
+ document.addEventListener('focusin',e=>{const n=find(e.target);if(n)show(n);},options);
+ document.addEventListener('focusout',hide,options);document.addEventListener('click',hide,options);document.addEventListener('keydown',e=>{if(e.key==='Escape')hide();},options);window.addEventListener('scroll',hide,{...options,passive:true,capture:true});window.addEventListener('resize',hide,options);
+ return()=>{hide();events.abort();tip.remove();};
+});
+</script>
+<style is:global>
+.hirda-tooltip{position:fixed;z-index:2147483647;max-width:min(260px,calc(100vw - 24px));padding:9px 13px;border:1px solid #ffffff24;border-radius:8px;background:#1d302dee;color:#fff;box-shadow:0 8px 24px #13282424;font:400 12px/1.5 Arial,sans-serif;letter-spacing:0;pointer-events:none;backdrop-filter:blur(12px)}.hirda-tooltip[hidden]{display:none}
+</style>

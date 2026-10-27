@@ -161,6 +161,17 @@ export function initSite() {
         } output.append(grid);
       } openDialog(comparison);
     }, options);
+    document.querySelectorAll<HTMLElement>('[data-carousel]').forEach(carousel => {
+      const track=carousel.querySelector<HTMLElement>('[data-carousel-track]')!;
+      const prev=carousel.querySelector<HTMLButtonElement>('[data-carousel-prev]')!;
+      const next=carousel.querySelector<HTMLButtonElement>('[data-carousel-next]')!;
+      const sync=()=>{prev.disabled=track.scrollLeft<3;next.disabled=track.scrollLeft+track.clientWidth>=track.scrollWidth-3;};
+      const move=(direction:number)=>track.scrollBy({left:direction*((track.firstElementChild?.getBoundingClientRect().width||track.clientWidth)+parseFloat(getComputedStyle(track).gap||'0')),behavior:reduced()?'instant':'smooth'});
+      prev.addEventListener('click',()=>move(-1),options);next.addEventListener('click',()=>move(1),options);
+      track.addEventListener('scroll',sync,{...options,passive:true});
+      track.addEventListener('keydown',event=>{if(event.target!==track)return;if(event.key==='ArrowRight'||event.key==='ArrowLeft'){event.preventDefault();move(event.key==='ArrowRight'?1:-1);}},options);
+      const observer=new ResizeObserver(sync);observer.observe(track);events.signal.addEventListener('abort',()=>observer.disconnect(),{once:true});sync();
+    });
     const consult = document.querySelector<HTMLDialogElement>('#consult-dialog')!;
     document.querySelectorAll<HTMLElement>('[data-consult]').forEach(button => button.addEventListener('click', () => {
       if (button.dataset.houseName) consult.querySelector<HTMLTextAreaElement>('textarea')!.value = `Ich interessiere mich für ${button.dataset.houseName}.`;
@@ -187,7 +198,7 @@ export function initSite() {
         back.hidden = step === 0;
         quiz!.querySelector('[data-quiz-step]')!.textContent = `${step+1} / 4`;
         quiz!.querySelector<HTMLElement>('.quiz-progress i')!.style.width = `${(step+1)*25}%`;
-        submit.textContent = step === 3 ? 'Hausideen entdecken →' : 'Weiter →';
+        submit.textContent = step === 3 ? 'Hausideen entdecken' : 'Weiter';
       }
       back.addEventListener('click', () => { step = Math.max(0,step-1);displayStep(); }, options);
       quiz.addEventListener('submit', event => {
