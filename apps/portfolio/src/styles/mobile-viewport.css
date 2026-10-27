@@ -27,6 +27,18 @@
   section.studio-hero[data-studio] { height: auto; min-height: 560px; }
 }
 
+/* Портретная сцена следует ширине экрана, а не вписывается в его высоту.
+   На широком телефоне даём hero необходимую высоту, чтобы не обрезать фото. */
+@media (max-width: 599px) {
+  section.studio-hero[data-studio] { min-height: calc(100vw * 1773 / 887); }
+  section.studio-hero .art-plane {
+    inset: auto 0 0;
+    width: 100%;
+    height: auto;
+    aspect-ratio: 887 / 1773;
+  }
+}
+
 /* Планшетная сцена заполняет ширину, а верхняя кромка растворяется в фоне. */
 @media (min-width: 600px) and (max-width: 1024px) {
   section.studio-hero[data-studio] { height: clamp(680px, 85svh, 820px); min-height: 680px; }
