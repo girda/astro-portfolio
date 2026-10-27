@@ -4,6 +4,7 @@ import Icon from "../../../../packages/ui/Icon.astro";
 import DemoMenu from "../../../../packages/ui/DemoMenu.astro";
 import "../../../../packages/ui/foundations.css";
 import "../styles/global.css";
+import "../styles/refinement.css";
 import Motion from "../components/Motion.astro";
 const base = import.meta.env.BASE_URL;
 const asset = (name: string) => `${base}images/${name}.webp`;
@@ -144,6 +145,7 @@ const faq = [
             <a href={l.href}>{l.label}</a>
           ))}
         </nav>
+        <button class="eco-compare-open" type="button" data-eco-compare-open aria-label="Hausideen vergleichen"><Icon name="columns-2"/><span data-eco-compare-count hidden>0</span></button>
         <a class="button header-cta" href="#hausfinder">
           Dein Haus entdecken
         </a>
@@ -163,13 +165,13 @@ const faq = [
         <div class="container hero-copy">
           <p class="eyebrow">NATÜRLICH BAUEN. WEITERDENKEN.</p>
           <h1>
-            Ein Zuhause für dich.
-            <br />
-            <em>Gedacht für morgen.</em>
+            Dein Holzhaus.
+            <br />{' '}
+            <em>Energie mitgedacht.</em>
           </h1>
           <p class="hero-description">
             Architektur aus Holz. Energie von der Sonne.
-            <br />
+            <br />{' '}
             Und Raum für das Leben, das du dir wünschst.
           </p>
           <a class="button pale" href="#haeuser">
@@ -188,7 +190,7 @@ const faq = [
               <p class="eyebrow">RAUM FÜR DEINE IDEEN</p>
               <h2>
                 So individuell
-                <br />
+                <br />{' '}
                 <em>wie dein Leben.</em>
               </h2>
             </div>
@@ -230,6 +232,7 @@ const faq = [
                   >
                     <Icon name="heart" />
                   </button>
+                  <button class="eco-compare-button" type="button" data-eco-compare={h.id} aria-label={`${h.name} vergleichen`} aria-pressed="false"><Icon name="columns-2"/></button>
                   <span>{h.type}</span>
                 </div>
                 <div class="house-body">
@@ -269,7 +272,7 @@ const faq = [
               <p class="eyebrow">VON ANFANG AN ZUSAMMENGEDACHT</p>
               <h2>
                 Ein Haus.
-                <br />
+                <br />{' '}
                 <em>Ein Energiesystem.</em>
               </h2>
             </div>
@@ -278,6 +281,7 @@ const faq = [
               Nutzung passt. Entdecke, wie die Bausteine zusammenspielen.
             </p>
           </div>
+          <div class="energy-mode-bar"><div class="energy-mode" role="group" aria-label="Energiefluss nach Tageszeit"><button type="button" data-energy-mode="day" aria-pressed="true"><Icon name="sun"/>Tag</button><button type="button" data-energy-mode="night" aria-pressed="false"><Icon name="battery-full"/>Nacht</button></div><p data-energy-mode-note aria-live="polite">Tagsüber: Sonnenstrom direkt nutzen und im Speicher bereithalten.</p></div>
           <div class="energy-layout">
             <div class="energy-visual" data-motion>
               <img
@@ -287,6 +291,7 @@ const faq = [
                 height="941"
                 loading="lazy"
               />
+              <svg class="energy-flow" viewBox="0 0 700 450" fill="none" aria-hidden="true"><path class="flow-solar" d="M400 105 Q500 150 520 300L350 330"/><path class="flow-house" d="M350 330 230 320Q180 290 180 240"/></svg>
               {energy.map((e, i) => (
                 <button
                   type="button"
@@ -348,7 +353,7 @@ const faq = [
               <strong>
                 Holz ist der Anfang. Gute Planung macht den Unterschied.
               </strong>
-              <br />
+              <br />{' '}
               Gebäudehülle, sommerlicher Wärmeschutz und Materialien gehören
               genauso zum Gespräch wie die Haustechnik.
             </p>
@@ -361,7 +366,7 @@ const faq = [
             <p class="eyebrow">DEIN ZUHAUSE BEGINNT MIT DIR</p>
             <h2>
               Was braucht
-              <br />
+              <br />{' '}
               <em>dein Leben?</em>
             </h2>
             <p>
@@ -394,6 +399,7 @@ const faq = [
                 </label>
               </div>
             </fieldset>
+            <label class="field">Welche Wohnfläche stellst du dir vor?<select name="area"><option value="any">Noch offen</option><option value="compact">Bis etwa 120 m²</option><option value="medium">Etwa 120–145 m²</option><option value="large">Ab etwa 145 m²</option></select></label>
             <label class="field">
               Wie weit bist du?
               <select name="stage">
@@ -416,7 +422,7 @@ const faq = [
               <p class="eyebrow">VOM GUTEN GEFÜHL ZUM KLAREN PLAN</p>
               <h2>
                 Schritt für Schritt.
-                <br />
+                <br />{' '}
                 <em>Gemeinsam mit dir.</em>
               </h2>
             </div>
@@ -469,7 +475,7 @@ const faq = [
             <p class="eyebrow">EICHENHAIN / DAS KONZEPT</p>
             <h2>
               Weniger beliebig.
-              <br />
+              <br />{' '}
               <em>Mehr Zuhause.</em>
             </h2>
             <p>
@@ -499,7 +505,7 @@ const faq = [
             <p class="eyebrow">GUT ZU WISSEN</p>
             <h2>
               Gute Fragen.
-              <br />
+              <br />{' '}
               <em>Klare Antworten.</em>
             </h2>
           </div>
@@ -524,7 +530,7 @@ const faq = [
             <p class="eyebrow">DEINE IDEE VERDIENT EIN GESPRÄCH</p>
             <h2>
               Lass uns über
-              <br />
+              <br />{' '}
               <em>dein Zuhause reden.</em>
             </h2>
             <p>
@@ -543,7 +549,7 @@ const faq = [
             </div>
             <p class="caption">
               Fiktiver Anbieter und Demoadresse.
-              <br />
+              <br />{' '}
               Keine echte Kontaktaufnahme über diese Seite.
             </p>
           </div>
@@ -680,6 +686,7 @@ const faq = [
         Angaben bearbeiten
       </button>
     </dialog>
+    <dialog id="eco-compare-dialog" aria-labelledby="eco-compare-title"><button type="button" class="close" data-close aria-label="Vergleich schließen"><Icon name="x"/></button><p class="eyebrow">DEINE HAUSIDEEN IM ÜBERBLICK</p><h2 id="eco-compare-title">Was passt zu deinem Leben?</h2><div data-eco-compare-output></div></dialog>
     <script
       type="application/json"
       id="house-data"

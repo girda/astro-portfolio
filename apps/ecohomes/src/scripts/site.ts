@@ -1,5 +1,10 @@
+import { initEnhancements } from './refinement';
+initEnhancements();
 const houses: {
   id: string;
+  area: string;
+  type: string;
+  rooms: string;
   name: string;
   image: string;
   text: string;
@@ -129,27 +134,27 @@ tabs.forEach((tab, i) =>
 document.getElementById("house-finder")!.addEventListener("submit", (e) => {
   e.preventDefault();
   const data = new FormData(e.currentTarget as HTMLFormElement);
-  const index =
-    data.get("priority") === "level"
-      ? 1
-      : data.get("priority") === "compact"
-        ? 2
-        : 0;
-  const h = houses[index];
+  const preferred = data.get('priority') === 'level' ? 'wiesenblick' : data.get('priority') === 'compact' ? 'hain' : 'lichtung';
+  const target = data.get('area') === 'compact' ? 'hain' : data.get('area') === 'medium' ? 'wiesenblick' : data.get('area') === 'large' ? 'lichtung' : preferred;
+  const h = houses.find(house => house.id === target)!;
   const result = document.getElementById("finder-result")!;
   const title = document.createElement("h3");
   title.textContent = `Deine Richtung: ${h.name}`;
   const p = document.createElement("p");
-  p.textContent = `${h.text} Das ist ein erster Ausgangspunkt, keine verbindliche Planung. Als Nächstes wären Grundstück und Raumbedarf zu klären.`;
+  const conflict = target !== preferred ? 'Die gewählte Fläche führt zu einer anderen Hausidee als dein erster Wohnwunsch. Das klären wir im Gespräch. ' : '';
+  const stage = String(data.get('stage'));
+  const next = stage === 'Ich habe ein Grundstück' ? 'Als Nächstes: Lage, Ausrichtung und Bebaubarkeit deines Grundstücks prüfen.' : stage === 'Ich suche ein Grundstück' ? 'Als Nächstes: Anforderungen an Lage und Grundstücksgröße sammeln.' : 'Als Nächstes: Wohnwünsche und Raumprogramm gemeinsam eingrenzen.';
+  p.textContent = `${h.text} ${conflict}${next} Dies ist eine erste Orientierung, keine verbindliche Planung.`;
   const a = document.createElement("a");
   a.className = "text-button";
   a.href = "#kontakt";
   a.textContent = "Mit dieser Idee weitergehen";
   a.addEventListener(
     "click",
-    () =>
-      (document.querySelector<HTMLSelectElement>("[name=house]")!.value =
-        h.name),
+    () => {
+      document.querySelector<HTMLSelectElement>('[name=house]')!.value = h.name;
+      document.querySelector<HTMLTextAreaElement>('[name=message]')!.value = `Hausidee: ${h.name}\nFlächenwunsch: ${String(data.get('area')) === 'any' ? 'Noch offen' : data.get('area') === 'compact' ? 'Bis etwa 120 m²' : data.get('area') === 'medium' ? '120–145 m²' : 'Ab etwa 145 m²'}\nStand: ${stage}`;
+    },
   );
   result.replaceChildren(title, p, a);
   result.hidden = false;

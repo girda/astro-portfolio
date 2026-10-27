@@ -1,4 +1,20 @@
 ---
-import SiteMotion from '../../../../packages/ui/SiteMotion.astro';
+import '../../../../packages/ui/mobile-heroes.css';
+import '../../../../packages/ui/interface-polish.css';
 ---
-<SiteMotion />
+<script>
+import { gsap } from 'gsap';
+import { ScrollTrigger } from 'gsap/ScrollTrigger';
+import { onPageReady } from '../../../../packages/ui/page-lifecycle';
+gsap.registerPlugin(ScrollTrigger);
+onPageReady(() => {
+  const media = gsap.matchMedia();
+  media.add('(prefers-reduced-motion: no-preference)', () => {
+    document.querySelectorAll<HTMLElement>('[data-motion]').forEach(element => {
+      if (element.getBoundingClientRect().top < innerHeight) return;
+      gsap.fromTo(element, { opacity: 0, y: 16 }, { opacity: 1, y: 0, duration: .55, ease: 'power2.out', clearProps: 'opacity,transform', scrollTrigger: { trigger: element, start: 'top 98%', once: true } });
+    });
+  });
+  return () => media.revert();
+});
+</script>
