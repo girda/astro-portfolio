@@ -47,6 +47,7 @@ export const translations = {
     planned: "Geplant",
     languageLabel: "Sprache wählen",
     projects: [
+      { id: "hausbau", title: "Falkenried", category: "Hausbau · Katalog & Vergleich" },
       {
         id: "barbershop",
         title: "Barbershop",
@@ -108,6 +109,7 @@ export const translations = {
     planned: "В планах",
     languageLabel: "Выбрать язык",
     projects: [
+      { id: "hausbau", title: "Фалькенрид", category: "Строительство домов · Каталог и сравнение" },
       {
         id: "barbershop",
         title: "Барбершоп",
@@ -180,6 +182,7 @@ export const translations = {
     planned: "Planned",
     languageLabel: "Choose language",
     projects: [
+      { id: "hausbau", title: "Falkenried", category: "Housebuilding · Catalogue & comparison" },
       {
         id: "barbershop",
         title: "Barbershop",

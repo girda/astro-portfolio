@@ -1,4 +1,6 @@
 ---
+import projectOrderConfig from "../data/project-order.json";
+import { resolveProjectOrder } from "../data/project-order";
 import { projects, projectHref } from "../data/projects";
 import "../styles/interface-polish.css";
 import BrandSculpture from "./BrandSculpture.astro";
@@ -23,7 +25,7 @@ const ru = Astro.props.lang === 'ru';
 const { lang } = Astro.props;
 const t = translations[lang];
 // Порядок одинаков для всех языков и задаётся в едином каталоге проектов.
-const projectOrder = Object.keys(projects);
+const projectOrder = resolveProjectOrder(Object.keys(projects), projectOrderConfig);
 const orderedProjects = [...t.projects].sort(
   (a, b) => projectOrder.indexOf(a.id) - projectOrder.indexOf(b.id),
 );
