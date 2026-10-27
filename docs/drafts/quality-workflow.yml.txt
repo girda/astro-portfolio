@@ -1,0 +1,71 @@
+name: Quality report
+on:
+  pull_request:
+    branches: [main]
+  workflow_dispatch:
+permissions:
+  contents: read
+concurrency:
+  group: quality-${{ github.ref }}
+  cancel-in-progress: true
+jobs:
+  quality:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '24'
+      - name: Install all project dependencies
+        id: install
+        run: node scripts/install.mjs
+      - name: Unit and integration tests
+        id: tests
+        run: |
+          mkdir -p reports
+          set -o pipefail
+          npm test 2>&1 | tee reports/tests.txt
+      - name: Production build
+        id: build
+        run: |
+          set -o pipefail
+          npm run build 2>&1 | tee reports/build.txt
+        env:
+          SITE_URL: https://${{ github.repository_owner }}.github.io
+          PAGES_BASE: /astro-portfolio/
+      - name: SEO and URL checks
+        id: seo
+        run: |
+          set -o pipefail
+          npm run check:seo 2>&1 | tee reports/seo.txt
+        env:
+          SITE_URL: https://${{ github.repository_owner }}.github.io
+          PAGES_BASE: /astro-portfolio/
+      - name: Publish check summary
+        if: always()
+        env:
+          INSTALL_RESULT: ${{ steps.install.outcome }}
+          TEST_RESULT: ${{ steps.tests.outcome }}
+          BUILD_RESULT: ${{ steps.build.outcome }}
+          SEO_RESULT: ${{ steps.seo.outcome }}
+        run: |
+          {
+            echo '## HIRDA quality report'
+            echo ''
+            echo '| Check | Result |'
+            echo '| --- | --- |'
+            echo "| Dependencies | $INSTALL_RESULT |"
+            echo "| Tests | $TEST_RESULT |"
+            echo "| Production build | $BUILD_RESULT |"
+            echo "| SEO and URLs | $SEO_RESULT |"
+            echo ''
+            echo 'Visual/mobile checks are documented separately; this workflow does not claim visual approval.'
+          } >> "$GITHUB_STEP_SUMMARY"
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: quality-report
+          path: reports/
+          retention-days: 14
+          if-no-files-found: ignore
