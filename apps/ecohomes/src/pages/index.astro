@@ -1,4 +1,6 @@
 ---
+import ContactSection from "../components/ContactSection.astro";
+import OfficeMap from "../components/OfficeMap.astro";
 import ReviewCarousel from '../../../../packages/ui/ReviewCarousel.astro';
 import Icon from "../../../../packages/ui/Icon.astro";
 import DemoMenu from "../../../../packages/ui/DemoMenu.astro";
@@ -16,7 +18,7 @@ const links = [
   { label: "Energie", href: "#energie" },
   { label: "So bauen wir", href: "#ablauf" },
   { label: "Dein Haus finden", href: "#hausfinder" },
-  { label: "Kontakt", href: "#kontakt" },
+  { label: "Kontakt", href: base + "kontakt/" },
 ];
 
 const energy = [
@@ -104,7 +106,7 @@ const faq = [
             Und Raum für das Leben, das du dir wünschst.
           </p>
           <a class="button pale" href="#haeuser">
-            Finde dein Haus <span class="hero-arrow"><Icon name="arrow-right" /></span>
+            Finde dein Haus
           </a>
         </div>
         <div class="container hero-foot">
@@ -161,7 +163,7 @@ const faq = [
                   >
                     <Icon name="heart" />
                   </button>
-                  <button class="eco-compare-button" type="button" data-eco-compare={h.id} aria-label={`${h.name} vergleichen`} aria-pressed="false"><Icon name="columns-2"/></button>
+                  <button class="eco-compare-button" type="button" data-eco-compare={h.id} aria-label={`${h.name} vergleichen`} aria-pressed="false"><Icon name="scale"/></button>
                   <span>{h.type}</span>
                 </div>
                 <div class="house-body">
@@ -268,7 +270,7 @@ const faq = [
                   <p class="eyebrow">{e.sub}</p>
                   <h3>{e.title}</h3>
                   <p>{e.text}</p>
-                  <a class="text-button" href="#kontakt">
+                  <a class="text-button" href={`${base}kontakt/`}>
                     Gemeinsam weiterdenken
                     <Icon name="chevron-right" />
                   </a>
@@ -338,7 +340,7 @@ const faq = [
               </select>
             </label>
             <button class="button" type="submit">
-              Meine Hausidee finden <Icon name="arrow-right" />
+              Meine Hausidee finden
             </button>
             <div id="finder-result" hidden aria-live="polite"></div>
           </form>
@@ -421,7 +423,7 @@ const faq = [
               eine konkrete Planung erfordert Grundstücksdaten und fachliche
               Abstimmung. Es werden keine Einsparungen oder Förderungen versprochen.
             </p>
-            <a href="#kontakt" class="text-button">
+            <a href={`${base}kontakt/`} class="text-button">
               Über deine Ideen sprechen
               <Icon name="chevron-right" />
             </a>
@@ -453,87 +455,8 @@ const faq = [
           </div>
         </div>
       </section>
-      <section class="section contact" id="kontakt">
-        <div class="container contact-layout">
-          <div data-motion>
-            <p class="eyebrow">DEINE IDEE VERDIENT EIN GESPRÄCH</p>
-            <h2>
-              Lass uns über
-              <br />{' '}
-              <em>dein Zuhause reden.</em>
-            </h2>
-            <p>
-              Was stellst du dir vor? Teile deine Wünsche und sieh dir an, wie
-              eine erste Anfrage aussehen könnte.
-            </p>
-            <div class="contact-details">
-              <span>
-                <Icon name="map-pin" />
-                Musterweg 8 · 80331 München
-              </span>
-              <span>
-                <Icon name="mail" />
-                hallo@eichenhain.example
-              </span>
-            </div>
-            <p class="caption">
-              Fiktiver Anbieter und Demoadresse.
-              <br />{' '}
-              Keine echte Kontaktaufnahme über diese Seite.
-            </p>
-          </div>
-          <form id="consultation" class="contact-form">
-            <div class="form-row">
-              <label class="field">
-                Dein Name
-                <input
-                  name="name"
-                  required
-                  autocomplete="name"
-                  maxlength="120"
-                  placeholder="Vor- und Nachname"
-                />
-              </label>
-              <label class="field">
-                Deine E-Mail
-                <input
-                  name="email"
-                  type="email"
-                  required
-                  autocomplete="email"
-                  maxlength="200"
-                  placeholder="name@beispiel.de"
-                />
-              </label>
-            </div>
-            <label class="field">
-              Deine Hausidee
-              <select name="house">
-                <option>Noch offen</option>
-                <option>Lichtung</option>
-                <option>Wiesenblick</option>
-                <option>Hain</option>
-              </select>
-            </label>
-            <label class="field">
-              Was ist dir wichtig?
-              <textarea
-                name="message"
-                rows="4"
-                maxlength="2000"
-                placeholder="Deine Wünsche, dein Grundstück, deine Fragen …"
-              ></textarea>
-            </label>
-            <button class="button" type="submit">
-              Anfrage als Demo ansehen
-              <Icon name="arrow-right" />
-            </button>
-            <p class="caption">
-              Deine Angaben bleiben im Browser. Diese Demo versendet nichts.
-            </p>
-          </form>
-        </div>
-      </section>
+      <ContactSection/>
+      <OfficeMap/>
     <ReviewCarousel project="ecohomes" />
 </main>
     <footer class="site-footer">
@@ -592,28 +515,11 @@ const faq = [
           Fiktives Modell. Grundriss und Ausstattung müssten individuell geplant
           werden.
         </p>
-        <a class="button" id="house-inquire" href="#kontakt">
+        <a class="button" id="house-inquire" href={`${base}kontakt/`}>
           Über diese Idee sprechen
-          <Icon name="arrow-right" />
+
         </a>
       </div>
-    </dialog>
-    <dialog id="form-dialog" aria-labelledby="form-title">
-      <button
-        type="button"
-        class="close"
-        data-close
-        aria-label="Fenster schließen"
-      >
-        <Icon name="x" />
-      </button>
-      <p class="eyebrow">DEINE VORSCHAU</p>
-      <h2 id="form-title">Ein guter Anfang.</h2>
-      <p>So könnte deine Anfrage aussehen. Es wurde nichts versendet.</p>
-      <dl id="form-summary"></dl>
-      <button type="button" class="button" data-close>
-        Angaben bearbeiten
-      </button>
     </dialog>
     <dialog id="eco-compare-dialog" aria-labelledby="eco-compare-title"><button type="button" class="close" data-close aria-label="Vergleich schließen"><Icon name="x"/></button><p class="eyebrow">DEINE HAUSIDEEN IM ÜBERBLICK</p><h2 id="eco-compare-title">Was passt zu deinem Leben?</h2><div data-eco-compare-output></div></dialog>
     <script

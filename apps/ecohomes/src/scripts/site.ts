@@ -11,7 +11,7 @@ const houses: {
   features: string[];
 }[] = JSON.parse(document.getElementById("house-data")!.textContent!);
 const dialog = document.querySelector<HTMLDialogElement>("#house-dialog")!;
-const formDialog = document.querySelector<HTMLDialogElement>("#form-dialog")!;
+
 document
   .querySelectorAll<HTMLButtonElement>("[data-filter]")
   .forEach((button) =>
@@ -159,30 +159,6 @@ document.getElementById("house-finder")!.addEventListener("submit", (e) => {
   result.replaceChildren(title, p, a);
   result.hidden = false;
 });
-document.getElementById("consultation")!.addEventListener("submit", (e) => {
-  e.preventDefault();
-  const form = e.currentTarget as HTMLFormElement;
-  if (!form.reportValidity()) return;
-  const data = new FormData(form);
-  const target = document.getElementById("form-summary")!;
-  target.replaceChildren(
-    ...[
-      ["Name", data.get("name")],
-      ["E-Mail", data.get("email")],
-      ["Hausidee", data.get("house")],
-      ["Wünsche", data.get("message") || "Noch offen"],
-    ].map(([label, value]) => {
-      const div = document.createElement("div");
-      const dt = document.createElement("dt");
-      const dd = document.createElement("dd");
-      dt.textContent = String(label);
-      dd.textContent = String(value);
-      div.append(dt, dd);
-      return div;
-    }),
-  );
-  formDialog.showModal();
-});
 // Нативный details остаётся доступным и без JavaScript; анимация учитывает отмену.
 const reduced = matchMedia("(prefers-reduced-motion:reduce)");
 document.querySelectorAll<HTMLDetailsElement>(".faq details").forEach((d) => {
@@ -222,6 +198,3 @@ document.querySelectorAll<HTMLDetailsElement>(".faq details").forEach((d) => {
     if (animation) settle();
   });
 });
-
-const selectedHouse=houses.find(h=>h.id===new URL(location.href).searchParams.get('house'));
-if(selectedHouse)document.querySelector<HTMLSelectElement>('[name=house]')!.value=selectedHouse.name;

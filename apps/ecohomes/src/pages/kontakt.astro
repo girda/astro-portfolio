@@ -1,0 +1,15 @@
+---
+import SiteHeader from '../components/SiteHeader.astro';
+import ContactSection from '../components/ContactSection.astro';
+import OfficeMap from '../components/OfficeMap.astro';
+import Motion from '../components/Motion.astro';
+import TooltipLayer from '../../../../packages/ui/TooltipLayer.astro';
+import '../../../../packages/ui/foundations.css';
+import '../styles/global.css';
+import '../styles/refinement.css';
+const base=import.meta.env.BASE_URL;
+---
+<!doctype html><html lang="de"><head><meta charset="utf-8"/><meta name="viewport" content="width=device-width,initial-scale=1"/><title>Kontakt & Standort — Eichenhain</title><meta name="description" content="Deine Hausidee beginnt mit einem Gespräch. Kontakt und Standortidee in Landshut für Eichenhain Häuser & Energie."/><meta name="robots" content="noindex,follow"/><link rel="canonical" href={new URL(`${base}kontakt/`,Astro.site || 'https://girda.github.io')}/><link rel="icon" href={`${base}brand.svg`}/></head><body data-demo="ecohomes"><a class="skip" href="#main">Zum Inhalt</a><SiteHeader/><main id="main"><section class="container contact-intro"><p class="eyebrow">EICHENHAIN / KONTAKT</p><h1>Dein Zuhause beginnt<br/><em>mit deiner Idee.</em></h1><p>Ein Grundstück, eine erste Skizze oder einfach ein Wunsch: Erzähl uns, was dich beschäftigt.</p></section><ContactSection/><OfficeMap/></main><footer class="site-footer"><div class="container"><a href={base}>Eichenhain — Häuser & Energie</a><p class="caption">Fiktiver Anbieter. Anfragen werden nur als lokale Vorschau angezeigt.</p></div></footer><TooltipLayer/><Motion/><script>
+const compare=document.querySelector('[data-eco-compare-open]');compare?.addEventListener('click',()=>{location.href=(document.querySelector<HTMLAnchorElement>('.brand')!.getAttribute('href')||'/')+'#haeuser';});
+</script></body></html>
+<style>.contact-intro{padding-block:70px 55px}.contact-intro h1{font-size:clamp(40px,5.5vw,76px);line-height:1.08;letter-spacing:-.04em}.contact-intro>p:last-child{margin-top:25px;max-width:530px;color:var(--muted)}@media(max-width:600px){.contact-intro{padding-block:42px 35px}}</style>

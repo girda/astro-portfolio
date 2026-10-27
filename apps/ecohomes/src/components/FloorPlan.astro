@@ -1,0 +1,45 @@
+---
+interface Props { houseId: string; floor: number }
+const {houseId,floor}=Astro.props;
+const compact=houseId==='hain',bungalow=houseId==='wiesenblick',upper=floor===1;
+const names=upper?['Schlafen','Kind / Gast','Kind / Arbeiten','Bad','Ankleide','Flur']:bungalow?['Wohnen / Essen','Schlafen','Kind / Gast','Bad','Arbeiten','Diele']:['Wohnen / Essen','Küche','Arbeiten / Gast','Bad','Technik','Diele'];
+const areas=upper?(compact?['16,0','12,0','10,0','7,0','4,0','3,5']:['20,0','16,0','15,0','11,0','8,0','10,0']):bungalow?['45,0','19,0','16,0','10,0','14,0','21,0']:compact?['24,0','10,0','8,0','3,5','3,0','4,0']:['33,0','14,0','12,0','5,0','6,0','10,0'];
+const dimensions=compact?['8,00 m','7,20 m']:bungalow?['13,00 m','10,60 m']:['10,50 m','8,70 m'];
+const prefix=`${houseId}-${floor}`;
+---
+<div class="plan-sheet" data-plan-sheet={floor} hidden={upper}>
+ <svg viewBox="0 0 800 760" role="img" aria-labelledby={`${prefix}-title`}>
+ <title id={`${prefix}-title`}>{upper?'Obergeschoss':'Erdgeschoss'} — möblierte Raumidee, nicht maßstäblich</title>
+ <defs><pattern id={`${prefix}-tiles`} width="24" height="24" patternUnits="userSpaceOnUse"><path d="M24 0H0V24" fill="none" stroke="#d8dbd4" stroke-width=".7"/></pattern></defs>
+ <rect width="800" height="760" fill="#fff"/>
+ <g stroke="#656d64" stroke-width="1" fill="none"><path d="M85 55H705M85 45v25M705 45v25M85 610v48M705 610v48M85 647H705M738 92V610M727 92h22M727 610h22"/></g>
+ <g fill="#556052" font-family="Arial,sans-serif" font-size="13" text-anchor="middle"><text x="395" y="45">{dimensions[0]}</text><text x="395" y="671">Illustrative Außenabmessung</text><text x="762" y="350" transform="rotate(90 762 350)">{dimensions[1]}</text></g>
+ <rect x="85" y="92" width="620" height="518" fill="#fafbf8" stroke="#303b32" stroke-width="10"/>
+ <path d="M425 92V610M425 310H705M425 465H705M570 310V610" stroke="#303b32" stroke-width="7" fill="none"/>
+ <rect x="429" y="314" width="137" height="147" fill={`url(#${prefix}-tiles)`}/>
+ <rect x="574" y="469" width="127" height="137" fill={`url(#${prefix}-tiles)`}/>
+ <!-- Окна: двойная линия, проём в толщине стены. -->
+ <g stroke="#fff" stroke-width="13"><path d="M150 92H340M85 195V360M150 610H330M485 92H635M705 170V250M705 370V420M705 520V565"/></g>
+ <g stroke="#839387" stroke-width="1.4" fill="none"><path d="M150 88H340V96H150ZM81 195H89V360H81ZM150 606H330V614H150ZM485 88H635V96H485ZM701 170H709V250H701ZM701 370H709V420H701ZM701 520H709V565H701Z"/></g>
+ <!-- Дверные полотна и дуги открывания. -->
+ <g stroke="#fafbf8" stroke-width="11"><path d="M425 220V278M480 310H535M570 365V420M480 465H535M570 520V575M475 610H540"/></g>
+ <g stroke="#8c958b" stroke-width="1.4" fill="none"><path d="M425 220h58a58 58 0 0 1-58 58M480 310v-55a55 55 0 0 1 55 55M570 365h55a55 55 0 0 1-55 55M480 465v55a55 55 0 0 0 55-55M570 520h55a55 55 0 0 1-55 55M475 610v-65a65 65 0 0 1 65 65"/></g>
+ <g stroke="#8b978a" stroke-width="1.4" fill="#eef0e9">
+ {upper ? <><rect x="170" y="145" width="155" height="190" rx="3"/><path d="M170 196h155"/><rect x="180" y="155" width="60" height="30" rx="5"/><rect x="255" y="155" width="60" height="30" rx="5"/><rect x="110" y="150" width="40" height="42"/><rect x="345" y="150" width="40" height="42"/></> : <><rect x="125" y="150" width="205" height="72" rx="8"/><rect x="125" y="150" width="24" height="100" rx="4"/><path d="M155 166h159M213 166v47M273 166v47"/><rect x="165" y="255" width="125" height="58" rx="8"/><rect x="328" y="280" width="45" height="45" rx="7"/></>}
+ {upper ? <><rect x="125" y="455" width="230" height="45"/><path d="M170 455v45m46-45v45m46-45v45m46-45v45"/></> : <rect x="160" y="418" width="160" height="83" rx="6"/>}
+ {!upper&&[175,235,290].map(x=><><rect x={x} y="394" width="28" height="23" rx="5"/><rect x={x} y="502" width="28" height="23" rx="5"/></>)}
+ {upper||bungalow ? <><rect x="500" y="125" width="105" height="125" rx="3"/><rect x="510" y="135" width="85" height="27" rx="5"/></> : <><path d="M460 120h210v45H505v110h-45Z"/><rect x="570" y="132" width="55" height="22" rx="6"/><circle cx="478" cy="205" r="8"/><circle cx="478" cy="230" r="8"/></>}
+ <rect x="605" y="335" width="70" height="32"/><rect x="620" y="378" width="38" height="30" rx="4"/>
+ <rect x="590" y="488" width="85" height="32" rx="12"/><ellipse cx="650" cy="558" rx="17" ry="23"/>
+ {bungalow ? <rect x="460" y="340" width="65" height="80"/> : <><rect x="460" y="340" width="76" height="90"/>{[355,370,385,400,415].map(y=><path d={`M460 ${y}h76`}/>)}</>}
+ <rect x="450" y="550" width="30" height="40"/>
+ </g>
+ <g font-family="Arial,sans-serif" font-size="13" fill="#334b3b" text-anchor="middle">
+ {[[365,365],[657,280],[650,443],[635,592],[518,445],[510,585]].map(([x,y],i)=><><circle cx={x} cy={y} r="15" fill="#fff" stroke="#9ca99b"/><text x={x} y={y+4}>{String(i+1).padStart(2,'0')}</text></>)}
+ </g>
+ <text x="85" y="718" fill="#334b3b" font-size="19" font-family="Arial,sans-serif">{upper?'01 / Obergeschoss':'00 / Erdgeschoss'}</text><text x="85" y="743" fill="#778274" font-size="12" font-family="Arial,sans-serif">EICHENHAIN · RAUMKONZEPT</text>
+ </svg>
+ <dl class="plan-legend">{names.map((name,i)=><div><dt><span>{String(i+1).padStart(2,'0')}</span>{name}</dt><dd>{areas[i]} m²</dd></div>)}</dl>
+ <p class="caption">Flächen als Beispiel, ohne Wandanteile. Darstellung nicht maßstäblich; Raumprogramm und Geometrie werden individuell geplant.</p>
+</div>
+<style>.plan-sheet[hidden]{display:none}.plan-sheet svg{display:block;width:100%;height:auto}.plan-legend{display:grid;grid-template-columns:1fr 1fr;gap:0 24px;margin:12px 0 20px}.plan-legend>div{display:flex;justify-content:space-between;gap:12px;border-bottom:1px solid #e8ebe4;padding:10px 0;font-size:12px}.plan-legend dt{display:flex;gap:10px}.plan-legend dt span{color:#899583}.plan-legend dd{margin:0;white-space:nowrap}@media(max-width:500px){.plan-legend{grid-template-columns:1fr}}</style>

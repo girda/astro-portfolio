@@ -9,3 +9,6 @@
 
 .eco-hero-picture{position:absolute;inset:0;z-index:-2;display:block}.eco-hero-picture img{width:100%;height:100%;object-fit:cover;object-position:center}.hero .eyebrow{color:#e3ebcd}.hero-description{color:#fff}.hero-foot{align-items:center}.hero-arrow svg{animation:eco-arrow 1.4s ease-in-out infinite}.hero .button:hover .hero-arrow svg{animation-duration:.8s}
 @media(max-width:600px){.eco-hero-picture img{object-position:center bottom}.hero-copy{padding-top:45px}.hero-foot{bottom:20px}.hero-description{max-width:310px}.hero-shade{background:linear-gradient(#102a20b8,#102a2080 42%,#102a2020 80%,#102a2080)}.hero{min-height:650px}.hero-discover{background:#173d2d4d}}
+
+/* Текстовые действия всегда центрированы, без декоративных стрелок. */
+.button,.text-button{justify-content:center;text-align:center}.brand>svg{flex-shrink:0}.eco-compare-open,.eco-compare-button{transition:background .2s,color .2s,box-shadow .2s}@media(hover:hover){.eco-compare-open:hover,.eco-compare-button:hover{background:#dfe7d9;box-shadow:0 3px 12px #294e3e16}.eco-compare-button[aria-pressed=true]:hover{background:#1e4133;color:white}}
