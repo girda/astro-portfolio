@@ -60,7 +60,7 @@
     menuOpen = open;
     if (!menuButton || !mobileNav) return;
     menuButton.setAttribute('aria-expanded', String(open));
-    menuButton.setAttribute('aria-label', open ? 'Закрити меню' : 'Відкрити меню');
+    menuButton.setAttribute('aria-label', open ? 'Menü schließen' : 'Menü öffnen');
     mobileNav.setAttribute('aria-hidden', String(!open));
     mobileNav.inert = !open;
     mobileNav.classList.toggle('is-open', open);

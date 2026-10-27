@@ -20,87 +20,87 @@ const asset=(name:string)=>`${base}assets/${name}`;
 </svg>
 
 <div class="page-intro" id="pageIntro" aria-hidden="true">
-  <div class="intro-inside"><span class="intro-overline">КИЇВ / З 2016 РОКУ</span><span class="intro-word">ХЛІБНИЙ<span class="intro-dot">.</span></span><div class="intro-progress"><span></span></div><span class="intro-caption">КОЖЕН ДЕНЬ — СМАЧНИЙ.</span></div>
+  <div class="intro-inside"><span class="intro-overline">BROT / KAFFEE / GUTE ZEIT</span><span class="intro-word">KHLIBNYI<span class="intro-dot">.</span></span><div class="intro-progress"><span></span></div><span class="intro-caption">JEDEN TAG. RICHTIG GUT.</span></div>
 </div>
 
 <header class="site-header" id="header">
-  <a class="brand" href="#top" aria-label="Хлібний — на головну">
+  <a class="brand" href="#top" aria-label="Khlibnyi — Startseite">
     <svg class="brand-wheat"><use href="#icon-wheat"></use></svg>
-    <span>ХЛІБНИЙ<span class="brand-dot">.</span></span>
+    <span>KHLIBNYI<span class="brand-dot">.</span></span>
   </a>
-  <nav class="desktop-nav" aria-label="Основна навігація">
-    <a href="#story" data-nav>ПРО НАС</a><a href="#menu" data-nav>МЕНЮ</a><a href="#locations" data-nav>ЗАКЛАДИ</a>
+  <nav class="desktop-nav" aria-label="Hauptnavigation">
+    <a href={`${base}geschichte/`} data-nav>ÜBER UNS</a><a href={`${base}menue/`} data-nav>MENÜ</a><a href={`${base}kontakt/`} data-nav>KONTAKT</a>
   </nav>
-  <a class="header-cta" href="#locations"><span>ЗАВІТАТИ ДО НАС</span><svg><use href="#icon-arrow-diag"></use></svg></a>
-  <button class="menu-toggle" type="button" aria-label="Відкрити меню" aria-expanded="false" aria-controls="mobileNav"><span></span><span></span></button>
+  <a class="header-cta" href={`${base}kontakt/`}><span>BESUCH PLANEN</span></a>
+  <button class="menu-toggle" type="button" aria-label="Menü öffnen" aria-expanded="false" aria-controls="mobileNav"><span></span><span></span></button>
 </header>
-<nav class="mobile-nav" id="mobileNav" aria-label="Мобільна навігація" aria-hidden="true" inert>
-  <div class="mobile-nav-top">ХЛІБНИЙ <span>НАВІГАЦІЯ / 01—03</span></div>
-  <a href="#story" data-mobile-link><span>01</span>ПРО НАС<svg><use href="#icon-arrow-diag"></use></svg></a>
-  <a href="#menu" data-mobile-link><span>02</span>МЕНЮ<svg><use href="#icon-arrow-diag"></use></svg></a>
-  <a href="#locations" data-mobile-link><span>03</span>ЗАКЛАДИ<svg><use href="#icon-arrow-diag"></use></svg></a>
-  <p>ХЛІБ, ЩО ПОЧИНАЄ ДЕНЬ. &nbsp; КИЇВ, УКРАЇНА.</p>
+<nav class="mobile-nav" id="mobileNav" aria-label="Mobile Navigation" aria-hidden="true" inert>
+  <div class="mobile-nav-top">KHLIBNYI <span>NAVIGATION / 01—03</span></div>
+  <a href={`${base}geschichte/`} data-mobile-link><span>01</span>ÜBER UNS</a>
+  <a href={`${base}menue/`} data-mobile-link><span>02</span>MENÜ</a>
+  <a href={`${base}kontakt/`} data-mobile-link><span>03</span>KONTAKT</a>
+  <p>BROT FÜR EINEN GUTEN MORGEN. &nbsp; KAFFEE FÜR DEN REST.</p>
 </nav>
 
 <main id="top">
-  <section class="hero" aria-label="Головний екран">
-    <div class="hero-side-note">ЗРОБЛЕНО З ЛЮБОВ'Ю &nbsp; / &nbsp; 2016 — СЬОГОДНІ</div>
+  <section class="hero" aria-label="Willkommen">
+    <div class="hero-side-note">MIT LIEBE GEMACHT &nbsp; / &nbsp; MOMENT FÜR MOMENT</div>
     <div class="hero-heading-wrap">
-      <div class="hero-kicker reveal-text"><span class="small-ball"></span> КАФЕ-ПЕКАРНЯ У СЕРЦІ КИЄВА <span class="hero-kicker-index">[ 01 / 04 ]</span></div>
-      <h1 class="hero-title" aria-label="Хлібний"><span class="hero-title-line">ХЛІБ<span class="title-notched">Н</span>ИЙ<span class="hero-title-dot">.</span></span></h1>
-      <div class="hero-title-bottom"><span>СВІЖЕ. ЩОДНЯ. ПО-СПРАВЖНЬОМУ.</span><span class="scroll-cue">ГОРТАЙ ВНИЗ <span class="down-arrow">↓</span></span></div>
+      <div class="hero-kicker reveal-text"><span class="small-ball"></span> DEIN CAFÉ. DEINE KLEINE AUSZEIT. <span class="hero-kicker-index">[ 01 / 04 ]</span></div>
+      <h1 class="hero-title" aria-label="Khlibnyi"><span class="hero-title-line">KHLIB<span class="title-notched">N</span>YI<span class="hero-title-dot">.</span></span></h1>
+      <div class="hero-title-bottom"><span>FRISCH. EHRLICH. MIT LIEBE.</span><span class="scroll-cue">MEHR ENTDECKEN <span class="down-arrow">↓</span></span></div>
     </div>
     <div class="hero-stage" id="heroStage">
       <div class="hero-stage-image-wrap parallax-scene">
-        <img class="hero-stage-image" src="https://images.unsplash.com/photo-1555507036-ab1f4038808a?auto=format&fit=crop&w=1600&q=85" data-fallback={asset("croissant.svg")} alt="Золотаві круасани та свіжа випічка" fetchpriority="high" />
+        <img class="hero-stage-image" src="https://images.unsplash.com/photo-1555507036-ab1f4038808a?auto=format&fit=crop&w=1600&q=85" data-fallback={asset("croissant.svg")} alt="Goldbraune Croissants und frisches Gebäck" fetchpriority="high" />
         <div class="hero-image-shade"></div>
-        <div class="hero-image-label">ПЕЧЕМО З РАНКУ <span>→</span> ЩОДНЯ</div>
+        <div class="hero-image-label">FRISCH AUS DEM OFEN <span>→</span> JEDEN TAG</div>
       </div>
-      <div class="hero-vertical-stamp"><span>СВІЖА ВИПІЧКА — ЦЕ ЛЮБОВ</span><svg><use href="#icon-wheat"></use></svg></div>
+      <div class="hero-vertical-stamp"><span>GUTES GEBÄCK IST LIEBE</span><svg><use href="#icon-wheat"></use></svg></div>
       <div class="hero-floating-card">
-        <div class="hero-floating-top"><svg><use href="#icon-wheat"></use></svg><span>ТЕ, ЩО ПОТРІБНО<br/>ДЛЯ ГАРНОГО ДНЯ</span></div>
-        <div class="hero-floating-main">ЦЕ<br/>СМАЧНО<span>.</span></div>
-        <div class="hero-floating-bottom"><span>ЗАВЖДИ СВІЖЕ</span><span>♥ 100%</span></div>
+        <div class="hero-floating-top"><svg><use href="#icon-wheat"></use></svg><span>ALLES FÜR<br/>DEINEN GUTEN TAG</span></div>
+        <div class="hero-floating-main">ECHT<br/>LECKER<span>.</span></div>
+        <div class="hero-floating-bottom"><span>IMMER MIT LIEBE</span><span>♥ 100%</span></div>
       </div>
-      <div class="orbit-stamp" aria-label="Печемо щодня"><svg class="orbit-text" viewBox="0 0 180 180" aria-hidden="true"><defs><path id="orbitCurve" d="M90,90 m-66,0 a66,66 0 1,1 132,0 a66,66 0 1,1 -132,0" /></defs><text><textPath href="#orbitCurve">СВІЖИЙ ХЛІБ • ГАРНА КАВА • ЛЮБОВ • </textPath></text></svg><svg class="orbit-center"><use href="#icon-star"></use></svg></div>
+      <div class="orbit-stamp" aria-label="Frisch gebacken"><svg class="orbit-text" viewBox="0 0 180 180" aria-hidden="true"><defs><path id="orbitCurve" d="M90,90 m-66,0 a66,66 0 1,1 132,0 a66,66 0 1,1 -132,0" /></defs><text><textPath href="#orbitCurve">FRISCHES BROT • GUTER KAFFEE • LIEBE • </textPath></text></svg><svg class="orbit-center"><use href="#icon-star"></use></svg></div>
     </div>
-    <div class="hero-bottom-row"><span>01 — ВІДЧУЙ МОМЕНТ</span><span>МІСЦЕ, КУДИ ХОЧЕТЬСЯ ПОВЕРТАТИСЯ</span><span>50°27′ ПН. Ш. / КИЇВ</span></div>
+    <div class="hero-bottom-row"><span>01 — GENIESSE DEN MOMENT</span><span>DEIN LIEBLINGSPLATZ FÜR EINE PAUSE</span><span>BROT / KAFFEE / BEGEGNUNG</span></div>
   </section>
 
-  <div class="marquee-strip" aria-label="Свіжий хліб, гарна кава, красивий день"><div class="marquee-track" aria-hidden="true">
-    <span>ХЛІБ. КАВА. ЛЮБОВ.</span><svg><use href="#icon-star"></use></svg><span>КОЖЕН ДЕНЬ — СМАЧНИЙ.</span><svg><use href="#icon-star"></use></svg><span>ХЛІБ. КАВА. ЛЮБОВ.</span><svg><use href="#icon-star"></use></svg><span>КОЖЕН ДЕНЬ — СМАЧНИЙ.</span><svg><use href="#icon-star"></use></svg>
+  <div class="marquee-strip" aria-label="Frisches Brot, guter Kaffee, ein schöner Tag"><div class="marquee-track" aria-hidden="true">
+    <span>BROT. KAFFEE. LIEBE.</span><svg><use href="#icon-star"></use></svg><span>JEDEN TAG. RICHTIG GUT.</span><svg><use href="#icon-star"></use></svg><span>BROT. KAFFEE. LIEBE.</span><svg><use href="#icon-star"></use></svg><span>JEDEN TAG. RICHTIG GUT.</span><svg><use href="#icon-star"></use></svg>
   </div></div>
 
   <section class="intro-story section-container" id="story">
-    <div class="section-eyebrow reveal"><span>01 / НАША ФІЛОСОФІЯ</span><span>НЕ ПРОСТО ПЕКАРНЯ</span></div>
+    <div class="section-eyebrow reveal"><span>01 / UNSERE PHILOSOPHIE</span><span>MEHR ALS EINE BÄCKEREI</span></div>
     <div class="story-layout">
-      <div class="story-heading reveal"><p class="vertical-mini">МАЄ ЗНАЧЕННЯ КОЖНА ДЕТАЛЬ</p><h2>СПРАВА<br/>В <em>ХЛІБІ</em><span>.</span></h2><div class="story-star"><svg><use href="#icon-star"></use></svg></div></div>
-      <div class="story-copy reveal"><span class="story-copy-index">(01—03)</span><p class="large-copy">Є речі, які не потребують зайвих слів. <strong>Теплий хліб.</strong> Аромат кави. Ранок, який починається правильно.</p><p class="small-copy">Ми любимо прості речі та робимо їх особливими. Щодня готуємо випічку, щоб у місті було трохи більше тепла, смаку й хороших зустрічей.</p><a href="#menu" class="text-link"><span>ДИВИТИСЬ МЕНЮ</span><svg><use href="#icon-arrow-diag"></use></svg></a></div>
+      <div class="story-heading reveal"><p class="vertical-mini">DIE KLEINEN DINGE ZÄHLEN</p><h2>ALLES<br/>FÜR <em>BROT</em><span>.</span></h2><div class="story-star"><svg><use href="#icon-star"></use></svg></div></div>
+      <div class="story-copy reveal"><span class="story-copy-index">(01—03)</span><p class="large-copy">Manche Dinge brauchen nicht viele Worte. <strong>Warmes Brot.</strong> Frischer Kaffee. Ein Morgen, der sich richtig anfühlt.</p><p class="small-copy">Wir mögen die einfachen Dinge — und die Sorgfalt, die sie besonders macht. Eine knusprige Kruste, ein guter Kaffee und ein Platz für echte Gespräche.</p><a href={`${base}menue/`} class="text-link"><span>MENÜ ENTDECKEN</span></a></div>
     </div>
     <div class="story-gallery">
-      <figure class="story-image story-image-a reveal-image"><div class="image-cover"><img src="https://cdn.village.com.ua/the-village.com.ua/post_image-image/5w4B24kTFttml8tTrNkEHA-original_opt.webp" data-fallback={asset("interior.svg")} loading="lazy" alt="Вітрина зі свіжими круасанами у пекарні Хлібний" /></div><figcaption>01 / ТУТ ПАХНЕ ЩАСТЯМ</figcaption></figure>
-      <figure class="story-image story-image-b reveal-image"><div class="image-cover"><img src="https://img.the-village.com.ua/the-village.com.ua/post_image-image/LHo1WvxyrJLGVJeyXYuLMg.jpg" data-fallback={asset("interior.svg")} loading="lazy" alt="Інтер'єр кафе-пекарні Хлібний" /></div><figcaption>02 / АТМОСФЕРА МАЄ ЗНАЧЕННЯ</figcaption></figure>
-      <div class="story-gallery-aside reveal">ЗНАЄМО, ЯК ВИГЛЯДАЄ<br/>ТВІЙ ІДЕАЛЬНИЙ РАНОК <span>↗</span></div>
+      <figure class="story-image story-image-a reveal-image"><div class="image-cover"><img src="https://cdn.village.com.ua/the-village.com.ua/post_image-image/5w4B24kTFttml8tTrNkEHA-original_opt.webp" data-fallback={asset("interior.svg")} loading="lazy" alt="Gebäckvitrine einer Café-Bäckerei" /></div><figcaption>01 / HIER DUFTET DAS GLÜCK</figcaption></figure>
+      <figure class="story-image story-image-b reveal-image"><div class="image-cover"><img src="https://img.the-village.com.ua/the-village.com.ua/post_image-image/LHo1WvxyrJLGVJeyXYuLMg.jpg" data-fallback={asset("interior.svg")} loading="lazy" alt="Innenraum einer Café-Bäckerei" /></div><figcaption>02 / RAUM FÜR GUTE MOMENTE</figcaption></figure>
+      <div class="story-gallery-aside reveal">DEIN MORGEN.<br/>EIN BISSCHEN BESSER. <span>↗</span></div>
     </div>
   </section>
 
   <section class="menu-section" id="menu">
-    <div class="menu-top section-container"><div class="section-eyebrow reveal"><span>02 / ЩО В НАС СМАЧНОГО</span><span>ЗНАЙДИ СВІЙ УЛЮБЛЕНИЙ СМАК</span></div><div class="menu-heading-row reveal"><div><span class="section-kicker">ЩОСЬ ОСОБЛИВЕ ЩОДНЯ</span><h2>НАШЕ<br/><em>МЕНЮ</em><span class="heading-point">.</span></h2></div><p>КРУАСАНИ, ЯКІ ХРУМТЯТЬ.<br/>КАВА, ЯКА ОБІЙМАЄ.<br/>І ЩЕ ДЕЩО СМАЧНЕ.</p></div>
-      <div class="menu-controls" role="group" aria-label="Категорії меню"><button type="button" class="filter-button active" data-filter="all" aria-pressed="true">УСЕ <span>04</span></button><button type="button" class="filter-button" data-filter="bakery" aria-pressed="false">ВИПІЧКА <span>02</span></button><button type="button" class="filter-button" data-filter="coffee" aria-pressed="false">КАВА <span>01</span></button><button type="button" class="filter-button" data-filter="dessert" aria-pressed="false">ДЕСЕРТИ <span>01</span></button></div>
+    <div class="menu-top section-container"><div class="section-eyebrow reveal"><span>02 / GUTES AUF DEM TELLER</span><span>FINDE DEINEN LIEBLING</span></div><div class="menu-heading-row reveal"><div><span class="section-kicker">KLEINE FREUDE. JEDEN TAG.</span><h2>UNSER<br/><em>MENÜ</em><span class="heading-point">.</span></h2></div><p>CROISSANTS, DIE KNUSPERN.<br/>KAFFEE, DER GUTTUT.<br/>UND NOCH EIN BISSCHEN MEHR.</p></div>
+      <div class="menu-controls" role="group" aria-label="Menükategorien"><button type="button" class="filter-button active" data-filter="all" aria-pressed="true">ALLES <span>04</span></button><button type="button" class="filter-button" data-filter="bakery" aria-pressed="false">GEBÄCK <span>02</span></button><button type="button" class="filter-button" data-filter="coffee" aria-pressed="false">KAFFEE <span>01</span></button><button type="button" class="filter-button" data-filter="dessert" aria-pressed="false">SÜSSES <span>01</span></button></div>
     </div>
     <div class="product-grid section-container" id="productGrid">
-      <article class="product-card reveal" data-category="bakery"><div class="product-photo photo-cream"><span class="product-number">01 / 04</span><img src="https://images.unsplash.com/photo-1555507036-ab1f4038808a?auto=format&fit=crop&w=1100&q=80" data-fallback={asset("croissant.svg")} loading="eager" alt="Круасан"/><span class="product-hover-symbol">↗</span></div><div class="product-bottom"><div><span class="product-type">СВІЖА ВИПІЧКА</span><h3>КРУАСАНИ</h3></div><span class="product-arrow">↗</span></div></article>
-      <article class="product-card reveal" data-category="bakery"><div class="product-photo photo-gold"><span class="product-number">02 / 04</span><img src="https://images.unsplash.com/photo-1509440159596-0249088772ff?auto=format&fit=crop&w=1100&q=80" data-fallback={asset("bread.svg")} loading="eager" alt="Свіжий хліб"/><span class="product-hover-symbol">↗</span></div><div class="product-bottom"><div><span class="product-type">ЩОДНЯ З ПЕЧІ</span><h3>ХЛІБ</h3></div><span class="product-arrow">↗</span></div></article>
-      <article class="product-card reveal" data-category="coffee"><div class="product-photo photo-brown"><span class="product-number">03 / 04</span><img src="https://images.unsplash.com/photo-1461023058943-07fcbe16d735?auto=format&fit=crop&w=1100&q=80" data-fallback={asset("coffee.svg")} loading="eager" alt="Кава з молоком"/><span class="product-hover-symbol">↗</span></div><div class="product-bottom"><div><span class="product-type">НА КОЖЕН НАСТРІЙ</span><h3>КАВА</h3></div><span class="product-arrow">↗</span></div></article>
-      <article class="product-card reveal" data-category="dessert"><div class="product-photo photo-rose"><span class="product-number">04 / 04</span><img src="https://images.unsplash.com/photo-1488477181946-6428a0291777?auto=format&fit=crop&w=1100&q=80" data-fallback={asset("dessert.svg")} loading="eager" alt="Десерт"/><span class="product-hover-symbol">↗</span></div><div class="product-bottom"><div><span class="product-type">ТРОШКИ РАДОСТІ</span><h3>ДЕСЕРТИ</h3></div><span class="product-arrow">↗</span></div></article>
+      <article class="product-card reveal" data-category="bakery"><div class="product-photo photo-cream"><span class="product-number">01 / 04</span><img src="https://images.unsplash.com/photo-1555507036-ab1f4038808a?auto=format&fit=crop&w=1100&q=80" data-fallback={asset("croissant.svg")} loading="eager" alt="Croissant"/><span class="product-hover-symbol">↗</span></div><div class="product-bottom"><div><span class="product-type">FRISCHES GEBÄCK</span><h3>CROISSANTS</h3></div><span class="product-arrow">↗</span></div></article>
+      <article class="product-card reveal" data-category="bakery"><div class="product-photo photo-gold"><span class="product-number">02 / 04</span><img src="https://images.unsplash.com/photo-1509440159596-0249088772ff?auto=format&fit=crop&w=1100&q=80" data-fallback={asset("bread.svg")} loading="eager" alt="Frisches Brot"/><span class="product-hover-symbol">↗</span></div><div class="product-bottom"><div><span class="product-type">AUS DEM OFEN</span><h3>BROT</h3></div><span class="product-arrow">↗</span></div></article>
+      <article class="product-card reveal" data-category="coffee"><div class="product-photo photo-brown"><span class="product-number">03 / 04</span><img src="https://images.unsplash.com/photo-1461023058943-07fcbe16d735?auto=format&fit=crop&w=1100&q=80" data-fallback={asset("coffee.svg")} loading="eager" alt="Milchkaffee"/><span class="product-hover-symbol">↗</span></div><div class="product-bottom"><div><span class="product-type">FÜR DEINEN MOMENT</span><h3>KAFFEE</h3></div><span class="product-arrow">↗</span></div></article>
+      <article class="product-card reveal" data-category="dessert"><div class="product-photo photo-rose"><span class="product-number">04 / 04</span><img src="https://images.unsplash.com/photo-1488477181946-6428a0291777?auto=format&fit=crop&w=1100&q=80" data-fallback={asset("dessert.svg")} loading="eager" alt="Dessert"/><span class="product-hover-symbol">↗</span></div><div class="product-bottom"><div><span class="product-type">EIN STÜCK FREUDE</span><h3>SÜSSES</h3></div><span class="product-arrow">↗</span></div></article>
     </div>
-    <div class="menu-bottom section-container"><span>НАВІТЬ ПРОСТІ РЕЧІ МОЖУТЬ БУТИ ОСОБЛИВИМИ</span><a class="pill-link" href="#locations">ДЕ НАС ЗНАЙТИ <svg><use href="#icon-arrow-diag"></use></svg></a></div>
+    <div class="menu-bottom section-container"><span>GUTE ZUTATEN. KLEINE FREUDEN. GROSSE LIEBE.</span><a class="pill-link" href={`${base}kontakt/`}>KONTAKT & BESUCH </a></div>
   </section>
 
-  <section class="manifesto" aria-label="Маніфест"><div class="manifesto-pattern" aria-hidden="true"><svg><use href="#icon-wheat"></use></svg><svg><use href="#icon-wheat"></use></svg><svg><use href="#icon-wheat"></use></svg><svg><use href="#icon-wheat"></use></svg><svg><use href="#icon-wheat"></use></svg><svg><use href="#icon-wheat"></use></svg><svg><use href="#icon-wheat"></use></svg><svg><use href="#icon-wheat"></use></svg></div><div class="manifesto-inner reveal"><span>( ТРОХИ ПРО ВАЖЛИВЕ )</span><h2>НЕХАЙ<br/>КОЖЕН ДЕНЬ<br/><em>БУДЕ СМАЧНИМ</em><span>.</span></h2><svg class="manifesto-flower"><use href="#icon-star"></use></svg><p>І ПОЧИНАЄТЬСЯ З МАЛЕНЬКОГО ЩАСТЯ.</p></div></section>
+  <section class="manifesto" aria-label="Unsere Haltung"><div class="manifesto-pattern" aria-hidden="true"><svg><use href="#icon-wheat"></use></svg><svg><use href="#icon-wheat"></use></svg><svg><use href="#icon-wheat"></use></svg><svg><use href="#icon-wheat"></use></svg><svg><use href="#icon-wheat"></use></svg><svg><use href="#icon-wheat"></use></svg><svg><use href="#icon-wheat"></use></svg><svg><use href="#icon-wheat"></use></svg></div><div class="manifesto-inner reveal"><span>( WAS UNS WICHTIG IST )</span><h2>MACH<br/>JEDEN TAG<br/><em>EIN BISSCHEN GUT</em><span>.</span></h2><svg class="manifesto-flower"><use href="#icon-star"></use></svg><p>MANCHMAL REICHT EIN KLEINES STÜCK GLÜCK.</p></div></section>
 
-  <section class="locations-section section-container" id="locations"><div class="section-eyebrow reveal"><span>03 / МІСЦЕ ЗУСТРІЧІ</span><span>ЗНАЙДЕМ СЕБЕ НА МАПІ?</span></div><div class="locations-grid"><div class="locations-copy reveal"><span class="section-kicker">МИ ЗАВЖДИ ДЕСЬ ПОРУЧ</span><h2>ПОБАЧИМОСЬ<br/><em>У КИЄВІ</em><span>.</span></h2><p>Кава смачніша, коли поруч друзі. Забігай за свіжим круасаном, залишайся на розмову або просто бери улюблений напій з собою.</p><a class="location-external" href="https://www.google.com/maps/search/?api=1&query=%D0%A5%D0%BB%D1%96%D0%B1%D0%BD%D0%B8%D0%B9+%D0%9A%D0%B8%D1%97%D0%B2" target="_blank" rel="noopener noreferrer"><span>ШУКАТИ ЗАКЛАДИ НА МАПІ</span><svg><use href="#icon-arrow-diag"></use></svg></a><span class="locations-caption">ПОСИЛАННЯ ВІДКРИЄ ПОШУК У GOOGLE MAPS</span></div><div class="locations-photo reveal-image"><div class="image-cover"><img src="https://f.kyivmaps.com/photo/9750/wfT44.jpg" data-fallback={asset("interior.svg")} alt="Простір кафе-пекарні Хлібний в Києві" loading="lazy"/></div><div class="photo-caption-sticker"><svg><use href="#icon-star"></use></svg><span>ЗАХОДЬ<br/>НА КАВУ</span></div></div></div></section>
+  <section class="locations-section section-container" id="locations"><div class="section-eyebrow reveal"><span>03 / DEIN TREFFPUNKT</span><span>ZEIT FÜR EIN WIEDERSEHEN?</span></div><div class="locations-grid"><div class="locations-copy reveal"><span class="section-kicker">EIN PLATZ FÜR DICH</span><h2>BIS BALD.<br/><em>BEI UNS.</em><span>.</span></h2><p>Kaffee schmeckt besser in guter Gesellschaft. Ein Croissant für unterwegs, eine kleine Pause oder Zeit für ein langes Gespräch: Hier beginnt dein guter Moment.</p><a class="location-external" href={`${base}kontakt/`} target="_blank" rel="noopener noreferrer"><span>BESUCH & KONTAKT</span></a><span class="locations-caption">DEIN NÄCHSTER GUTER MOMENT</span></div><div class="locations-photo reveal-image"><div class="image-cover"><img src="https://f.kyivmaps.com/photo/9750/wfT44.jpg" data-fallback={asset("interior.svg")} alt="Einladender Café-Innenraum" loading="lazy"/></div><div class="photo-caption-sticker"><svg><use href="#icon-star"></use></svg><span>KOMM AUF<br/>EINEN KAFFEE</span></div></div></div></section>
 
-  <footer class="footer"><div class="footer-top section-container"><div class="footer-left"><span>ХЛІБНИЙ — ЦЕ БІЛЬШЕ, НІЖ ПРОСТО ВИПІЧКА.</span><span>ЗРОБЛЕНО З ЛЮБОВ'Ю ДО КИЄВА.</span></div><a class="back-top" href="#top">НАЗАД НАГОРУ ↑</a></div><div class="footer-logo" aria-hidden="true">ХЛІБНИЙ<span>.</span></div><div class="footer-bottom section-container"><span>© КОНЦЕПТ / 2026</span><span>НЕОФІЦІЙНА ДЕМО-РЕКОНСТРУКЦІЯ БРЕНДУ ХЛІБНИЙ</span><a href="https://www.behance.net/gallery/131090877/Khlebniy-Brand-Identity" target="_blank" rel="noopener noreferrer">BRAND REFERENCE ↗</a></div></footer>
+  <footer class="footer"><div class="footer-top section-container"><div class="footer-left"><span>KHLIBNYI — MEHR ALS GUTES GEBÄCK.</span><span>MIT LIEBE ZUM GUTEN MORGEN.</span></div><a class="back-top" href="#top">NACH OBEN</a></div><div class="footer-logo" aria-hidden="true">KHLIBNYI<span>.</span></div><div class="footer-bottom section-container"><span>© KONZEPT / 2026</span><span>UNABHÄNGIGES DESIGNKONZEPT · KEIN OFFIZIELLER MARKENAUFTRITT</span><a href="https://www.behance.net/gallery/131090877/Khlebniy-Brand-Identity" target="_blank" rel="noopener noreferrer">BRAND REFERENCE ↗</a></div></footer>
 </main>
 <div class="demo-tag">UNOFFICIAL CONCEPT / 2026</div>

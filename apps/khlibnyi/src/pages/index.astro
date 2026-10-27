@@ -4,18 +4,18 @@ const base=import.meta.env.BASE_URL;
 const origin=Astro.site||new URL('https://girda.github.io');
 ---
 <!doctype html>
-<html lang="uk">
+<html lang="de">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta name="theme-color" content="#e9e4d8" />
-    <meta name="description" content="Концептуальна реконструкція сайту кафе-пекарні Хлібний. Демонстраційний дизайн-проєкт, не офіційний сайт." />
-    <meta name="robots" content="noindex,follow"/><link rel="canonical" href={new URL(base,origin)}/><meta property="og:image" content={new URL(`${base}assets/croissant.svg`,origin)}/><title>ХЛІБНИЙ — концепт сайту</title>
+    <meta name="description" content="Khlibnyi — Café und Bäckerei als unabhängiges Designkonzept. Frisches Brot, Kaffee und kleine Genussmomente." />
+    <meta name="robots" content="noindex,follow"/><link rel="canonical" href={new URL(base,origin)}/><meta property="og:image" content={new URL(`${base}assets/croissant.svg`,origin)}/><title>Khlibnyi — Brot. Kaffee. Liebe.</title>
     <link rel="icon" href={`${base}assets/favicon.svg`} type="image/svg+xml" />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&family=Oswald:wght@400;500;600;700&display=swap" rel="stylesheet" />
-    <link rel="stylesheet" href={`${base}styles.css`} />
+    <link rel="stylesheet" href={`${base}styles.css`} /><link rel="stylesheet" href={`${base}pages.css`}/>
   </head>
   <body>
     <Homepage />
