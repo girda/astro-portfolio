@@ -222,3 +222,6 @@ document.querySelectorAll<HTMLDetailsElement>(".faq details").forEach((d) => {
     if (animation) settle();
   });
 });
+
+const selectedHouse=houses.find(h=>h.id===new URL(location.href).searchParams.get('house'));
+if(selectedHouse)document.querySelector<HTMLSelectElement>('[name=house]')!.value=selectedHouse.name;

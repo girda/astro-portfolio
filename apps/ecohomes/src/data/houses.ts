@@ -1,0 +1,36 @@
+export const houses = [
+  {
+    id: "lichtung",
+    name: "Lichtung",
+    type: "Familienhaus",
+    area: "ca. 160 m²",
+    rooms: "5 Zimmer",
+    image: "lichtung",
+    text: "Viel Licht. Viel Leben. Ein offenes Erdgeschoss und Rückzugsorte für alle.",
+    features: ["Zwei Geschosse", "Offene Wohnküche", "Flexibles Arbeitszimmer"],
+  },
+  {
+    id: "wiesenblick",
+    name: "Wiesenblick",
+    type: "Bungalow",
+    area: "ca. 125 m²",
+    rooms: "4 Zimmer",
+    image: "wiesenblick",
+    text: "Alles auf einer Ebene. Mit fließenden Übergängen zwischen drinnen und draußen.",
+    features: ["Wohnen auf einer Ebene", "Geschützte Terrasse", "Kurze Wege"],
+  },
+  {
+    id: "hain",
+    name: "Hain",
+    type: "Kompakthaus",
+    area: "ca. 105 m²",
+    rooms: "4 Zimmer",
+    image: "hain",
+    text: "Weniger Fläche. Mehr Möglichkeiten. Klar geplant, mit Raum für deine Ideen.",
+    features: [
+      "Kompakter Grundriss",
+      "Zwei Geschosse",
+      "Platz für ein Homeoffice",
+    ],
+  },
+];

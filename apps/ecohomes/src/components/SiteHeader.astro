@@ -1,0 +1,40 @@
+---
+import Icon from '../../../../packages/ui/Icon.astro';
+import DemoMenu from '../../../../packages/ui/DemoMenu.astro';
+const base=import.meta.env.BASE_URL;
+const links=[{label:'Unsere Häuser',href:base+'#haeuser'},{label:'Energie',href:base+'#energie'},{label:'So bauen wir',href:base+'#ablauf'},{label:'Dein Haus finden',href:base+'#hausfinder'},{label:'Kontakt',href:base+'#kontakt'}];
+---
+    <header class="site-header">
+      <div class="header-wrap">
+        <a class="brand" href={base} aria-label="Eichenhain Startseite">
+          <svg
+            width="34"
+            height="38"
+            viewBox="0 0 34 38"
+            fill="none"
+            aria-hidden="true"
+          >
+            <path
+              d="M3 18 17 5l14 13M8 15v18h18V15M17 18v15M12 1v6M22 1v6"
+              stroke="currentColor"
+              stroke-width="1.5"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+            />
+          </svg>
+          <span>
+            eichenhain<small>HÄUSER & ENERGIE</small>
+          </span>
+        </a>
+        <nav class="desktop-nav" aria-label="Hauptnavigation">
+          {links.slice(0, 3).map((l) => (
+            <a href={l.href}>{l.label}</a>
+          ))}
+        </nav>
+        <button class="eco-compare-open" type="button" data-eco-compare-open aria-label="Hausideen vergleichen"><Icon name="columns-2"/><span data-eco-compare-count hidden>0</span></button>
+        <a class="button header-cta" href={`${base}#hausfinder`}>
+          Dein Haus entdecken
+        </a>
+        <DemoMenu name="Eichenhain" links={links} />
+      </div>
+    </header>

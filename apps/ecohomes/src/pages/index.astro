@@ -6,6 +6,9 @@ import "../../../../packages/ui/foundations.css";
 import "../styles/global.css";
 import "../styles/refinement.css";
 import Motion from "../components/Motion.astro";
+import {houses} from '../data/houses';
+import SiteHeader from '../components/SiteHeader.astro';
+import TooltipLayer from '../../../../packages/ui/TooltipLayer.astro';
 const base = import.meta.env.BASE_URL;
 const asset = (name: string) => `${base}images/${name}.webp`;
 const links = [
@@ -15,42 +18,7 @@ const links = [
   { label: "Dein Haus finden", href: "#hausfinder" },
   { label: "Kontakt", href: "#kontakt" },
 ];
-const houses = [
-  {
-    id: "lichtung",
-    name: "Lichtung",
-    type: "Familienhaus",
-    area: "ca. 160 m²",
-    rooms: "5 Zimmer",
-    image: "lichtung",
-    text: "Viel Licht. Viel Leben. Ein offenes Erdgeschoss und Rückzugsorte für alle.",
-    features: ["Zwei Geschosse", "Offene Wohnküche", "Flexibles Arbeitszimmer"],
-  },
-  {
-    id: "wiesenblick",
-    name: "Wiesenblick",
-    type: "Bungalow",
-    area: "ca. 125 m²",
-    rooms: "4 Zimmer",
-    image: "wiesenblick",
-    text: "Alles auf einer Ebene. Mit fließenden Übergängen zwischen drinnen und draußen.",
-    features: ["Wohnen auf einer Ebene", "Geschützte Terrasse", "Kurze Wege"],
-  },
-  {
-    id: "hain",
-    name: "Hain",
-    type: "Kompakthaus",
-    area: "ca. 105 m²",
-    rooms: "4 Zimmer",
-    image: "hain",
-    text: "Weniger Fläche. Mehr Möglichkeiten. Klar geplant, mit Raum für deine Ideen.",
-    features: [
-      "Kompakter Grundriss",
-      "Zwei Geschosse",
-      "Platz für ein Homeoffice",
-    ],
-  },
-];
+
 const energy = [
   {
     id: "solar",
@@ -118,49 +86,10 @@ const faq = [
     <a class="skip" href="#main">
       Zum Inhalt
     </a>
-    <header class="site-header">
-      <div class="header-wrap">
-        <a class="brand" href={base} aria-label="Eichenhain Startseite">
-          <svg
-            width="34"
-            height="38"
-            viewBox="0 0 34 38"
-            fill="none"
-            aria-hidden="true"
-          >
-            <path
-              d="M3 18 17 5l14 13M8 15v18h18V15M17 18v15M12 1v6M22 1v6"
-              stroke="currentColor"
-              stroke-width="1.5"
-              stroke-linecap="round"
-              stroke-linejoin="round"
-            />
-          </svg>
-          <span>
-            eichenhain<small>HÄUSER & ENERGIE</small>
-          </span>
-        </a>
-        <nav class="desktop-nav" aria-label="Hauptnavigation">
-          {links.slice(0, 3).map((l) => (
-            <a href={l.href}>{l.label}</a>
-          ))}
-        </nav>
-        <button class="eco-compare-open" type="button" data-eco-compare-open aria-label="Hausideen vergleichen"><Icon name="columns-2"/><span data-eco-compare-count hidden>0</span></button>
-        <a class="button header-cta" href="#hausfinder">
-          Dein Haus entdecken
-        </a>
-        <DemoMenu name="Eichenhain" links={links} />
-      </div>
-    </header>
+    <SiteHeader/>
     <main id="main">
       <section class="hero">
-        <img
-          src={asset("lichtung")}
-          alt="Holzhauses mit Solardach vor einer bayerischen Berglandschaft"
-          width="1672"
-          height="941"
-          fetchpriority="high"
-        />
+        <picture class="eco-hero-picture"><source media="(max-width:600px)" srcset={`${base}images/hero-portrait.webp`}/><img src={asset('lichtung')} alt="Holzhaus mit Solardach vor einer bayerischen Berglandschaft" width="1672" height="941" fetchpriority="high"/></picture>
         <div class="hero-shade"></div>
         <div class="container hero-copy">
           <p class="eyebrow">NATÜRLICH BAUEN. WEITERDENKEN.</p>
@@ -175,11 +104,11 @@ const faq = [
             Und Raum für das Leben, das du dir wünschst.
           </p>
           <a class="button pale" href="#haeuser">
-            Finde dein Haus <Icon name="arrow-right" />
+            Finde dein Haus <span class="hero-arrow"><Icon name="arrow-right" /></span>
           </a>
         </div>
         <div class="container hero-foot">
-          <span>Holzbau · Photovoltaik · Wärmepumpe</span>
+          <span>Holzbau · Photovoltaik · Wärmepumpe</span><a class="hero-discover" href="#haeuser" aria-label="Hausideen entdecken"><Icon name="arrow-down"/></a>
 
         </div>
       </section>
@@ -247,14 +176,14 @@ const faq = [
                       {h.area}
                     </span>
                     <span>
-                      <Icon name="columns-2" />
+                      <Icon name="bed-double" />
                       {h.rooms}
                     </span>
                   </div>
-                  <button class="text-button" type="button" data-house={i}>
+                  <a class="text-button" href={`${base}haeuser/${h.id}/`}>
                     Hausidee entdecken
                     <Icon name="chevron-right" />
-                  </button>
+                  </a>
                 </div>
               </article>
             ))}
@@ -291,7 +220,7 @@ const faq = [
                 height="941"
                 loading="lazy"
               />
-              <svg class="energy-flow" viewBox="0 0 700 450" fill="none" aria-hidden="true"><path class="flow-solar" d="M400 105 Q500 150 520 300L350 330"/><path class="flow-house" d="M350 330 230 320Q180 290 180 240"/></svg>
+              <svg class="energy-flow" viewBox="0 0 700 450" preserveAspectRatio="none" fill="none" aria-hidden="true"><path class="flow-solar" d="M430 120 V205 Q430 225 450 225 H550 V300"/><path class="flow-house" d="M200 340 H350 Q370 340 370 320 V280 Q370 260 390 260 H550 V300"/></svg>
               {energy.map((e, i) => (
                 <button
                   type="button"
@@ -698,5 +627,5 @@ const faq = [
       import "../scripts/site";
     </script>
     <Motion />
-  </body>
+  <TooltipLayer/></body>
 </html>
