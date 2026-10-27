@@ -48,7 +48,7 @@ const base = import.meta.env.BASE_URL.replace(/\/$/, "");
       <p class="section-description">{t.projectsDescription}</p>
 
       <div class="project-filters" role="group" aria-label={lang==='en'?'Filter projects':lang==='ru'?'Фильтры проектов':'Projekte filtern'} hidden>
-        {['all','handwerk','beauty','automotive'].map((group,i)=><button type="button" data-project-filter={group} aria-pressed={i===0?'true':'false'}>{(lang==='en'?['All projects','Trades & home','Beauty & lifestyle','Automotive']:lang==='ru'?['Все проекты','Дом и мастера','Красота и уход','Автомобили']:['Alle Projekte','Handwerk & Zuhause','Beauty & Lifestyle','Automotive'])[i]}</button>)}
+        {['all','handwerk','beauty','automotive','food'].map((group,i)=><button type="button" data-project-filter={group} aria-pressed={i===0?'true':'false'}>{(lang==='en'?['All projects','Trades & home','Beauty & lifestyle','Automotive','Food & cafés']:lang==='ru'?['Все проекты','Дом и мастера','Красота и уход','Автомобили','Еда / кафе']:['Alle Projekte','Handwerk & Zuhause','Beauty & Lifestyle','Automotive','Cafés & Bäckereien'])[i]}</button>)}
         <output class="project-count" aria-live="polite"></output>
       </div>
       <div class="project-grid">

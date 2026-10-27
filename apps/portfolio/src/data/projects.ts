@@ -2,6 +2,7 @@ export type ProjectStatus = "demo" | "client";
 export const projects = {
   lindenhof: { name: "LINDENHOF", category: "Website für ein Autohaus", port: 4326, status: "demo", group: "automotive", accent: "#849f83" },
   hausbau: { name: "FALKENRIED", category: "Website für individuellen Hausbau", port: 4332, status: "demo", group: "handwerk", accent: "#719a95" },
+  khlibnyi: { name: "KHLIBNYI", category: "Website für Café & Bäckerei", port: 4333, status: "demo", group: "food", accent: "#d7c75e" },
   ecohomes: { name: "EICHENHAIN", category: "Website für Holzhausbau & Energie", port: 4328, status: "demo", group: "handwerk", accent: "#a3936b" },
   barbershop: { name: "KANT", category: "Website für einen Barbershop", port: 4322, status: "demo", group: "beauty", accent: "#a66d54" },
   cleaning: { name: "KLAR", category: "Website für einen Reinigungsservice", port: 4323, status: "demo", group: "handwerk", accent: "#8bcbc1" },
@@ -12,7 +13,7 @@ export const projects = {
   gardens: { name: "GRÜNWERK", category: "Website für Garten- und Landschaftsbau", port: 4331, status: "demo", group: "handwerk", accent: "#99b880" },
 } satisfies Record<
   string,
-  { name: string; category: string; port: number; status: ProjectStatus; group: "automotive" | "beauty" | "handwerk"; accent: string }
+  { name: string; category: string; port: number; status: ProjectStatus; group: "automotive" | "beauty" | "handwerk" | "food"; accent: string }
 >;
 export type ProjectId = keyof typeof projects;
 

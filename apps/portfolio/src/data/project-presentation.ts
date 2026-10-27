@@ -1,4 +1,5 @@
 export const projectPresentation = {
+  khlibnyi: {de: {category:"Café & Bäckerei · Menü und Atmosphäre",description:"Ein ausdrucksstarkes Café-Konzept mit animierter Typografie und filterbarem Menü."},en: {category:"Café & bakery · Menu and atmosphere",description:"An expressive café concept with animated typography and a filterable menu."},ru: {category:"Кафе-пекарня · Меню и атмосфера",description:"Выразительный концепт пекарни с анимацией, типографикой и фильтрами меню."}},
   hausbau: { de: { category: "Hausbau · Katalog, Filter & Vergleich", description: "Hausideen filtern, vergleichen und die eigenen Bauwünsche vorbereiten." }, en: { category: "Housebuilding · Catalogue, filters & comparison", description: "Filter and compare house ideas, then prepare your building brief." }, ru: { category: "Строительство домов · Каталог, фильтры и сравнение", description: "Подбирай и сравнивай дома, изучай планировки и готовь пожелания к строительству." } },
   "lindenhof": {
     "de": {

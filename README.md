@@ -1,6 +1,6 @@
 # HIRDA — portfolio and website concepts
 
-One repository for the portfolio and nine independent Astro demos.
+One repository for the portfolio and eleven independent Astro demos.
 
 | App | Published path | Development |
 | --- | --- | --- |
@@ -10,13 +10,15 @@ One repository for the portfolio and nine independent Astro demos.
 | WERKRAUM Auto Service (DE/RU) | `/astro-portfolio/demos/autoservice/` | `npm run dev --prefix apps/autoservice` |
 | STILL Nail Atelier (DE/RU/EN) | `/astro-portfolio/demos/nails/` | `npm run dev --prefix apps/nails` |
 | Lindenhof Autohaus | `/astro-portfolio/demos/lindenhof/` | `npm run dev --prefix apps/lindenhof` |
+| Falkenried Hausbau | `/astro-portfolio/demos/hausbau/` | `npm run dev --prefix apps/hausbau` (4332) |
+| Khlibnyi Café & Bakery | `/astro-portfolio/demos/khlibnyi/` | `npm run dev --prefix apps/khlibnyi` (4333) |
 | Eichenhain Ecohomes | `/astro-portfolio/demos/ecohomes/` | `npm run dev --prefix apps/ecohomes` |
 | STROMWERK Electrical | `/astro-portfolio/demos/electrical/` | `npm run dev --prefix apps/electrical` |
 | HAUSWERK Home Service | `/astro-portfolio/demos/homeservice/` | `npm run dev --prefix apps/homeservice` |
 | GRÜNWERK Gardens | `/astro-portfolio/demos/gardens/` | `npm run dev --prefix apps/gardens` |
 
 Use Node.js 24. Install each app with `npm ci --prefix apps/<app>`.
-Run `npm run build` at the repository root to assemble all ten sites in `dist/`.
+Run `npm run build` at the repository root to assemble all twelve sites in `dist/`.
 `SITE_URL` sets the deployment origin; `PAGES_BASE` defaults to `/astro-portfolio/`.
 Individual app builds default to `/`, so existing local development commands still work.
 
@@ -36,3 +38,5 @@ A robots.txt below a GitHub Pages project subpath cannot control the origin root
 [Project hub](docs/PROJECT_HUB.md) · [Tasks](docs/TASKS.md) · [Architecture](docs/ARCHITECTURE.md)
 
 Four service demos updated locally on 24 October: [QA and Figma](docs/audit/service-demos-2026-10-24.md) · [Image sources and prompts](docs/SERVICE_DEMOS_MEDIA.md). Not published.
+
+Project card order: [PROJECT_ORDER.md](docs/PROJECT_ORDER.md). Khlibnyi is an unofficial concept; external hotlink photo usage is not cleared for commercial reuse. See [app notes](apps/khlibnyi/README.md).

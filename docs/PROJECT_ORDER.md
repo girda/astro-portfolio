@@ -3,10 +3,11 @@
 Редактируй `apps/portfolio/src/data/project-order.json`: первый ID отображается первым, второй — вторым и так далее. Порядок одинаков для DE/EN/RU.
 
 ```json
-["lindenhof", "hausbau", "barbershop", "cleaning", "autoservice", "nails", "electrical", "homeservice", "gardens", "ecohomes"]
+["lindenhof", "hausbau", "khlibnyi", "barbershop", "cleaning", "autoservice", "nails", "electrical", "homeservice", "gardens", "ecohomes"]
 ```
 
 - hausbau — Falkenried, новый каталог домов.
+- khlibnyi — кафе-пекарня, неофициальный концепт.
 - ecohomes — Eichenhain, деревянные дома и энергия.
 - Остальные ID совпадают с папками демосайтов.
 

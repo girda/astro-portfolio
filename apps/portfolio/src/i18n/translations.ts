@@ -47,6 +47,7 @@ export const translations = {
     planned: "Geplant",
     languageLabel: "Sprache wählen",
     projects: [
+      {id:"khlibnyi",title:"Khlibnyi",category:"Café & Bakery"},
       { id: "hausbau", title: "Falkenried", category: "Hausbau · Katalog & Vergleich" },
       {
         id: "barbershop",
@@ -109,6 +110,7 @@ export const translations = {
     planned: "В планах",
     languageLabel: "Выбрать язык",
     projects: [
+      {id:"khlibnyi",title:"Khlibnyi",category:"Café & Bakery"},
       { id: "hausbau", title: "Фалькенрид", category: "Строительство домов · Каталог и сравнение" },
       {
         id: "barbershop",
@@ -182,6 +184,7 @@ export const translations = {
     planned: "Planned",
     languageLabel: "Choose language",
     projects: [
+      {id:"khlibnyi",title:"Khlibnyi",category:"Café & Bakery"},
       { id: "hausbau", title: "Falkenried", category: "Housebuilding · Catalogue & comparison" },
       {
         id: "barbershop",
