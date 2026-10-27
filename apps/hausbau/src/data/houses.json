@@ -1,0 +1,80 @@
+[
+  {
+    "id": "auenblick",
+    "name": "Auenblick",
+    "area": 242,
+    "floors": 2,
+    "bedrooms": 4,
+    "bathrooms": 3,
+    "material": "Hybrid",
+    "style": "Modern",
+    "roof": "Flachdach",
+    "image": "auenblick",
+    "description": "Stein, Holz und große Glasflächen. Eine großzügige Hausidee mit offenen Blickachsen und geschützten Terrassen."
+  },
+  {
+    "id": "tannengrund",
+    "name": "Tannengrund",
+    "area": 172,
+    "floors": 1,
+    "bedrooms": 3,
+    "bathrooms": 2,
+    "material": "Holz",
+    "style": "Chalet",
+    "roof": "Satteldach",
+    "image": "tannengrund",
+    "description": "Ein offenes Holzhaus mit weitem Dach und viel Tageslicht. Der Wohnbereich öffnet sich zur Terrasse und zum Garten."
+  },
+  {
+    "id": "steinbach",
+    "name": "Steinbach",
+    "area": 208,
+    "floors": 2,
+    "bedrooms": 4,
+    "bathrooms": 2,
+    "material": "Massiv",
+    "style": "Modern",
+    "roof": "Satteldach",
+    "image": "steinbach",
+    "description": "Heller Naturstein trifft warme Holzdetails. Ein klar gegliedertes Familienhaus mit großzügigen gemeinsamen Räumen."
+  },
+  {
+    "id": "lichtblick",
+    "name": "Lichtblick",
+    "area": 160,
+    "floors": 2,
+    "bedrooms": 3,
+    "bathrooms": 2,
+    "material": "Holz",
+    "style": "Barnhaus",
+    "roof": "Satteldach",
+    "image": "lichtung",
+    "description": "Eine reduzierte Form, viel Licht und ein flexibles Erdgeschoss. Mit Raum für Familienleben und konzentriertes Arbeiten."
+  },
+  {
+    "id": "wiesenhof",
+    "name": "Wiesenhof",
+    "area": 125,
+    "floors": 1,
+    "bedrooms": 2,
+    "bathrooms": 1,
+    "material": "Hybrid",
+    "style": "Modern",
+    "roof": "Flachdach",
+    "image": "wiesenblick",
+    "description": "Wohnen auf einer Ebene. Kurze Wege, eine geschützte Terrasse und ein offener Übergang in den Garten."
+  },
+  {
+    "id": "hainblick",
+    "name": "Hainblick",
+    "area": 105,
+    "floors": 2,
+    "bedrooms": 2,
+    "bathrooms": 1,
+    "material": "Holz",
+    "style": "Barnhaus",
+    "roof": "Satteldach",
+    "image": "hain",
+    "description": "Kompakt geplant und vielseitig nutzbar. Eine schmale Hausidee mit zwei Geschossen und einem ruhigen Arbeitsplatz."
+  }
+]
