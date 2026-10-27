@@ -523,3 +523,6 @@
 }
 @media(max-width:700px) { .tile-preview{aspect-ratio:1.18}.device-composition{inset:7% 3%}.device-desktop.real-device{width:96%;left:2%;top:10%}.tile-details{padding:20px}.tile-bottom{flex-wrap:wrap;gap:4px 16px}#main .tile-description{font-size:14px} }
 @media(prefers-reduced-motion:reduce){.project-tile .device{transition:none!important}}
+
+/* Карточки растягиваются до высоты ряда, без обрезки переводов. */
+#main .project-grid{align-items:stretch}#main .project-tile{height:100%;display:flex;flex-direction:column;min-width:0}#main .project-tile .tile-preview{flex-shrink:0;width:100%}#main .project-tile .tile-details{flex:1;display:flex;flex-direction:column}#main .project-tile .tile-details>p:last-child{margin-bottom:0}

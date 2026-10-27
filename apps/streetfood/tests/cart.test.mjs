@@ -1,0 +1,5 @@
+import test from 'node:test';import assert from 'node:assert/strict';import {normalizeCart,cartTotal} from '../src/scripts/cart.mjs';
+const products=[{id:'burger',price:1190}],extras=[{id:'cheese',price:100}];
+test('cart merges identical variants, preserves different extras and totals cents',()=>{const c=normalizeCart([{id:'burger',quantity:2,extras:['cheese']},{id:'burger',quantity:1,extras:['cheese']},{id:'burger',quantity:1}],products,extras);assert.equal(c.length,2);assert.equal(c[0].quantity,3);assert.equal(cartTotal(c,products,extras),5060);});
+test('stored cart rejects unknown products and extras, caps quantities and notes',()=>{const c=normalizeCart([{id:'bad',quantity:1},{id:'burger',quantity:999,extras:['unknown','cheese','cheese'],note:'x'.repeat(300)}],products,extras);assert.equal(c.length,1);assert.equal(c[0].quantity,20);assert.deepEqual(c[0].extras,['cheese']);assert.equal(c[0].note.length,180);});
+test('corrupt cart falls back to empty',()=>assert.deepEqual(normalizeCart({},products,extras),[]));

@@ -48,6 +48,7 @@ export const translations = {
     languageLabel: "Sprache wählen",
     projects: [
       {id:"khlibnyi",title:"Khlibnyi",category:"Café & Bakery"},
+      {id:"streetfood",title:"Street Food",category:"Digital menu"},
       { id: "hausbau", title: "Falkenried", category: "Hausbau · Katalog & Vergleich" },
       {
         id: "barbershop",
@@ -111,6 +112,7 @@ export const translations = {
     languageLabel: "Выбрать язык",
     projects: [
       {id:"khlibnyi",title:"Khlibnyi",category:"Café & Bakery"},
+      {id:"streetfood",title:"Street Food",category:"Digital menu"},
       { id: "hausbau", title: "Фалькенрид", category: "Строительство домов · Каталог и сравнение" },
       {
         id: "barbershop",
@@ -185,6 +187,7 @@ export const translations = {
     languageLabel: "Choose language",
     projects: [
       {id:"khlibnyi",title:"Khlibnyi",category:"Café & Bakery"},
+      {id:"streetfood",title:"Street Food",category:"Digital menu"},
       { id: "hausbau", title: "Falkenried", category: "Housebuilding · Catalogue & comparison" },
       {
         id: "barbershop",
