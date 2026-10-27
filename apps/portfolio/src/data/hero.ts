@@ -25,5 +25,18 @@ export const heroCopy = {
     "eyebrow": "DESIGN · CODE · AI AGENTS",
     "note": "Design. Development. Personality.",
     "title": "HIRDA — Websites, Web Apps & AI Agents"
+  },
+  "ru": {
+    "lines": [
+      "Твоя идея.",
+      "Мой код.",
+      "Работает."
+    ],
+    "intro": "Я Артём. Создаю сайты, веб-приложения и ИИ-агентов — для твоего бизнеса, новых идей и удобной работы.",
+    "work": "Посмотреть проекты",
+    "about": "Обо мне",
+    "eyebrow": "ДИЗАЙН · КОД · ИИ-АГЕНТЫ",
+    "note": "Дизайн. Разработка. Характер.",
+    "title": "HIRDA — сайты, веб-приложения и ИИ-агенты"
   }
 } as const;

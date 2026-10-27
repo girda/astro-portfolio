@@ -1,7 +1,7 @@
 ---
 import PortfolioPage from "../../components/PortfolioPage.astro";
 export function getStaticPaths() {
-  return ["en"].map((lang) => ({ params: { lang }, props: { lang } }));
+  return ["en", "ru"].map((lang) => ({ params: { lang }, props: { lang } }));
 }
 const { lang } = Astro.props;
 ---

@@ -6,12 +6,14 @@ import "../styles/hero-refinement.css";
 import "../styles/navigation-panel.css";
 import "../styles/mobile-viewport.css";
 import "../styles/portfolio-motion.css";
+import LanguageSelector from "./LanguageSelector.astro";
 import { languagePath } from "../i18n/translations";
 interface Props {
   lang: "de" | "ru" | "en";
 }
+const ru = Astro.props.lang === 'ru';
 const { lang } = Astro.props;
-const t = heroCopy[lang === "en" ? "en" : "de"];
+const t = heroCopy[lang];
 const animatedLines = t.lines.map((text, index) => ({
   text,
   offset: t.lines.slice(0, index).join("").length,
@@ -42,47 +44,30 @@ const base = import.meta.env.BASE_URL.replace(/\/$/, "");
     <a class="wordmark" href={languagePath(lang)} aria-label="HIRDA">
       <span class="wordmark-name" aria-hidden="true"><span class="logo-h"><span class="wordmark-bracket">[</span>H<span class="wordmark-bracket">]</span></span><span class="logo-rest">IRDA</span></span>
     </a>
-    <nav class="desktop-nav" aria-label="Navigation">
+    <nav class="desktop-nav" aria-label={lang === "ru" ? "Навигация" : "Navigation"}>
       <a href="#projects">{t.work}</a>
       <a href="#about">{t.about}</a>
-      <a href="#contact">{lang === "en" ? "Contact" : "Kontakt"}</a>
+      <a href="#contact">{lang === "en" ? "Contact" : ru ? "Контакты" : "Kontakt"}</a>
     </nav>
-    <nav
-      class="hero-languages"
-      aria-label={lang === "en" ? "Language" : "Sprache"}
-    >
-      <a
-        href={languagePath("de")}
-        aria-current={lang === "de" ? "page" : undefined}
-      >
-        DE
-      </a>
-      <span>/</span>
-      <a
-        href={languagePath("en")}
-        aria-current={lang === "en" ? "page" : undefined}
-      >
-        EN
-      </a>
-    </nav>
+    <LanguageSelector lang={lang} />
     <details class="mobile-menu">
-      <summary aria-label={lang === "en" ? "Open menu" : "Menü öffnen"}>
+      <summary aria-label={lang === "en" ? "Open menu" : ru ? "Открыть меню" : "Menü öffnen"}>
         <span class="menu-stroke"></span>
         <span class="menu-stroke"></span>
       </summary>
       <nav
         class="menu-panel"
-        aria-label={lang === "en" ? "Main navigation" : "Hauptnavigation"}
+        aria-label={lang === "en" ? "Main navigation" : ru ? "Основная навигация" : "Hauptnavigation"}
       >
         <div class="menu-caption">HIRDA / NAVIGATION</div>
         <div class="menu-links">
-          <a href="#top"><MenuIcon name="home" /><span class="menu-label">{lang === "en" ? "Home" : "Start"}</span></a>
+          <a href="#top"><MenuIcon name="home" /><span class="menu-label">{lang === "en" ? "Home" : ru ? "Главная" : "Start"}</span></a>
           <a href="#projects"><MenuIcon name="projects" /><span class="menu-label">{t.work}</span></a>
           <a href="#about"><MenuIcon name="about" /><span class="menu-label">{t.about}</span></a>
-          <a href="#services"><MenuIcon name="services" /><span class="menu-label">{lang === "en" ? "Services" : "Leistungen"}</span></a>
-          <a href="#pricing"><MenuIcon name="pricing" /><span class="menu-label">{lang === "en" ? "Pricing & maintenance" : "Preise & Betreuung"}</span></a>
+          <a href="#services"><MenuIcon name="services" /><span class="menu-label">{lang === "en" ? "Services" : ru ? "Услуги" : "Leistungen"}</span></a>
+          <a href="#pricing"><MenuIcon name="pricing" /><span class="menu-label">{lang === "en" ? "Pricing & maintenance" : ru ? "Цены и поддержка" : "Preise & Betreuung"}</span></a>
         </div>
-          <a class="menu-contact" href="#contact"><MenuIcon name="contact" /><span>{lang === "en" ? "Let’s talk" : "Lass uns sprechen"}</span></a>
+          <a class="menu-contact" href="#contact"><MenuIcon name="contact" /><span>{lang === "en" ? "Let’s talk" : ru ? "Обсудим проект" : "Lass uns sprechen"}</span></a>
         <div class="menu-bottom">
           <span>{t.eyebrow}</span>
         </div>
@@ -115,7 +100,7 @@ const base = import.meta.env.BASE_URL.replace(/\/$/, "");
         {t.work}
       </a>
       <button class="secondary agent-demo-trigger" type="button" data-open-agent hidden>
-        {lang === "en" ? "Explore the AI demo" : "KI-Demo entdecken"}
+        {lang === "en" ? "Explore the AI demo" : ru ? "Попробовать ИИ" : "KI-Demo entdecken"}
       </button>
     </div>
   </div>

@@ -1,0 +1,62 @@
+---
+import { languages, languagePath, translations, type Language } from '../i18n/translations';
+interface Props { lang: Language }
+const { lang } = Astro.props;
+const names = { de: 'Deutsch', en: 'English', ru: 'Русский' };
+---
+<details class="hero-languages" data-language-selector>
+  <summary aria-label={translations[lang].languageLabel}>
+    <span>{lang.toUpperCase()}</span>
+    <svg class="language-chevron" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m6 9 6 6 6-6"/></svg>
+  </summary>
+  <nav class="language-options" aria-label={translations[lang].languageLabel}>
+    {languages.map(locale => <a href={languagePath(locale)} lang={locale} hreflang={locale} aria-current={lang === locale ? 'page' : undefined}><span>{locale.toUpperCase()}</span>{names[locale]}</a>)}
+  </nav>
+</details>
+<script>
+  import { onPageReady } from '../../../../packages/ui/page-lifecycle';
+  onPageReady(() => {
+    const events = new AbortController();
+    const options = { signal: events.signal };
+    document.querySelectorAll<HTMLDetailsElement>('[data-language-selector]').forEach(menu => {
+      const trigger = menu.querySelector('summary')!;
+      const hover = () => matchMedia('(hover: hover) and (pointer: fine)').matches;
+      trigger.addEventListener('click', event => {
+        if (hover() && event.detail > 0) { event.preventDefault(); menu.open = true; }
+      }, options);
+      menu.addEventListener('pointerenter', () => { if (hover()) menu.open = true; }, options);
+      menu.addEventListener('pointerleave', () => {
+        if (hover() && !menu.contains(document.activeElement)) menu.open = false;
+      }, options);
+      menu.addEventListener('focusout', event => {
+        if (!menu.contains(event.relatedTarget as Node)) menu.open = false;
+      }, options);
+      document.addEventListener('keydown', event => {
+        if (event.key === 'Escape' && menu.open) {
+          event.preventDefault();
+          menu.open = false;
+          trigger.focus();
+        }
+      }, options);
+      document.addEventListener('click', event => {
+        if (!menu.contains(event.target as Node)) menu.open = false;
+      }, options);
+    });
+    return () => events.abort();
+  });
+</script>
+<style>
+  .hero-languages { position:relative; display:block; flex-shrink:0; color:#b2b1ac; font-size:13px; }
+  summary { display:flex; align-items:center; gap:8px; min-height:44px; padding:8px 0 8px 8px; cursor:pointer; list-style:none; -webkit-tap-highlight-color:transparent; color:inherit; }
+  summary::-webkit-details-marker { display:none; }
+  .language-chevron { transition:transform 240ms ease; }
+  details[open] .language-chevron { transform:rotate(180deg); }
+  .language-options { position:absolute; top:100%; right:0; min-width:164px; z-index:10; padding:6px; border:1px solid #ffffff24; border-radius:6px; background:#26302f; box-shadow:0 14px 35px #0004; }
+  .language-options a { display:flex; align-items:center; gap:14px; padding:10px 12px; min-height:44px; border-radius:3px; color:#dce3dd; white-space:nowrap; }
+  .language-options a span { font-size:11px; color:#aebbb4; }
+  .language-options a:hover, .language-options a:focus-visible { background:#ffffff09; }
+  .language-options a[aria-current=page], .language-options a[aria-current=page] span { color:var(--brand-accent); }
+  summary:focus-visible { outline:2px solid #c1cfcc; outline-offset:3px; border-radius:3px; }
+  @media (hover:hover) { summary:hover .language-chevron { transform:rotate(180deg); } }
+  @media (prefers-reduced-motion:reduce) { .language-chevron { transition:none; } }
+</style>

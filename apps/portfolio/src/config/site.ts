@@ -1,4 +1,5 @@
-export type SiteLocale = 'de' | 'en';
+export const siteLocales = ['de', 'en', 'ru'] as const;
+export type SiteLocale = typeof siteLocales[number];
 export interface SiteConfig {
   name: string;
   origin: string;
@@ -9,7 +10,7 @@ export interface SiteConfig {
 }
 
 export const defaultOrigin = 'https://girda.github.io';
-export const pageRoutes = [{ key: 'home', paths: { de: '/', en: '/en/' } }] as const;
+export const pageRoutes = [{ key: 'home', paths: { de: '/', en: '/en/', ru: '/ru/' } }] as const;
 
 export function createSiteConfig(options: {
   origin?: string | URL;
@@ -30,6 +31,6 @@ export function createSiteConfig(options: {
     name: 'HIRDA', origin: url.origin,
     base: `/${base.split('/').filter(Boolean).join('/')}${base === '/' ? '' : '/'}`,
     indexable: options.indexable ?? true,
-    locales: ['de', 'en'], defaultLocale: 'de',
+    locales: siteLocales, defaultLocale: 'de',
   };
 }

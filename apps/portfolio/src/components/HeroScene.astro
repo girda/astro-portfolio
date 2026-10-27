@@ -1,10 +1,11 @@
 ---
 import "../styles/hero-scene.css";
 interface Props { lang: "de" | "en" | "ru"; }
+const ru = Astro.props.lang === 'ru';
 const { lang } = Astro.props;
 ---
 <div class="hero-scene" data-hero-scene aria-hidden="true"></div>
-<button class="scene-toggle" data-scene-toggle hidden aria-pressed="false" aria-label={lang==='en'?'Pause 3D scene':'3D-Szene pausieren'} data-pause={lang==='en'?'Pause 3D scene':'3D-Szene pausieren'} data-play={lang==='en'?'Play 3D scene':'3D-Szene abspielen'}>Ⅱ</button>
+<button class="scene-toggle" data-scene-toggle hidden aria-pressed="false" aria-label={lang==='en'?'Pause 3D scene': ru ? "Приостановить 3D-сцену" : "3D-Szene pausieren"} data-pause={lang==='en'?'Pause 3D scene': ru ? "Приостановить 3D-сцену" : "3D-Szene pausieren"} data-play={lang==='en'?'Play 3D scene': ru ? "Включить 3D-сцену" : "3D-Szene abspielen"}>Ⅱ</button>
 <script>
 const host=document.querySelector<HTMLElement>('[data-hero-scene]');
 if(host && !matchMedia('(prefers-reduced-motion: reduce)').matches) {

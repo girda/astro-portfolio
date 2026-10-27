@@ -10,7 +10,7 @@ const output = resolve(process.argv[2] || 'dist');
 const config = createSiteConfig({ origin: process.env.SITE_URL, base: process.env.PAGES_BASE || '/astro-portfolio/', indexable: process.env.SITE_INDEXABLE !== 'false' });
 const read = path => readFileSync(join(output, path), 'utf8');
 const attr = (tag, name) => tag.match(new RegExp(`\\b${name}="([^"]*)"`, 'i'))?.[1];
-for (const [path, file] of [['/', 'index.html'], ['/en/', 'en/index.html']]) {
+for (const [path, file] of [['/', 'index.html'], ['/en/', 'en/index.html'], ['/ru/', 'ru/index.html']]) {
   const html = read(file);
   const head = html.match(/<head\b[^>]*>([\s\S]*?)<\/head>/i)?.[1] || '';
   const canonical = head.match(/<link\b[^>]*rel="canonical"[^>]*>/i)?.[0] || '';
@@ -18,6 +18,10 @@ for (const [path, file] of [['/', 'index.html'], ['/en/', 'en/index.html']]) {
   assert.ok(!/localhost|127\.0\.0\.1/.test(head), `${file}: local URL in head`);
   assert.ok(/<title>[^<]+<\/title>/.test(head), `${file}: title`);
   assert.ok(/name="description" content="[^"]+"/.test(head), `${file}: description`);
+  const locale = path === '/' ? 'de' : path.split('/')[1];
+  const social = head.match(/<meta\b[^>]*property="og:image"[^>]*>/i)?.[0] || '';
+  assert.equal(attr(social, 'content'), absoluteSiteUrl(`/social/hirda-${locale}-2026.png`, config), `${file}: social image URL`);
+  assert.ok(existsSync(join(output, 'social', `hirda-${locale}-2026.png`)), `${file}: social image missing`);
   const robots = head.match(/<meta\b[^>]*name="robots"[^>]*>/i)?.[0] || '';
   assert.ok(attr(robots, 'content')?.startsWith(config.indexable ? 'index,' : 'noindex,'), `${file}: index policy`);
   for (const alternate of pageAlternates(path, config)) {
@@ -29,7 +33,7 @@ assert.match(lab, /name="robots" content="noindex, follow"/);
 assert.match(read('lab/index.html'), /name="robots" content="noindex,\s*follow"/);
 assert.ok(existsSync(join(output, 'de/index.html')), 'Legacy /de/ redirect missing');
 const sitemap = read('sitemap.xml');
-assert.equal((sitemap.match(/<url>/g) || []).length, config.indexable ? 2 : 0);
+assert.equal((sitemap.match(/<url>/g) || []).length, config.indexable ? config.locales.length : 0);
 assert.doesNotMatch(sitemap, /(?:cat-)?lab|demos\/|localhost/);
 const robots = read('robots.txt');
 if (config.base !== '/') assert.doesNotMatch(robots, /User-agent:|Disallow:/);

@@ -16,19 +16,21 @@ for (const [name, config] of [
     assert.equal(canonicalUrl(`${config.base}index.html`, config), home);
     assert.equal(absoluteSiteUrl('/social/hirda-de-2026.png', config), `${home}social/hirda-de-2026.png`);
   });
-  test(`${name}: alternates exist only for known DE/EN pages`, () => {
+  test(`${name}: alternates exist only for known DE/EN/RU pages`, () => {
     assert.deepEqual(pageAlternates(`${config.base}en/`, config), [
       { lang: 'de', href: `${config.origin}${config.base}` },
       { lang: 'en', href: `${config.origin}${config.base}en/` },
+      { lang: 'ru', href: `${config.origin}${config.base}ru/` },
       { lang: 'x-default', href: `${config.origin}${config.base}` },
     ]);
     assert.deepEqual(pageAlternates('/leistungen/', config), []);
   });
   test(`${name}: sitemap excludes experiments, redirects and demos`, () => {
     const xml = renderSitemap(config);
-    assert.equal((xml.match(/<url>/g) || []).length, 2);
+    assert.equal((xml.match(/<url>/g) || []).length, 3);
     assert.ok(xml.includes(`<loc>${config.origin}${config.base}</loc>`));
     assert.ok(xml.includes(`<loc>${config.origin}${config.base}en/</loc>`));
+    assert.ok(xml.includes(`<loc>${config.origin}${config.base}ru/</loc>`));
     assert.doesNotMatch(xml, /cat-lab|demos\/|<lastmod>|localhost|127\.0\.0\.1/);
     assert.doesNotMatch(xml, /<loc>[^<]*\/de\//);
   });

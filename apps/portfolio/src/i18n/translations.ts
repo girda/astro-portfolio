@@ -1,6 +1,6 @@
 import { heroCopy } from "../data/hero";
 import type { ProjectId } from "../data/projects";
-export const languages = ["de", "en"] as const;
+export { siteLocales as languages } from "../config/site";
 
 export type Language = "de" | "ru" | "en";
 
@@ -93,19 +93,18 @@ export const translations = {
   },
 
   ru: {
-    pageTitle: "HIRDA. — Дизайн и разработка сайтов",
-    description:
-      "Индивидуальные сайты для частных специалистов и малого бизнеса.",
+    pageTitle: heroCopy.ru.title,
+    description: heroCopy.ru.intro,
     navigation: "Посмотреть проекты",
     eyebrow: "ДИЗАЙН И РАЗРАБОТКА САЙТОВ",
     headline: ["Твой бизнес.", "Сайт с характером."],
     introduction:
       "Я Artem Hirda. Разрабатываю сайты для частных специалистов и малого бизнеса — с продуманным дизайном и понятной структурой.",
     button: "Посмотреть проекты",
-    projectsEyebrow: "КОНЦЕПТЫ И ИДЕИ",
+    projectsEyebrow: "МОИ РАБОТЫ",
     projectsTitle: "Разные задачи. Свой подход.",
     projectsDescription:
-      "Барбершоп, клининг, автосервис и маникюр: демонстрационные проекты, которые я постепенно разрабатываю. Это концепты, а не заказы клиентов.",
+      "Сайты для разных сфер бизнеса: изучи дизайн, попробуй функции и найди идеи для своего проекта.",
     planned: "В планах",
     languageLabel: "Выбрать язык",
     projects: [

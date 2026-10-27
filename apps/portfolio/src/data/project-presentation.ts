@@ -4,6 +4,7 @@ export const projectPresentation = {
       "category": "Autohaus · Fahrzeugkatalog & Vergleich",
       "description": "Fahrzeuge filtern, vergleichen und eine Probefahrt anfragen."
     },
+    "ru": {"category": "Автосалон · Каталог и сравнение", "description": "Фильтруй автомобили, сравнивай варианты и запрашивай тест-драйв."},
     "en": {
       "category": "Car dealership · Catalogue & comparison",
       "description": "Filter and compare cars, then request a test drive."
@@ -14,6 +15,7 @@ export const projectPresentation = {
       "category": "Holzhausbau · Hausfinder & Energie",
       "description": "Hauskonzepte entdecken und den eigenen Bedarf eingrenzen."
     },
+    "ru": {"category": "Деревянные дома · Подбор и энергия", "description": "Изучай проекты домов и подбирай решение под свои задачи."},
     "en": {
       "category": "Timber homes · Home finder & energy",
       "description": "Explore home concepts and narrow down your needs."
@@ -24,6 +26,7 @@ export const projectPresentation = {
       "category": "Barbershop · Leistungen & Pflegeberatung",
       "description": "Haarschnitt wählen, Pflege entdecken und eine Terminanfrage vorbereiten."
     },
+    "ru": {"category": "Барбершоп · Услуги и уход", "description": "Выбирай стрижку, знакомься со средствами ухода и готовь заявку на запись."},
     "en": {
       "category": "Barbershop · Services & grooming",
       "description": "Choose a haircut, explore grooming and prepare an appointment enquiry."
@@ -34,6 +37,7 @@ export const projectPresentation = {
       "category": "Reinigung · Leistungen & Preisrechner",
       "description": "Reinigungsumfang auswählen und eine transparente Demo-Kalkulation ansehen."
     },
+    "ru": {"category": "Клининг · Услуги и расчёт стоимости", "description": "Выбирай объём уборки и проверяй предварительную стоимость в демокалькуляторе."},
     "en": {
       "category": "Cleaning · Services & price calculator",
       "description": "Choose your cleaning needs and see a transparent demo estimate."
@@ -44,6 +48,7 @@ export const projectPresentation = {
       "category": "Autowerkstatt · Service & Terminplanung",
       "description": "Leistungen verstehen, Anliegen eingrenzen und einen Werkstatttermin anfragen."
     },
+    "ru": {"category": "Автомастерская · Сервис и запись", "description": "Изучай услуги, уточняй задачу и запрашивай запись в мастерскую."},
     "en": {
       "category": "Car workshop · Service & appointments",
       "description": "Explore services, clarify your needs and request an appointment."
@@ -54,6 +59,7 @@ export const projectPresentation = {
       "category": "Beauty & Spa · Behandlungen & Auszeit",
       "description": "Haare, Maniküre und Wellness entdecken und die passende Behandlung auswählen."
     },
+    "ru": {"category": "Красота и SPA · Процедуры и отдых", "description": "Знакомься с уходом за волосами, маникюром и SPA и выбирай свою процедуру."},
     "en": {
       "category": "Beauty & spa · Treatments & time out",
       "description": "Explore hair, manicure and wellness, then choose a suitable treatment."
@@ -64,6 +70,7 @@ export const projectPresentation = {
       "category": "Elektroservice · Technik & Projektanfrage",
       "description": "Elektroleistungen entdecken und das eigene Vorhaben strukturiert beschreiben."
     },
+    "ru": {"category": "Электрика · Услуги и заявки", "description": "Изучай электромонтажные услуги и описывай задачу для специалиста."},
     "en": {
       "category": "Electrical services · Projects & enquiries",
       "description": "Explore electrical services and describe your project clearly."
@@ -74,6 +81,7 @@ export const projectPresentation = {
       "category": "Hausservice · Montage & Reparaturen",
       "description": "Passende Hilfe für Zuhause finden und eine Anfrage vorbereiten."
     },
+    "ru": {"category": "Мастер по дому · Монтаж и ремонт", "description": "Находи нужную помощь по дому и готовь заявку на работу."},
     "en": {
       "category": "Home services · Assembly & repairs",
       "description": "Find the right help for your home and prepare an enquiry."
@@ -84,6 +92,7 @@ export const projectPresentation = {
       "category": "Gartenbau · Gestaltung & Pflege",
       "description": "Gartenideen entdecken und eine Anfrage für Gestaltung oder Pflege vorbereiten."
     },
+    "ru": {"category": "Ландшафтный дизайн · Сад и уход", "description": "Находи идеи для сада и запрашивай проектирование или уход."},
     "en": {
       "category": "Landscaping · Design & care",
       "description": "Explore garden ideas and prepare a design or maintenance enquiry."

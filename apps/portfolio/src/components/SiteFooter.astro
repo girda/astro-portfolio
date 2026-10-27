@@ -1,26 +1,27 @@
 ---
 interface Props { lang: string }
+const ru = Astro.props.lang === 'ru';
 const { lang } = Astro.props;
 const en = lang === "en";
 const links = en
   ? [["projects", "Projects"], ["about", "About me"], ["services", "Services"], ["pricing", "Pricing"], ["contact", "Contact"]]
-  : [["projects", "Projekte"], ["about", "Über mich"], ["services", "Leistungen"], ["pricing", "Preise"], ["contact", "Kontakt"]];
+  : ru ? [["projects", "Проекты"], ["about", "Обо мне"], ["services", "Услуги"], ["pricing", "Цены"], ["contact", "Контакты"]] : [["projects", "Projekte"], ["about", "Über mich"], ["services", "Leistungen"], ["pricing", "Preise"], ["contact", "Kontakt"]];
 ---
 <footer class="site-footer">
   <div class="container footer-inner">
     <div class="footer-top" data-motion>
       <div class="footer-brand">
         <a class="footer-logo" href="#top" aria-label="HIRDA"><span aria-hidden="true"><b>[</b>H<b>]</b>IRDA</span></a>
-        <p>{en ? "Design. Development. Personality." : "Design. Entwicklung. Persönlichkeit."}</p>
+        <p>{en ? "Design. Development. Personality." : ru ? "Дизайн. Разработка. Характер." : "Design. Entwicklung. Persönlichkeit."}</p>
       </div>
-      <nav aria-label={en ? "Footer navigation" : "Navigation im Footer"}>
+      <nav aria-label={en ? "Footer navigation" : ru ? "Навигация внизу страницы" : "Navigation im Footer"}>
         {links.map(([id, label]) => <a href={`#${id}`}>{label}</a>)}
       </nav>
 
     </div>
 
     <div class="footer-bottom">
-    <a class="back-top" href="#top" aria-label={en ? "Back to top" : "Nach oben"} title={en ? "Back to top" : "Nach oben"}>
+    <a class="back-top" href="#top" aria-label={en ? "Back to top" : ru ? "Наверх" : "Nach oben"} title={en ? "Back to top" : ru ? "Наверх" : "Nach oben"}>
       <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 19V5m-6 6 6-6 6 6" /></svg>
     </a>
       <span>© {new Date().getFullYear()} HIRDA</span>

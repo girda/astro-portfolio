@@ -8,6 +8,7 @@ if (menu && trigger) {
     ),
   ];
   const previousInert = new Map<HTMLElement, boolean>();
+  const ru = document.documentElement.lang === 'ru';
   const english = document.documentElement.lang === "en";
   function sync() {
     if (!menu || !trigger) return;
@@ -18,10 +19,10 @@ if (menu && trigger) {
       menu.open
         ? english
           ? "Close menu"
-          : "Menü schließen"
+          : ru ? "Закрыть меню" : "Menü schließen"
         : english
           ? "Open menu"
-          : "Menü öffnen",
+          : ru ? "Открыть меню" : "Menü öffnen",
     );
     if (menu.open) {
       for (const element of backgrounds) {

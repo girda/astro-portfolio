@@ -39,7 +39,7 @@ const statusLabel =
 // Адрес — подпись демонстрации, а не выдуманный зарегистрированный домен.
 const address = `${name.toLowerCase().normalize("NFKD").replace(/[\u0300-\u036f]/g, "").replace(/[^a-z0-9]/g, "")}.demo`;
 const base = import.meta.env.BASE_URL;
-const presentation = projectPresentation[projectId as keyof typeof projectPresentation]?.[lang === "en" ? "en" : "de"];
+const presentation = projectPresentation[projectId as keyof typeof projectPresentation]?.[lang];
 const demoLabel = lang === "en" ? "Open demo" : lang === "ru" ? "Открыть демо" : "Demo öffnen";
 const displayName = name.charAt(0).toUpperCase() + name.slice(1).toLowerCase();
 ---
