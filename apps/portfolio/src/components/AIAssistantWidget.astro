@@ -9,7 +9,7 @@ const copy = {
     greeting: 'Hi, ich bin Pixel — Artems KI-Kater. Du hast eine Idee? Ich bin ganz Ohr.',
     title: 'Pixel',
     status: 'DIGITALER ASSISTENT · DEMO',
-    subtitle: 'KI-Assistent',
+    subtitle: 'Artems KI-Agent',
     open: 'Pixel öffnen',
     close: 'Chat schließen',
     dismiss: 'Hinweis schließen',
@@ -25,7 +25,7 @@ const copy = {
     greeting: 'Привет, я Pixel — ИИ-кот Артёма. Есть идея? Я весь во внимании.',
     title: 'Pixel',
     status: 'ЦИФРОВОЙ ПОМОЩНИК · ДЕМО',
-    subtitle: 'ИИ-помощник',
+    subtitle: 'ИИ-агент Артёма',
     open: 'Открыть Pixel',
     close: 'Закрыть чат',
     dismiss: 'Закрыть подсказку',
@@ -41,7 +41,7 @@ const copy = {
     greeting: 'Hi, I’m Pixel — Artem’s AI cat. Got an idea? I’m all ears.',
     title: 'Pixel',
     status: 'DIGITAL ASSISTANT · DEMO',
-    subtitle: 'AI assistant',
+    subtitle: 'Artem’s AI agent',
     open: 'Open Pixel',
     close: 'Close chat',
     dismiss: 'Dismiss hint',
@@ -55,7 +55,7 @@ const copy = {
   },
 }[lang];
 const robotSrc = `${import.meta.env.BASE_URL}ai/robot-cat.webp`;
-const avatarSrc = `${import.meta.env.BASE_URL}ai/face-default.webp`;
+const avatarSrc = `${import.meta.env.BASE_URL}ai/robot-cat.webp`;
 ---
 
 <div class="hirda-cat" data-hirda-cat data-lang={lang}>
@@ -76,7 +76,7 @@ const avatarSrc = `${import.meta.env.BASE_URL}ai/face-default.webp`;
   <section class="cat-panel" id="hirda-cat-panel" data-cat-panel tabindex="-1" role="dialog" aria-modal="true" aria-labelledby="hirda-cat-title" hidden>
     <div class="cat-accent-bar" aria-hidden="true"></div>
     <header class="cat-head">
-      <div class="head-avatar" aria-hidden="true"><img data-cat-avatar src={avatarSrc} alt="" width="350" height="330" decoding="async" /></div>
+      <div class="head-avatar" aria-hidden="true"><img data-cat-avatar src={avatarSrc} alt="" width="750" height="750" decoding="async" /></div>
       <div class="head-copy">
 
         <h2 id="hirda-cat-title">{copy.title}</h2>
@@ -114,6 +114,7 @@ const avatarSrc = `${import.meta.env.BASE_URL}ai/face-default.webp`;
 </div>
 
 <script>
+  import {pixelScenarios} from '../data/pixel-showcase';
   import "../scripts/pixel-visibility";
   import { pixelBusinessFacts } from "../data/pixel-facts";
   import { whatsappNumber } from "../config/contact";
@@ -210,7 +211,7 @@ const avatarSrc = `${import.meta.env.BASE_URL}ai/face-default.webp`;
       demo: { history: [] as Message[], nodes: [] as HTMLElement[], draft: '' },
     };
     let history = sessions.consult.history;
-    let scenario: 'cafe' | 'auto' | 'house' | 'workshop' | null = null;
+    let scenario: 'cafe' | 'auto' | 'house' | 'workshop' | 'handwerker' | null = null;
     let demoSummary = '';
     let demoCart: { id: string; quantity: number }[] = [];
     let demoCatalog: { id: string; name: string; cents: number }[] = [];
@@ -267,9 +268,9 @@ const avatarSrc = `${import.meta.env.BASE_URL}ai/face-default.webp`;
     const bubble = root.querySelector<HTMLElement>('[data-cat-bubble]')!;
     const backdrop = root.querySelector<HTMLElement>('[data-cat-backdrop]')!;
     const avatar = root.querySelector<HTMLImageElement>('[data-cat-avatar]')!;
-    const faceDefault = `${import.meta.env.BASE_URL}ai/face-default.webp`;
-    const faceWink = `${import.meta.env.BASE_URL}ai/face-wink.webp`;
-    const faceHappy = `${import.meta.env.BASE_URL}ai/face-happy.webp`;
+    const faceDefault = `${import.meta.env.BASE_URL}ai/robot-cat.webp`;
+    const faceWink = `${import.meta.env.BASE_URL}ai/robot-cat.webp`;
+    const faceHappy = `${import.meta.env.BASE_URL}ai/robot-cat.webp`;
     const bubbleOpener = root.querySelector<HTMLButtonElement>('[data-cat-bubble-open]')!;
     const launcher = root.querySelector<HTMLButtonElement>('[data-cat-launcher]')!;
     const panel = root.querySelector<HTMLElement>('[data-cat-panel]')!;
@@ -285,30 +286,31 @@ const avatarSrc = `${import.meta.env.BASE_URL}ai/face-default.webp`;
     const greetingText = greeting.textContent ?? '';
     const intro = root.querySelector<HTMLElement>('[data-cat-intro]')!;
     const agentIntro = {
-      de: 'Vier Demos. Viele Möglichkeiten. Teste, wie ich berate, Angebote finde und Anfragen vorbereite. Mit den richtigen Schnittstellen kann ich noch viel mehr. Wähle ein Business:',
-      en: 'Four demos. Many possibilities. Try how I advise, recommend and prepare enquiries. With the right integrations I can do much more. Choose a business:',
-      ru: 'Четыре демо — много возможностей. Попробуй, как я консультирую, рекомендую и собираю заявки. С нужными интеграциями я умею гораздо больше. Выбери сферу:',
+      de: 'Drei Demos. Viele Möglichkeiten. Teste, wie ich berate, Angebote finde und Anfragen vorbereite. Mit den richtigen Schnittstellen kann ich noch viel mehr. Wähle ein Business:',
+      en: 'Three demos. Many possibilities. Try how I advise, recommend and prepare enquiries. With the right integrations I can do much more. Choose a business:',
+      ru: 'Три демо — много возможностей. Попробуй, как я консультирую, рекомендую и собираю заявки. С нужными интеграциями я умею гораздо больше. Выбери сферу:',
     }[lang];
-    const scenarioNames = { de: ['Café', 'Auto · Kauf & Miete', 'Eco-Haus', 'Werkstatt'], en: ['Café', 'Cars · Buy & rent', 'Eco home', 'Workshop'], ru: ['Кафе', 'Авто · покупка и аренда', 'Эко-дом', 'СТО'] }[lang];
+    const scenarioKeys = pixelScenarios;
+    const scenarioNames = { de: ['Café', 'Autohaus', 'Handwerker'], en: ['Café', 'Car dealership', 'Home services'], ru: ['Кафе', 'Автосалон', 'Мастер по дому'] }[lang];
+    function startScenario(key: typeof scenarioKeys[number]) {
+      if (busy) { showWaitHint(); return; }
+      scenario = key; demoSummary = ''; demoCart = []; history.splice(0);
+      n8nChat?.resetSession('demo');
+      Array.from(log.children).filter(node => node !== intro && node !== topics).forEach(node => node.remove());
+      const name = scenarioNames[scenarioKeys.indexOf(key)];
+      const startMessage = {
+        de: `Starte die Demo für ${name} und stelle mir deine erste Frage.`,
+        en: `Start the ${name} demo and ask your first question.`,
+        ru: `Начни демо для сферы «${name}» и задай первый вопрос.`,
+      }[lang];
+      void sendToAgent(startMessage);
+    }
     function showScenarios() {
       log.querySelector('[data-scenarios]')?.remove();
       const grid = document.createElement('div'); grid.dataset.scenarios = ''; grid.className = 'cat-scenarios';
-      (['cafe', 'auto', 'house', 'workshop'] as const).forEach((key, index) => {
+      scenarioKeys.forEach((key, index) => {
         const button = document.createElement('button'); button.type = 'button'; button.textContent = scenarioNames[index];
-        button.addEventListener('click', () => {
-          if (busy) { showWaitHint(); return; }
-          scenario = key; demoSummary = ''; demoCart = []; history.splice(0);
-          n8nChat?.resetSession('demo');
-          Array.from(log.children).filter(node => node !== intro && node !== topics && node !== grid).forEach(node => node.remove());
-          grid.remove();
-          // n8n получает только chatInput: выбранную сферу передаём в стартовом сообщении.
-          const startMessage = {
-            de: `Starte die Demo für ${scenarioNames[index]} und stelle mir deine erste Frage.`,
-            en: `Start the ${scenarioNames[index]} demo and ask your first question.`,
-            ru: `Начни демо для сферы «${scenarioNames[index]}» и задай первый вопрос.`,
-          }[lang];
-          void sendToAgent(startMessage);
-        }); grid.append(button);
+        button.addEventListener('click', () => startScenario(key)); grid.append(button);
       }); log.insertBefore(grid, topics);
     }
     function showDemoActions(choices: string[]) {
@@ -430,6 +432,8 @@ const avatarSrc = `${import.meta.env.BASE_URL}ai/face-default.webp`;
       syncBlink();
       showEmotion(faceHappy, 750);
       scheduleViewport();
+      const selected = opener.dataset.pixelScenario;
+      if (isAgentDemo && scenarioKeys.includes(selected as typeof scenarioKeys[number])) startScenario(selected as typeof scenarioKeys[number]);
     };
 
     const closeChat = (restoreFocus = true) => {
@@ -826,7 +830,7 @@ const avatarSrc = `${import.meta.env.BASE_URL}ai/face-default.webp`;
     background: radial-gradient(circle at 50% 65%, #31434b 0%, #10202b 80%);
     box-shadow: inset 0 1px 4px #ffffff12;
   }
-  /* Уменьшенная голова: уши и антенна полностью помещаются в рамку */
+  /* Весь персонаж помещается без обрезки лап, ушей и антенны. */
   .head-avatar img {
     display: block;
     width: 38px;
