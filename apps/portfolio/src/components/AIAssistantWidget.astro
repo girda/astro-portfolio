@@ -115,6 +115,7 @@ const avatarSrc = `${import.meta.env.BASE_URL}ai/face-default.webp`;
 
 <script>
   import "../scripts/pixel-visibility";
+  import { pixelBusinessFacts } from "../data/pixel-facts";
   import { whatsappNumber } from "../config/contact";
   import { createN8nChatClient } from "../scripts/pixel-n8n";
   import { createLeadCard, enquiryText } from "../scripts/pixel-lead";
@@ -123,8 +124,8 @@ const avatarSrc = `${import.meta.env.BASE_URL}ai/face-default.webp`;
   type Topic = 'projects' | 'prices' | 'services' | 'contact';
   const dictionary = {
     de: {
-      project: 'Artem zeigt vier Website-Konzepte: KANT (Barbershop), KLAR (Reinigung), WERKRAUM (Autowerkstatt) und STILL (Nagelstudio).',
-      pricing: 'Die Einstiegspreise sind: Landingpage ab 490 €, Business-Website ab 790 € und Website mit CMS ab 1.290 €. Der Endpreis hängt vom Umfang ab.',
+      project: pixelBusinessFacts('de').projects,
+      pricing: pixelBusinessFacts('de').pricing,
       service: 'Artem bietet Websites, Landingpages, Redesign, CMS und individuelle Funktionen. Die passende Lösung hängt von deinem Projekt ab.',
       contact: 'Du kannst Artem über das Kontaktformular auf der Seite erreichen. Dort bereitest du eine WhatsApp-Nachricht vor und sendest sie selbst ab.',
       unknown: 'Das ist bisher eine interaktive Demo. Wähle unten ein Thema oder sieh dir Artems Projekte und Leistungen direkt auf der Seite an.',
@@ -132,8 +133,8 @@ const avatarSrc = `${import.meta.env.BASE_URL}ai/face-default.webp`;
       names: { projects: 'Projekte', prices: 'Preise', services: 'Leistungen', contact: 'Kontakt' },
     },
     en: {
-      project: 'Artem showcases four website concepts: KANT (barbershop), KLAR (cleaning), WERKRAUM (auto service), and STILL (nail studio).',
-      pricing: 'Starting prices: landing page from €490, business website from €790, and a CMS website from €1,290. The final quote depends on the scope.',
+      project: pixelBusinessFacts('en').projects,
+      pricing: pixelBusinessFacts('en').pricing,
       service: 'Artem builds websites, landing pages, redesigns, CMS sites and custom features tailored to a business.',
       contact: 'Use the contact section to prepare a WhatsApp enquiry. You can review the message and send it yourself.',
       unknown: 'This is an interactive demo for now. Choose a topic below, or explore Artem’s work directly on this page.',
@@ -141,8 +142,8 @@ const avatarSrc = `${import.meta.env.BASE_URL}ai/face-default.webp`;
       names: { projects: 'Projects', prices: 'Pricing', services: 'Services', contact: 'Contact' },
     },
     ru: {
-      project: 'Артём показывает четыре проекта: KANT (барбершоп), KLAR (клининг), WERKRAUM (автосервис), STILL (студия маникюра).',
-      pricing: 'Стартовые цены: лендинг от 490 €, сайт для бизнеса от 790 €, сайт с CMS от 1 290 €. Итоговая стоимость зависит от задач.',
+      project: pixelBusinessFacts('ru').projects,
+      pricing: pixelBusinessFacts('ru').pricing,
       service: 'Артём создаёт сайты, лендинги, редизайн, сайты с CMS и индивидуальные функции.',
       contact: 'В разделе контактов можно подготовить сообщение в WhatsApp, проверить его и отправить Артёму.',
       unknown: 'Это пока интерактивное демо. Выбери тему ниже или посмотри проекты и услуги на сайте.',
