@@ -1,0 +1,44 @@
+---
+interface Props { floors: number }
+const {floors}=Astro.props;
+const ground=['Wohnen & Essen','Küche','Arbeiten / Gäste',floors>1?'Diele & Treppe':'Diele','Bad / Hauswirtschaft'];
+const upper=['Schlafzimmer','Kinderzimmer','Zimmer / Büro','Galerie & Treppe','Bad'];
+---
+<div class="living-plan">
+ <div class="plan-controls"><span>RAUMKONZEPT / {floors>1?'02 ETAGEN':'01 ETAGE'}</span><div class="project-tabs" role="group" aria-label="Etage auswählen"><button type="button" data-floor="0" aria-pressed="true">Erdgeschoss</button>{floors>1&&<button type="button" data-floor="1" aria-pressed="false">Obergeschoss</button>}</div></div>
+ {[ground,...(floors>1?[upper]:[])].map((rooms,index)=><div data-plan-floor={index} hidden={index>0}>
+ <div class="plan-drawing"><svg viewBox="0 0 800 560" role="img" aria-label={index===0?'Schematische Erdgeschossaufteilung mit offenem Wohnbereich und Arbeitszimmer':'Schematische Obergeschossaufteilung mit drei Rückzugsräumen und Bad'}>
+ <defs><pattern id={`floor-wood-${index}`} width="32" height="16" patternUnits="userSpaceOnUse"><path d="M0 0h32M0 16h32M16 0v16" fill="none" stroke="#d6c9ad" stroke-width=".7"/></pattern></defs>
+ <rect x="68" y="452" width="664" height="54" rx="3" fill="#ebede5"/><path d="M68 470h664M68 488h664" stroke="#d0d8ca"/>
+ <rect x="68" y="50" width="664" height="402" fill="#faf6ec"/><rect x="68" y="50" width="664" height="402" fill={`url(#floor-wood-${index})`}/>
+ {index===0?<g>
+ <path d="M80 62h405v378H80z" fill="#eee7d6" fill-opacity=".42"/><rect x="80" y="62" width="172" height="130" fill="#e1e8df"/><rect x="492" y="62" width="228" height="130" fill="#e4eadd"/>
+ <g fill="#f4eee1" stroke="#aaa08b" stroke-width="2"><rect x="106" y="241" width="46" height="137" rx="8"/><rect x="106" y="350" width="154" height="40" rx="8"/><rect x="120" y="255" width="21" height="74" rx="3"/><rect x="171" y="276" width="78" height="44" rx="12"/><path d="M290 235h135v77H290z"/><rect x="306" y="220" width="30" height="12" rx="4"/><rect x="372" y="220" width="30" height="12" rx="4"/><rect x="306" y="316" width="30" height="12" rx="4"/><rect x="372" y="316" width="30" height="12" rx="4"/>
+ <path d="M290 65h178v29H319v70h-29z"/><rect x="375" y="74" width="35" height="13" rx="4"/><circle cx="306" cy="123" r="6"/><circle cx="306" cy="144" r="6"/><rect x="113" y="77" width="100" height="29"/><rect x="142" y="118" width="40" height="28" rx="5"/>
+ <rect x="605" y="76" width="93" height="58" rx="3"/><circle cx="623" cy="156" r="14"/><rect x="670" y="147" width="28" height="24" rx="5"/></g>
+ <path d="M256 50v145H68M488 50v402M488 198h244" fill="none" stroke="#354c43" stroke-width="9"/>
+ <g fill="#365b59"><circle cx="274" cy="367" r="17"/><circle cx="362" cy="146" r="17"/><circle cx="178" cy="160" r="17"/><circle cx="550" cy="250" r="17"/><circle cx="552" cy="106" r="17"/></g>
+ <g fill="#fff" font-size="21" text-anchor="middle" font-family="Arial,sans-serif"><text x="274" y="374">1</text><text x="362" y="153">2</text><text x="178" y="167">3</text><text x="550" y="257">4</text><text x="552" y="113">5</text></g>
+ </g>:<g>
+ <rect x="80" y="62" width="282" height="210" fill="#e1e8df"/><rect x="80" y="280" width="282" height="160" fill="#e1e8df"/><rect x="492" y="276" width="228" height="164" fill="#e1e8df"/><rect x="492" y="62" width="228" height="140" fill="#e5eade"/>
+ <g fill="#f7f2e7" stroke="#aaa08b" stroke-width="2"><rect x="104" y="88" width="150" height="145" rx="5"/><rect x="112" y="97" width="61" height="29" rx="3"/><rect x="182" y="97" width="61" height="29" rx="3"/><path d="M105 138h149"/>
+ <rect x="104" y="304" width="85" height="110" rx="4"/><rect x="113" y="312" width="66" height="25" rx="3"/><rect x="240" y="309" width="90" height="32"/><rect x="278" y="352" width="30" height="26" rx="4"/>
+ <rect x="540" y="314" width="70" height="104" rx="4"/><rect x="550" y="322" width="50" height="24" rx="3"/><rect x="645" y="334" width="52" height="30"/>
+ <rect x="606" y="75" width="96" height="53" rx="10"/><ellipse cx="554" cy="111" rx="14" ry="20"/><rect x="646" y="156" width="56" height="27" rx="5"/></g>
+ <path d="M365 50v402M68 277h297M488 50v156h244M488 276h244M488 276v176" fill="none" stroke="#354c43" stroke-width="9"/>
+ <g fill="#365b59"><circle cx="302" cy="180" r="17"/><circle cx="283" cy="398" r="17"/><circle cx="651" cy="401" r="17"/><circle cx="423" cy="248" r="17"/><circle cx="551" cy="167" r="17"/></g><g fill="#fff" font-size="21" text-anchor="middle" font-family="Arial,sans-serif"><text x="302" y="187">1</text><text x="283" y="405">2</text><text x="651" y="408">3</text><text x="423" y="255">4</text><text x="551" y="174">5</text></g>
+ </g>}
+ {floors>1?<g transform={index===1?'translate(-217 0)':undefined} fill="#ede8d9" stroke="#a7a28d" stroke-width="2"><rect x="613" y="252" width="90" height="158"/><path d="M613 268h90m-90 16h90m-90 16h90m-90 16h90m-90 16h90m-90 16h90m-90 16h90m-90 16h90m-90 16h90"/><path d="M658 397V263m-7 10 7-10 7 10" stroke="#365b59" fill="none"/></g>:<g fill="#ede8d9" stroke="#aaa08b" stroke-width="2"><rect x="640" y="310" width="62" height="100"/><path d="M671 310v100"/></g>}
+ <path d="M68 50h664v402H68z" stroke="#354c43" stroke-width="12" fill="none"/>
+ <g stroke="#fbf8f0" stroke-width="14"><path d="M105 50h100m100 0h100m160 0h100M68 240v95m664-80v105M140 452h210m205 0h45"/>{index===0?<path d="M256 148v36M488 151v36m0 50v45"/>:<path d="M365 208v45m0 59v43M488 151v36m0 109v43"/>}</g>
+ <g stroke="#7da297" stroke-width="3"><path d="M105 50h100m100 0h100m160 0h100M68 240v95m664-80v105M140 452h210"/></g>
+ <g fill="none" stroke="#a8b5a3" stroke-width="2" stroke-dasharray="4 4"><path d="M555 452v-50a50 50 0 0 1 45 50"/></g>
+ <circle cx="707" cy="482" r="13" fill="#c8d6bb"/><circle cx="95" cy="482" r="13" fill="#c8d6bb"/>
+ <text x="400" y="537" text-anchor="middle" fill="#68736e" font-size="16" font-family="Arial,sans-serif">{index===0?'GARTENSEITE / TERRASSE':'GARTENSEITE'}</text>
+ </svg></div><ol class="plan-legend">{rooms.map((room,i)=><li><span>{i+1}</span>{room}</li>)}</ol>
+ </div>)}
+ <p class="plan-caption">Schematisches Wohnkonzept · nicht maßstäblich · keine Ausführungsplanung</p>
+</div>
+<style>
+.living-plan{min-width:0;background:white;border:1px solid var(--line);border-radius:12px;padding:24px}.plan-controls{display:flex;justify-content:space-between;align-items:center;gap:16px;flex-wrap:wrap}.plan-controls>span{font-size:10px;letter-spacing:.12em;color:var(--muted)}.plan-drawing{margin:22px -10px 8px;background:#fafbf8;border-radius:6px}.plan-drawing svg{width:100%;height:auto;display:block}.plan-legend{list-style:none;padding:0;margin:0;display:grid;grid-template-columns:1fr 1fr;gap:12px 18px}.plan-legend li{display:flex;align-items:center;gap:10px;font-size:12px;line-height:1.5}.plan-legend li>span{display:grid;place-items:center;background:var(--accent);color:white;border-radius:50%;width:24px;height:24px;flex-shrink:0;font-size:11px}.plan-caption{font-size:10px;line-height:1.6;color:var(--muted);border-top:1px solid var(--line);padding-top:18px;margin-top:22px}@media(max-width:600px){.living-plan{padding:20px 16px}.plan-controls{gap:14px}.plan-legend{gap:12px}.plan-legend li{font-size:11px}.plan-drawing{margin-inline:-12px}}
+</style>

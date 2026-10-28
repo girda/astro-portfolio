@@ -2,13 +2,12 @@
 import HouseCard from './HouseCard.astro';
 import Icon from '../../../../packages/ui/Icon.astro';
 import houses from '../data/houses.json';
-interface Props { compact?: boolean; label: string }
-const {compact=false,label}=Astro.props;
-const base=import.meta.env.BASE_URL;
+interface Props { label: string }
+const {label}=Astro.props;
 ---
-<div class:list={['house-carousel',{'is-compact':compact}]} data-carousel role="region" aria-label={label}>
+<div class="house-carousel" data-carousel role="region" aria-label={label}>
   <div class="carousel-toolbar"><p>Sechs Hausideen. Finde deinen Ausgangspunkt.</p><div class="carousel-controls"><button type="button" class="icon-button" data-carousel-prev aria-label="Vorherige Häuser"><Icon name="arrow-left"/></button><button type="button" class="icon-button" data-carousel-next aria-label="Weitere Häuser"><Icon name="arrow-right"/></button></div></div>
   <div class="carousel-track" data-carousel-track tabindex="0" aria-label="Hausideen zum Durchblättern">
-    {houses.map(h=>compact ? <a class="house-teaser" href={`${base}haeuser/${h.id}/`}><div><img src={`${base}images/${h.image}.webp`} width="1672" height="941" loading="lazy" alt={`Hausidee ${h.name}`}/><span>{h.material} · {h.style}</span></div><h3>{h.name}</h3><p>{h.area} m² <span>·</span> {h.floors===1?'Eine Ebene':`${h.floors} Geschosse`}</p></a> : <HouseCard house={h}/>)}
+    {houses.map(house => <HouseCard house={house}/>)}
   </div>
 </div>

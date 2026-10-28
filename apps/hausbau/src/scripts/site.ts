@@ -232,10 +232,13 @@ export function initSite() {
       document.querySelector('[data-service-caption]')!.textContent=button.querySelector('strong')!.textContent;
       if(!reduced()){gsap.set(serviceImage,{opacity:.6});tween(serviceImage,{opacity:1,duration:.3,clearProps:'opacity'});}
     }, options));
-    document.querySelectorAll<HTMLButtonElement>('[data-floor]').forEach(button=>button.addEventListener('click',()=>{
-      document.querySelectorAll('[data-floor]').forEach(b=>b.setAttribute('aria-pressed',String(b===button)));
-      const upper=button.dataset.floor==='1';
-      for(const [key,label] of Object.entries(upper?{living:'Schlafen / Rückzug',small:'Ankleide',room:'Schlafzimmer',bath:'Bad'}:{living:'Wohnen / Essen',small:'Arbeiten',room:'Küche',bath:'Bad'})){const node=document.querySelector(`[data-plan-label=${key}]`);if(node)node.textContent=label;}
+    document.querySelectorAll<HTMLButtonElement>('[data-open-plan]').forEach(button => button.addEventListener('click', () => {
+      openDialog(document.querySelector<HTMLDialogElement>('#plan-dialog')!);
+    }, options));
+    document.querySelectorAll<HTMLButtonElement>('[data-floor]').forEach(button => button.addEventListener('click', () => {
+      const root = button.closest<HTMLElement>('.living-plan')!;
+      root.querySelectorAll('[data-floor]').forEach(item => item.setAttribute('aria-pressed', String(item === button)));
+      root.querySelectorAll<HTMLElement>('[data-plan-floor]').forEach(floor => floor.hidden = floor.dataset.planFloor !== button.dataset.floor);
     }, options));
     return () => {events.abort();media.revert();tweens.forEach(t=>t.kill());timers.forEach(clearTimeout);leaveTimers.forEach(clearTimeout);document.querySelectorAll<HTMLDialogElement>('dialog[open]').forEach(d=>d.close());document.body.style.overflow=overflow;};
   });
