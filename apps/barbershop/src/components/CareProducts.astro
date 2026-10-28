@@ -1,4 +1,5 @@
 ---
+import '../../../../packages/ui/edge-carousel.css';
 import Icon from './Icon.astro';
 import { careProducts } from '../data/site';
 const base = import.meta.env.BASE_URL.replace(/\/$/, '');
@@ -9,7 +10,7 @@ const base = import.meta.env.BASE_URL.replace(/\/$/, '');
     <div class="care-copy" data-reveal>
       <p class="kicker">PFLEGE FÜR ZU HAUSE</p><h2 id="care-title">Der Look bleibt.<br /><em>Auch nach dem Termin.</em></h2>
       <p class="section-intro">Nicht mehr Produkte. Die passenden. Entdecke die Pflege für dein Haar und deinen Bart — gemeinsam mit dem Barber.</p>
-      <div class="care-viewport" tabindex="0" role="region" aria-roledescription="Karussell" aria-label="Pflege auswählen — Pfeiltasten oder ziehen">
+      <div class="care-viewport" data-edge-carousel tabindex="0" role="region" aria-roledescription="Karussell" aria-label="Pflege auswählen — Pfeiltasten oder ziehen">
         <div class="care-track">{careProducts.map(product => <article class="care-item"><p class="care-category">{product.category}</p><h3>{product.title}</h3><p>{product.description}</p><button class="btn secondary" type="button" data-open-care data-product={product.title} aria-haspopup="dialog" aria-controls="care-dialog" hidden>Beim Barber fragen</button></article>)}</div>
       </div>
       <div class="care-controls" hidden><button type="button" data-care-prev aria-label="Vorheriges Pflegeprodukt"><Icon name="chevron-left" /></button><p class="care-status" aria-live="polite"></p><button type="button" data-care-next aria-label="Nächstes Pflegeprodukt"><Icon name="chevron-right" /></button></div>

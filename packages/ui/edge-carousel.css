@@ -1,0 +1,22 @@
+/* Лента центрированного контейнера доходит до экрана, крайние карточки — до полей текста. */
+@media (max-width: 700px) {
+  html body [data-edge-carousel]:not([hidden]) {
+    box-sizing: border-box;
+    width: 100vw;
+    max-width: none;
+    margin-inline: calc(50% - 50vw);
+    padding-inline: calc(50vw - 50%);
+    scroll-padding-inline: var(--carousel-edge, 20px);
+  }
+  /* Snap-поля повторяют реальные поля соответствующих контейнеров. */
+  .review-track[data-edge-carousel] { --carousel-edge: 24px; }
+  .carousel-track[data-edge-carousel] { --carousel-edge: 32px; }
+  :is(.vehicle-carousel,.perspectives-track)[data-edge-carousel] { --carousel-edge: 40px; }
+  [data-edge-carousel] .care-item { flex-basis: 88%; }
+}
+@media (max-width: 640px) {
+  :is(.vehicle-carousel,.perspectives-track)[data-edge-carousel] { --carousel-edge: 24px; }
+}
+@media (max-width: 600px) {
+  :is(.review-track,.carousel-track)[data-edge-carousel] { --carousel-edge: 20px; }
+}

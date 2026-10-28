@@ -1,4 +1,5 @@
 ---
+import '../../../../packages/ui/edge-carousel.css';
 import Header from '../components/Header.astro';
 import Footer from '../components/Footer.astro';
 import Locations from '../components/Locations.astro';
@@ -118,7 +119,7 @@ const canonical = Astro.site ? new URL(base, Astro.site).href : undefined;
               ),
             )}
           </div>
-          <div class="catalogue-slider"><div class="vehicle-carousel" aria-label="Fahrzeuge" tabindex="0">
+          <div class="catalogue-slider"><div class="vehicle-carousel" data-edge-carousel aria-label="Fahrzeuge" tabindex="0">
             {vehicles.map((v) => (
               <VehicleCard vehicle={v} />
             ))}

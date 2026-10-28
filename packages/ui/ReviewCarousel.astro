@@ -1,4 +1,5 @@
 ---
+import './edge-carousel.css';
 import Icon from './Icon.astro';
 import {reviewExamples,reviewLabels} from './review-examples';
 interface Props {project:keyof typeof reviewExamples;lang?:'de'|'ru'|'en'}
@@ -8,7 +9,7 @@ const items=reviewExamples[project][lang]??reviewExamples[project].de;
 ---
 <section class="demo-reviews" data-review-carousel aria-label={t.title}>
   <div class="review-heading"><div><p class="review-eyebrow">{t.eyebrow}</p><h2>{t.title}</h2><p class="review-note">{t.note}</p></div><div class="review-controls" hidden><button type="button" data-review-prev aria-label={t.prev}><Icon name="arrow-left"/></button><button type="button" data-review-next aria-label={t.next}><Icon name="arrow-right"/></button></div></div>
-  <div class="review-track" tabindex="0" aria-label={t.track}>
+  <div class="review-track" data-edge-carousel tabindex="0" aria-label={t.track}>
     {items.map((text,index)=><article class="review-card"><p class="review-index">0{index+1} / {t.example}</p><blockquote>{text}</blockquote><div class="review-person"><span aria-hidden="true">{['LM','JK','AS'][index]}</span><div><strong>{['Lea M.','Jonas K.','Anna S.'][index]}</strong><small>{t.fiction}</small></div></div></article>)}
   </div>
 </section>

@@ -26,3 +26,6 @@
 SiteMotion.astro: IntersectionObserver/WAAPI für Sektionen, Hover für Karten/Bilder/Pfeile. Keine versteckten Inhalte ohne JavaScript; reduced motion cancelt Effekte. Vorhandene Reveal und Pixel werden nicht doppelt animiert.
 
 demo-menu.css enthält nur das native mobile DemoMenu; service-base.css importiert es. STILL/WERKRAUM können es ohne die alte Designbasis nutzen.
+
+## Мобильная лента до краёв экрана
+`edge-carousel.css` + `data-edge-carousel` на существующей прокручиваемой ленте (или viewport Embla). Использовать внутри центрированного контейнера: на ширине до 700 px область обрезки расширяется до viewport, внутренние поля сохраняют выравнивание первого/последнего слайда. `--carousel-edge` задаёт snap-поле под конкретный контейнер. Карточки не превращаются в сетку; клавиатура, свайп, reduced motion и существующие кнопки сохраняются. Проверять first / middle / last, overflow страницы и повторять при resize. Не применять к обычным сеткам, modal и вертикальным спискам.
