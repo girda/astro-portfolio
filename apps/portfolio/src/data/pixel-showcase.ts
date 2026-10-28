@@ -208,31 +208,7 @@ export const pixelShowcase = {
       "assistant": "Pixel",
       "result": "ЧТО ПОЛУЧИЛОСЬ",
       "demo": "Попробовать самому",
-      "note": "Живое демо открывается в чате. Без реальных заказов и записей.",
-      "capTitle": "Не только чат на сайте",
-      "capNote": "Возможности подключения для твоего проекта. Эти интеграции не включены в показанное демо.",
-      "capabilities": [
-        [
-          "shopping-bag",
-          "Кафе: от вопроса до заказа",
-          "Меню, состав и аллергены → корзина → проверка → передача заказа в систему заведения. Оплата и кухня подключаются отдельно."
-        ],
-        [
-          "mail",
-          "Почта и мессенджеры",
-          "Ответы по твоей базе знаний, сбор обращений и передача сотруднику. Отправка сообщений — по согласованным правилам и через API сервиса."
-        ],
-        [
-          "wrench",
-          "Домашние мастера",
-          "Разбирает список работ, уточняет важные детали, собирает пожелания и готовит заявку на выезд. Окончательную оценку и время подтверждает мастер."
-        ],
-        [
-          "car-front",
-          "Автосалон",
-          "Фильтрует каталог, сравнивает модели и готовит запрос на тест-драйв, кредит или лизинг. Наличие и условия подтверждает менеджер."
-        ]
-      ]
+      "note": "Живое демо открывается в чате. Без реальных заказов и записей."
     },
     "de": {
       "eyebrow": "PIXEL · ARTEMS KI-AGENT",
@@ -252,31 +228,7 @@ export const pixelShowcase = {
       "assistant": "Pixel",
       "result": "DAS ERGEBNIS",
       "demo": "Selbst ausprobieren",
-      "note": "Die Live-Demo öffnet sich im Chat. Keine echten Bestellungen oder Termine.",
-      "capTitle": "Mehr als ein Website-Chat",
-      "capNote": "Mögliche Anbindungen für dein Projekt. Diese Integrationen sind nicht Teil der gezeigten Demo.",
-      "capabilities": [
-        [
-          "shopping-bag",
-          "Café: bis zur Bestellung",
-          "Menü, Zutaten und Allergene → Warenkorb → Prüfung → Übergabe an das Bestellsystem. Zahlung und Küche werden gesondert angebunden."
-        ],
-        [
-          "mail",
-          "E-Mail und Messenger",
-          "Antworten aus deiner Wissensbasis, Anfragen sammeln und ans Team übergeben. Versand nach vereinbarten Regeln über die jeweilige API."
-        ],
-        [
-          "wrench",
-          "Handwerksbetriebe",
-          "Klären, welche Arbeiten anstehen, wichtige Details erfragen und eine Besuchsanfrage vorbereiten. Preis und Termin bestätigt der Betrieb."
-        ],
-        [
-          "car-front",
-          "Autohaus",
-          "Katalog filtern, Modelle vergleichen und Probefahrt, Kredit- oder Leasingberatung anfragen. Bestand und Konditionen bestätigt der Händler."
-        ]
-      ]
+      "note": "Die Live-Demo öffnet sich im Chat. Keine echten Bestellungen oder Termine."
     },
     "en": {
       "eyebrow": "PIXEL · ARTEM’S AI AGENT",
@@ -296,31 +248,7 @@ export const pixelShowcase = {
       "assistant": "Pixel",
       "result": "THE RESULT",
       "demo": "Try it yourself",
-      "note": "The live demo opens in the chat. No real orders or appointments are created.",
-      "capTitle": "More than a website chat",
-      "capNote": "Possible integrations for your project. These integrations are not included in this demo.",
-      "capabilities": [
-        [
-          "shopping-bag",
-          "Café: through to an order",
-          "Menu, ingredients and allergies → basket → review → handover to the ordering system. Payments and kitchen integration are scoped separately."
-        ],
-        [
-          "mail",
-          "Email and messengers",
-          "Answers from your knowledge base, enquiry collection and staff handover. Sending follows agreed rules through the service API."
-        ],
-        [
-          "wrench",
-          "Home services",
-          "Understands the jobs, clarifies important details and prepares a visit enquiry. The professional confirms the price and appointment."
-        ],
-        [
-          "car-front",
-          "Car dealership",
-          "Filters the catalogue, compares models and prepares test-drive, credit or leasing enquiries. Staff confirm availability and terms."
-        ]
-      ]
+      "note": "The live demo opens in the chat. No real orders or appointments are created."
     }
   }
 } as const;

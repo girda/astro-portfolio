@@ -59,13 +59,12 @@ const { delay = 0, variant = "default" } = Astro.props;
     transform: translateY(0);
   }
 
+  /* Устройства сразу имеют итоговый размер: при прокрутке меняется только прозрачность. */
   .reveal-project.reveal-ready {
-    transform: perspective(1100px) translateY(24px) rotateX(3deg) scale(.975);
-    transform-origin: 50% 100%;
-    transition-duration: 620ms;
-    transition-timing-function: cubic-bezier(.22,.8,.25,1);
+    transform: none;
+    transition: opacity 350ms ease var(--reveal-delay, 0ms);
   }
-  .reveal-project.reveal-ready.is-visible { transform: perspective(1100px) translateY(0) rotateX(0) scale(1); }
+  .reveal-project.reveal-ready.is-visible { transform: none; }
   @media (prefers-reduced-motion: reduce) {
     .reveal-ready, .reveal-project.reveal-ready, .reveal-project.reveal-ready.is-visible {
       opacity: 1;
