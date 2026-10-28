@@ -164,9 +164,9 @@ const avatarSrc = `${import.meta.env.BASE_URL}ai/robot-cat.webp`;
     const leadEndpoint = import.meta.env.DEV && n8nChat ? (import.meta.env.PUBLIC_PIXEL_LEADS_URL?.trim().replace(/\/$/, '') || '') : '';
     const apiUrl = import.meta.env.DEV ? 'http://127.0.0.1:8787/api/chat' : (import.meta.env.PUBLIC_ASSISTANT_API_URL || '');
     const verificationCopy = {
-      de: 'Bitte bestätige die Sicherheitsprüfung und versuche es erneut.',
-      en: 'Please complete the security check and try again.',
-      ru: 'Пройди проверку безопасности и попробуй ещё раз.',
+      de: 'Die Sicherheitsprüfung konnte nicht abgeschlossen werden. Lade die Seite neu oder schreib Artem direkt.',
+      en: 'The security check could not be completed. Reload the page or contact Artem directly.',
+      ru: 'Проверка безопасности не завершилась. Обнови страницу или напиши Артёму напрямую.',
     }[lang];
     const dailyCopy = { de: 'Für heute ist das Chat-Limit erreicht. Schreib Artem gerne über das Kontaktformular.', en: 'Today’s chat limit has been reached. Please contact Artem using the contact form.', ru: 'Лимит чата на сегодня исчерпан. Напиши Артёму через форму контактов.' }[lang];
     type Turnstile = { render: (el: HTMLElement, options: Record<string, unknown>) => string; reset: (id: string) => void };
@@ -178,26 +178,33 @@ const avatarSrc = `${import.meta.env.BASE_URL}ai/robot-cat.webp`;
       if (import.meta.env.DEV) return Promise.resolve();
       if (verificationReady) return verificationReady;
       verificationReady = new Promise<void>((resolve, reject) => {
+        // Загрузка стороннего скрипта тоже должна иметь предел ожидания.
+        let script: HTMLScriptElement | undefined;
+        const failLoad = () => { if (script) { script.onload = null; script.onerror = null; script.remove(); } verification.fail(); reject(new Error('verification_failed')); };
+        const timer = window.setTimeout(failLoad, 12_000);
         const render = () => {
-          if (!turnstileWindow.turnstile) { reject(new Error('verification_failed')); return; }
-          widgetId = turnstileWindow.turnstile.render(root.querySelector<HTMLElement>('[data-cat-verification]')!, {
-            sitekey: '0x4AAAAAAFS3zEwm2KejbU1v', action: 'pixel_chat', theme: 'dark', size: 'flexible', appearance: 'interaction-only',
-            callback: (token: string) => verification.accept(token),
-            'expired-callback': () => verification.fail(),
-            'error-callback': () => verification.fail(),
-          });
-          resolve();
+          window.clearTimeout(timer);
+          if (!turnstileWindow.turnstile) { failLoad(); return; }
+          try {
+            widgetId = turnstileWindow.turnstile.render(root.querySelector<HTMLElement>('[data-cat-verification]')!, {
+              sitekey: '0x4AAAAAAFS3zEwm2KejbU1v', action: 'pixel_chat', theme: 'dark', size: 'flexible', appearance: 'interaction-only',
+              callback: (token: string) => verification.accept(token),
+              'expired-callback': () => verification.fail(),
+              'error-callback': () => verification.fail(),
+            });
+            resolve();
+          } catch { failLoad(); }
         };
         if (turnstileWindow.turnstile) render();
         else {
-          const script = document.createElement('script');
+          script = document.createElement('script');
           script.src = 'https://challenges.cloudflare.com/turnstile/v0/api.js?render=explicit';
           script.async = true;
           script.onload = render;
-          script.onerror = () => { script.remove(); verificationReady = undefined; reject(new Error('verification_failed')); };
+          script.onerror = () => { window.clearTimeout(timer); failLoad(); };
           document.head.append(script);
         }
-      });
+      }).catch(error => { verificationReady = undefined; throw error; });
       return verificationReady;
     };
     const apiCopy = {
@@ -578,7 +585,15 @@ const avatarSrc = `${import.meta.env.BASE_URL}ai/robot-cat.webp`;
         const button = document.createElement('button');
         button.type = 'button'; button.className = 'cat-retry'; button.textContent = apiCopy.retry;
         button.addEventListener('click', () => { if (failedMessage) void sendToAgent(failedMessage, true, failedKind); });
-        feedback!.append(button);
+        const contact = document.createElement('a');
+        contact.className = 'cat-retry'; contact.dataset.catErrorContact = '';
+        contact.href = '#contact'; contact.textContent = texts.labels.contact;
+        contact.addEventListener('click', event => {
+          event.preventDefault(); closeChat(false);
+          document.getElementById('contact')?.scrollIntoView({behavior:matchMedia('(prefers-reduced-motion:reduce)').matches?'instant':'smooth'});
+          document.querySelector<HTMLInputElement>('#contact-name')?.focus({preventScroll:true});
+        });
+        feedback!.append(button, contact);
       } finally {
         verification.reset();
         if (widgetId !== undefined) turnstileWindow.turnstile?.reset(widgetId);
