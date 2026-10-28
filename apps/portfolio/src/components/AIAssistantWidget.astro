@@ -114,6 +114,7 @@ const avatarSrc = `${import.meta.env.BASE_URL}ai/robot-cat.webp`;
 </div>
 
 <script>
+  import {createVerificationGate} from '../scripts/pixel-verification';
   import {pixelScenarios} from '../data/pixel-showcase';
   import "../scripts/pixel-visibility";
   import { pixelBusinessFacts } from "../data/pixel-facts";
@@ -171,7 +172,7 @@ const avatarSrc = `${import.meta.env.BASE_URL}ai/robot-cat.webp`;
     type Turnstile = { render: (el: HTMLElement, options: Record<string, unknown>) => string; reset: (id: string) => void };
     const turnstileWindow = window as Window & { turnstile?: Turnstile };
     let widgetId: string | undefined;
-    let verificationToken = '';
+    const verification = createVerificationGate();
     let verificationReady: Promise<void> | undefined;
     const loadVerification = () => {
       if (import.meta.env.DEV) return Promise.resolve();
@@ -181,9 +182,9 @@ const avatarSrc = `${import.meta.env.BASE_URL}ai/robot-cat.webp`;
           if (!turnstileWindow.turnstile) { reject(new Error('verification_failed')); return; }
           widgetId = turnstileWindow.turnstile.render(root.querySelector<HTMLElement>('[data-cat-verification]')!, {
             sitekey: '0x4AAAAAAFS3zEwm2KejbU1v', action: 'pixel_chat', theme: 'dark', size: 'flexible', appearance: 'interaction-only',
-            callback: (token: string) => { verificationToken = token; },
-            'expired-callback': () => { verificationToken = ''; },
-            'error-callback': () => { verificationToken = ''; },
+            callback: (token: string) => verification.accept(token),
+            'expired-callback': () => verification.fail(),
+            'error-callback': () => verification.fail(),
           });
           resolve();
         };
@@ -493,16 +494,16 @@ const avatarSrc = `${import.meta.env.BASE_URL}ai/robot-cat.webp`;
       controls.forEach(control => { control.disabled = true; });
       form.setAttribute('aria-busy', 'true');
       try {
+        let turnstileToken = '';
         if (!import.meta.env.DEV) {
           await loadVerification();
-          if (!verificationToken) throw new Error('verification_failed');
+          // Первый клик ждёт реального callback, а не только загрузки api.js.
+          turnstileToken = await verification.consume();
         }
         let result;
         if (n8nChat) {
           result = await n8nChat.send(value, mode);
         } else {
-          const turnstileToken = verificationToken;
-          verificationToken = '';
           const response = await fetch(apiUrl, {
             method: 'POST', headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({ lang, turnstileToken, mode: requestMode, ...(requestMode === 'demo' ? { cart: demoCart, scenario, summary: demoSummary } : {}), messages: [...history.slice(-10), { role: 'user', content: value }] }),
@@ -579,8 +580,8 @@ const avatarSrc = `${import.meta.env.BASE_URL}ai/robot-cat.webp`;
         button.addEventListener('click', () => { if (failedMessage) void sendToAgent(failedMessage, true, failedKind); });
         feedback!.append(button);
       } finally {
+        verification.reset();
         if (widgetId !== undefined) turnstileWindow.turnstile?.reset(widgetId);
-        verificationToken = '';
         busy = false;
         waitHint.textContent = '';
         controls.forEach(control => { control.disabled = false; });
