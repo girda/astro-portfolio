@@ -2,7 +2,19 @@ import { cart, catalog, format, scenarioInstructions, scenarios } from './demo.m
 import { instructions } from './knowledge.mjs';
 
 export class ApiError extends Error {
-  constructor(status, code) { super(code); this.status = status; this.code = code; }
+  constructor(status, code, diagnostic) { super(code); this.status = status; this.code = code; this.diagnostic = diagnostic; }
+}
+
+// В журнал допускаются только заранее определённые этапы и HTTP-статус.
+// Не передаём туда Error.message, ответы провайдера, токены и сообщения посетителя.
+export function errorDiagnostic(error) {
+  const result = { event: 'pixel_provider_failure' };
+  const stages = ['provider_timeout', 'provider_network', 'provider_http', 'provider_json', 'provider_incomplete', 'provider_shape', 'provider_text', 'demo_output'];
+  if (error instanceof ApiError && stages.includes(error.diagnostic?.stage)) {
+    result.stage = error.diagnostic.stage;
+    if (result.stage === 'provider_http' && Number.isInteger(error.diagnostic.providerStatus) && error.diagnostic.providerStatus >= 100 && error.diagnostic.providerStatus <= 599) result.providerStatus = error.diagnostic.providerStatus;
+  } else result.stage = 'unknown';
+  return result;
 }
 export function validate(body) {
   if (!body || !['de', 'en', 'ru'].includes(body.lang) || !Array.isArray(body.messages) ||
@@ -33,15 +45,15 @@ export async function answer(body, { apiKey, model = 'gpt-4.1-mini', fetchImpl =
       body: JSON.stringify({ model, instructions: instructions(lang, mode) + (mode === 'demo' ? '\n' + scenarioInstructions(scenario, demoCart, body.summary ?? '') + `\nFINAL LANGUAGE RULE: Write ALL text, choices and summary in ${lang}. German examples above are examples only; translate them. Do not repeat the button list in message text.` : ''), ...(mode === 'demo' ? { text: { format } } : {}), input: messages, max_output_tokens: mode === 'demo' ? 900 : 600, store: false }),
       signal: AbortSignal.timeout(timeoutMs),
     });
-  } catch { throw new ApiError(502, 'upstream_unavailable'); }
-  if (!response.ok) throw new ApiError(response.status === 429 ? 429 : 502, response.status === 429 ? 'rate_limited' : 'upstream_unavailable');
+  } catch (error) { throw new ApiError(502, 'upstream_unavailable', { stage: error?.name === 'TimeoutError' || error?.name === 'AbortError' ? 'provider_timeout' : 'provider_network' }); }
+  if (!response.ok) throw new ApiError(response.status === 429 ? 429 : 502, response.status === 429 ? 'rate_limited' : 'upstream_unavailable', { stage: 'provider_http', providerStatus: response.status });
   let data;
-  try { data = await response.json(); } catch { throw new ApiError(502, 'invalid_response'); }
-  if (data.status !== 'completed' || !Array.isArray(data.output)) throw new ApiError(502, 'invalid_response');
+  try { data = await response.json(); } catch { throw new ApiError(502, 'invalid_response', { stage: 'provider_json' }); }
+  if (data?.status !== 'completed' || !Array.isArray(data.output)) throw new ApiError(502, 'invalid_response', { stage: data?.status === 'incomplete' ? 'provider_incomplete' : 'provider_shape' });
   const text = data.output.filter(item => item.type === 'message' && item.role === 'assistant')
     .flatMap(item => Array.isArray(item.content) ? item.content : [])
     .filter(item => item.type === 'output_text' && typeof item.text === 'string').map(item => item.text).join('\n').trim();
-  if (!text || text.length > 4000) throw new ApiError(502, 'invalid_response');
+  if (!text || text.length > 4000) throw new ApiError(502, 'invalid_response', { stage: 'provider_text' });
   if (mode === 'demo') {
     try {
       const result = JSON.parse(text);
@@ -50,7 +62,7 @@ export async function answer(body, { apiKey, model = 'gpt-4.1-mini', fetchImpl =
       const nextCart = cart(result.cart);
       if (scenario !== 'cafe' && nextCart.length) throw new Error();
       return { text: result.text, choices: result.choices, summary: result.summary, cart: nextCart, catalog };
-    } catch { throw new ApiError(502, 'invalid_response'); }
+    } catch { throw new ApiError(502, 'invalid_response', { stage: 'demo_output' }); }
   }
   return { text };
 }

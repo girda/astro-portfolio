@@ -1,6 +1,6 @@
 import { verifyTurnstile } from './turnstile.mjs';
 export { ChatBudget } from './budget.mjs';
-import { answer, ApiError, validate } from './api.mjs';
+import { answer, ApiError, errorDiagnostic, validate } from './api.mjs';
 
 // Публичный чат: Turnstile, лимит IP и общий устойчивый дневной бюджет.
 export default {
@@ -42,6 +42,7 @@ export default {
       if (!(await env.CHAT_BUDGET.getByName('pixel-site-budget').consume())) return send(429, { error: 'daily_limit' });
       return send(200, await answer(body, { apiKey: env.OPENAI_API_KEY, model: env.OPENAI_MODEL }));
     } catch (error) {
+      if (error instanceof ApiError && error.diagnostic) console.warn(JSON.stringify(errorDiagnostic(error)));
       return send(error instanceof ApiError ? error.status : 500, { error: error instanceof ApiError ? error.code : 'internal_error' });
     }
   },

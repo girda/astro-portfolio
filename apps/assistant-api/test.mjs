@@ -1,7 +1,7 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
 import { createServer } from 'node:http';
-import { answer, validate, createHandler } from './api.mjs';
+import { answer, validate, createHandler, ApiError, errorDiagnostic } from './api.mjs';
 const body = { lang: 'de', messages: [{ role: 'user', content: 'Was kostet ein KI-Assistent?' }] };
 const output = { status: 'completed', output: [{ type: 'message', role: 'assistant', content: [{ type: 'output_text', text: 'Ab 790 €.' }] }] };
 test('rejects injected roles, excessive history, invalid language and text', () => {
@@ -92,3 +92,24 @@ test('Turnstile rejects malformed tokens, wrong hostname/action and network fail
   const result = await answer({ ...body, mode: 'demo', cart: [] }, { apiKey: 'test', fetchImpl: async () => Response.json({ status: 'completed', output: [{ type: 'message', role: 'assistant', content: [{ type: 'output_text', text: JSON.stringify({ text: 'Demo', choices: [], summary: '', cart: [{ id: 'coffee', quantity: 2 }, { id: 'cake', quantity: 1 }] }) }] }] }) });
   assert.equal(result.cart.reduce((sum, row) => sum + row.quantity * result.catalog.find(p => p.id === row.id).cents, 0), 1270);
  });
+
+
+test('provider diagnostics separate HTTP refusal, timeout and invalid output without content', async () => {
+  for (const [fetchImpl, expected] of [
+    [async () => new Response('private provider body', { status: 401 }), { stage: 'provider_http', providerStatus: 401 }],
+    [async () => { throw new DOMException('private timeout message', 'TimeoutError'); }, { stage: 'provider_timeout' }],
+    [async () => Response.json({ status: 'incomplete' }), { stage: 'provider_incomplete' }],
+    [async () => new Response('private invalid JSON'), { stage: 'provider_json' }],
+    [async () => Response.json(null), { stage: 'provider_shape' }],
+  ]) {
+    await assert.rejects(answer(body, { apiKey: 'private-key', fetchImpl }), error => {
+      assert.deepEqual(errorDiagnostic(error), { event: 'pixel_provider_failure', ...expected });
+      return true;
+    });
+  }
+});
+test('diagnostic logging excludes arbitrary error fields and messages', () => {
+  assert.deepEqual(errorDiagnostic(new Error('private-key')), { event: 'pixel_provider_failure', stage: 'unknown' });
+  assert.deepEqual(errorDiagnostic(new ApiError(502, 'private-code', { stage: 'private-content', providerStatus: 401 })), { event: 'pixel_provider_failure', stage: 'unknown' });
+  assert.deepEqual(errorDiagnostic(new ApiError(502, 'private-code', { stage: 'provider_http', providerStatus: 'private-key', content: 'private' })), { event: 'pixel_provider_failure', stage: 'provider_http' });
+});
