@@ -20,3 +20,34 @@
 @media (max-width: 600px) {
   :is(.review-track,.carousel-track)[data-edge-carousel] { --carousel-edge: 20px; }
 }
+
+/* Горизонтальные категории используют ту же геометрию, а не перенос строк. */
+@media (max-width: 700px) {
+  html body [data-edge-filter]:not([hidden]) {
+    display: flex;
+    flex-wrap: nowrap;
+    justify-content: flex-start;
+    overflow-x: auto;
+    overscroll-behavior-inline: contain;
+    scrollbar-width: none;
+  }
+  html body [data-edge-filter] > :is(button,a) {
+    flex: 0 0 auto;
+    white-space: nowrap;
+  }
+  html body [data-edge-filter]::-webkit-scrollbar { display: none; }
+  /* Эти панели уже занимают экран: нужны только внутренние поля. */
+  html body [data-edge-filter]:not([data-edge-carousel]) {
+    padding-inline: var(--filter-inset, 24px);
+  }
+}
+
+/* На телефоне свайп и соседняя карточка заменяют стрелки, на desktop они остаются. */
+@media (max-width: 700px) {
+  html body :is(.review-controls,.carousel-controls,.slider-arrow) {
+    display: none !important;
+  }
+  html body :is(.gallery-navigation,.care-controls) > button {
+    display: none !important;
+  }
+}

@@ -106,7 +106,7 @@ const canonical = Astro.site ? new URL(base, Astro.site).href : undefined;
         <div class="container" data-motion="left">
           <p class="eyebrow">FAHRZEUGE ENTDECKEN</p>
           <h2 id="models-title">Welches Auto passt zu dir?</h2>
-          <div class="filters" role="group" aria-label="Fahrzeugkategorien">
+          <div class="filters" data-edge-carousel data-edge-filter role="group" aria-label="Fahrzeugkategorien">
             {["Alle Modelle", "Kompakt", "Limousine", "Roadster"].map(
               (label, i) => (
                 <button

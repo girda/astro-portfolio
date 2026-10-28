@@ -1,4 +1,5 @@
 ---
+import '../../../../packages/ui/edge-carousel.css';
 import ContactSection from "../components/ContactSection.astro";
 import OfficeMap from "../components/OfficeMap.astro";
 import ReviewCarousel from '../../../../packages/ui/ReviewCarousel.astro';
@@ -130,7 +131,7 @@ const faq = [
               machen daraus etwas Eigenes.
             </p>
           </div>
-          <div class="home-filters" role="group" aria-label="Haustypen">
+          <div class="home-filters" data-edge-carousel data-edge-filter role="group" aria-label="Haustypen">
             {["Alle Häuser", "Familienhaus", "Bungalow", "Kompakthaus"].map(
               (f, i) => (
                 <button
