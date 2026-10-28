@@ -187,7 +187,7 @@ const avatarSrc = `${import.meta.env.BASE_URL}ai/robot-cat.webp`;
           if (!turnstileWindow.turnstile) { failLoad(); return; }
           try {
             widgetId = turnstileWindow.turnstile.render(root.querySelector<HTMLElement>('[data-cat-verification]')!, {
-              sitekey: '0x4AAAAAAFS3zEwm2KejbU1v', action: 'pixel_chat', theme: 'dark', size: root.querySelector<HTMLElement>('[data-cat-verification]')!.clientWidth < 300 ? 'compact' : 'flexible', execution: 'execute', appearance: 'execute', retry: 'never',
+              sitekey: '0x4AAAAAAFS3zEwm2KejbU1v', action: 'pixel_chat', theme: 'dark', size: root.querySelector<HTMLElement>('[data-cat-verification]')!.clientWidth < 300 ? 'compact' : 'flexible', execution: 'execute', appearance: 'interaction-only', retry: 'never',
               callback: (token: string) => verification.accept(token),
               'expired-callback': () => verification.fail(),
               'error-callback': (code: string) => {
@@ -435,7 +435,6 @@ const avatarSrc = `${import.meta.env.BASE_URL}ai/robot-cat.webp`;
       backdrop.hidden = false;
       panel.hidden = false;
       root.classList.add('is-open');
-      void loadVerification().catch(() => {});
       oldBodyOverflow = document.body.style.overflow;
       document.body.style.overflow = 'hidden';
       launcher.setAttribute('aria-expanded', 'true');
@@ -630,6 +629,12 @@ const avatarSrc = `${import.meta.env.BASE_URL}ai/robot-cat.webp`;
       return null;
     }
 
+    // Все внешние кнопки используют тот же обработчик, что и Pixel.
+    // Только явно отмеченные примеры включают демосценарии.
+    document.querySelectorAll<HTMLButtonElement>('[data-open-pixel], [data-open-agent]').forEach(opener => {
+      opener.hidden = false;
+      opener.addEventListener('click', () => openChat(opener));
+    });
     launcher.addEventListener('click', () => panel.hidden ? openChat() : closeChat());
     bubbleOpener.addEventListener('click', () => openChat(bubbleOpener));
     root.addEventListener('hirda:open-chat', (event) => {

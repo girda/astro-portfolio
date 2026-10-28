@@ -99,7 +99,7 @@ const base = import.meta.env.BASE_URL.replace(/\/$/, "");
       <a class="primary" href="#projects">
         {t.work}
       </a>
-      <button class="secondary agent-demo-trigger" type="button" data-open-agent hidden>
+      <button class="secondary agent-demo-trigger" type="button" data-open-pixel hidden>
         {lang === "en" ? "Explore the AI demo" : ru ? "Попробовать ИИ" : "KI-Demo entdecken"}
       </button>
     </div>
@@ -111,14 +111,6 @@ const base = import.meta.env.BASE_URL.replace(/\/$/, "");
 </section>
 <script>
   import "../scripts/mobile-menu";
-  const agentLauncher = document.querySelector<HTMLButtonElement>('[data-cat-launcher]');
-  document.querySelectorAll<HTMLButtonElement>('[data-open-agent]').forEach(agentDemo => {
-    if (!agentLauncher) return;
-    agentDemo.hidden = false;
-    agentDemo.addEventListener('click', () => {
-      document.querySelector('[data-hirda-cat]')?.dispatchEvent(new CustomEvent('hirda:open-chat', { detail: agentDemo }));
-    });
-  });
 </script>
 
 <style> .hero-foot-spacer { display:block; width:44px; height:44px; flex-shrink:0; margin-left:auto; } @media(max-width:760px) { .hero-foot-spacer { height:32px; } } </style>
