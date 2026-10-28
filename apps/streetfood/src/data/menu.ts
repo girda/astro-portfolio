@@ -1,11 +1,11 @@
-const reference='https://khlebniy.com.ua/assets/brands/hlbn/';
+const menuAssets = `${import.meta.env.BASE_URL}assets/menu/`;
 export const categories=[
  {id:'all',name:'Alles',symbol:'🍽️'}, {id:'favorites',name:'Favoriten',symbol:'❤️'},
  {id:'burgers',name:'Burger',symbol:'🍔'}, {id:'breakfast',name:'Frühstück',symbol:'🍳'},
  {id:'bakery',name:'Backstube',symbol:'🥐'}, {id:'salads',name:'Bowls',symbol:'🥗'},
  {id:'sides',name:'Beilagen',symbol:'🍟'}, {id:'coffee',name:'Kaffee',symbol:'☕'},
 ];
-const photos={burger:reference+'dishes/SYFDEETAzH97s97.png',beef:reference+'dishes/8NQInFj1VIXlTgP.png',double:reference+'dishes/GZXvZsrNtroKJlS.png',plate:reference+'dishes/x0C4mNyfO0Osovc.png',sweet:reference+'dishes/9nwWnPUttzFgzmQ.png',fries:reference+'dishes/wCtXsW4O0egakgi.png',croissant:'https://images.unsplash.com/photo-1555507036-ab1f4038808a?auto=format&fit=crop&w=900&q=80',coffee:'https://images.unsplash.com/photo-1461023058943-07fcbe16d735?auto=format&fit=crop&w=900&q=80'};
+const photos={burger:menuAssets+'chicken.webp',beef:menuAssets+'beef.webp',double:menuAssets+'double.webp',plate:menuAssets+'plate.webp',sweet:menuAssets+'sweet.webp',fries:menuAssets+'fries.webp',croissant:menuAssets+'croissant.webp',coffee:menuAssets+'coffee.webp'};
 const rows=[
  ['chicken','Chicken & Cheddar','burgers',1190,'burger','Brioche, Hähnchen, Cheddar, Tomate, Gurke und BBQ-Sauce.','Weizen, Milch, Ei, Senf'],
  ['beef','Classic Beef Burger','burgers',1390,'beef','Rindfleisch, knackiger Salat, rote Zwiebel und Burgersauce.','Weizen, Milch, Ei, Senf'],
