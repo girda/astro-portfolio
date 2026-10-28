@@ -1,0 +1,21 @@
+---
+import Icon from './Icon.astro';
+---
+<div class="vehicle-compare-bar" data-vehicle-comparison data-base={import.meta.env.BASE_URL} hidden>
+  <p role="status" data-vehicle-compare-status></p>
+  <button type="button" class="button secondary" data-vehicle-compare-open aria-haspopup="dialog" aria-controls="vehicle-comparison-dialog"><Icon name="compare"/><span data-vehicle-compare-label>Auswahl vergleichen</span></button>
+  <button type="button" class="text-link" data-vehicle-compare-clear>Auswahl löschen</button>
+</div>
+<dialog id="vehicle-comparison-dialog" class="vehicle-comparison-dialog" aria-labelledby="vehicle-compare-title">
+  <header><div><p class="eyebrow">DEINE AUSWAHL</p><h2 id="vehicle-compare-title">Welches Auto passt zu dir?</h2></div><button type="button" class="icon-button" data-vehicle-compare-close aria-label="Fahrzeugvergleich schließen"><Icon name="close"/></button></header>
+  <p class="vehicle-compare-note">Vergleiche bis zu drei Modelle aus diesem Beispielkatalog. Preise, Antrieb und konkrete Ausstattung sind hier nicht hinterlegt und werden persönlich geklärt.</p>
+  <div class="vehicle-compare-grid" data-vehicle-compare-output></div>
+  <p class="vehicle-compare-help" data-vehicle-compare-help></p>
+</dialog>
+<script>
+import {initVehicleComparison} from '../scripts/vehicle-comparison';
+initVehicleComparison();
+</script>
+<style>
+.vehicle-compare-bar{display:flex;align-items:center;gap:18px;flex-wrap:wrap;padding:16px 20px;border:1px solid #cad8cb;border-radius:10px;background:#f3f7f1}.vehicle-compare-bar[hidden]{display:none}.vehicle-compare-bar p{font-size:13px;flex:1;min-width:160px;margin:0}.vehicle-compare-bar button{min-height:44px}.vehicle-comparison-dialog{width:min(1100px,calc(100% - 32px));max-height:calc(100dvh - 40px);padding:28px;border:1px solid #cad8cb;border-radius:14px;color:#173c30;background:#f5f8f2;overscroll-behavior:contain}.vehicle-comparison-dialog::backdrop{background:#0d201b99;backdrop-filter:blur(4px)}.vehicle-comparison-dialog>header{display:flex;gap:24px;align-items:start;justify-content:space-between}.vehicle-comparison-dialog h2{font-size:clamp(25px,3vw,36px);font-weight:400;margin:8px 0 0}.vehicle-comparison-dialog header>button{flex:0 0 44px;width:44px;height:44px;border:1px solid #cad8cb;border-radius:50%;display:grid;place-items:center}.vehicle-compare-note{font-size:13px;line-height:1.75;color:#607468;max-width:75ch;margin:20px 0 24px}.vehicle-compare-grid{display:grid;grid-template-columns:repeat(var(--vehicle-compare-count,2),minmax(0,1fr));gap:18px}.vehicle-compare-grid :global(article){display:flex;flex-direction:column;min-width:0;background:white;border:1px solid #d7e1d3;border-radius:10px;padding:20px}.vehicle-compare-grid :global(img){width:100%;height:auto;max-height:190px;aspect-ratio:1.5;object-fit:contain}.vehicle-compare-grid :global(h3){font-weight:400;font-size:22px;margin:12px 0}.vehicle-compare-grid :global(dl){margin:0 0 20px;flex:1}.vehicle-compare-grid :global(dl>div){border-top:1px solid #d7e1d3;padding:13px 0}.vehicle-compare-grid :global(dt){font-size:11px;color:#607468;margin-bottom:5px}.vehicle-compare-grid :global(dd){margin:0;font-size:14px;line-height:1.6}.vehicle-compare-grid :global(.vehicle-compare-actions){display:grid;gap:10px}.vehicle-compare-grid :global(.button){width:100%;justify-content:center;min-height:44px;font-size:12px;padding-inline:12px}.vehicle-compare-grid :global(.text-link){min-height:44px;text-align:center;font-size:12px}.vehicle-compare-help{font-size:12px;line-height:1.7;color:#607468;margin:18px 0 0}@media(max-width:700px){.vehicle-comparison-dialog{padding:20px;max-height:calc(100dvh - 24px)}.vehicle-compare-grid{grid-template-columns:1fr}.vehicle-compare-grid :global(article){padding:18px}.vehicle-compare-grid :global(img){max-height:170px}.vehicle-compare-bar{gap:12px}.vehicle-compare-bar>button{flex:1}.vehicle-compare-bar p{flex-basis:100%}}
+</style>

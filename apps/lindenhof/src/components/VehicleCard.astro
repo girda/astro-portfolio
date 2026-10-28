@@ -15,7 +15,9 @@ const asset = (name: string) => `${import.meta.env.BASE_URL}assets/${name}`;
     <div class="vehicle-actions">
       <button
         class="icon-button compare"
-        data-development
+        type="button"
+        data-vehicle-compare={v.id}
+        aria-pressed="false"
         aria-label={`${v.name} vergleichen`}
       >
         <Icon name="compare" />
@@ -53,3 +55,5 @@ const asset = (name: string) => `${import.meta.env.BASE_URL}assets/${name}`;
     <Button href={`${import.meta.env.BASE_URL}fahrzeuge/${v.id}/`}>Modell entdecken</Button>
   </div>
 </article>
+
+<style>.vehicle-actions .compare[aria-pressed=true]{color:#fff;background:#244d42;border-color:#244d42}</style>

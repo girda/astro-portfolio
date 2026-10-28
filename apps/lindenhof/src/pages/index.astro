@@ -11,6 +11,7 @@ import "../styles/refinement.css";
 import Icon from "../components/Icon.astro";
 import Button from "../components/Button.astro";
 import InputField from "../components/InputField.astro";
+import VehicleComparison from '../components/VehicleComparison.astro';
 import VehicleCard from "../components/VehicleCard.astro";
 import { vehicles, ownership } from "../data/site";
 const base = import.meta.env.BASE_URL;
@@ -119,6 +120,7 @@ const canonical = Astro.site ? new URL(base, Astro.site).href : undefined;
               ),
             )}
           </div>
+          <VehicleComparison />
           <div class="catalogue-slider"><div class="vehicle-carousel" data-edge-carousel aria-label="Fahrzeuge" tabindex="0">
             {vehicles.map((v) => (
               <VehicleCard vehicle={v} />

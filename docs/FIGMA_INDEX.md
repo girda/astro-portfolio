@@ -68,3 +68,8 @@
 - Portfolio: [каталог desktop](https://www.figma.com/design/PuicLapgF9vnSyRn8xofU8?node-id=41-3052), [mobile](https://www.figma.com/design/PuicLapgF9vnSyRn8xofU8?node-id=41-3236), рядом вторые страницы с переходами. Главная — 6 проектов, новые фильтры, Pixel и редакция текстов; состояния управления в UI Kit.
 - Falkenried: единый HouseCard 55:26, 30 экземпляров на актуальных экранах; [план desktop](https://www.figma.com/design/rFe5BO7jxtv9upJk9z35C5?node-id=57-1202), [mobile](https://www.figma.com/design/rFe5BO7jxtv9upJk9z35C5?node-id=57-1345), состояния модального окна 3D.
 - Отчёты: `audit/portfolio-catalogue-2026-10-28.md`, `audit/falkenried-cards-plan-2026-10-28.md`. Рамки устройств старых Figma-карточек Portfolio остаются отдельным пунктом сверки.
+
+## Lindenhof: сравнение — 28.10.2026
+- Screens: desktop 51:30, mobile 51:99.
+- UI kit 42:2: Comparison card 51:9, экземпляры в обоих окнах.
+- Файл W1hr1gX3N9f9kOHab5SniS; состояние соответствует локальной реализации.
