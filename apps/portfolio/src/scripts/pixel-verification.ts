@@ -39,3 +39,14 @@ export function createVerificationGate(timeoutMs = 30_000) {
     },
   };
 }
+
+// Каждая отправка начинает новую проверку, включая повтор после предыдущей ошибки.
+export async function requestVerification(
+  gate: ReturnType<typeof createVerificationGate>,
+  execute: () => void,
+): Promise<string> {
+  gate.reset();
+  const pending = gate.consume();
+  try { execute(); } catch { gate.fail(); }
+  return pending;
+}

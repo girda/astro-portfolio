@@ -114,7 +114,7 @@ const avatarSrc = `${import.meta.env.BASE_URL}ai/robot-cat.webp`;
 </div>
 
 <script>
-  import {createVerificationGate} from '../scripts/pixel-verification';
+  import {createVerificationGate, requestVerification} from '../scripts/pixel-verification';
   import {pixelScenarios} from '../data/pixel-showcase';
   import "../scripts/pixel-visibility";
   import { pixelBusinessFacts } from "../data/pixel-facts";
@@ -169,7 +169,7 @@ const avatarSrc = `${import.meta.env.BASE_URL}ai/robot-cat.webp`;
       ru: 'Проверка безопасности не завершилась. Обнови страницу или напиши Артёму напрямую.',
     }[lang];
     const dailyCopy = { de: 'Für heute ist das Chat-Limit erreicht. Schreib Artem gerne über das Kontaktformular.', en: 'Today’s chat limit has been reached. Please contact Artem using the contact form.', ru: 'Лимит чата на сегодня исчерпан. Напиши Артёму через форму контактов.' }[lang];
-    type Turnstile = { render: (el: HTMLElement, options: Record<string, unknown>) => string; reset: (id: string) => void };
+    type Turnstile = { render: (el: HTMLElement, options: Record<string, unknown>) => string; reset: (id: string) => void; execute: (id: string) => void };
     const turnstileWindow = window as Window & { turnstile?: Turnstile };
     let widgetId: string | undefined;
     const verification = createVerificationGate();
@@ -187,10 +187,15 @@ const avatarSrc = `${import.meta.env.BASE_URL}ai/robot-cat.webp`;
           if (!turnstileWindow.turnstile) { failLoad(); return; }
           try {
             widgetId = turnstileWindow.turnstile.render(root.querySelector<HTMLElement>('[data-cat-verification]')!, {
-              sitekey: '0x4AAAAAAFS3zEwm2KejbU1v', action: 'pixel_chat', theme: 'dark', size: 'flexible', appearance: 'interaction-only',
+              sitekey: '0x4AAAAAAFS3zEwm2KejbU1v', action: 'pixel_chat', theme: 'dark', size: root.querySelector<HTMLElement>('[data-cat-verification]')!.clientWidth < 300 ? 'compact' : 'flexible', execution: 'execute', appearance: 'execute', retry: 'never',
               callback: (token: string) => verification.accept(token),
               'expired-callback': () => verification.fail(),
-              'error-callback': () => verification.fail(),
+              'error-callback': (code: string) => {
+                // Только публичный код ошибки, без токенов и содержимого диалога.
+                console.warn('[Pixel] Turnstile:', /^\d{6}$/.test(String(code)) ? String(code) : 'unavailable');
+                verification.fail(); return true;
+              },
+              'timeout-callback': () => verification.fail(),
             });
             resolve();
           } catch { failLoad(); }
@@ -504,8 +509,12 @@ const avatarSrc = `${import.meta.env.BASE_URL}ai/robot-cat.webp`;
         let turnstileToken = '';
         if (!import.meta.env.DEV) {
           await loadVerification();
-          // Первый клик ждёт реального callback, а не только загрузки api.js.
-          turnstileToken = await verification.consume();
+          // На открытии чат не запускает проверку; каждый запрос ждёт свежий токен.
+          turnstileToken = await requestVerification(verification, () => {
+            if (!turnstileWindow.turnstile || widgetId === undefined) throw new Error('verification_failed');
+            turnstileWindow.turnstile.reset(widgetId);
+            turnstileWindow.turnstile.execute(widgetId);
+          });
         }
         let result;
         if (n8nChat) {
@@ -596,7 +605,6 @@ const avatarSrc = `${import.meta.env.BASE_URL}ai/robot-cat.webp`;
         feedback!.append(button, contact);
       } finally {
         verification.reset();
-        if (widgetId !== undefined) turnstileWindow.turnstile?.reset(widgetId);
         busy = false;
         waitHint.textContent = '';
         controls.forEach(control => { control.disabled = false; });

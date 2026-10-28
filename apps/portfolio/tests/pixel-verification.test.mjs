@@ -1,6 +1,6 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
-import {createVerificationGate} from '../src/scripts/pixel-verification.ts';
+import {createVerificationGate,requestVerification} from '../src/scripts/pixel-verification.ts';
 
 test('first send waits for verification callback; a token can only be consumed once',async()=>{
  const gate=createVerificationGate(100);
@@ -31,4 +31,17 @@ test('reset clears an unused token and cancels a pending send',async()=>{
  await assert.rejects(gate.consume(),{message:'verification_failed'});
  const pending=assert.rejects(gate.consume(),{message:'verification_failed'});
  gate.reset(); await pending;
+});
+
+test('a fresh send recovers from a previous failure and consumes its callback once',async()=>{
+ const gate=createVerificationGate(100);gate.fail();
+ let executions=0;
+ assert.equal(await requestVerification(gate,()=>{executions++;gate.accept('fresh');}),'fresh');
+ assert.equal(executions,1);
+ const pending=gate.consume();gate.fail();await assert.rejects(pending,{message:'verification_failed'});
+});
+test('an SDK reset or execute exception rejects instead of leaving the send waiting',async()=>{
+ const gate=createVerificationGate(100);
+ await assert.rejects(requestVerification(gate,()=>{throw new Error('sdk error');}),{message:'verification_failed'});
+ assert.equal(await requestVerification(gate,()=>gate.accept('retry-token')),'retry-token');
 });
