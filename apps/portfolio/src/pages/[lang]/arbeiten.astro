@@ -1,0 +1,6 @@
+---
+import WorkCatalogue from "../../components/WorkCatalogue.astro";
+export function getStaticPaths(){return ["en","ru"].map(lang=>({params:{lang},props:{lang}}));}
+const {lang}=Astro.props;
+---
+<WorkCatalogue lang={lang}/>

@@ -10,7 +10,7 @@ export interface SiteConfig {
 }
 
 export const defaultOrigin = 'https://girda.github.io';
-export const pageRoutes = [{ key: 'home', paths: { de: '/', en: '/en/', ru: '/ru/' } }] as const;
+export const pageRoutes = [{ key: 'home', paths: { de: '/', en: '/en/', ru: '/ru/' } }, { key: 'work', paths: { de: '/arbeiten/', en: '/en/arbeiten/', ru: '/ru/arbeiten/' } }] as const;
 
 export function createSiteConfig(options: {
   origin?: string | URL;

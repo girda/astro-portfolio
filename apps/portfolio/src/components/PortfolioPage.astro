@@ -1,13 +1,9 @@
 ---
-import projectOrderConfig from "../data/project-order.json";
-import { resolveProjectOrder } from "../data/project-order";
-import { projects, projectHref } from "../data/projects";
 import "../styles/interface-polish.css";
 import BrandSculpture from "./BrandSculpture.astro";
 import StudioHero from "./StudioHero.astro";
 import BaseLayout from "../layouts/BaseLayout.astro";
-import ProjectCard from "./ProjectCard.astro";
-import Reveal from "./Reveal.astro";
+import ProjectGallery from "./ProjectGallery.astro";
 import PixelExperience from "./PixelExperience.astro";
 import Services from "./Services.astro";
 import SiteFooter from "./SiteFooter.astro";
@@ -24,17 +20,6 @@ interface Props {
 const ru = Astro.props.lang === 'ru';
 const { lang } = Astro.props;
 const t = translations[lang];
-// Порядок одинаков для всех языков и задаётся в едином каталоге проектов.
-const projectOrder = resolveProjectOrder(Object.keys(projects), projectOrderConfig);
-const orderedProjects = [...t.projects].sort(
-  (a, b) => projectOrder.indexOf(a.id) - projectOrder.indexOf(b.id),
-);
-const openLabel = {
-  de: "Website öffnen",
-  ru: "Открыть сайт",
-  en: "Open website",
-}[lang];
-const base = import.meta.env.BASE_URL.replace(/\/$/, "");
 ---
 
 <BaseLayout title={t.pageTitle} description={t.description} lang={lang}>
@@ -47,39 +32,17 @@ const base = import.meta.env.BASE_URL.replace(/\/$/, "");
 
       <p class="section-description">{t.projectsDescription}</p>
 
-      <div class="project-filters" role="group" aria-label={lang==='en'?'Filter projects':lang==='ru'?'Фильтры проектов':'Projekte filtern'} hidden>
-        {['all','handwerk','beauty','automotive','food'].map((group,i)=><button type="button" data-project-filter={group} aria-pressed={i===0?'true':'false'}>{(lang==='en'?['All projects','Trades & home','Beauty & lifestyle','Automotive','Food & cafés']:lang==='ru'?['Все проекты','Дом и мастера','Красота и уход','Автомобили','Еда / кафе']:['Alle Projekte','Handwerk & Zuhause','Beauty & Lifestyle','Automotive','Cafés & Bäckereien'])[i]}</button>)}
-        <output class="project-count" aria-live="polite"></output>
-      </div>
-      <div class="project-grid">
-        {orderedProjects.map((project, index) => (
-          <Reveal variant="project" delay={(index % 2) * 70}>
-            <ProjectCard
-              projectId={project.id}
-              title={project.title}
-              category={project.category}
-              status={projects[project.id].status}
-              lang={lang}
-              preview={`${base}/previews/${project.id}.png`}
-              name={projects[project.id].name}
-              group={projects[project.id].group}
-              accent={projects[project.id].accent}
-              open={openLabel}
-              href={projectHref(project.id)}
-            />
-          </Reveal>
-        ))}
-      </div>
+      <ProjectGallery lang={lang} />
     </section>
     <section id="about" class="about">
       <div class="about-copy"><p class="eyebrow">{lang === "en" ? "ABOUT ME" : ru ? "ОБО МНЕ" : "ÜBER MICH"}</p>
       <h2>{lang === "en" ? "Hi, I’m Artem." : ru ? "Привет, я Артём." : "Hi, ich bin Artem."}</h2>
       <p class="section-description">{lang === "en"
-        ? "I’ve been working in web development for seven years. I design and develop websites for independent professionals and small businesses — with thoughtful design and attention to detail."
-        : ru ? "Семь лет занимаюсь веб-разработкой. Создаю сайты для частных специалистов и малого бизнеса — с продуманным дизайном и вниманием к деталям." : "Seit sieben Jahren bin ich in der Webentwicklung tätig. Ich gestalte und entwickle Websites für Selbstständige und kleine Unternehmen — mit durchdachtem Design und einem Blick fürs Detail."}</p>
+        ? "I’ve worked in web development for seven years. I help independent professionals and small businesses turn their ideas into websites people can use."
+        : ru ? "Семь лет занимаюсь веб-разработкой. Помогаю небольшим компаниям и частным специалистам рассказать о себе и сделать сайт, которым удобно пользоваться." : "Seit sieben Jahren beschäftige ich mich mit Webentwicklung. Ich helfe Selbstständigen und kleinen Unternehmen dabei, aus einer Idee eine Website zu machen, die im Alltag funktioniert."}</p>
       <p class="section-description">{lang === "en"
-        ? "What matters to me is that your website reflects who you are, clearly explains what you offer and works well on every screen."
-        : ru ? "Для меня важно, чтобы сайт отражал характер твоего бизнеса, понятно представлял услуги и хорошо работал на любом экране." : "Mir ist wichtig, dass deine Website zu dir passt, dein Angebot verständlich macht und auf jedem Bildschirm gut funktioniert."}</p></div>
+        ? "We’ll work out what your customers need to know, agree on the design and build from there. You’ll see how things are going along the way."
+        : ru ? "Сначала разберёмся, что нужно твоим клиентам. Потом согласуем дизайн и перейдём к разработке. По ходу работы ты будешь видеть результат и сможешь его поправить." : "Wir klären, was deine Kunden wissen müssen, stimmen das Design ab und setzen es um. Du siehst zwischendurch, wie es vorangeht, und kannst Rückmeldung geben."}</p></div>
       <BrandSculpture lang={lang} />
     </section>
     <Services lang={lang} />
@@ -122,20 +85,11 @@ const base = import.meta.env.BASE_URL.replace(/\/$/, "");
     line-height: 1.7;
     margin: 22px 0 40px;
   }
-  .project-grid {
-    display: grid;
-    grid-template-columns: repeat(2, minmax(0, 1fr));
-    gap: 42px 28px;
-  }
 
   #services {
     scroll-margin-top: 30px;
   }
   @media (max-width: 700px) {
-    .project-grid {
-      grid-template-columns: 1fr;
-      gap: 30px;
-    }
     .about {
       padding: 55px 0;
       border-top: 1px solid #424649;
@@ -145,31 +99,4 @@ const base = import.meta.env.BASE_URL.replace(/\/$/, "");
       padding: 46px 0;
     }
   }
-</style>
-
-<script>
-  const filters=document.querySelector<HTMLElement>('.project-filters');
-  if(filters){
-    filters.hidden=false;
-    const cards=[...document.querySelectorAll<HTMLElement>('[data-project-group]')];
-    const buttons=[...filters.querySelectorAll<HTMLButtonElement>('[data-project-filter]')];
-    const count=filters.querySelector('output')!;
-    const update=(group:string)=>{
-      let visible=0;
-      for(const card of cards){const wrapper=card.closest<HTMLElement>('.reveal')||card;wrapper.hidden=group!=='all'&&card.dataset.projectGroup!==group;if(!wrapper.hidden)visible++;}
-      for(const button of buttons)button.setAttribute('aria-pressed',String(button.dataset.projectFilter===group));
-      count.textContent=String(visible)+' / '+cards.length;
-    };
-    for(const button of buttons)button.addEventListener('click',()=>update(button.dataset.projectFilter!));
-    update('all');
-  }
-</script>
-<style>
-  .project-filters:not([hidden]){display:flex;align-items:center;flex-wrap:wrap;gap:9px;margin:30px 0 28px}
-  .project-filters button{font:500 13px/1.4 var(--font-body);color:#bfc9c4;background:transparent;border:1px solid #ffffff25;border-radius:7px;min-height:44px;padding:10px 15px;cursor:pointer;transition:background .25s,color .25s,border-color .25s}
-  .project-filters button[aria-pressed=true]{background:var(--brand-accent);color:#fff;border-color:var(--brand-accent)}
-  .project-filters button:focus-visible{outline:2px solid #c1cfcc;outline-offset:4px}
-  .project-count{margin-left:auto;font:12px var(--font-code);color:#a5b4ab}
-  .project-grid :global([hidden]){display:none!important}
-  @media(max-width:600px){.project-filters:not([hidden]){gap:7px}.project-filters button{font-size:11px;padding:10px 12px}.project-count{width:100%;margin-top:5px}}
 </style>

@@ -8,8 +8,8 @@ const rows = pricing[lang as keyof typeof pricing];
 ---
 <section id="pricing" class="pricing" aria-labelledby="pricing-title">
   <p class="pricing-eyebrow">{en ? "PACKAGES & EXTRAS" : ru ? "ПАКЕТЫ И ВОЗМОЖНОСТИ" : "PAKETE & EXTRAS"}</p>
-  <h2 id="pricing-title">{en ? "A clear scope for your project." : ru ? "Понятный объём. Прозрачная стоимость." : "Ein klarer Rahmen für dein Projekt."}</h2>
-  <p class="pricing-intro">{en ? "Find the right starting point. Open a package to see what’s included." : ru ? "Выбери подходящий вариант. Открой пакет, чтобы узнать, что входит в стоимость." : "Finde den passenden Einstieg. Öffne ein Paket und erfahre, was enthalten ist."}</p>
+  <h2 id="pricing-title">{en ? "What will your website cost?" : ru ? "Сколько будет стоить сайт?" : "Was kostet deine Website?"}</h2>
+  <p class="pricing-intro">{en ? "Here are a few starting points. Open a package to see what’s included — we’ll agree the final scope and price before we start." : ru ? "Здесь — несколько вариантов для начала. Открой пакет, посмотри состав, а точную стоимость и объём работы согласуем до старта." : "Hier findest du eine erste Orientierung. Öffne ein Paket und schau, was dazugehört. Umfang und Preis vereinbaren wir vor dem Start."}</p>
   <div class="pricing-list">
     {rows.map(([title, price, subtitle, description], i) => (
       <details class="price-item" data-price-item>

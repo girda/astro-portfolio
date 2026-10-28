@@ -41,9 +41,9 @@ export const translations = {
       "Ich bin Artem Hirda. Ich gestalte und entwickle Websites für Selbstständige und kleine Unternehmen — mit durchdachtem Design und klarer Struktur.",
     button: "Projekte ansehen",
     projectsEyebrow: "MEINE ARBEIT",
-    projectsTitle: "Jedes Business hat seinen Stil.",
+    projectsTitle: "So könnte deine Website aussehen.",
     projectsDescription:
-      "Ich übersetze ihn in Websites. Hier findest du unterschiedliche Designs und Lösungen zum Entdecken.",
+      "Hier kannst du Websites für unterschiedliche Branchen ausprobieren. Öffne ein Projekt, teste die Funktionen und schau, was zu dir passt.",
     planned: "Geplant",
     languageLabel: "Sprache wählen",
     projects: [
@@ -105,9 +105,9 @@ export const translations = {
       "Я Artem Hirda. Разрабатываю сайты для частных специалистов и малого бизнеса — с продуманным дизайном и понятной структурой.",
     button: "Посмотреть проекты",
     projectsEyebrow: "МОИ РАБОТЫ",
-    projectsTitle: "Разные задачи. Свой подход.",
+    projectsTitle: "А каким будет твой сайт?",
     projectsDescription:
-      "Сайты для разных сфер бизнеса: изучи дизайн, попробуй функции и найди идеи для своего проекта.",
+      "Здесь можно не только посмотреть дизайн. Открывай сайты, пробуй фильтры, собирай заказ — и находи идеи для своего бизнеса.",
     planned: "В планах",
     languageLabel: "Выбрать язык",
     projects: [
@@ -180,9 +180,9 @@ export const translations = {
       "I'm Artem Hirda. I design and develop websites for independent professionals and small businesses — with thoughtful design and a clear structure.",
     button: "View projects",
     projectsEyebrow: "MY WORK",
-    projectsTitle: "Every business has its own style.",
+    projectsTitle: "What could your website look like?",
     projectsDescription:
-      "I translate it into websites. Explore different designs and solutions here.",
+      "Open a website, try its features and see what could work for your business.",
     planned: "Planned",
     languageLabel: "Choose language",
     projects: [

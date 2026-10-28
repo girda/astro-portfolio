@@ -1,7 +1,8 @@
 ---
-interface Props { lang: string }
+import { languagePath, type Language } from '../i18n/translations';
+interface Props { lang: string; homeHref?: string }
 const ru = Astro.props.lang === 'ru';
-const { lang } = Astro.props;
+const { lang, homeHref = '' } = Astro.props;
 const en = lang === "en";
 const links = en
   ? [["projects", "Projects"], ["about", "About me"], ["services", "Services"], ["pricing", "Pricing"], ["contact", "Contact"]]
@@ -15,7 +16,7 @@ const links = en
         <p>{en ? "Design. Development. Personality." : ru ? "Дизайн. Разработка. Характер." : "Design. Entwicklung. Persönlichkeit."}</p>
       </div>
       <nav aria-label={en ? "Footer navigation" : ru ? "Навигация внизу страницы" : "Navigation im Footer"}>
-        {links.map(([id, label]) => <a href={`#${id}`}>{label}</a>)}
+        {links.map(([id, label]) => <a href={id==='projects'?`${languagePath(lang as Language)}arbeiten/`:`${homeHref}#${id}`}>{label}</a>)}
       </nav>
 
     </div>

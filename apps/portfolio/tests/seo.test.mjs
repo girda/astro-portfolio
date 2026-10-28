@@ -27,7 +27,7 @@ for (const [name, config] of [
   });
   test(`${name}: sitemap excludes experiments, redirects and demos`, () => {
     const xml = renderSitemap(config);
-    assert.equal((xml.match(/<url>/g) || []).length, 3);
+    assert.equal((xml.match(/<url>/g) || []).length, 6);
     assert.ok(xml.includes(`<loc>${config.origin}${config.base}</loc>`));
     assert.ok(xml.includes(`<loc>${config.origin}${config.base}en/</loc>`));
     assert.ok(xml.includes(`<loc>${config.origin}${config.base}ru/</loc>`));

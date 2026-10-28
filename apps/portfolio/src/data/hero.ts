@@ -6,7 +6,7 @@ export const heroCopy = {
       "Mein Code.",
       "Läuft."
     ],
-    "intro": "Ich bin Artem. Ich entwickle Websites, Web-Apps und KI-Agenten — für deinen Auftritt, deine Ideen und einfachere Abläufe.",
+    "intro": "Ich bin Artem. Ich baue Websites, Web-Apps und KI-Assistenten. Damit Kunden verstehen, was du anbietest — und leichter mit dir ins Gespräch kommen.",
     "work": "Projekte ansehen",
     "about": "Über mich",
     "eyebrow": "DESIGN · CODE · KI-AGENTEN",
@@ -19,7 +19,7 @@ export const heroCopy = {
       "My code.",
       "It works."
     ],
-    "intro": "I’m Artem. I build websites, web apps and AI agents — for your business, your ideas and simpler workflows.",
+    "intro": "I’m Artem. I build websites, web apps and AI assistants that help people understand what you offer and get in touch.",
     "work": "View projects",
     "about": "About me",
     "eyebrow": "DESIGN · CODE · AI AGENTS",
@@ -32,7 +32,7 @@ export const heroCopy = {
       "Мой код.",
       "Работает."
     ],
-    "intro": "Я Артём. Создаю сайты, веб-приложения и ИИ-агентов — для твоего бизнеса, новых идей и удобной работы.",
+    "intro": "Я Артём. Делаю сайты, веб-приложения и ИИ-помощников. Чтобы клиентам было понятно, что ты предлагаешь, а тебе было проще работать.",
     "work": "Посмотреть проекты",
     "about": "Обо мне",
     "eyebrow": "ДИЗАЙН · КОД · ИИ-АГЕНТЫ",

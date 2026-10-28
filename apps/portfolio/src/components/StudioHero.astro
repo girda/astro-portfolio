@@ -45,7 +45,7 @@ const base = import.meta.env.BASE_URL.replace(/\/$/, "");
       <span class="wordmark-name" aria-hidden="true"><span class="logo-h"><span class="wordmark-bracket">[</span>H<span class="wordmark-bracket">]</span></span><span class="logo-rest">IRDA</span></span>
     </a>
     <nav class="desktop-nav" aria-label={lang === "ru" ? "Навигация" : "Navigation"}>
-      <a href="#projects">{t.work}</a>
+      <a href={`${languagePath(lang)}arbeiten/`}>{lang==='ru'?'Каталог работ':lang==='en'?'All work':'Arbeiten'}</a>
       <a href="#about">{t.about}</a>
       <a href="#contact">{lang === "en" ? "Contact" : ru ? "Контакты" : "Kontakt"}</a>
     </nav>
@@ -62,7 +62,7 @@ const base = import.meta.env.BASE_URL.replace(/\/$/, "");
         <div class="menu-caption">HIRDA / NAVIGATION</div>
         <div class="menu-links">
           <a href="#top"><MenuIcon name="home" /><span class="menu-label">{lang === "en" ? "Home" : ru ? "Главная" : "Start"}</span></a>
-          <a href="#projects"><MenuIcon name="projects" /><span class="menu-label">{t.work}</span></a>
+          <a href={`${languagePath(lang)}arbeiten/`}><MenuIcon name="projects" /><span class="menu-label">{t.work}</span></a>
           <a href="#about"><MenuIcon name="about" /><span class="menu-label">{t.about}</span></a>
           <a href="#services"><MenuIcon name="services" /><span class="menu-label">{lang === "en" ? "Services" : ru ? "Услуги" : "Leistungen"}</span></a>
           <a href="#pricing"><MenuIcon name="pricing" /><span class="menu-label">{lang === "en" ? "Pricing & maintenance" : ru ? "Цены и поддержка" : "Preise & Betreuung"}</span></a>

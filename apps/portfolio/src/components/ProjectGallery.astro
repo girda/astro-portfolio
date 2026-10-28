@@ -1,0 +1,40 @@
+---
+import projectOrderConfig from '../data/project-order.json';
+import { resolveProjectOrder } from '../data/project-order';
+import { projects, projectHref } from '../data/projects';
+import { translations, languagePath, type Language } from '../i18n/translations';
+import { galleryCopy, projectGroups, PROJECTS_PER_PAGE } from '../data/project-gallery';
+import ProjectCard from './ProjectCard.astro';
+import Reveal from './Reveal.astro';
+interface Props { lang: Language; catalogue?: boolean }
+const { lang, catalogue = false } = Astro.props;
+const t = translations[lang], copy = galleryCopy[lang];
+const order = resolveProjectOrder(Object.keys(projects), projectOrderConfig);
+const items = [...t.projects].sort((a,b) => order.indexOf(a.id)-order.indexOf(b.id));
+const base=import.meta.env.BASE_URL;
+const cataloguePath = `${languagePath(lang)}arbeiten/`;
+---
+<div class="project-gallery" data-project-gallery data-lang={lang} data-catalogue={catalogue}>
+ <div class="gallery-filters" role="group" aria-label={copy.label}>
+  {projectGroups.map((group,i)=><button type="button" data-project-filter={group} aria-pressed={i===0?'true':'false'}>{copy.filters[i]}</button>)}
+ </div>
+ <div class="gallery-meta"><output data-project-count aria-live="polite">{Math.min(PROJECTS_PER_PAGE,items.length)} / {items.length}</output><span>HIRDA / {lang==='ru'?'Работы':lang==='de'?'Arbeiten':'Selected work'}</span></div>
+ <div class="project-grid" data-project-grid>
+ {items.map((project,index)=><div data-project-item data-group={projects[project.id].group} hidden={index>=PROJECTS_PER_PAGE}><Reveal variant="project"><ProjectCard projectId={project.id} category={project.category} status={projects[project.id].status} lang={lang} preview={`${base}previews/${project.id}.png`} name={projects[project.id].name} group={projects[project.id].group} accent={projects[project.id].accent} open={t.navigation} href={projectHref(project.id)}/></Reveal></div>)}
+ </div>
+ <p data-project-empty hidden>{copy.empty}</p>
+ <div class="gallery-bottom">
+  <nav class="gallery-pagination" aria-label={copy.pagination} data-project-pagination hidden>
+   <button type="button" data-page-previous aria-label={copy.previous}>{copy.previous}</button><div data-page-numbers></div><button type="button" data-page-next aria-label={copy.next}>{copy.next}</button>
+  </nav>
+  {!catalogue&&<a class="catalogue-link" href={cataloguePath}>{copy.all}</a>}
+ </div>
+ <noscript><p>{lang==='ru'?'Все проекты показаны ниже. Фильтры доступны с JavaScript.':lang==='de'?'Alle Projekte werden angezeigt. Filter benötigen JavaScript.':'All projects are shown. Filters need JavaScript.'}</p><style>[data-project-item][hidden]{display:block!important}.gallery-filters,.gallery-meta{display:none!important}</style></noscript>
+</div>
+<script>import { initProjectGallery } from '../scripts/project-gallery'; initProjectGallery();</script>
+<style>
+.project-gallery{--gallery-line:#ffffff25;--gallery-muted:#bcc6c0}.gallery-filters{display:flex;flex-wrap:wrap;gap:9px;margin:30px 0 22px}.gallery-filters button,.gallery-pagination :global(button),.catalogue-link{font:400 13px/1.5 var(--font-body);color:var(--gallery-muted);background:transparent;border:1px solid var(--gallery-line);border-radius:6px;min-height:44px;padding:10px 15px;cursor:pointer;transition:background .2s,color .2s,border-color .2s}.gallery-filters button[aria-pressed=true],.gallery-pagination :global([aria-current=page]){background:var(--brand-accent);border-color:var(--brand-accent);color:#fff}.gallery-meta{display:flex;justify-content:space-between;gap:20px;color:#acb9b0;font:12px/1.5 var(--font-code);margin-bottom:24px}.gallery-meta>span{opacity:.6}.project-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:42px 28px}.project-grid>div{min-width:0}.project-grid :global(.reveal){height:100%}.project-grid :global([hidden]){display:none!important}.gallery-bottom{display:flex;justify-content:space-between;gap:24px;flex-wrap:wrap;align-items:center;margin-top:36px}.gallery-pagination:not([hidden]){display:flex;align-items:center;gap:8px;flex-wrap:wrap}.gallery-pagination div{display:flex;gap:6px}.gallery-pagination :global(button):disabled{opacity:.35;cursor:default}.catalogue-link{color:#f4e5d9;display:inline-flex;justify-content:center;margin-left:auto;padding-inline:24px}.gallery-filters button:focus-visible,.gallery-pagination :global(button):focus-visible{outline:2px solid #c1cfcc;outline-offset:4px}
+@media(hover:hover){.gallery-filters button:hover,.gallery-pagination :global(button):not(:disabled):hover,.catalogue-link:hover{background:#ffffff13;border-color:#aebdad;color:#fff}}
+@media(max-width:700px){.project-grid{grid-template-columns:1fr;gap:30px}.gallery-filters{gap:7px}.gallery-filters button{font-size:12px;padding:10px 12px}.gallery-bottom{align-items:stretch;gap:20px}.catalogue-link{width:100%;margin:0}.gallery-meta>span{display:none}}
+@media(prefers-reduced-motion:reduce){button,.catalogue-link{transition:none}}
+</style>

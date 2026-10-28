@@ -1,7 +1,7 @@
 ---
 import { languages, languagePath, translations, type Language } from '../i18n/translations';
-interface Props { lang: Language }
-const { lang } = Astro.props;
+interface Props { lang: Language; section?: 'work' }
+const { lang, section } = Astro.props;
 const names = { de: 'Deutsch', en: 'English', ru: 'Русский' };
 ---
 <details class="hero-languages" data-language-selector>
@@ -10,7 +10,7 @@ const names = { de: 'Deutsch', en: 'English', ru: 'Русский' };
     <svg class="language-chevron" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m6 9 6 6 6-6"/></svg>
   </summary>
   <nav class="language-options" aria-label={translations[lang].languageLabel}>
-    {languages.map(locale => <a href={languagePath(locale)} lang={locale} hreflang={locale} aria-current={lang === locale ? 'page' : undefined}><span>{locale.toUpperCase()}</span>{names[locale]}</a>)}
+    {languages.map(locale => <a href={`${languagePath(locale)}${section==='work'?'arbeiten/':''}`} lang={locale} hreflang={locale} aria-current={lang === locale ? 'page' : undefined}><span>{locale.toUpperCase()}</span>{names[locale]}</a>)}
   </nav>
 </details>
 <script>
