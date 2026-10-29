@@ -42,3 +42,8 @@
 66/66 тестов рабочего дерева (включая подготовленный новый prompt Pixel), сборка13 приложений, `check:seo`, `check:public` и `git diff --check` — успешно. В восьми свежих mobile390 browser contexts при открытии/прокрутке до футера — только собственный origin, без localStorage/sessionStorage и без overflow. В Eichenhain обнаружен скрытый dialog-img без src; это не неудачная загрузка ресурса. Фото KANT/Хлібний дополнительно проверены после decode с reduced motion; первый быстрый screenshot застал preloader/lazy-изображение и не использовался как доказательство готовности.
 
 Публикация нового сценария Pixel требует отдельного согласованного server deploy; изменения preflight/showcase до этого сохраняются отдельно. Legal-тексты с незаполненными provider-пунктами не включены в публичную сборку.
+
+Дополнительная проверка сохранения: после нажатия сравнения в Lindenhof/Eichenhain/Falkenried и добавления блюда Street Food записи появляются и сохраняются после reload. До действия хранилище пустое. У WERKRAUM добавлен отдельный внешний маршрут Google Maps к примеру центра Мюнхена, координаты находятся в одном data/location.ts. Это не реальный адрес мастерской.
+
+## Проверка публикации
+Коммит5c6d4c3 отправлен в origin/main. GitHub Actions40941166029 завершился успешно. Публичные HIRDA RU, Khlibnyi, KANT и WERKRAUM возвращают200; при открытии/прокрутке до footer — только girda.github.io, localStorage пуст. Старые `/demos/barbershop/images/cut-01.jpeg` и `/images/celebrities/brad-pitt.jpg` возвращают404; новое barber-fade-2026.webp —200. Это проверка публичного artifact, не удаление исходников/истории GitHub.
