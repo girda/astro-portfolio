@@ -172,7 +172,14 @@ const avatarSrc = `${import.meta.env.BASE_URL}ai/robot-cat.webp`;
     type Turnstile = { render: (el: HTMLElement, options: Record<string, unknown>) => string; reset: (id: string) => void; execute: (id: string) => void };
     const turnstileWindow = window as Window & { turnstile?: Turnstile };
     let widgetId: string | undefined;
-    const verification = createVerificationGate();
+    let verificationFailure = 'verification_wait_timeout';
+    // Даём посетителю время увидеть и пройти интерактивную проверку.
+    const verification = createVerificationGate(120_000);
+    const verificationStatus = {
+      de: { checking: 'Die Sicherheitsprüfung läuft …', interact: 'Bitte bestätige unten, dass du ein Mensch bist. Danach sende ich deine Nachricht.' },
+      en: { checking: 'Checking the connection securely …', interact: 'Please confirm below that you are human. Your message will then be sent.' },
+      ru: { checking: 'Проходим проверку безопасности…', interact: 'Подтверди ниже, что ты человек. После проверки сообщение отправится автоматически.' },
+    }[lang];
     let verificationReady: Promise<void> | undefined;
     const loadVerification = () => {
       if (import.meta.env.DEV) return Promise.resolve();
@@ -180,22 +187,24 @@ const avatarSrc = `${import.meta.env.BASE_URL}ai/robot-cat.webp`;
       verificationReady = new Promise<void>((resolve, reject) => {
         // Загрузка стороннего скрипта тоже должна иметь предел ожидания.
         let script: HTMLScriptElement | undefined;
-        const failLoad = () => { if (script) { script.onload = null; script.onerror = null; script.remove(); } verification.fail(); reject(new Error('verification_failed')); };
+        const failLoad = () => { verificationFailure = 'verification_load_failed'; if (script) { script.onload = null; script.onerror = null; script.remove(); } verification.fail(); reject(new Error('verification_failed')); };
         const timer = window.setTimeout(failLoad, 12_000);
         const render = () => {
           window.clearTimeout(timer);
           if (!turnstileWindow.turnstile) { failLoad(); return; }
           try {
             widgetId = turnstileWindow.turnstile.render(root.querySelector<HTMLElement>('[data-cat-verification]')!, {
-              sitekey: '0x4AAAAAAFS3zEwm2KejbU1v', action: 'pixel_chat', theme: 'dark', size: root.querySelector<HTMLElement>('[data-cat-verification]')!.clientWidth < 300 ? 'compact' : 'flexible', execution: 'execute', appearance: 'interaction-only', retry: 'never',
+              sitekey: '0x4AAAAAAFS3zEwm2KejbU1v', action: 'pixel_chat', theme: 'dark', size: root.querySelector<HTMLElement>('[data-cat-form]')!.clientWidth < 300 ? 'compact' : 'flexible', execution: 'execute', appearance: 'interaction-only', retry: 'never',
               callback: (token: string) => verification.accept(token),
-              'expired-callback': () => verification.fail(),
+              'before-interactive-callback': () => { if (feedback) feedback.textContent = verificationStatus.interact; },
+              'expired-callback': () => { verificationFailure = 'verification_expired'; verification.fail(); },
               'error-callback': (code: string) => {
                 // Только публичный код ошибки, без токенов и содержимого диалога.
                 console.warn('[Pixel] Turnstile:', /^\d{6}$/.test(String(code)) ? String(code) : 'unavailable');
+                verificationFailure = /^\d{6}$/.test(String(code)) ? `turnstile_${code}` : 'verification_failed';
                 verification.fail(); return true;
               },
-              'timeout-callback': () => verification.fail(),
+              'timeout-callback': () => { verificationFailure = 'verification_interaction_timeout'; verification.fail(); },
             });
             resolve();
           } catch { failLoad(); }
@@ -507,14 +516,19 @@ const avatarSrc = `${import.meta.env.BASE_URL}ai/robot-cat.webp`;
       try {
         let turnstileToken = '';
         if (!import.meta.env.DEV) {
+          feedback!.textContent = verificationStatus.checking;
+          verificationFailure = 'verification_wait_timeout';
           await loadVerification();
           // На открытии чат не запускает проверку; каждый запрос ждёт свежий токен.
           turnstileToken = await requestVerification(verification, () => {
-            if (!turnstileWindow.turnstile || widgetId === undefined) throw new Error('verification_failed');
-            turnstileWindow.turnstile.reset(widgetId);
-            turnstileWindow.turnstile.execute(widgetId);
+            if (!turnstileWindow.turnstile || widgetId === undefined) { verificationFailure = 'verification_sdk_missing'; throw new Error('verification_failed'); }
+            try {
+              turnstileWindow.turnstile.reset(widgetId);
+              turnstileWindow.turnstile.execute(widgetId);
+            } catch { verificationFailure = 'verification_sdk_failed'; throw new Error('verification_failed'); }
           });
         }
+        feedback!.textContent = apiCopy.thinking;
         let result;
         if (n8nChat) {
           result = await n8nChat.send(value, mode);
@@ -525,7 +539,7 @@ const avatarSrc = `${import.meta.env.BASE_URL}ai/robot-cat.webp`;
             signal: AbortSignal.timeout(25000),
           });
           result = await response.json();
-          if (!response.ok) throw new Error(result.error || 'unavailable');
+          if (!response.ok) throw new Error(`http_${response.status}_${typeof result.error === 'string' && /^[a-z_]{1,40}$/.test(result.error) ? result.error : 'unavailable'}`);
         }
         if (typeof result.text !== 'string' || !result.text.trim() || result.text.length > 4000) throw new Error('invalid_response');
         feedback.remove(); feedback = null;
@@ -588,8 +602,17 @@ const avatarSrc = `${import.meta.env.BASE_URL}ai/robot-cat.webp`;
       } catch (error) {
         failedMessage = value;
         failedKind = requestMode;
-        const code = error instanceof Error ? error.message : '';
+        const rawCode = error instanceof Error ? error.message : '';
+        const code = rawCode.startsWith('http_') ? rawCode.replace(/^http_\d{3}_/, '') : rawCode;
         feedback!.textContent = code === 'verification_failed' ? verificationCopy : code === 'daily_limit' ? dailyCopy : code === 'not_configured' ? apiCopy.missing : code === 'rate_limited' ? apiCopy.limit : apiCopy.error;
+        // Только безопасный код этапа: без текста диалога, токенов и сетевых URL.
+        const diagnostic = code === 'verification_failed' ? verificationFailure
+          : /^http_\d{3}_[a-z_]{1,40}$/.test(rawCode) ? rawCode
+          : error instanceof Error && error.name === 'TimeoutError' ? 'api_timeout' : 'api_unavailable';
+        console.warn('[Pixel] Request failed:', diagnostic);
+        const hint = document.createElement('small'); hint.dataset.catErrorCode = '';
+        hint.style.display = 'block'; hint.textContent = `${{ de: 'Fehlercode', en: 'Error code', ru: 'Код ошибки' }[lang]}: ${diagnostic}`;
+        feedback!.append(hint);
         const button = document.createElement('button');
         button.type = 'button'; button.className = 'cat-retry'; button.textContent = apiCopy.retry;
         button.addEventListener('click', () => { if (failedMessage) void sendToAgent(failedMessage, true, failedKind); });
