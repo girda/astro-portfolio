@@ -1,6 +1,6 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
-import { buildWhatsAppUrl } from '../src/scripts/whatsapp.ts';
+import { buildWhatsAppUrl, buildWhatsAppMessageUrl } from '../src/scripts/whatsapp.ts';
 
 test('WhatsApp preserves Cyrillic, multiline text and punctuation in the prepared message', () => {
   const url = new URL(buildWhatsAppUrl('+49 123 456', ' Анна ', 'Новый сайт', 'Каталог & запись\nДля салона', 'ru'));
@@ -14,4 +14,13 @@ test('WhatsApp keeps existing German and English messages', () => {
     const url = new URL(buildWhatsAppUrl('49123456', 'Alex', 'Website', 'Hello', locale));
     assert.ok(url.searchParams.get('text').startsWith(`${greeting} Alex.`));
   }
+});
+
+test('edited Pixel draft preserves special characters and does not create extra URL parameters', () => {
+  const text = '  Заявка: монтаж & сборка\nЦена? #1 + 20% 😊  ';
+  const url = new URL(buildWhatsAppMessageUrl('+49 (123) 456', text));
+  assert.equal(url.pathname, '/49123456');
+  assert.equal(url.searchParams.get('text'), text);
+  assert.equal(url.searchParams.size, 1);
+  assert.equal(url.hash, '');
 });
