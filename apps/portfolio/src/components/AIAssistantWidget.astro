@@ -109,6 +109,7 @@ const avatarSrc = `${import.meta.env.BASE_URL}ai/robot-cat.webp`;
           <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m5 12 14-7-4 14-3.1-6.9L5 12Z"/><path d="m12 12 7-7"/></svg>
         </button>
       </form>
+      <a class="cat-privacy" data-cat-privacy href="#pixel-privacy">{lang === 'ru' ? 'Приватность в чате' : lang === 'en' ? 'Chat privacy' : 'Datenschutz im Chat'}</a>
     </div>
   </section>
 </div>
@@ -664,6 +665,13 @@ const avatarSrc = `${import.meta.env.BASE_URL}ai/robot-cat.webp`;
       const opener = (event as CustomEvent<HTMLElement>).detail;
       openChat(opener instanceof HTMLElement ? opener : launcher);
     });
+    root.querySelector<HTMLAnchorElement>('[data-cat-privacy]')?.addEventListener('click', event => {
+      const details = document.querySelector<HTMLDetailsElement>('#pixel-privacy');
+      if (!details) return;
+      event.preventDefault(); closeChat(false); details.open = true;
+      details.scrollIntoView({behavior:'instant',block:'center'});
+      details.querySelector<HTMLElement>('summary')?.focus({preventScroll:true});
+    });
     closer.addEventListener('click', () => closeChat());
     backdrop.addEventListener('click', () => closeChat());
     dismiss.addEventListener('click', dismissBubble);
@@ -722,6 +730,8 @@ const avatarSrc = `${import.meta.env.BASE_URL}ai/robot-cat.webp`;
   .cat-wait-hint { margin: 0; padding: 0 4px 8px; color: #c3cdcc; font-size: 12px; line-height: 1.5; }
   .cat-wait-hint:empty { display: none; }
   .cat-verification { margin-bottom: 0; }
+  .cat-privacy { display:block; width:fit-content; margin:6px auto 0; font-size:11px; color:#b7bfbb; text-underline-offset:3px; }
+  .cat-privacy:hover { color:var(--brand-accent); }
   :global(.cat-demo-cart) { margin: 12px 0; padding: 16px; border: 1px solid #ffffff20; border-radius: 16px; background: #ffffff06; }
   :global(.cat-demo-cart summary) { cursor: pointer; padding: 6px 0; font-weight: 600; }
   :global(.cat-demo-cart strong) { display: block; margin: 16px 0 12px; }

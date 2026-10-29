@@ -34,3 +34,10 @@ ApiError хранит внутреннюю диагностику этапа: с
 Проверено: 58 тестов, общая сборка и SEO PASS. Playwright с fixtures: desktop flexible, через 35 секунд нет ошибки/POST, после имитации success — ровно 1 POST; 320 px compact, после 121 секунды verification_wait_timeout и 0 POST, затем retry с HTTP 502 показывает http_502_upstream_unavailable. Нет overflow. Fixtures не являются настоящим проходом challenge.
 
 Пользователь попросил убрать галочку. Предложен штатный Invisible с сохранением Siteverify/лимитов. Панель Cloudflare требует входа; пользовательский вход запрошен. Режим виджета пока не переключён. Для Invisible Cloudflare требует ссылку на Turnstile Privacy Addendum в собственной политике, учесть перед включением: https://developers.cloudflare.com/turnstile/concepts/widget/ .
+
+## Invisible принят на публичном сайте
+Пользователь сохранил режим в dashboard; после reload в строке Pixel — HIRDA подтверждён Invisible, три прежних hostname и No pre-clearance сохранены. В обычном Chrome публичное портфолио обновлено, отправлен короткий вопрос о демонстрационных сайтах: получен настоящий ответ Pixel со списком проектов. Галочка и блок Cloudflare не появлялись. [Скриншот](media/pixel-invisible-live.png). Это проверка одного consult-запроса, не всех трёх демосценариев.
+
+Добавлены сведения о данных чата DE/EN/RU в раскрываемом разделе футера и ссылка из панели Pixel. Указаны Turnstile Privacy Addendum и политика OpenAI, передача сообщения/истории для ответа и предостережение от отправки чувствительных данных. Не выдуманы адрес, email, правовые основания или сроки хранения. Полные Impressum/Datenschutz всё ещё требуют подтверждённых данных владельца.
+
+Проверки: 58 тестов, общая сборка, SEO и diff-check PASS. Playwright 320 px DE/EN/RU: ссылка из чата закрывает панель, раскрывает сведения, ставит фокус на summary, ссылка Cloudflare правильная, нет overflow. Figma PuicLapgF9vnSyRn8xofU8: ссылка в существующих desktop/mobile футерах, editable Arimo, узлы 64:1328/64:1329, мобильный фрагмент визуально проверен.

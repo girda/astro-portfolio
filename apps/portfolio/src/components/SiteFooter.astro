@@ -7,6 +7,23 @@ const en = lang === "en";
 const links = en
   ? [["projects", "Projects"], ["about", "About me"], ["services", "Services"], ["pricing", "Pricing"], ["contact", "Contact"]]
   : ru ? [["projects", "Проекты"], ["about", "Обо мне"], ["services", "Услуги"], ["pricing", "Цены"], ["contact", "Контакты"]] : [["projects", "Projekte"], ["about", "Über mich"], ["services", "Leistungen"], ["pricing", "Preise"], ["contact", "Kontakt"]];
+
+const privacy = lang === 'ru' ? {
+  title: 'Приватность в чате Pixel',
+  protection: 'Для защиты чата от автоматических запросов используется Cloudflare Turnstile. При отправке сообщения Cloudflare обрабатывает технические данные браузера и соединения для проверки посетителя.',
+  chat: 'Текст сообщения и часть текущего диалога передаются через сервер Pixel в OpenAI для подготовки ответа. История интерфейса хранится в памяти открытой страницы. Не отправляй пароли, платёжные и другие чувствительные данные.',
+  scope: 'Эти сведения относятся к чату Pixel.',
+} : lang === 'en' ? {
+  title: 'Privacy in the Pixel chat',
+  protection: 'Cloudflare Turnstile protects this chat against automated requests. When you send a message, Cloudflare processes technical browser and connection data to verify the visitor.',
+  chat: 'Your message and part of the current conversation are sent through the Pixel server to OpenAI to generate a reply. The interface keeps conversation history in the memory of the open page. Do not send passwords, payment details or other sensitive information.',
+  scope: 'This notice covers the Pixel chat.',
+} : {
+  title: 'Datenschutzhinweise zum Pixel-Chat',
+  protection: 'Cloudflare Turnstile schützt diesen Chat vor automatisierten Anfragen. Beim Senden einer Nachricht verarbeitet Cloudflare technische Browser- und Verbindungsdaten zur Prüfung des Besuchers.',
+  chat: 'Deine Nachricht und ein Teil des aktuellen Gesprächs werden über den Pixel-Server an OpenAI übermittelt, um eine Antwort zu erstellen. Der Chatverlauf der Oberfläche bleibt im Arbeitsspeicher der geöffneten Seite. Sende keine Passwörter, Zahlungsdaten oder andere sensiblen Informationen.',
+  scope: 'Diese Hinweise beziehen sich auf den Pixel-Chat.',
+};
 ---
 <footer class="site-footer">
   <div class="container footer-inner">
@@ -21,6 +38,15 @@ const links = en
 
     </div>
 
+    <details class="footer-privacy" id="pixel-privacy">
+      <summary>{privacy.title}</summary>
+      <p>{privacy.protection}</p>
+      <p><a href="https://www.cloudflare.com/turnstile-privacy-policy/" target="_blank" rel="noopener noreferrer">Cloudflare Turnstile Privacy Addendum</a></p>
+      <p>{privacy.chat}</p>
+      <p><a href="https://openai.com/policies/privacy-policy/" target="_blank" rel="noopener noreferrer">OpenAI Privacy Policy</a></p>
+      <p>{privacy.scope}</p>
+    </details>
+
     <div class="footer-bottom">
     <a class="back-top" href="#top" aria-label={en ? "Back to top" : ru ? "Наверх" : "Nach oben"} title={en ? "Back to top" : ru ? "Наверх" : "Nach oben"}>
       <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 19V5m-6 6 6-6 6 6" /></svg>
@@ -31,6 +57,10 @@ const links = en
   </div>
 </footer>
 <style>
+  .footer-privacy { margin-top:32px; max-width:72ch; font-size:13px; color:#b7bfbb; }
+  .footer-privacy summary { cursor:pointer; min-height:44px; display:list-item; padding-block:10px; }
+  .footer-privacy a { text-decoration:underline; text-underline-offset:3px; }
+  .footer-privacy a:hover, .footer-privacy summary:hover { color:var(--brand-accent); }
   .site-footer {
     position: relative;
     margin-top: 32px;

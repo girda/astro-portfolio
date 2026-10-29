@@ -4,7 +4,7 @@ Worker: `hirda-cat-api`, endpoint: `https://hirda-cat-api.hirda-assistant-api.wo
 Сайт: `https://girda.github.io/astro-portfolio/`.
 
 - Секреты Cloudflare: `OPENAI_API_KEY`, `TURNSTILE_SECRET`. Значения никогда не добавлять в Git.
-- Публичный sitekey: `0x4AAAAAAFS3zEwm2KejbU1v`. Виджет Managed, action `pixel_chat`.
+- Публичный sitekey: `0x4AAAAAAFS3zEwm2KejbU1v`. Виджет Invisible (пользователь сохранил настройку 29.10.2026), action `pixel_chat`.
 - Worker требует успешный Siteverify с точными hostname `girda.github.io` и action `pixel_chat`. Локальные hostname в production не допускаются.
 - Токен одноразовый: после каждой попытки отправки виджет сбрасывается. При ошибке проверки запрос к OpenAI не выполняется.
 - Старый `TEST_ACCESS_TOKEN` больше не используется и не даёт доступа. Пароль в браузере не запрашивается.
@@ -14,3 +14,6 @@ Worker: `hirda-cat-api`, endpoint: `https://hirda-cat-api.hirda-assistant-api.wo
 - `PUBLIC_ASSISTANT_API_URL` в GitHub repository variables задаёт endpoint при сборке Pages.
 - Backend публикуется отдельно от Pages через Wrangler. Изменение прайса требует обновления обеих частей.
 - Локальный Node-сервер доступен только по loopback и сохраняет свои ограничения; production-проверка Turnstile выполняется в Worker.
+
+- Invisible подтверждён в dashboard и настоящей отправкой через публичный Chrome: ответ получен без галочки. Защита не скрыта CSS и не отключена на сервере.
+- Сведения о данных Pixel и ссылка на Turnstile Privacy Addendum доступны в футере портфолио и по ссылке под полем чата. Это сведения о чате, не завершённая правовая документация всего сайта.
