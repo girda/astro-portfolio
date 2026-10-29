@@ -1,114 +1,92 @@
-# Карта архитектуры HIRDA
+# Архитектура HIRDA — фактическое состояние
 
-Обновлено 24.10.2026 по рабочему дереву. **Сплошные связи ниже — текущая реализация; будущая архитектура вынесена отдельно.** Схемы не синхронизируются автоматически: обновляем при изменении модулей, маршрутов, API и деплоя. На GitHub Mermaid отображается диаграммой.
+Обновлено 29.10.2026 по исходникам, конфигурации CI и публичной проверке Pixel. Это карта текущей системы; будущие модули отдельно. Обновляем при изменении app, API или способа публикации.
 
-## 1. Как всё устроено сейчас
+## Что видит посетитель
 
 ```mermaid
 flowchart TD
-  Repo["astro-portfolio: рабочее дерево; публикация отдельно"] --> Build["scripts/build.mjs"]
-  Repo --> CI["CI: npm test, build, check:seo"]
-  SEO["portfolio: config/site.ts и lib/seo.ts"] --> Studio
-  SEO --> Endpoints["sitemap.xml и robots.txt"]
-  Endpoints --> Output
-  Build --> Studio["apps/portfolio: студия DE и EN"]
-  Build --> Demos["9 демо: KANT, KLAR, WERKRAUM, STILL, Lindenhof, Eichenhain, STROMWERK, HAUSWERK, GRÜNWERK"]
-  Studio --> Output["Общий статический dist"]
-  Demos --> Output
-  Output --> Pages["GitHub Pages: /astro-portfolio/"]
-  UI["packages/ui: компоненты, SVG, стили"] --> Demos
-  Repo --> Experiments["VYRA: вне общей сборки; cat-lab: маршрут студии"]
-  Repo --> API["apps/assistant-api: отдельный Worker"]
-  Studio --> Pixel["Интерфейс Pixel"]
-  Pixel -->|"production API при настройке"| API
-  Pixel -->|"только DEV"| N8n["Локальный n8n Chat Trigger"]
+  User[Посетитель] --> Pages[GitHub Pages: статические сайты Astro]
+  Pages --> Portfolio[HIRDA: DE / EN / RU, услуги, цены, каталог]
+  Pages --> Demos[12 демонстрационных сайтов]
+  Portfolio --> Pixel[Pixel: чат в браузере]
+  Pixel --> Guard[Cloudflare Turnstile Invisible]
+  Pixel -->|Вопрос + история + токен| Worker[Cloudflare Worker: hirda-cat-api]
+  Worker -->|Проверка токена| Guard
+  Worker --> Limits[Лимит IP + дневной счётчик]
+  Worker -->|Серверный ключ| AI[OpenAI Responses API]
+  AI -->|Ответ| Worker
+  Worker -->|Ответ / действия / черновик| Pixel
+  Pixel --> Draft[Редактируемый черновик обращения]
+  Portfolio --> Contact[Контактная форма]
+  Draft --> WhatsApp[WhatsApp: посетитель отправляет сам]
+  Contact --> WhatsApp
 ```
 
-Локально собираются 10 сайтов (портфолио и 9 демо). Публичная версия отдельно; новые локальные изменения этой задачи не публиковались. Незакоммиченные файлы не означают, что они уже есть на GitHub/CI.
+Публичный адрес: https://girda.github.io/astro-portfolio/. API: `hirda-cat-api.hirda-assistant-api.workers.dev/api/chat`. Секреты находятся на сервере. Сайт не отправляет WhatsApp-сообщения самостоятельно. Демокорзина Pixel не отправляет заказ на кухню и не принимает оплату.
 
-## 2. Карта существующих проектов
+## Состав монорепозитория
 
-| Проект | Код | Данные/логика | Связь с сервером |
-|---|---|---|---|
-| HIRDA | `apps/portfolio` | `src/data`, `i18n`, config; секции в components | Pixel → API; контакт → подготовленный WhatsApp |
-| KANT | `apps/barbershop` | `data/site.ts`, `contact.ts`; Embla/диалоги/FAQ | Демо, не настоящая запись |
-| KLAR | `apps/cleaning` | `data/site.ts`, калькулятор | Демо |
-| WERKRAUM | `apps/autoservice` | `data/site.ts`, DE/RU, ServicePage | Демо-запрос |
-| STILL | `apps/nails` | локали и данные,4 страницы ×3 языка | Демо-запрос |
-| Lindenhof | `apps/lindenhof` | авто в data, фильтры/сравнение в scripts | Демо, не реальный inventory API |
-| Eichenhain | `apps/ecohomes` | подбор домов/энергии и формы | Демо |
-| Pixel API | `apps/assistant-api` | validate, knowledge, scenarios, budget | OpenAI Responses, Turnstile, Durable Object |
-| STROMWERK | `apps/electrical` | `data/site.ts`, TradePage, electrical theme | Локальная demo-сводка |
-| HAUSWERK | `apps/homeservice` | `data/site.ts`, TradePage, homeservice theme | Локальная demo-сводка |
-| GRÜNWERK | `apps/gardens` | `data/site.ts`, TradePage, фильтр идей | Локальная demo-сводка |
-| Restaurant | Ещё нет отдельного app | Сценарий кафе в Pixel не является сайтом ресторана | Не реализовано |
+| Часть | Папка | Назначение |
+|---|---|---|
+| HIRDA | apps/portfolio | Портфолио на трёх языках, каталог с фильтрами и пагинацией, Pixel, контакт |
+| Lindenhof | apps/lindenhof | Каталог авто, фильтры, сравнение, страницы моделей |
+| Falkenried | apps/hausbau | Каталог домов, фильтры/сортировка, сравнение, планы |
+| Eichenhain | apps/ecohomes | Экодома, страницы домов, энергосхема, контакты |
+| KANT | apps/barbershop | Барбершоп |
+| KLAR | apps/cleaning | Клининг и калькулятор |
+| WERKRAUM | apps/autoservice | Автомастерская |
+| STILL | apps/nails | Beauty & Spa |
+| Хлібний / немецкая версия | apps/khlibnyi | Сайт пекарни / кафе |
+| Street Food | apps/streetfood | Меню, категории, поиск, локальная корзина |
+| STROMWERK | apps/electrical | Электрик |
+| HAUSWERK | apps/homeservice | Домашние мастера |
+| GRÜNWERK | apps/gardens | Садовые работы |
+| Общие элементы | packages/ui | Компоненты, иконки, стили и движение |
+| Pixel backend | apps/assistant-api | Worker, инструкции, проверки, локальные сервисы |
 
-## 3. Pixel: текущий публичный путь
+Состав общей сборки задаёт `scripts/projects.mjs`: 13 приложений, включая портфолио. `/lab/` и `/cat-lab/` — экспериментальные маршруты портфолио; `apps/vyra` не включён в общую сборку. Наличие папки не означает публикацию.
 
-```mermaid
-sequenceDiagram
-  participant Visitor as Посетитель
-  participant Pixel as Pixel в браузере
-  participant Guard as Turnstile
-  participant Worker as Worker API
-  participant Budget as Дневной счётчик
-  participant OpenAI as OpenAI Responses
-  Visitor->>Pixel: Отправляет вопрос
-  Pixel->>Guard: Получает токен проверки
-  Pixel->>Worker: POST /api/chat с вопросом и токеном
-  Worker->>Worker: Origin, размер, формат и rate limit
-  Worker->>Guard: Серверная проверка токена
-  Worker->>Budget: Проверка и расход лимита
-  Worker->>OpenAI: Запрос с ключом только на сервере
-  OpenAI-->>Worker: Ответ
-  Worker-->>Pixel: Проверенный JSON или безопасная ошибка
-  Pixel-->>Visitor: Сообщение и доступные действия
-```
-
-Production-доступность конкретного Worker и secret-конфигурация в аудите не проверялись платным запросом. UI и backend существуют; это не гарантия доступности24/7. Общий бюджет — число запросов, не точный лимит евро.
-
-В DEV может использоваться n8n вместо Worker: браузер отправляет `{ action: 'sendMessage', sessionId, chatInput }`; UUID хранится в sessionStorage. Окружения не должны смешиваться. Контактная форма пока открывает WhatsApp — не отправляет email.
-
-## Локальные заявки Pixel — этап 24.10.2026
+## Публикация и проверки
 
 ```mermaid
 flowchart LR
-  Chat["Pixel: консультация"] --> N8n["n8n: текстовый ответ"]
-  Chat --> Card["Редактируемая карточка: слова посетителя"]
-  Card -->|"Проверить поля"| Draft["Node localhost:8788: хеш + токен черновика"]
-  Card -->|"Явное подтверждение"| Check["Проверка полей, сессии, токена, срока"]
-  Check --> Tx["SQLite transaction + UNIQUE draft_id"]
-  Tx --> DB[".local-data/pixel-leads.sqlite"]
-  DB -->|"Реальный id или тот же id повтора"| Card
+  Code[Изменения кода] --> Tests[npm test]
+  Tests --> Build[npm run build: 13 приложений]
+  Build --> SEO[npm run check:seo]
+  SEO --> Commit[Коммит и push main]
+  Commit --> Actions[GitHub Actions: install → test → build → SEO]
+  Actions --> Artifact[Общий dist]
+  Artifact --> Pages[GitHub Pages]
+  Server[Изменения Pixel backend] --> DryRun[Тесты и Wrangler dry-run]
+  DryRun --> Approval[Отдельно согласованный deploy]
+  Approval --> Worker[Cloudflare Worker]
 ```
 
-Сервис и форма реализованы и проверены локально. **24.10.2026 применён локальный Publish: прямой Save Lead у модели отключён; активный чат и сохранение id=3 проверены.** Старая таблица HIRDA Leads сохранена и не синхронизируется с новой SQLite. Production Worker не менялся. [Подробности и ограничения](audit/pixel-confirmation-2026-10-24.md).
+Push публикует фронтенд через `.github/workflows/deploy.yml`. Worker этим workflow не публикуется. Внешние уведомления CI отложены; результаты доступны в GitHub Actions. Сборка сначала готовит временный каталог, чтобы ошибка одного app не уничтожила последнюю рабочую сборку.
 
-## 4. Направление роста, согласованное пользователем
+## Где находятся данные
+
+- Контент сайтов, цены и каталог проектов — файлы в репозитории. CMS пока нет.
+- Публичный Pixel передаёт ограниченную историю диалога серверу; Worker обращается к OpenAI с `store: false`. Это не обещание отсутствия служебного хранения у провайдера.
+- Дневной счётчик — Cloudflare Durable Object с SQLite. Это **счётчик запросов, не база клиентских заявок**. Сейчас настроены 200 запросов в сутки и 10 за минуту на IP; денежный баланс он не измеряет.
+- Публичной CRM, базы заказов, оплаты и интеграции с кухней нет. Черновик WhatsApp проверяет и отправляет посетитель.
+- Локальный n8n и база заявок работают отдельным путём разработки:
 
 ```mermaid
-flowchart TD
-  Shared["Версионированные UI, SEO, config и формы"] --> Studio["Студия: свой deploy"]
-  Shared --> ClientA["Клиент A: свой repo, домен, deploy"]
-  Shared --> ClientB["Клиент B: свой repo, домен, deploy"]
-  ClientA -.->|"если нужно"| ApiA["API A: свои secrets, лимиты и знания"]
-  ClientB -.->|"если нужно"| ApiB["API B: свои secrets, лимиты и знания"]
-  ClientA -.->|"если редактор нужен клиенту"| CMSA["Изолированный CMS space A"]
-  ClientB -.->|"если редактор нужен клиенту"| CMSB["Изолированный CMS space B"]
-  ApiA -.-> Integrations["Email, CRM, OpenAI, n8n по задаче"]
-  ApiB -.-> Integrations
+flowchart LR
+  Dev[Локальное портфолио] --> N8N[n8n Chat Trigger]
+  Dev --> Card[Подтверждаемая карточка заявки]
+  Card --> Node[Локальный Node-сервис:8788]
+  Node --> SQLite[.local-data/pixel-leads.sqlite]
 ```
 
-Это целевая схема, ещё не текущая система. Сначала Astro и небольшие изменения, затем модули по потребности. Next.js — только для приложения, которому действительно нужны его server features. Не нужен общий монолит или обязательный VPS для20 статических сайтов.
+UUID n8n сохраняется в sessionStorage. Node проверяет поля и токен черновика, исключает повторную запись через UNIQUE draft_id. Старые записи таблицы n8n не синхронизируются с SQLite. Эти компоненты не опубликованы вместе с GitHub Pages.
 
-## Что обновлять вместе со схемой
+## Как расти после MVP
 
-Добавление app → таблица проектов + build/deploy. Новая интеграция → API-схема + границы данных. Новый клиент → отдельный repo/deploy/access, не секреты в этой документации. Архитектурное решение → `ARCHITECTURE_PROPOSAL.md` либо отдельный ADR с датой и причиной.
+Клиентские сайты — отдельные deploy/домены и изолированные доступы. Общие компоненты переиспользуем по необходимости. Первое предлагаемое расширение: CMS для Street Food (блюда, цены, фото, аллергены, доступность, публикация, QR-ссылка). Хранилище, авторизация и интеграции ещё требуют согласования. Платежи и реальные заказы — отдельный этап.
 
-## SEO-основа PR-01
+## Текущие ограничения
 
-Реализована локально23.10.2026: единые canonical и DE/EN alternate, noindex для cat-lab и preview, sitemap только для зарегистрированных страниц. При размещении в подкаталоге robots.txt не задаёт правила для всего чужого host; фактический noindex находится в HTML. Проверки добавлены в CI, но удалённый workflow не запускался — push не выполнялся. Инструкции: [DEPLOYMENT.md](DEPLOYMENT.md).
-
-## Сервисные демо — 24.10.2026
-
-`packages/ui/TradePage.astro` принимает типизированный `TradeSite`; данные бизнеса — `apps/<app>/src/data/site.ts`. `ServiceQuote.astro` управляет локальной формой. Общая база `service-base.css`, отраслевые темы `trade-themes.css`; они не импортируют прежний foundations.css, чтобы не перебивать согласованный дизайн. KLAR использует `purehaven.css` и сохранённый калькулятор. Цвета темы — CSS custom properties в одном месте. [QA и Figma](audit/service-demos-2026-10-24.md).
+29.10 публично проверены кафе, черновик мастера и редактирование обращения. В автосалоне выявлено нарушение бюджета; исправление инструкций подготовлено, публикация и повторная проверка ожидают восстановления входа Cloudflare. Полная готовность сценария пока не заявляется. Подробности: [проверка Pixel](audit/pixel-scenarios-2026-10-29.md), [план MVP](MVP_LAUNCH.md).

@@ -115,6 +115,7 @@ const avatarSrc = `${import.meta.env.BASE_URL}ai/robot-cat.webp`;
 </div>
 
 <script>
+  import {localizeDemoChoice} from "../scripts/pixel-demo-choices";
   import {createVerificationGate, requestVerification} from '../scripts/pixel-verification';
   import {pixelScenarios} from '../data/pixel-showcase';
   import "../scripts/pixel-visibility";
@@ -239,9 +240,9 @@ const avatarSrc = `${import.meta.env.BASE_URL}ai/robot-cat.webp`;
     let demoCart: { id: string; quantity: number }[] = [];
     let demoCatalog: { id: string; name: string; cents: number }[] = [];
     const cartCopy = {
-      de: { open: 'Demo-Warenkorb öffnen', title: 'Dein Demo-Warenkorb', empty: 'Noch leer', note: 'Beispielpreise · Keine Bestellung oder Zahlung', done: 'Demo abschließen', finish: 'So könnte dein Assistent Bestellungen vorbereiten. Diese Demo wurde nicht versendet. Für deinen Betrieb verbinden wir deinen Katalog und die passenden Systeme.', add: 'Mehr', remove: 'Weniger' },
-      en: { open: 'Open demo cart', title: 'Your demo cart', empty: 'Empty for now', note: 'Sample prices · No real order or payment', done: 'Finish demo', finish: 'Your assistant could prepare orders like this. Nothing was sent. For your business, we connect your catalog and the appropriate systems.', add: 'More', remove: 'Less' },
-      ru: { open: 'Открыть демо-корзину', title: 'Твоя демо-корзина', empty: 'Пока пусто', note: 'Примерные цены · Без заказа и оплаты', done: 'Завершить демо', finish: 'Так твой помощник сможет собирать заказы. Мы ничего не отправляли. Для твоего бизнеса подключим свой каталог и нужные сервисы.', add: 'Больше', remove: 'Меньше' },
+      de: { open: 'Demo-Warenkorb öffnen', total: 'Gesamt', title: 'Dein Demo-Warenkorb', empty: 'Noch leer', note: 'Beispielpreise · Keine Bestellung oder Zahlung', done: 'Demo abschließen', finish: 'So könnte dein Assistent Bestellungen vorbereiten. Diese Demo wurde nicht versendet. Für deinen Betrieb verbinden wir deinen Katalog und die passenden Systeme.', add: 'Mehr', remove: 'Weniger' },
+      en: { open: 'Open demo cart', total: 'Total', title: 'Your demo cart', empty: 'Empty for now', note: 'Sample prices · No real order or payment', done: 'Finish demo', finish: 'Your assistant could prepare orders like this. Nothing was sent. For your business, we connect your catalog and the appropriate systems.', add: 'More', remove: 'Less' },
+      ru: { open: 'Открыть демо-корзину', total: 'Итого', title: 'Твоя демо-корзина', empty: 'Пока пусто', note: 'Примерные цены · Без заказа и оплаты', done: 'Завершить демо', finish: 'Так твой помощник сможет собирать заказы. Мы ничего не отправляли. Для твоего бизнеса подключим свой каталог и нужные сервисы.', add: 'Больше', remove: 'Меньше' },
     }[lang];
     const money = (cents: number) => new Intl.NumberFormat(lang, { style: 'currency', currency: 'EUR' }).format(cents / 100);
     function renderCart() {
@@ -269,7 +270,7 @@ const avatarSrc = `${import.meta.env.BASE_URL}ai/robot-cat.webp`;
         }
         box.append(line);
       }
-      const price = document.createElement('p'); price.textContent = count ? `Total: ${money(total)}` : cartCopy.empty;
+      const price = document.createElement('p'); price.textContent = count ? `${cartCopy.total}: ${money(total)}` : cartCopy.empty;
       const note = document.createElement('small'); note.textContent = cartCopy.note;
       box.append(price, note);
       if (count) {
@@ -340,8 +341,9 @@ const avatarSrc = `${import.meta.env.BASE_URL}ai/robot-cat.webp`;
       log.querySelectorAll('[data-demo-actions]').forEach(node => node.remove());
       const group = document.createElement('div'); group.dataset.demoActions = ''; group.className = 'cat-demo-actions';
       for (const choice of choices) {
-        const button = document.createElement('button'); button.type = 'button'; button.textContent = choice;
-        button.addEventListener('click', () => void sendToAgent(choice)); group.append(button);
+        const label = localizeDemoChoice(choice, lang);
+        const button = document.createElement('button'); button.type = 'button'; button.textContent = label;
+        button.addEventListener('click', () => void sendToAgent(label)); group.append(button);
       }
       const hint = document.createElement('small'); hint.textContent = { de: 'Du kannst auch einfach selbst schreiben.', en: 'You can always write your own answer.', ru: 'Можно просто написать свой ответ.' }[lang]; group.append(hint);
       const change = document.createElement('button'); change.type = 'button'; change.textContent = { de: 'Andere Demo testen', en: 'Try another demo', ru: 'Другой сценарий' }[lang];

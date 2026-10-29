@@ -113,3 +113,13 @@ test('diagnostic logging excludes arbitrary error fields and messages', () => {
   assert.deepEqual(errorDiagnostic(new ApiError(502, 'private-code', { stage: 'private-content', providerStatus: 401 })), { event: 'pixel_provider_failure', stage: 'unknown' });
   assert.deepEqual(errorDiagnostic(new ApiError(502, 'private-code', { stage: 'provider_http', providerStatus: 'private-key', content: 'private' })), { event: 'pixel_provider_failure', stage: 'provider_http' });
 });
+
+
+test('car demo instructions keep price and transmission constraints together', async () => {
+  const { scenarioInstructions } = await import('./demo.mjs');
+  const text = scenarioInstructions('auto', []);
+  assert.match(text, /Touring at EUR28900 is the ONLY match/);
+  assert.match(text, /never silently relax it or upsell/);
+  assert.match(text, /Do not invent comfort, space/);
+  assert.match(text, /Never pretend a test drive or rental is booked/);
+});
