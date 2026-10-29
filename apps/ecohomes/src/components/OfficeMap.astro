@@ -1,10 +1,11 @@
 ---
 import {office,officeMaps} from '../data/office';
+import ExternalMap from '../../../../packages/ui/ExternalMap.astro';
 import Icon from '../../../../packages/ui/Icon.astro';
 ---
 <section class="section container office-section" aria-labelledby="office-title">
  <div class="office-heading"><div><p class="eyebrow">IN DER REGION VERWURZELT</p><h2 id="office-title">Gute Ideen.<br/><em>Ein persönliches Gespräch.</em></h2></div><div class="office-information"><span><Icon name="map-pin"/>{office.label}</span><p>{office.note}</p><div class="office-actions"><a class="button" href={officeMaps.directions} target="_blank" rel="noopener">Route in Google Maps</a><a class="text-button" href={officeMaps.place} target="_blank" rel="noopener">Standort ansehen</a></div></div></div>
- <iframe class="office-map" src={officeMaps.embed} title="OpenStreetMap: Demonstrationsstandort Landshut" loading="lazy" referrerpolicy="no-referrer"></iframe>
+ <ExternalMap class="office-map" src={officeMaps.embed} title="OpenStreetMap: Demonstrationsstandort Landshut"/>
 </section>
 <style>
 .office-heading{display:grid;grid-template-columns:1fr 1fr;gap:48px;margin-bottom:30px;align-items:end}.office-heading h2{font-size:clamp(30px,3.5vw,48px)}.office-information>span{display:flex;align-items:center;gap:10px;font-size:18px}.office-information>p{font-size:13px;color:var(--muted);margin:14px 0 20px}.office-actions{display:flex;flex-wrap:wrap;gap:20px;align-items:center}.office-map{display:block;width:100%;height:420px;border:1px solid var(--line);border-radius:12px;background:#e9eee3}@media(max-width:760px){.office-heading{grid-template-columns:1fr;gap:24px}.office-map{height:330px}.office-actions .button{width:100%}}

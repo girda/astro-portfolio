@@ -1,4 +1,5 @@
 ---
+import DemoNotice from "../../../../packages/ui/DemoNotice.astro";
 import Homepage from '../components/Homepage.astro';
 const base=import.meta.env.BASE_URL;
 const origin=Astro.site||new URL('https://girda.github.io');
@@ -12,13 +13,10 @@ const origin=Astro.site||new URL('https://girda.github.io');
     <meta name="description" content="Khlibnyi — Café und Bäckerei als unabhängiges Designkonzept. Frisches Brot, Kaffee und kleine Genussmomente." />
     <meta name="robots" content="noindex,follow"/><link rel="canonical" href={new URL(base,origin)}/><meta property="og:image" content={new URL(`${base}assets/croissant.svg`,origin)}/><title>Khlibnyi — Brot. Kaffee. Liebe.</title>
     <link rel="icon" href={`${base}assets/favicon.svg`} type="image/svg+xml" />
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&family=Oswald:wght@400;500;600;700&display=swap" rel="stylesheet" />
-    <link rel="stylesheet" href={`${base}styles.css`} /><link rel="stylesheet" href={`${base}pages.css`}/>
+    <link rel="stylesheet" href={`${base}fonts/fonts.css`}/><link rel="stylesheet" href={`${base}styles.css`} /><link rel="stylesheet" href={`${base}pages.css`}/>
   </head>
   <body>
     <Homepage />
     <script is:inline src={`${base}app.js`} defer></script>
-  </body>
+  <DemoNotice/></body>
 </html>

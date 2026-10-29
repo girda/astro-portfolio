@@ -31,6 +31,8 @@ jobs:
         env:
           SITE_URL: https://${{ github.repository_owner }}.github.io
           PAGES_BASE: /astro-portfolio/
+      - name: Check public forms, fonts and storage baseline
+        run: npm run check:public
       - uses: actions/upload-pages-artifact@v3
         with:
           path: dist

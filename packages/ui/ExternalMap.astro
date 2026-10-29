@@ -1,0 +1,31 @@
+---
+interface Props {src:string;title:string;lang?:'de'|'ru'|'en';class?:string}
+const {src,title,lang='de',class:className}=Astro.props;
+const url=new URL(src);
+if(url.protocol!=='https:' || url.hostname!=='www.openstreetmap.org') throw new Error('Unsupported map source');
+const copy={de:{name:'OpenStreetMap',note:'Erst beim Laden wird eine Verbindung zu OpenStreetMap hergestellt. Dabei wird unter anderem deine IP-Adresse übertragen.',load:'Karte laden',hide:'Karte ausblenden',alternative:'Du kannst auch ohne eingebettete Karte die Routenlinks nutzen.'},ru:{name:'OpenStreetMap',note:'Карта подключается только после нажатия. При загрузке OpenStreetMap получает технические данные, включая IP-адрес.',load:'Загрузить карту',hide:'Скрыть карту',alternative:'Маршруты по ссылкам доступны и без встроенной карты.'},en:{name:'OpenStreetMap',note:'Loading the map connects to OpenStreetMap and shares technical information, including your IP address.',load:'Load map',hide:'Hide map',alternative:'You can use the route links without loading this map.'}}[lang];
+---
+<div class:list={['external-map',className]} data-external-map>
+ <div class="map-notice" data-map-notice><strong>{copy.name}</strong><p>{copy.note}</p><button type="button" data-map-enable>{copy.load}</button><small>{copy.alternative}</small></div>
+ <iframe data-map-url={src} title={title} width="640" height="420" hidden referrerpolicy="strict-origin-when-cross-origin"></iframe>
+ <button class="map-disable" type="button" data-map-disable hidden>{copy.hide}</button>
+</div>
+<script>
+ import {onPageReady} from './page-lifecycle';
+ onPageReady(()=>{
+  const controller=new AbortController();
+  document.querySelectorAll<HTMLElement>('[data-external-map]').forEach(root=>{
+   const frame=root.querySelector<HTMLIFrameElement>('iframe')!,notice=root.querySelector<HTMLElement>('[data-map-notice]')!,enable=root.querySelector<HTMLButtonElement>('[data-map-enable]')!,disable=root.querySelector<HTMLButtonElement>('[data-map-disable]')!;
+   enable.addEventListener('click',()=>{frame.src=frame.dataset.mapUrl!;frame.hidden=false;notice.hidden=true;disable.hidden=false;disable.focus({preventScroll:true});},{signal:controller.signal});
+   disable.addEventListener('click',()=>{frame.removeAttribute('src');frame.hidden=true;notice.hidden=false;disable.hidden=true;enable.focus({preventScroll:true});},{signal:controller.signal});
+  });
+  return()=>controller.abort();
+ });
+</script>
+<style>
+ .external-map{position:relative;width:100%;height:420px;box-sizing:border-box;border:1px solid var(--line,#bbb);border-radius:12px;overflow:hidden;background:var(--surface,#f1f1ed);color:var(--ink,#26332f)}
+ .external-map iframe{display:block;width:100%;height:100%;border:0}.external-map [hidden]{display:none!important}
+ .map-notice{height:100%;padding:28px;box-sizing:border-box;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;gap:16px}.map-notice strong{font-size:20px}.map-notice p{max-width:420px;font:inherit;font-size:14px;line-height:1.6;margin:0}.map-notice small{font-size:12px;max-width:380px;line-height:1.5}
+ .external-map button{font:inherit;font-size:14px;border:1px solid currentColor;background:var(--surface,#fff);color:inherit;border-radius:6px;min-height:44px;padding:10px 18px;cursor:pointer;transition:background .2s}.external-map button:hover{background:color-mix(in srgb,currentColor 10%,var(--surface,#fff))}.external-map button:focus-visible{outline:2px solid currentColor;outline-offset:3px}.map-disable{position:absolute;z-index:2;bottom:12px;left:12px;box-shadow:0 2px 8px #0002}
+ @media(max-width:760px){.external-map{height:360px}.map-notice{padding:22px}}
+</style>

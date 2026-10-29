@@ -1,7 +1,7 @@
 ---
 const {services,name}=Astro.props;
 ---
-<div class="form-panel"><form class="quote-form" data-quote-form data-business={name}>
+<div class="form-panel"><form method="dialog" class="quote-form" data-quote-form data-business={name}>
 <div class="form-row"><label>Dein Name (Demo)<input name="name" autocomplete="name" placeholder="Vorname" maxlength="80" required/></label><label>Deine PLZ<input name="postcode" inputmode="numeric" pattern="[0-9]{5}" placeholder="80331" maxlength="5" required/></label></div>
 <label>Worum geht es?<select name="service" required>{services.map((s:{title:string})=><option>{s.title}</option>)}</select></label>
 <label>Deine Idee<textarea name="message" rows="4" placeholder="Was möchtest du verändern oder erledigen lassen?" maxlength="1200" required></textarea></label>

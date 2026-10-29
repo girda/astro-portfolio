@@ -102,7 +102,7 @@ const avatarSrc = `${import.meta.env.BASE_URL}ai/robot-cat.webp`;
     <div class="cat-bottom">
       <div data-cat-verification class="cat-verification"></div>
       <p class="cat-wait-hint" data-cat-wait-hint role="status" aria-live="polite"></p>
-      <form class="cat-compose" data-cat-form>
+      <form method="dialog" class="cat-compose" data-cat-form>
         <label class="sr-only" for="hirda-cat-input">{copy.placeholder}</label>
         <input id="hirda-cat-input" data-cat-input type="text" autocomplete="off" maxlength="350" placeholder={copy.placeholder} />
         <button type="submit" aria-label={copy.send}>

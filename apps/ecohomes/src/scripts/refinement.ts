@@ -7,12 +7,12 @@ export function initEnhancements() {
   const dialog=document.querySelector<HTMLDialogElement>('#eco-compare-dialog')!;
   let selected:string[]=[];
   try{const raw=JSON.parse(localStorage.getItem('eichenhain:compared')||'[]');if(Array.isArray(raw))selected=[...new Set(raw.filter(id=>houses.some(h=>h.id===id)))].slice(0,3);}catch{/* Локальный выбор доступен без хранилища. */}
-  function sync(){
+  function sync(persist=true){
    document.querySelectorAll<HTMLButtonElement>('[data-eco-compare]').forEach(b=>b.setAttribute('aria-pressed',String(selected.includes(b.dataset.ecoCompare!))));
    const count=document.querySelector<HTMLElement>('[data-eco-compare-count]')!;count.hidden=!selected.length;count.textContent=String(selected.length);
-   try{localStorage.setItem('eichenhain:compared',JSON.stringify(selected));}catch{}
+   try{if(persist)localStorage.setItem('eichenhain:compared',JSON.stringify(selected));}catch{}
   }
-  document.querySelectorAll<HTMLButtonElement>('[data-eco-compare]').forEach(button=>button.addEventListener('click',()=>{const id=button.dataset.ecoCompare!;selected=selected.includes(id)?selected.filter(value=>value!==id):[...selected,id].slice(-3);sync();},options));sync();
+  document.querySelectorAll<HTMLButtonElement>('[data-eco-compare]').forEach(button=>button.addEventListener('click',()=>{const id=button.dataset.ecoCompare!;selected=selected.includes(id)?selected.filter(value=>value!==id):[...selected,id].slice(-3);sync();},options));sync(false);
   document.querySelector('[data-eco-compare-open]')!.addEventListener('click',()=>{
    const output=document.querySelector('[data-eco-compare-output]')!;output.replaceChildren();
    if(!selected.length){const p=document.createElement('p');p.textContent='Wähle bis zu drei Hausideen über das Vergleichssymbol in den Karten aus.';output.append(p);}

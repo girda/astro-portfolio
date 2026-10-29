@@ -10,7 +10,7 @@ test('a failed demo build preserves the last complete output; success replaces i
   const root = mkdtempSync(join(tmpdir(), 'hirda-build-test-'));
   try {
     mkdirSync(join(root,'scripts'));
-    for (const name of ['build.mjs','projects.mjs']) cpSync(new URL(`../${name}`, import.meta.url),join(root,'scripts',name));
+    for (const name of ['build.mjs','projects.mjs','public-assets.mjs']) cpSync(new URL(`../${name}`, import.meta.url),join(root,'scripts',name));
     mkdirSync(join(root,'dist')); writeFileSync(join(root,'dist','previous.txt'),'working');
     for (const app of BUILD_APPS) {
       const bin=join(root,'apps',app,'node_modules','astro','bin');mkdirSync(bin,{recursive:true});
@@ -22,7 +22,11 @@ test('a failed demo build preserves the last complete output; success replaces i
     assert.equal(run('nails').status,1);
     assert.equal(readFileSync(join(root,'dist','previous.txt'),'utf8'),'working');
     assert.equal(readdirSync(root).some(name=>name.startsWith('.build-')),false);
+    const archive=join(root,'apps','barbershop','dist','images','celebrities');
+    mkdirSync(archive,{recursive:true});writeFileSync(join(archive,'portrait.jpg'),'uncleared');
     assert.equal(run('').status,0);
+    assert.equal(existsSync(join(root,'dist','demos','barbershop','images','celebrities')),false);
+    assert.equal(existsSync(join(archive,'portrait.jpg')),true);
     assert.equal(existsSync(join(root,'dist','previous.txt')),false);
     assert.equal(readFileSync(join(root,'dist','demos','nails','index.html'),'utf8'),'/test/demos/nails/');
     assert.ok(existsSync(join(root,'dist','.nojekyll')));

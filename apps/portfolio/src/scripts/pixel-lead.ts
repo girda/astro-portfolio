@@ -17,6 +17,7 @@ export function enquiryText(messages: { role: string; content: string }[]): stri
 export function createLeadCard(options: Options): HTMLElement {
   const t = copy[options.lang];
   const card = document.createElement('form');
+  card.method = 'dialog';
   card.className = 'cat-brief cat-lead'; card.dataset.leadCard = '';
   const title = document.createElement('strong'); title.textContent = t.title;
   const note = document.createElement('p'); note.textContent = t.note;

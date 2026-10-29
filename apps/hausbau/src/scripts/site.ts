@@ -121,11 +121,11 @@ export function initSite() {
     }
     let compared = readSelection('falkenried:compared').slice(0,3);
     let favorites = readSelection('falkenried:favorites');
-    function syncSelection() {
+    function syncSelection(persist = true) {
       document.querySelectorAll<HTMLButtonElement>('[data-compare]').forEach(b => b.setAttribute('aria-pressed', String(compared.includes(b.dataset.compare!))));
       document.querySelectorAll<HTMLButtonElement>('[data-favorite]').forEach(b => b.setAttribute('aria-pressed', String(favorites.includes(b.dataset.favorite!))));
       document.querySelectorAll<HTMLElement>('[data-compare-count]').forEach(node => { node.hidden = !compared.length; node.textContent = String(compared.length); });
-      try { localStorage.setItem('falkenried:compared', JSON.stringify(compared)); localStorage.setItem('falkenried:favorites', JSON.stringify(favorites)); } catch { /* Выбор работает и без доступа к хранилищу. */ }
+      try { if(persist) { localStorage.setItem('falkenried:compared', JSON.stringify(compared)); localStorage.setItem('falkenried:favorites', JSON.stringify(favorites)); } } catch { /* Выбор работает и без доступа к хранилищу. */ }
     }
     document.querySelectorAll<HTMLButtonElement>('[data-compare]').forEach(button => button.addEventListener('click', () => {
       const id = button.dataset.compare!;
@@ -136,7 +136,7 @@ export function initSite() {
     document.querySelectorAll<HTMLButtonElement>('[data-favorite]').forEach(button => button.addEventListener('click', () => {
       const id = button.dataset.favorite!;
       favorites = favorites.includes(id) ? favorites.filter(value => value !== id) : [...favorites, id]; syncSelection();
-    }, options)); syncSelection();
+    }, options)); syncSelection(false);
     const comparison = document.querySelector<HTMLDialogElement>('#compare-dialog')!;
     document.querySelector('[data-open-compare]')!.addEventListener('click', () => {
       const output = comparison.querySelector('[data-comparison-output]')!; output.replaceChildren();

@@ -1,0 +1,50 @@
+[
+  {
+    "file": "apps/khlibnyi/public/assets/bakery-counter-2026.webp",
+    "origin": "OpenAI built-in ImageGen, 2026-10-29",
+    "original": "exec-7825a6ef-242b-4777-8596-876de0ecd07a.png",
+    "description": "bakery-counter"
+  },
+  {
+    "file": "apps/khlibnyi/public/assets/bakery-room-2026.webp",
+    "origin": "OpenAI built-in ImageGen, 2026-10-29",
+    "original": "exec-382ace17-194b-4ea7-a701-b41b4d10d756.png",
+    "description": "bakery-room"
+  },
+  {
+    "file": "apps/khlibnyi/public/assets/bakery-entrance-2026.webp",
+    "origin": "OpenAI built-in ImageGen, 2026-10-29",
+    "original": "exec-ad5e38a1-2ab4-4f87-b926-6af019d5b1c0.png",
+    "description": "bakery-entrance"
+  },
+  {
+    "file": "apps/barbershop/public/images/barber-fade-2026.webp",
+    "origin": "OpenAI built-in ImageGen, 2026-10-29",
+    "original": "exec-4cfff3dc-c3a0-42aa-8d4f-b725b5ada166.png",
+    "description": "barber-fade"
+  },
+  {
+    "file": "apps/barbershop/public/images/barber-texture-2026.webp",
+    "origin": "OpenAI built-in ImageGen, 2026-10-29",
+    "original": "exec-82514482-c500-4dcc-93cb-f4affc97e831.png",
+    "description": "barber-texture"
+  },
+  {
+    "file": "apps/barbershop/public/images/barber-style-2026.webp",
+    "origin": "OpenAI built-in ImageGen, 2026-10-29",
+    "original": "exec-abd09b36-a9eb-4dc6-9ecf-8bf41597e155.png",
+    "description": "barber-style"
+  },
+  {
+    "file": "apps/khlibnyi/public/assets/bakery-bread-2026.webp",
+    "origin": "OpenAI built-in ImageGen, 2026-10-29",
+    "original": "exec-67ad5f78-d060-4715-81e4-3fc60a66879a.png",
+    "description": "bakery-bread"
+  },
+  {
+    "file": "apps/khlibnyi/public/assets/bakery-dessert-2026.webp",
+    "origin": "OpenAI built-in ImageGen, 2026-10-29",
+    "original": "exec-24c9ea1f-019e-4146-abca-ec7d31adbb29.png",
+    "description": "bakery-dessert"
+  }
+]

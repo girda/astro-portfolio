@@ -21,12 +21,12 @@ export function initVehicleComparison() {
     let oldOverflow = '';
     let returnFocus: HTMLElement = opener;
     function close() {if (dialog!.open) dialog!.close();}
-    function sync(message?: string) {
+    function sync(message?: string, persist = true) {
       bar!.hidden = selected.length === 0;
       status.textContent = message ?? (selected.length === 1 ? 'Ein Modell ausgewählt. Ergänze ein zweites zum Vergleich.' : `${selected.length} Modelle ausgewählt.`);
       label.textContent = `Vergleichen (${selected.length}/${MAX_COMPARED_VEHICLES})`;
       buttons.forEach(button => button.setAttribute('aria-pressed',String(selected.includes(button.dataset.vehicleCompare!))));
-      try {sessionStorage.setItem(storageKey,JSON.stringify(selected));} catch { /* Выбор остаётся доступен в текущей вкладке. */ }
+      try {if(persist)sessionStorage.setItem(storageKey,JSON.stringify(selected));} catch { /* Выбор остаётся доступен в текущей вкладке. */ }
     }
     function render() {
       output.replaceChildren();
@@ -61,7 +61,7 @@ export function initVehicleComparison() {
     bar.querySelector('[data-vehicle-compare-clear]')!.addEventListener('click',()=>{selected=[];sync();buttons[0]?.focus();},options);
     dialog.querySelector('[data-vehicle-compare-close]')!.addEventListener('click',close,options);
     dialog.addEventListener('close',()=>{document.body.style.overflow=oldOverflow;if(returnFocus.isConnected&&returnFocus.getClientRects().length>0)returnFocus.focus({preventScroll:true});},options);
-    sync();
+    sync(undefined, false);
     return()=>{if(dialog.open){dialog.close();document.body.style.overflow=oldOverflow;}events.abort();};
   });
 }

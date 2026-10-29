@@ -1,6 +1,7 @@
 import { spawnSync } from 'node:child_process';
 import { cpSync, mkdirSync, mkdtempSync, rmSync, renameSync, writeFileSync } from 'node:fs';
-import { resolve } from 'node:path';
+import { resolve, relative } from 'node:path';
+import { isPublicAssetAllowed } from './public-assets.mjs';
 import { BUILD_APPS, outputPath } from './projects.mjs';
 
 const root = resolve(import.meta.dirname, '..');
@@ -18,7 +19,7 @@ try {
     });
     if (result.error || result.status !== 0) throw new Error(`Build failed: ${app}`, {cause: result.error});
     mkdirSync(resolve(staging, suffix), {recursive: true});
-    cpSync(resolve(folder, 'dist'), resolve(staging, suffix), {recursive: true});
+    cpSync(resolve(folder, 'dist'), resolve(staging, suffix), {recursive: true, filter: source => isPublicAssetAllowed([suffix, relative(resolve(folder, 'dist'),source)].filter(Boolean).join('/'))});
   }
   writeFileSync(resolve(staging, '.nojekyll'), '');
   // Не удаляем последнюю рабочую сборку, пока все приложения не собрались.

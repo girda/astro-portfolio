@@ -1,4 +1,5 @@
 ---
+import DemoNotice from "../../../../packages/ui/DemoNotice.astro";
 import ReviewCarousel from '../../../../packages/ui/ReviewCarousel.astro';
 import SiteMotion from '../../../../packages/ui/SiteMotion.astro';
 import {site} from '../data/site';
@@ -30,7 +31,7 @@ const links=[{label:'Leistungen',href:'#leistungen'},{label:'So geht’s',href:'
 <section id="ueber" class="shell space split cleaning-about"><img class="split-photo" src={image('kitchen.webp')} alt="hellen Küche mit Eichenholz und natürlichen Materialien" width="900" height="650" loading="lazy"/><div><p class="eyebrow">Warum KLAR</p><h2>Mehr als sauber.<br/><span class="accent">Einfach aufatmen.</span></h2><p>Ein Zuhause soll sich nach Zuhause anfühlen. Deshalb beginnt gute Reinigung bei deinen Prioritäten: Welche Räume sind dir besonders wichtig, welche Materialien brauchen Rücksicht und welcher Rhythmus passt zu deinem Alltag? Extras werden bewusst ausgewählt, statt stillschweigend vorausgesetzt.</p><ul class="check-list"><li><Icon name="check"/>Ein klarer Überblick über jede Leistung</li><li><Icon name="check"/>Einmalig oder in deinem Rhythmus</li><li><Icon name="check"/>Passende Extras statt pauschaler Pakete</li><li><Icon name="check"/>Deine Auswahl jederzeit anpassen</li></ul><a class="cta ghost" href="#inklusive">Was ist inklusive? <Icon name="arrow"/></a></div><div class="watermark" aria-hidden="true"><Icon name="heart"/></div></section>
 <section class="shell space" id="ablauf"><div class="section-intro"><p class="eyebrow">So funktioniert’s</p><h2>Einfach. Klar. Für dich.</h2></div><div class="steps">{[{icon:'calendar',title:'Deine Reinigung planen',text:'Wähle Räume, Bäder und den passenden Rhythmus.'},{icon:'sparkle',title:'Details festlegen',text:'Ergänze die Extras, die dir gerade wichtig sind.'},{icon:'home',title:'In Ruhe prüfen',text:'Sieh dir deine Auswahl und den Demo-Preis an.'},{icon:'heart',title:'Mehr Zeit gewinnen',text:'So könnte sich Unterstützung im Alltag anfühlen.'}].map(s=><article><span class="step-icon"><Icon name={s.icon}/></span><h3>{s.title}</h3><p>{s.text}</p></article>)}</div></section>
 <section class="shell calculator" id="rechner" aria-labelledby="calc-title">
- <form id="calculator" data-pricing={JSON.stringify(site.pricing)}>
+ <form method="dialog" id="calculator" data-pricing={JSON.stringify(site.pricing)}>
   <div class="calc-heading"><div><p class="eyebrow">WENIGE KLICKS. ALLES KLAR.</p><h2 id="calc-title">Was darf’s sein?</h2></div><span class="subtle">Küche & Flur inklusive</span></div>
   <div class="calc-grid">
    <div class="counter-field"><label for="rooms">Zimmer</label><div class="stepper"><button type="button" data-step="-1" data-for="rooms" aria-label="Weniger Zimmer"><Icon name="minus"/></button><input id="rooms" name="rooms" type="number" min="1" max="8" value="2" readonly aria-label="Anzahl Zimmer"/><button type="button" data-step="1" data-for="rooms" aria-label="Mehr Zimmer"><Icon name="plus"/></button></div></div>
@@ -76,4 +77,4 @@ const links=[{label:'Leistungen',href:'#leistungen'},{label:'So geht’s',href:'
   summary.addEventListener('click',event=>{if(matchMedia('(prefers-reduced-motion: reduce)').matches)return;event.preventDefault();const start=details.getBoundingClientRect().height;expanded=animation?!expanded:!details.open;animation?.cancel();details.open=true;const end=summary.getBoundingClientRect().height+(expanded?answer.getBoundingClientRect().height:0);details.style.overflow='hidden';animation=details.animate({height:[`${start}px`,`${end}px`]},{duration:260,easing:'ease-out'});animation.onfinish=()=>{details.open=expanded;details.style.overflow='';animation=null;};});
  });
 </script>
-<SiteMotion /></body></html>
+<SiteMotion /><DemoNotice/></body></html>

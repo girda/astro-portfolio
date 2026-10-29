@@ -1,7 +1,8 @@
 ---
+import ExternalMap from '../../../../packages/ui/ExternalMap.astro';
 import { contact } from "../data/contact";
 const coordinates = `${contact.coordinates.lat},${contact.coordinates.lng}`;
-const mapUrl = `https://www.google.com/maps?q=${encodeURIComponent(coordinates)}&z=15&hl=de&output=embed`;
+const mapUrl = `https://www.openstreetmap.org/export/embed.html?bbox=${contact.coordinates.lng-.015}%2C${contact.coordinates.lat-.009}%2C${contact.coordinates.lng+.015}%2C${contact.coordinates.lat+.009}&layer=mapnik&marker=${coordinates}`;
 const externalUrl = `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(coordinates)}`;
 ---
 
@@ -34,24 +35,9 @@ const externalUrl = `https://www.google.com/maps/search/?api=1&query=${encodeURI
     </div>
     <div class="map-card">
       <div class="map-frame">
-        <div class="map-preview">
-          <img src={`${import.meta.env.BASE_URL}brand/kant-seal.svg`} width="86" height="86" alt="" loading="lazy" />
-          <p>Beispielstandort · Mainburg</p>
-          <button class="btn secondary" type="button" data-load-map hidden>Google Maps laden</button>
-          <a href={externalUrl} target="_blank" rel="noopener noreferrer">Karte direkt öffnen</a>
-        </div>
-        <iframe
-          data-map-src={mapUrl}
-          hidden
-          title="Google Maps – ausgewählter Standort"
-          loading="lazy"
-          width="640"
-          height="420"
-          allowfullscreen
-          referrerpolicy="strict-origin-when-cross-origin"
-        ></iframe>
+        <ExternalMap src={mapUrl} title="OpenStreetMap — Beispielstandort Mainburg"/>
       </div>
-      <div class="map-footer"><span>{contact.isDemo ? "DEMO-STANDORT" : "STANDORT"}</span><span>GOOGLE MAPS</span></div>
+      <div class="map-footer"><span>{contact.isDemo ? "DEMO-STANDORT" : "STANDORT"}</span><span>OPENSTREETMAP</span></div>
     </div>
   </div>
 </section>
@@ -79,17 +65,3 @@ const externalUrl = `https://www.google.com/maps/search/?api=1&query=${encodeURI
   .map-footer { display: flex; justify-content: space-between; flex-wrap: wrap; gap: 12px; padding: 14px 20px; border-top: 1px solid var(--line); color: var(--muted); font-size: .75rem; letter-spacing: .08em; }
   @media(max-width:760px) { .contact { padding-block: 8px 56px; } .contact-layout { grid-template-columns: 1fr; } .contact-info { padding: 24px; } .map-frame, .map-frame :global(iframe) { height: 360px; min-height: 360px; } }
 </style>
-
-<script>
-  const frame = document.querySelector<HTMLIFrameElement>('[data-map-src]');
-  const loadButton = document.querySelector<HTMLButtonElement>('[data-load-map]');
-  if (frame && loadButton) {
-    loadButton.hidden = false;
-    loadButton.addEventListener('click', () => {
-      if (!frame.dataset.mapSrc) return;
-      frame.src = frame.dataset.mapSrc;
-      frame.hidden = false;
-      document.querySelector<HTMLElement>('.map-preview')!.hidden = true;
-    }, { once: true });
-  }
-</script>

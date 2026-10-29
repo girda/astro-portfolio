@@ -6,7 +6,6 @@ import "../styles/rhythm.css";
 import { heroCopy } from "../data/hero";
 import { createSiteConfig } from "../config/site";
 import { pageSeo } from "../lib/seo";
-import ReturnVisit from "../components/ReturnVisit.astro";
 import ScrollHeadings from "../components/ScrollHeadings.astro";
 import SectionMotion from "../components/SectionMotion.astro";
 interface Props {
@@ -48,7 +47,6 @@ const image = seo.image;
     <meta name="description" content={description} />
     <link rel="icon" type="image/svg+xml" href={`${import.meta.env.BASE_URL}favicon.svg`} />
     <title>{title}</title>
-    <ReturnVisit />
     <link rel="canonical" href={canonical} />
     <meta name="robots" content={seo.robots} />
     {seo.alternates.map(item => <link rel="alternate" hreflang={item.lang} href={item.href} />)}

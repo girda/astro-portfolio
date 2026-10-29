@@ -1,21 +1,24 @@
 [
   {
-    "src": "cut-02.jpeg",
+    "src": "barber-fade-2026.webp",
     "title": "Clean fade",
     "detail": "KLARE LINIEN. STARKER LOOK.",
-    "alt": "Kurzer Herrenhaarschnitt mit präzisem Fade"
+    "alt": "Kurzer Herrenhaarschnitt mit präzisem Fade",
+    "origin": "Eigene KI-Visualisierung eines fiktiven Looks; keine Aufnahme eines realen Kunden."
   },
   {
-    "src": "cut-01.jpeg",
+    "src": "barber-texture-2026.webp",
     "title": "Textured cut",
     "detail": "STRUKTUR MIT CHARAKTER.",
-    "alt": "Strukturierter Haarschnitt und gepflegter Bart"
+    "alt": "Strukturierter Haarschnitt und gepflegter Bart",
+    "origin": "Eigene KI-Visualisierung eines fiktiven Looks; keine Aufnahme eines realen Kunden."
   },
   {
-    "src": "cut-03.jpeg",
+    "src": "barber-style-2026.webp",
     "title": "Own your style",
     "detail": "DEIN LOOK. DEINE REGELN.",
-    "alt": "Individueller Herrenhaarschnitt mit kurzem Übergang"
+    "alt": "Individueller Herrenhaarschnitt mit kurzem Übergang",
+    "origin": "Eigene KI-Visualisierung eines fiktiven Looks; keine Aufnahme eines realen Kunden."
   },
   {
     "src": "cut-04.jpg",

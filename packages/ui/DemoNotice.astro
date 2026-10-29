@@ -1,0 +1,11 @@
+---
+const root=import.meta.env.BASE_URL.replace(/demos\/[^/]+\/$/,'');
+const legalReady=import.meta.env.LEGAL_PAGES_READY==='true';
+---
+<aside class="hirda-demo-notice" aria-label="Hinweis zum Demoprojekt">
+ <p>Unabhängiges Demoprojekt von HIRDA. Kein offizieller Unternehmensauftritt. Keine echten Bestellungen oder Buchungen. Bilder können fiktive Visualisierungen zeigen.</p>
+ {legalReady && <nav aria-label="Rechtliche Informationen"><a href={`${root}impressum/`}>Impressum</a><a href={`${root}datenschutz/`}>Datenschutz</a></nav>}
+</aside>
+<style>
+ .hirda-demo-notice{box-sizing:border-box;margin:0;padding:18px 24px;background:var(--surface,#f4f4f0);color:var(--ink,#25332e);border-top:1px solid var(--line,#25332e22);font:400 12px/1.65 Arial,sans-serif;text-align:center}.hirda-demo-notice p{max-width:1040px;margin:0 auto;font:inherit;color:inherit}.hirda-demo-notice nav{display:flex;justify-content:center;gap:24px;margin:12px 0 0}.hirda-demo-notice a{font:inherit;color:inherit;text-decoration:underline;text-underline-offset:3px}.hirda-demo-notice a:focus-visible{outline:2px solid currentColor;outline-offset:4px}
+</style>

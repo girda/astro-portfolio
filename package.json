@@ -9,6 +9,7 @@
   "scripts": {
     "build": "node scripts/build.mjs",
     "test": "node --test apps/assistant-api/test.mjs apps/assistant-api/lead.test.mjs apps/portfolio/tests/*.test.mjs scripts/tests/*.test.mjs apps/hausbau/tests/*.test.mjs apps/lindenhof/tests/*.test.mjs apps/streetfood/tests/*.test.mjs",
-    "check:seo": "node scripts/check-seo.mjs"
+    "check:seo": "node scripts/check-seo.mjs",
+    "check:public": "node scripts/check-public-safety.mjs"
   }
 }

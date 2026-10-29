@@ -1,4 +1,5 @@
 ---
+import DemoNotice from "../../../../packages/ui/DemoNotice.astro";
 import '../../../../packages/ui/edge-carousel.css';
 import ContactSection from "../components/ContactSection.astro";
 import OfficeMap from "../components/OfficeMap.astro";
@@ -310,7 +311,7 @@ const faq = [
               Deine Auswahl hilft, das erste Gespräch vorzubereiten.
             </span>
           </div>
-          <form id="house-finder" class="finder-card">
+          <form method="dialog" id="house-finder" class="finder-card">
             <fieldset>
               <legend>Was ist dir besonders wichtig?</legend>
               <div class="choice-grid">
@@ -534,5 +535,5 @@ const faq = [
       import "../scripts/site";
     </script>
     <Motion />
-  <TooltipLayer/></body>
+  <TooltipLayer/><DemoNotice/></body>
 </html>

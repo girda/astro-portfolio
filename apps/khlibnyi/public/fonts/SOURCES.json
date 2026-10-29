@@ -1,0 +1,28 @@
+{
+  "retrieved": "2026-10-29",
+  "manrope_upstream_commit": "b31870aff700ab7a1d74fa0c6887d95beb9e0037",
+  "files": [
+    {
+      "file": "manrope-variable.ttf",
+      "source": "https://raw.githubusercontent.com/google/fonts/b31870aff700ab7a1d74fa0c6887d95beb9e0037/ofl/manrope/Manrope%5Bwght%5D.ttf",
+      "sha256": "3ae11c49db0455a3cc33e37d380f20fdb8c7f8b41dc07625c177e3d87a9d6ae6"
+    },
+    {
+      "file": "Manrope-OFL.txt",
+      "source": "https://raw.githubusercontent.com/google/fonts/b31870aff700ab7a1d74fa0c6887d95beb9e0037/ofl/manrope/OFL.txt",
+      "sha256": "d6a309fcfb963d329a93baf9df66fa5f3c23a4be2b5f67edf24d6cafecde12ac",
+      "downloadSha256": "58172e0c0fac2cda8a37b348164bb55e44b0e69051e557e92b1d3f6910141f7b",
+      "formatting": "Trailing line-end whitespace normalized; complete license text preserved."
+    },
+    {
+      "file": "oswald-variable.ttf",
+      "source": "packages/ui/fonts/oswald.ttf",
+      "sha256": "5b38c246e255a12f5712d640d56bcced0472466fc68983d2d0410ec0457c2817"
+    },
+    {
+      "file": "Oswald-OFL.txt",
+      "source": "packages/ui/fonts/Oswald-OFL.txt",
+      "sha256": "0b2472b17e950b9967818f169f2618b091c0c259d250d2dd8208961c7f5700e1"
+    }
+  ]
+}

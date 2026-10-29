@@ -1,4 +1,5 @@
 ---
+import DemoNotice from "../../../../packages/ui/DemoNotice.astro";
 import '../../../../packages/ui/edge-carousel.css';
 import Header from '../components/Header.astro';
 import Footer from '../components/Footer.astro';
@@ -159,7 +160,7 @@ const canonical = Astro.site ? new URL(base, Astro.site).href : undefined;
               <button data-advice="alltag">Entspannt zur Arbeit</button>
               <button data-advice="spass">Fahrspaß am Wochenende</button>
             </div>
-            <form class="assistant-input">
+            <form method="dialog" class="assistant-input">
               <label for="advice-input">
                 Oder beschreibe deinen Wunsch in eigenen Worten.
               </label>
@@ -330,7 +331,7 @@ const canonical = Astro.site ? new URL(base, Astro.site).href : undefined;
             </p>
           </div>
           <div class="contact-grid">
-            <form id="test-drive-form">
+            <form method="dialog" id="test-drive-form">
               <div class="form-row">
                 <InputField
                   name="name"
@@ -395,5 +396,5 @@ const canonical = Astro.site ? new URL(base, Astro.site).href : undefined;
     <script>
       import "../scripts/site";
     </script>
-  <SiteMotion /></body>
+  <SiteMotion /><DemoNotice/></body>
 </html>
