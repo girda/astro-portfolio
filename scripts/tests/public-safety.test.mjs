@@ -15,6 +15,12 @@ test('generated pages do not reintroduce Google font connections or visit timest
 import {isPublicAssetAllowed} from '../public-assets.mjs';
 test('public build excludes only the uncleared originals, keeping replacement media and similar names',()=>{
  assert.equal(isPublicAssetAllowed('demos/barbershop/images/cut-01.jpeg'),false);
+ assert.equal(isPublicAssetAllowed('demos/barbershop/images/cut-04.jpg'),false);
+ assert.equal(isPublicAssetAllowed('demos/barbershop/images/barbershop.webp'),false);
+ assert.equal(isPublicAssetAllowed('previews/barbershop.jpg'),false);
+ assert.equal(isPublicAssetAllowed('previews/barbershop-2026.png'),false);
+ assert.equal(isPublicAssetAllowed('previews/barbershop.png'),true);
+ assert.equal(isPublicAssetAllowed('previews/barbershop-mobile.png'),true);
  assert.equal(isPublicAssetAllowed('demos/barbershop//images/cut-01.jpeg'),false);
  assert.equal(isPublicAssetAllowed('demos/barbershop/images/celebrities/a.jpg'),false);
  assert.equal(isPublicAssetAllowed('demos/barbershop/images/celebrities-other/a.jpg'),true);

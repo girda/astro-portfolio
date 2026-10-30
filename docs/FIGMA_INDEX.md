@@ -14,7 +14,7 @@
 | STROMWERK | https://www.figma.com/design/rkbbos8jr7oDyruQNgOO84 |
 | HAUSWERK | https://www.figma.com/design/2xsABUq4i3VEt0ztd14G0q |
 | GRÜNWERK | https://www.figma.com/design/CegV9hg5zB9xeigKfQIhTA |
-| Food — черновик | https://www.figma.com/design/NJ5DPxF2Ftw67mjtdKr8PF |
+| Street Food / Kornfabel | https://www.figma.com/design/NJ5DPxF2Ftw67mjtdKr8PF |
 
 ## Точное состояние
 - В семи сервисных файлах существующие наборы вынесены на страницу UI Kit; старые варианты KANT, KLAR, WERKRAUM и STILL перенесены в Archive.
@@ -73,3 +73,5 @@
 - Screens: desktop 51:30, mobile 51:99.
 - UI kit 42:2: Comparison card 51:9, экземпляры в обоих окнах.
 - Файл W1hr1gX3N9f9kOHab5SniS; состояние соответствует локальной реализации.
+
+30.10.2026: кафе переименовано в Kornfabel (slug khlibnyi сохранён). KANT — все6 галерейных фото собственные, desktop/mobile и UI Kit синхронизированы. Kornfabel — названия и собственные медиа синхронизированы в Food-файле.

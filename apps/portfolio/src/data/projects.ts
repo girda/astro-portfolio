@@ -3,7 +3,7 @@ export const projects = {
   lindenhof: { name: "LINDENHOF", category: "Website für ein Autohaus", port: 4326, status: "demo", group: "automotive", accent: "#849f83" },
   hausbau: { name: "FALKENRIED", category: "Website für individuellen Hausbau", port: 4332, status: "demo", group: "homes", accent: "#719a95" },
   streetfood: { name: "STREET FOOD", category: "Digitales Menü & Warenkorb", port: 4334, status: "demo", group: "food", accent: "#ffdc2a" },
-  khlibnyi: { name: "KHLIBNYI", category: "Website für Café & Bäckerei", port: 4333, status: "demo", group: "food", accent: "#d7c75e" },
+  khlibnyi: { name: "KORNFABEL", category: "Website für Café & Bäckerei", port: 4333, status: "demo", group: "food", accent: "#d7c75e" },
   ecohomes: { name: "EICHENHAIN", category: "Website für Holzhausbau & Energie", port: 4328, status: "demo", group: "homes", accent: "#a3936b" },
   barbershop: { name: "KANT", category: "Website für einen Barbershop", port: 4322, status: "demo", group: "beauty", accent: "#a66d54" },
   cleaning: { name: "KLAR", category: "Website für einen Reinigungsservice", port: 4323, status: "demo", group: "handwerk", accent: "#8bcbc1" },

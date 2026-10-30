@@ -1,0 +1,1716 @@
+{
+  "date": "2026-10-30",
+  "scope": "Current app public assets; original Git history and design-document screenshots are not purged.",
+  "notice": "Provenance evidence is not a legal guarantee or trademark clearance.",
+  "records": [
+    {
+      "file": "apps/autoservice/public/images/workshop-brakes.webp",
+      "sha256": "1148804617e4107d75297cc98fa1eb42a938b08746e24259b0cf41f75f9c9463",
+      "bytes": 165318,
+      "published": true,
+      "evidence": "local_imagegen_candidate_and_project_record",
+      "original": "exec-4f3cc183-c1fb-449f-b56d-c510b3edff13.png",
+      "thumbnailMeanAbsoluteError": 3.931,
+      "caveat": "Thumbnail similarity supports provenance but is not a licence or a pixel-exact derivation proof."
+    },
+    {
+      "file": "apps/autoservice/public/images/workshop-diagnostics.webp",
+      "sha256": "7ba4503e3a29aac16f55267d4e64eb7a591381e5960aadfa1ca2df8a6bdc7ca4",
+      "bytes": 186172,
+      "published": true,
+      "evidence": "local_imagegen_candidate_and_project_record",
+      "original": "exec-50900b21-f723-4738-89f3-3f2abee046c2.png",
+      "thumbnailMeanAbsoluteError": 3.916,
+      "caveat": "Thumbnail similarity supports provenance but is not a licence or a pixel-exact derivation proof."
+    },
+    {
+      "file": "apps/autoservice/public/images/workshop-hero.webp",
+      "sha256": "e8cf69260cd31f786b696a4df75f8f6fb35908e9e498c0a3086931b71bd603f7",
+      "bytes": 216454,
+      "published": true,
+      "evidence": "local_imagegen_candidate_and_project_record",
+      "original": "exec-76bc88b1-58c9-4a99-9f60-3ea1bfcbc483.png",
+      "thumbnailMeanAbsoluteError": 3.083,
+      "caveat": "Thumbnail similarity supports provenance but is not a licence or a pixel-exact derivation proof."
+    },
+    {
+      "file": "apps/autoservice/public/images/workshop-v2.webp",
+      "sha256": "d0f49340060e873c6306c6609fdd6102dbbf320d8e9484fb0faec9b0eece36b2",
+      "bytes": 198354,
+      "published": true,
+      "evidence": "local_imagegen_candidate_and_project_record",
+      "original": "exec-c83d7bb2-8f51-411d-9698-316061829d54.png",
+      "thumbnailMeanAbsoluteError": 3.824,
+      "caveat": "Thumbnail similarity supports provenance but is not a licence or a pixel-exact derivation proof."
+    },
+    {
+      "file": "apps/barbershop/public/brand/kant-seal.svg",
+      "sha256": "2ad83108b139df684f915dfcbcfceb0ed474797b6c07ade76a0f484dbf6ec6b1",
+      "bytes": 1672,
+      "published": true,
+      "evidence": "project_vector_or_documented_Lucide_ISC"
+    },
+    {
+      "file": "apps/barbershop/public/brand/service-beard.svg",
+      "sha256": "725bb632864bb9e2caa1ca99df6e8603f89dd79dd6a78a776b04af74682dacb6",
+      "bytes": 1305,
+      "published": true,
+      "evidence": "project_vector_or_documented_Lucide_ISC"
+    },
+    {
+      "file": "apps/barbershop/public/brand/service-combo-light.svg",
+      "sha256": "4cc8b6cc202b59c78ba7d47b1768a5d326fb67c3046a98c99bbaf9f3848f8ae5",
+      "bytes": 1646,
+      "published": true,
+      "evidence": "project_vector_or_documented_Lucide_ISC"
+    },
+    {
+      "file": "apps/barbershop/public/brand/service-combo.svg",
+      "sha256": "e6b1192f48b8b3cea25051a70711a6784d07c54115ff584d7e3c2e769858a99c",
+      "bytes": 1646,
+      "published": true,
+      "evidence": "project_vector_or_documented_Lucide_ISC"
+    },
+    {
+      "file": "apps/barbershop/public/brand/service-cut.svg",
+      "sha256": "181960e62ab49c2b706d7a2711665eeb6f778e1acceec25c28080591dd9d9587",
+      "bytes": 1576,
+      "published": true,
+      "evidence": "project_vector_or_documented_Lucide_ISC"
+    },
+    {
+      "file": "apps/barbershop/public/images/barber-craft-2026.webp",
+      "sha256": "13a16769a9148b4dca1bb84ce77930d523d1a4ae5a8854115b4538018a5aa45f",
+      "bytes": 126898,
+      "published": true,
+      "evidence": "existing_project_asset"
+    },
+    {
+      "file": "apps/barbershop/public/images/barber-fade-2026.webp",
+      "sha256": "6185519ad036ddf0cdd3dfbdd9d9c74ad39fa94f0b1bd41bdad7b7cf8850f2e1",
+      "bytes": 127798,
+      "published": true,
+      "evidence": "local_imagegen_candidate_and_project_record",
+      "original": "exec-4cfff3dc-c3a0-42aa-8d4f-b725b5ada166.png",
+      "thumbnailMeanAbsoluteError": 3.535,
+      "caveat": "Thumbnail similarity supports provenance but is not a licence or a pixel-exact derivation proof."
+    },
+    {
+      "file": "apps/barbershop/public/images/barber-finish-2026.webp",
+      "sha256": "2af2ce5ba9b95a00560edbda4696070ca179c6cbb6508cef77d8cf59176c9d17",
+      "bytes": 96238,
+      "published": true,
+      "evidence": "existing_project_asset"
+    },
+    {
+      "file": "apps/barbershop/public/images/barber-precision-2026.webp",
+      "sha256": "88a9172d1821eb1c5a2dc20f977e113eb6a1f702464f2ddb63c7292140fd8d4c",
+      "bytes": 131074,
+      "published": true,
+      "evidence": "existing_project_asset"
+    },
+    {
+      "file": "apps/barbershop/public/images/barber-style-2026.webp",
+      "sha256": "5149733a8291dd6150c787d35f5e0bba7b6fe2cad4427301438898aad31b0125",
+      "bytes": 91330,
+      "published": true,
+      "evidence": "local_imagegen_candidate_and_project_record",
+      "original": "exec-abd09b36-a9eb-4dc6-9ecf-8bf41597e155.png",
+      "thumbnailMeanAbsoluteError": 3.829,
+      "caveat": "Thumbnail similarity supports provenance but is not a licence or a pixel-exact derivation proof."
+    },
+    {
+      "file": "apps/barbershop/public/images/barber-texture-2026.webp",
+      "sha256": "00dd5cc60ad944ee2d60dbe91368a25b6f4e75af257b6d2a298b04597c5c347f",
+      "bytes": 101220,
+      "published": true,
+      "evidence": "local_imagegen_candidate_and_project_record",
+      "original": "exec-82514482-c500-4dcc-93cb-f4affc97e831.png",
+      "thumbnailMeanAbsoluteError": 2.966,
+      "caveat": "Thumbnail similarity supports provenance but is not a licence or a pixel-exact derivation proof."
+    },
+    {
+      "file": "apps/barbershop/public/images/barbershop.webp",
+      "sha256": "be2fdf5172099714c294110fa8ca3e0c57fba4a8c3572bddaaecf6b79dd228e1",
+      "bytes": 1281924,
+      "published": false,
+      "evidence": "excluded_archive_source_preserved"
+    },
+    {
+      "file": "apps/barbershop/public/images/care-generated.jpg",
+      "sha256": "b493a6b375819e97db3cbcdca6e3e732075dcbd07c6afb75a2db4507ac3caf59",
+      "bytes": 394851,
+      "published": true,
+      "evidence": "local_imagegen_candidate_and_project_record",
+      "original": "exec-82e22878-4a5c-454b-9e16-c5facb9105af.png",
+      "thumbnailMeanAbsoluteError": 0.736,
+      "caveat": "Thumbnail similarity supports provenance but is not a licence or a pixel-exact derivation proof."
+    },
+    {
+      "file": "apps/barbershop/public/images/celebrities/brad-pitt.jpg",
+      "sha256": "ba8ea8a718c0a2fa392c1e5e95af3858cac7c466b82f7ad98a2aad2a4416a5cb",
+      "bytes": 243085,
+      "published": false,
+      "evidence": "excluded_archive_source_preserved"
+    },
+    {
+      "file": "apps/barbershop/public/images/celebrities/jake-gyllenhaal.jpg",
+      "sha256": "c2fe8a862c4c87c81e1b6e764dca2e4a4cc74b935abf0906f2eb66ae2069bb97",
+      "bytes": 238736,
+      "published": false,
+      "evidence": "excluded_archive_source_preserved"
+    },
+    {
+      "file": "apps/barbershop/public/images/celebrities/leonardo-dicaprio.jpg",
+      "sha256": "7584a5d4d37de0d2e3aa00a81ecca04687e22d6baf4279ae8ffb9c74861cae0d",
+      "bytes": 172018,
+      "published": false,
+      "evidence": "excluded_archive_source_preserved"
+    },
+    {
+      "file": "apps/barbershop/public/images/celebrities/matthew-mcconaughey.jpg",
+      "sha256": "749c3bff1b193aeb5f5ae92d6fe6aaeb31001555dd4eb4fa2576b49a41d1d99c",
+      "bytes": 353651,
+      "published": false,
+      "evidence": "excluded_archive_source_preserved"
+    },
+    {
+      "file": "apps/barbershop/public/images/celebrities/ryan-gosling.jpg",
+      "sha256": "7222db2b77ee5c4e4282805963ebaf6c345827ea56842adf9806f752f92d803e",
+      "bytes": 336351,
+      "published": false,
+      "evidence": "excluded_archive_source_preserved"
+    },
+    {
+      "file": "apps/barbershop/public/images/celebrities/tom-hardy.jpg",
+      "sha256": "2bf57b4eeb0286c4b7c6baed5217c97bc3a37a0dd785e7d005aa3398f0bee770",
+      "bytes": 45790,
+      "published": false,
+      "evidence": "excluded_archive_source_preserved"
+    },
+    {
+      "file": "apps/barbershop/public/images/cut-01.jpeg",
+      "sha256": "3fe50514e7dcca689fbb38f78eda7e38c5c3bea1f11988c439b4fa6189cc6db6",
+      "bytes": 79928,
+      "published": false,
+      "evidence": "excluded_archive_source_preserved"
+    },
+    {
+      "file": "apps/barbershop/public/images/cut-02.jpeg",
+      "sha256": "79f0df5ff354b6d13dfad55565a3168c2fe967705053d95f2300a7cf475cbcac",
+      "bytes": 98842,
+      "published": false,
+      "evidence": "excluded_archive_source_preserved"
+    },
+    {
+      "file": "apps/barbershop/public/images/cut-03.jpeg",
+      "sha256": "7d3bc9d4c1b7b07be79267c060f1b17907128ddb660e5d20a7ea309a9b2afbc2",
+      "bytes": 51824,
+      "published": false,
+      "evidence": "excluded_archive_source_preserved"
+    },
+    {
+      "file": "apps/barbershop/public/images/cut-04.jpg",
+      "sha256": "08008142c2991ca1067d08dd0aa336a82cd9787740f290204b0ab60f622de0bd",
+      "bytes": 78952,
+      "published": false,
+      "evidence": "excluded_archive_source_preserved"
+    },
+    {
+      "file": "apps/barbershop/public/images/cut-05.jpg",
+      "sha256": "71b69365dbd2039e2628f242da3905263983caa9d67e6e1e6883604add783209",
+      "bytes": 214319,
+      "published": false,
+      "evidence": "excluded_archive_source_preserved"
+    },
+    {
+      "file": "apps/barbershop/public/images/cut-06.jpg",
+      "sha256": "97038746edd2f295232e44a9611333d2a22b5b1f445411f34fc9bd15a54fc521",
+      "bytes": 251911,
+      "published": false,
+      "evidence": "excluded_archive_source_preserved"
+    },
+    {
+      "file": "apps/barbershop/public/images/interior-paper.jpg",
+      "sha256": "60c99267c12ca5031a4519f3bf34f06f91f022c8ed151a9426d739720df58f0e",
+      "bytes": 582536,
+      "published": true,
+      "evidence": "local_imagegen_candidate_and_project_record",
+      "original": "exec-df390a1d-65fe-4cb6-9e6c-d6d3b0c3e442.png",
+      "thumbnailMeanAbsoluteError": 0.922,
+      "caveat": "Thumbnail similarity supports provenance but is not a licence or a pixel-exact derivation proof."
+    },
+    {
+      "file": "apps/cleaning/public/favicon.svg",
+      "sha256": "2a4741792175901379760a8c50426d335ca3590dc7343574f1382ac78138e659",
+      "bytes": 277,
+      "published": true,
+      "evidence": "project_vector_or_documented_Lucide_ISC"
+    },
+    {
+      "file": "apps/cleaning/public/images/cleaning-family.webp",
+      "sha256": "945c8c073fef8d5c9b7a6dd8c5e2f5036c25a9e1d8a346fac86a464d6294e447",
+      "bytes": 195742,
+      "published": true,
+      "evidence": "local_imagegen_candidate_and_project_record",
+      "original": "exec-92f2e93c-7368-4066-8a1b-da9736ef3dc4.png",
+      "thumbnailMeanAbsoluteError": 2.293,
+      "caveat": "Thumbnail similarity supports provenance but is not a licence or a pixel-exact derivation proof."
+    },
+    {
+      "file": "apps/cleaning/public/images/cleaning-team.webp",
+      "sha256": "867bd987b2eaa9bdd0ac14048f8935e993d7d116c5e3b36ba969865db2c998d0",
+      "bytes": 140396,
+      "published": true,
+      "evidence": "local_imagegen_candidate_and_project_record",
+      "original": "exec-717f3976-593f-4ea6-98d7-cec46cebc165.png",
+      "thumbnailMeanAbsoluteError": 2.844,
+      "caveat": "Thumbnail similarity supports provenance but is not a licence or a pixel-exact derivation proof."
+    },
+    {
+      "file": "apps/cleaning/public/images/kitchen.webp",
+      "sha256": "6eff42e61d0a92dab3604d29d085fd756bdae1c37f52684642751cc182a9abc6",
+      "bytes": 215188,
+      "published": true,
+      "evidence": "local_imagegen_candidate_and_project_record",
+      "original": "exec-df857bfe-a4ea-4b47-9ed3-631f7a30ccb8.png",
+      "thumbnailMeanAbsoluteError": 2.518,
+      "caveat": "Thumbnail similarity supports provenance but is not a licence or a pixel-exact derivation proof."
+    },
+    {
+      "file": "apps/cleaning/public/images/living-room-v2.webp",
+      "sha256": "d53c21a6f4feb2b62595fc8ff8480b5466e639b801749abc1e779eac9ef3a920",
+      "bytes": 275794,
+      "published": true,
+      "evidence": "local_imagegen_candidate_and_project_record",
+      "original": "exec-fa604d2d-c32a-440a-a5f3-83c2738f58a6.png",
+      "thumbnailMeanAbsoluteError": 2.619,
+      "caveat": "Thumbnail similarity supports provenance but is not a licence or a pixel-exact derivation proof."
+    },
+    {
+      "file": "apps/ecohomes/public/brand.svg",
+      "sha256": "c2ba8ddaa918257a9cdb0f3f27dff85962de30b2be2d3f9739dce755e6ab6ef6",
+      "bytes": 335,
+      "published": true,
+      "evidence": "project_vector_or_documented_Lucide_ISC"
+    },
+    {
+      "file": "apps/ecohomes/public/images/hain-interior.webp",
+      "sha256": "7c5fae4988ab1a197ab84b54da08776dc13eba98e5333017497d7d0a054d02e6",
+      "bytes": 245032,
+      "published": true,
+      "evidence": "local_imagegen_candidate_and_project_record",
+      "original": "exec-af73a144-494a-4cb8-9325-d2a5e08e88aa.png",
+      "thumbnailMeanAbsoluteError": 2.063,
+      "caveat": "Thumbnail similarity supports provenance but is not a licence or a pixel-exact derivation proof."
+    },
+    {
+      "file": "apps/ecohomes/public/images/hain.webp",
+      "sha256": "54ab67719c637032de012a09bb6fb4a0d2e13f9bc07bb78758a6bc0ee3d5d53b",
+      "bytes": 495600,
+      "published": true,
+      "evidence": "local_imagegen_candidate_and_project_record",
+      "original": "exec-7cadc769-50fc-4bdc-9d93-f22051321d73.png",
+      "thumbnailMeanAbsoluteError": 3.563,
+      "caveat": "Thumbnail similarity supports provenance but is not a licence or a pixel-exact derivation proof."
+    },
+    {
+      "file": "apps/ecohomes/public/images/hero-portrait.webp",
+      "sha256": "f1a6a7db2d3eec74d2cfaeb8c3065da0396e3fe21d8a05c029f3dc8948bee52a",
+      "bytes": 346268,
+      "published": true,
+      "evidence": "local_imagegen_candidate_and_project_record",
+      "original": "exec-6640fc7c-5839-40e3-b50b-75136fffb1dc.png",
+      "thumbnailMeanAbsoluteError": 2.309,
+      "caveat": "Thumbnail similarity supports provenance but is not a licence or a pixel-exact derivation proof."
+    },
+    {
+      "file": "apps/ecohomes/public/images/lichtung-interior.webp",
+      "sha256": "925e6f8067ceb2f994e1b8862ff869f6f083d1bee9d43e42733be42525f84fe5",
+      "bytes": 297788,
+      "published": true,
+      "evidence": "local_imagegen_candidate_and_project_record",
+      "original": "exec-19c9d722-1afb-4c41-a035-6e0785cfe3ef.png",
+      "thumbnailMeanAbsoluteError": 3.345,
+      "caveat": "Thumbnail similarity supports provenance but is not a licence or a pixel-exact derivation proof."
+    },
+    {
+      "file": "apps/ecohomes/public/images/lichtung.webp",
+      "sha256": "2ce9e25e40ce80be76fe745b619b0423a4991b46d638fd5ae9db8727768a39cc",
+      "bytes": 427082,
+      "published": true,
+      "evidence": "local_imagegen_candidate_and_project_record",
+      "original": "exec-b05fd637-dd07-4616-bf48-b9fddd3be569.png",
+      "thumbnailMeanAbsoluteError": 2.847,
+      "caveat": "Thumbnail similarity supports provenance but is not a licence or a pixel-exact derivation proof."
+    },
+    {
+      "file": "apps/ecohomes/public/images/wiesenblick-interior.webp",
+      "sha256": "cb96e3a5ef25a426adeb56b41077d2ef0d2530e143826388426d3b85b62ad52e",
+      "bytes": 277598,
+      "published": true,
+      "evidence": "local_imagegen_candidate_and_project_record",
+      "original": "exec-b9ff996c-60c6-42e4-b48b-bd07b5587d0f.png",
+      "thumbnailMeanAbsoluteError": 2.876,
+      "caveat": "Thumbnail similarity supports provenance but is not a licence or a pixel-exact derivation proof."
+    },
+    {
+      "file": "apps/ecohomes/public/images/wiesenblick.webp",
+      "sha256": "04f95ce51d68a92559e39184699121453c04054e71ccd2171abfd3736fbb480f",
+      "bytes": 434400,
+      "published": true,
+      "evidence": "local_imagegen_candidate_and_project_record",
+      "original": "exec-50149d3f-ce75-4a84-8d9d-45a87d11b19b.png",
+      "thumbnailMeanAbsoluteError": 3.527,
+      "caveat": "Thumbnail similarity supports provenance but is not a licence or a pixel-exact derivation proof."
+    },
+    {
+      "file": "apps/electrical/public/favicon.svg",
+      "sha256": "040875f41b6a3f387c2979dc44cd19768fb442ec7c9bf1d3882e2e9ad545364c",
+      "bytes": 181,
+      "published": true,
+      "evidence": "project_vector_or_documented_Lucide_ISC"
+    },
+    {
+      "file": "apps/electrical/public/images/electrician.webp",
+      "sha256": "73690f54f83e6d14762c14c03364a367f80488089a84023a5f39c3070d354c2a",
+      "bytes": 161472,
+      "published": true,
+      "evidence": "local_imagegen_candidate_and_project_record",
+      "original": "exec-f80667fb-f105-49c3-9b49-dc2a301d33c7.png",
+      "thumbnailMeanAbsoluteError": 2.568,
+      "caveat": "Thumbnail similarity supports provenance but is not a licence or a pixel-exact derivation proof."
+    },
+    {
+      "file": "apps/gardens/public/favicon.svg",
+      "sha256": "1cd2dea79f823c4e6203c8f65e177a2fd28544daf814b62784ba4d641ad3c448",
+      "bytes": 185,
+      "published": true,
+      "evidence": "project_vector_or_documented_Lucide_ISC"
+    },
+    {
+      "file": "apps/gardens/public/images/garden-planting.webp",
+      "sha256": "e4352dad87511862e08ef539310307a500de54a0e4692c7b9296152aa9fb7a63",
+      "bytes": 582662,
+      "published": true,
+      "evidence": "local_imagegen_candidate_and_project_record",
+      "original": "exec-f441e3e1-3ed4-4921-9454-eff9f041eb6c.png",
+      "thumbnailMeanAbsoluteError": 2.97,
+      "caveat": "Thumbnail similarity supports provenance but is not a licence or a pixel-exact derivation proof."
+    },
+    {
+      "file": "apps/gardens/public/images/garden-terrace.webp",
+      "sha256": "608ce5aaf92b4121140cd56417fc855fb493bd1bca792e2231a036c73fd44af9",
+      "bytes": 560730,
+      "published": true,
+      "evidence": "local_imagegen_candidate_and_project_record",
+      "original": "exec-6b1dd632-4056-4156-8d31-ab8845738e35.png",
+      "thumbnailMeanAbsoluteError": 3.023,
+      "caveat": "Thumbnail similarity supports provenance but is not a licence or a pixel-exact derivation proof."
+    },
+    {
+      "file": "apps/gardens/public/images/garden.webp",
+      "sha256": "a4920277bbaf2c12daa31fece04b28c99be66d90636f8daa26efe9e1cd5788a8",
+      "bytes": 619306,
+      "published": true,
+      "evidence": "local_imagegen_candidate_and_project_record",
+      "original": "exec-b6f72d40-b2ff-46f8-b447-72ff5593a232.png",
+      "thumbnailMeanAbsoluteError": 2.598,
+      "caveat": "Thumbnail similarity supports provenance but is not a licence or a pixel-exact derivation proof."
+    },
+    {
+      "file": "apps/hausbau/public/brand.svg",
+      "sha256": "fe49158f527526fc0b72223229436c4ee38c1762d332fca2a5873241c9ee2833",
+      "bytes": 268,
+      "published": true,
+      "evidence": "project_vector_or_documented_Lucide_ISC"
+    },
+    {
+      "file": "apps/hausbau/public/images/auenblick.webp",
+      "sha256": "916a58aeffc3d71e025639c132308079af8ba12c534a5a37ecc7c064ee7d3b94",
+      "bytes": 429866,
+      "published": true,
+      "evidence": "local_imagegen_candidate_and_project_record",
+      "original": "exec-f1cde927-93c6-4d7e-b583-ad403a90b6c6.png",
+      "thumbnailMeanAbsoluteError": 3.262,
+      "caveat": "Thumbnail similarity supports provenance but is not a licence or a pixel-exact derivation proof."
+    },
+    {
+      "file": "apps/hausbau/public/images/hain.webp",
+      "sha256": "54ab67719c637032de012a09bb6fb4a0d2e13f9bc07bb78758a6bc0ee3d5d53b",
+      "bytes": 495600,
+      "published": true,
+      "evidence": "local_imagegen_candidate_and_project_record",
+      "original": "exec-7cadc769-50fc-4bdc-9d93-f22051321d73.png",
+      "thumbnailMeanAbsoluteError": 3.563,
+      "caveat": "Thumbnail similarity supports provenance but is not a licence or a pixel-exact derivation proof."
+    },
+    {
+      "file": "apps/hausbau/public/images/hero-mobile.webp",
+      "sha256": "b30fe28a9d2a39d931b773f24551f7f34c9b84ce31dc15d190dbc351763102bd",
+      "bytes": 289748,
+      "published": true,
+      "evidence": "local_imagegen_candidate_and_project_record",
+      "original": "exec-2129a0f1-d282-4f6a-932e-673de212400a.png",
+      "thumbnailMeanAbsoluteError": 1.913,
+      "caveat": "Thumbnail similarity supports provenance but is not a licence or a pixel-exact derivation proof."
+    },
+    {
+      "file": "apps/hausbau/public/images/lichtung.webp",
+      "sha256": "2ce9e25e40ce80be76fe745b619b0423a4991b46d638fd5ae9db8727768a39cc",
+      "bytes": 427082,
+      "published": true,
+      "evidence": "local_imagegen_candidate_and_project_record",
+      "original": "exec-b05fd637-dd07-4616-bf48-b9fddd3be569.png",
+      "thumbnailMeanAbsoluteError": 2.847,
+      "caveat": "Thumbnail similarity supports provenance but is not a licence or a pixel-exact derivation proof."
+    },
+    {
+      "file": "apps/hausbau/public/images/raumidee-3d.webp",
+      "sha256": "f9a1eccb46e9187846b3c7a77ca6ae3e8d78c96808f0a80c34cdcb14db9180ae",
+      "bytes": 197542,
+      "published": true,
+      "evidence": "local_imagegen_candidate_and_project_record",
+      "original": "exec-a00c017d-980b-4d3f-a7d5-15e173294b1f.png",
+      "thumbnailMeanAbsoluteError": 3.422,
+      "caveat": "Thumbnail similarity supports provenance but is not a licence or a pixel-exact derivation proof."
+    },
+    {
+      "file": "apps/hausbau/public/images/steinbach.webp",
+      "sha256": "37838e2fc4b3314ed2217986d998ad3ecff6e47a41501331d12ae325706d16de",
+      "bytes": 467902,
+      "published": true,
+      "evidence": "local_imagegen_candidate_and_project_record",
+      "original": "exec-5c7e0f26-860a-4acf-8f0f-859350ef4d7c.png",
+      "thumbnailMeanAbsoluteError": 3.882,
+      "caveat": "Thumbnail similarity supports provenance but is not a licence or a pixel-exact derivation proof."
+    },
+    {
+      "file": "apps/hausbau/public/images/tannengrund.webp",
+      "sha256": "9665dea41dfcd26a731a1653a82c392037b941b3c553c291f552b1a5fa045891",
+      "bytes": 431764,
+      "published": true,
+      "evidence": "local_imagegen_candidate_and_project_record",
+      "original": "exec-46bfbc9b-cc84-4f6f-8994-30307de13672.png",
+      "thumbnailMeanAbsoluteError": 3.139,
+      "caveat": "Thumbnail similarity supports provenance but is not a licence or a pixel-exact derivation proof."
+    },
+    {
+      "file": "apps/hausbau/public/images/wiesenblick.webp",
+      "sha256": "04f95ce51d68a92559e39184699121453c04054e71ccd2171abfd3736fbb480f",
+      "bytes": 434400,
+      "published": true,
+      "evidence": "local_imagegen_candidate_and_project_record",
+      "original": "exec-50149d3f-ce75-4a84-8d9d-45a87d11b19b.png",
+      "thumbnailMeanAbsoluteError": 3.527,
+      "caveat": "Thumbnail similarity supports provenance but is not a licence or a pixel-exact derivation proof."
+    },
+    {
+      "file": "apps/homeservice/public/favicon.svg",
+      "sha256": "796984bf96a1dbdb55c9b53dbe09cc4d7c4a479ad5080309d98a736427a92549",
+      "bytes": 243,
+      "published": true,
+      "evidence": "project_vector_or_documented_Lucide_ISC"
+    },
+    {
+      "file": "apps/homeservice/public/images/handyman.webp",
+      "sha256": "a67511914923a7d18f15c4376af93a265f1e9617eee2c15c93dc6b76a90ed855",
+      "bytes": 139644,
+      "published": true,
+      "evidence": "local_imagegen_candidate_and_project_record",
+      "original": "exec-d4d9a82a-cebf-408e-82b1-77be94907f4b.png",
+      "thumbnailMeanAbsoluteError": 2.208,
+      "caveat": "Thumbnail similarity supports provenance but is not a licence or a pixel-exact derivation proof."
+    },
+    {
+      "file": "apps/khlibnyi/public/assets/bakery-bread-2026.webp",
+      "sha256": "428f455e979b6683aa538135b8a01c3161e8182ef8b13e358c740082a666df31",
+      "bytes": 321070,
+      "published": true,
+      "evidence": "local_imagegen_candidate_and_project_record",
+      "original": "exec-67ad5f78-d060-4715-81e4-3fc60a66879a.png",
+      "thumbnailMeanAbsoluteError": 3.458,
+      "caveat": "Thumbnail similarity supports provenance but is not a licence or a pixel-exact derivation proof."
+    },
+    {
+      "file": "apps/khlibnyi/public/assets/bakery-counter-2026.webp",
+      "sha256": "6d77dfb8e64834d052a810bfab2d079483b0128e88d8c9298ef3cf43178a9d64",
+      "bytes": 218172,
+      "published": true,
+      "evidence": "local_imagegen_candidate_and_project_record",
+      "original": "exec-7825a6ef-242b-4777-8596-876de0ecd07a.png",
+      "thumbnailMeanAbsoluteError": 4.55,
+      "caveat": "Thumbnail similarity supports provenance but is not a licence or a pixel-exact derivation proof."
+    },
+    {
+      "file": "apps/khlibnyi/public/assets/bakery-dessert-2026.webp",
+      "sha256": "de6b8ee46b8c2e7a123682126dbdc0c0e87548337098c3efedeb5e7e6b666ab4",
+      "bytes": 203974,
+      "published": true,
+      "evidence": "local_imagegen_candidate_and_project_record",
+      "original": "exec-24c9ea1f-019e-4146-abca-ec7d31adbb29.png",
+      "thumbnailMeanAbsoluteError": 3.773,
+      "caveat": "Thumbnail similarity supports provenance but is not a licence or a pixel-exact derivation proof."
+    },
+    {
+      "file": "apps/khlibnyi/public/assets/bakery-entrance-2026.webp",
+      "sha256": "1a47a7f38ae21b377ac5c3cf984df0dfab974ddb384f0ef97890d6f4ec65d205",
+      "bytes": 404176,
+      "published": true,
+      "evidence": "local_imagegen_candidate_and_project_record",
+      "original": "exec-ad5e38a1-2ab4-4f87-b926-6af019d5b1c0.png",
+      "thumbnailMeanAbsoluteError": 4.453,
+      "caveat": "Thumbnail similarity supports provenance but is not a licence or a pixel-exact derivation proof."
+    },
+    {
+      "file": "apps/khlibnyi/public/assets/bakery-room-2026.webp",
+      "sha256": "65029b26e58bd984b2854d32d834c0702c956580bebf47af23111023e6feb56e",
+      "bytes": 268634,
+      "published": true,
+      "evidence": "local_imagegen_candidate_and_project_record",
+      "original": "exec-382ace17-194b-4ea7-a701-b41b4d10d756.png",
+      "thumbnailMeanAbsoluteError": 3.492,
+      "caveat": "Thumbnail similarity supports provenance but is not a licence or a pixel-exact derivation proof."
+    },
+    {
+      "file": "apps/khlibnyi/public/assets/bread.svg",
+      "sha256": "f2073391f20545d1e42e3c2297fa5e87ad96feefe239e3bb56766b74e4b4892d",
+      "bytes": 1475,
+      "published": true,
+      "evidence": "project_vector_or_documented_Lucide_ISC"
+    },
+    {
+      "file": "apps/khlibnyi/public/assets/coffee-own.webp",
+      "sha256": "5661c59e35de597974400c731ea8f4b99de0795993fabe85d0a9545179657994",
+      "bytes": 34884,
+      "published": true,
+      "evidence": "local_imagegen_candidate_and_project_record",
+      "original": "exec-b021e5db-ad3f-4023-8397-96cf75864dfe.png",
+      "thumbnailMeanAbsoluteError": 1.666,
+      "caveat": "Thumbnail similarity supports provenance but is not a licence or a pixel-exact derivation proof."
+    },
+    {
+      "file": "apps/khlibnyi/public/assets/coffee.svg",
+      "sha256": "9326ee3eb00661e19d6746dba4de8db4e9a1cf2b6c43d30c9e1cd5af383bf2e3",
+      "bytes": 1593,
+      "published": true,
+      "evidence": "project_vector_or_documented_Lucide_ISC"
+    },
+    {
+      "file": "apps/khlibnyi/public/assets/croissant-own.webp",
+      "sha256": "860adabd8bd24a3f81db37933e85abbe849fa219f79825d3fe2b47f9455ad702",
+      "bytes": 56108,
+      "published": true,
+      "evidence": "local_imagegen_candidate_and_project_record",
+      "original": "exec-6995d807-4a2c-42e7-916b-e0181b3907fa.png",
+      "thumbnailMeanAbsoluteError": 1.652,
+      "caveat": "Thumbnail similarity supports provenance but is not a licence or a pixel-exact derivation proof."
+    },
+    {
+      "file": "apps/khlibnyi/public/assets/croissant.svg",
+      "sha256": "e8d0df9513ad26063895cfea0dbd182c7d70061d92952ae03bdd76d88da83822",
+      "bytes": 3251,
+      "published": true,
+      "evidence": "project_vector_or_documented_Lucide_ISC"
+    },
+    {
+      "file": "apps/khlibnyi/public/assets/dessert.svg",
+      "sha256": "ffc2f237b1d33d3bbec9026ff59edca6822475267bd49e25fbc3780b8a76131f",
+      "bytes": 1507,
+      "published": true,
+      "evidence": "project_vector_or_documented_Lucide_ISC"
+    },
+    {
+      "file": "apps/khlibnyi/public/assets/favicon.svg",
+      "sha256": "f0e94a684ad36bbf31fa8c228ed4a1f458bdcba331dd1f89b818eb54a6d4b6db",
+      "bytes": 386,
+      "published": true,
+      "evidence": "project_vector_or_documented_Lucide_ISC"
+    },
+    {
+      "file": "apps/khlibnyi/public/assets/interior.svg",
+      "sha256": "e62ae3e29112223dd5b2d445580822b883b86a3208b2021f5f6874f577f51128",
+      "bytes": 1567,
+      "published": true,
+      "evidence": "project_vector_or_documented_Lucide_ISC"
+    },
+    {
+      "file": "apps/khlibnyi/public/assets/kornfabel-mark.svg",
+      "sha256": "f0e94a684ad36bbf31fa8c228ed4a1f458bdcba331dd1f89b818eb54a6d4b6db",
+      "bytes": 386,
+      "published": true,
+      "evidence": "project_vector_or_documented_Lucide_ISC"
+    },
+    {
+      "file": "apps/khlibnyi/public/fonts/manrope-variable.ttf",
+      "sha256": "3ae11c49db0455a3cc33e37d380f20fdb8c7f8b41dc07625c177e3d87a9d6ae6",
+      "bytes": 164700,
+      "published": true,
+      "evidence": "bundled_font_license",
+      "license": "apps/khlibnyi/public/fonts/SOURCES.json"
+    },
+    {
+      "file": "apps/khlibnyi/public/fonts/oswald-variable.ttf",
+      "sha256": "5b38c246e255a12f5712d640d56bcced0472466fc68983d2d0410ec0457c2817",
+      "bytes": 172088,
+      "published": true,
+      "evidence": "bundled_font_license",
+      "license": "apps/khlibnyi/public/fonts/SOURCES.json"
+    },
+    {
+      "file": "apps/lindenhof/public/assets/bmw-studio-angle.png",
+      "sha256": "0f04d9ca71d957bd7211807912de75d8d278d159c8efa6d6fb70def914357ac2",
+      "bytes": 1474630,
+      "published": true,
+      "evidence": "exact_local_imagegen_original",
+      "original": "exec-6904bb4f-2a0f-40d1-bf66-713c6a9b758e.png"
+    },
+    {
+      "file": "apps/lindenhof/public/assets/desktop-imgDrivingFilmPoster.png",
+      "sha256": "11320b33c7f6bf9047c39270e6acdc4bf0e3c5e2cba22dfacaafbe48ad5c2f83",
+      "bytes": 207775,
+      "published": true,
+      "evidence": "derived_video_frame",
+      "source": "https://www.pexels.com/video/aerial-view-of-car-driving-along-coastal-road-5418130/"
+    },
+    {
+      "file": "apps/lindenhof/public/assets/desktop-imgEditableMapRoadsIllustration.svg",
+      "sha256": "998798a0d3faffa2509646e367e3397c5ed0c81f6461a10f7ff0459cf2ad43cb",
+      "bytes": 1647,
+      "published": true,
+      "evidence": "project_vector_or_documented_Lucide_ISC"
+    },
+    {
+      "file": "apps/lindenhof/public/assets/desktop-imgFrame.svg",
+      "sha256": "4d3ce49fd03dace966a9ad70e940b5d43597eb507f39406bf2df3f42eaf3e792",
+      "bytes": 544,
+      "published": true,
+      "evidence": "project_vector_or_documented_Lucide_ISC"
+    },
+    {
+      "file": "apps/lindenhof/public/assets/desktop-imgLindenhofLAndRoadForestGreen.svg",
+      "sha256": "6230672ee904500ed3168969f355675cd2358cc64bce1157cf6153511e2e4e93",
+      "bytes": 533,
+      "published": true,
+      "evidence": "project_vector_or_documented_Lucide_ISC"
+    },
+    {
+      "file": "apps/lindenhof/public/assets/desktop-imgLindenhofLAndRoadWhite.svg",
+      "sha256": "b3b21a0aa61bd1b090119cf668782655fcabd22e34cef6e8816c9df28c823951",
+      "bytes": 559,
+      "published": true,
+      "evidence": "project_vector_or_documented_Lucide_ISC"
+    },
+    {
+      "file": "apps/lindenhof/public/assets/desktop-imgLindenhofLAndRoadWhite1.svg",
+      "sha256": "dc554187214e6f00e8af057a8fa638e05e38d35b90c9a30bc0790d4c9acdd5a6",
+      "bytes": 520,
+      "published": true,
+      "evidence": "project_vector_or_documented_Lucide_ISC"
+    },
+    {
+      "file": "apps/lindenhof/public/assets/desktop-imgLindenhofShowroomAiGenerated.png",
+      "sha256": "2fb2b9f41b18e3ffe2c3de4872f8435b731a91f75e0e8718b1d5b8a963897aae",
+      "bytes": 2529458,
+      "published": true,
+      "evidence": "exact_local_imagegen_original",
+      "original": "exec-f5e671e1-2dae-4a9a-9513-e0e8a3e5d922.png"
+    },
+    {
+      "file": "apps/lindenhof/public/assets/desktop-imgLindenhofShowroomForestGreenSignage.png",
+      "sha256": "fa1d61f370cae2e8040a355cc911e935efacd3200872eef3fd58fed094265e26",
+      "bytes": 2175631,
+      "published": true,
+      "evidence": "exact_local_imagegen_original",
+      "original": "exec-157ad85b-6ac7-4c44-bffc-ae8d713a4107.png"
+    },
+    {
+      "file": "apps/lindenhof/public/assets/desktop-imgLucideCalendar.svg",
+      "sha256": "f46755a0113286a1c32fa96b45a5d68d9967ef0ab68bc748f271d1265c656bdf",
+      "bytes": 1698,
+      "published": true,
+      "evidence": "project_vector_or_documented_Lucide_ISC"
+    },
+    {
+      "file": "apps/lindenhof/public/assets/desktop-imgLucideCar.svg",
+      "sha256": "1ab8d3c98fe176e70f24bcc26ed8b61119dceae17537f130d377cde283044d30",
+      "bytes": 1414,
+      "published": true,
+      "evidence": "project_vector_or_documented_Lucide_ISC"
+    },
+    {
+      "file": "apps/lindenhof/public/assets/desktop-imgLucideCarFront.svg",
+      "sha256": "0fa75d7e03dc8430def680a4040e9440b196f9e5777a4f6775283daea1a009d0",
+      "bytes": 1429,
+      "published": true,
+      "evidence": "project_vector_or_documented_Lucide_ISC"
+    },
+    {
+      "file": "apps/lindenhof/public/assets/desktop-imgLucideChevronLeft.svg",
+      "sha256": "b18c5d36bc5ae43817a0c68ff42a37308ad4f252e192b05021dbb884a882aed7",
+      "bytes": 333,
+      "published": true,
+      "evidence": "project_vector_or_documented_Lucide_ISC"
+    },
+    {
+      "file": "apps/lindenhof/public/assets/desktop-imgLucideChevronRight.svg",
+      "sha256": "d737c104fdc91d45ad2762184dde44326015a8d4cf4ac4c090e92cfc71d193ef",
+      "bytes": 333,
+      "published": true,
+      "evidence": "project_vector_or_documented_Lucide_ISC"
+    },
+    {
+      "file": "apps/lindenhof/public/assets/desktop-imgLucideCirclePlay.svg",
+      "sha256": "8e10c45d19fbcaae28137b67d563850f7e206991cadfb330b14b61af7f231776",
+      "bytes": 1125,
+      "published": true,
+      "evidence": "project_vector_or_documented_Lucide_ISC"
+    },
+    {
+      "file": "apps/lindenhof/public/assets/desktop-imgLucideGauge.svg",
+      "sha256": "1156f0e55b66496b3690ea9645b2bc8c1d633164ba33109238fe3728b0e23fea",
+      "bytes": 833,
+      "published": true,
+      "evidence": "project_vector_or_documented_Lucide_ISC"
+    },
+    {
+      "file": "apps/lindenhof/public/assets/desktop-imgLucideGitCompareArrows.svg",
+      "sha256": "fa285e6a8960617b73b17959e9e2aa64f9d4076246419cf52849cb3d771e5dad",
+      "bytes": 1466,
+      "published": true,
+      "evidence": "project_vector_or_documented_Lucide_ISC"
+    },
+    {
+      "file": "apps/lindenhof/public/assets/desktop-imgLucideHeart.svg",
+      "sha256": "3c604b24a9a1a303c9eed15196ec26119155a33bb4150faf8160330a871cd7da",
+      "bytes": 1197,
+      "published": true,
+      "evidence": "project_vector_or_documented_Lucide_ISC"
+    },
+    {
+      "file": "apps/lindenhof/public/assets/desktop-imgLucidePin.svg",
+      "sha256": "9fc058a65e09b3eec9474a0b63b84ee2af23691bcc07f20bef59e6ce8d9ee882",
+      "bytes": 991,
+      "published": true,
+      "evidence": "project_vector_or_documented_Lucide_ISC"
+    },
+    {
+      "file": "apps/lindenhof/public/assets/desktop-imgLucideShieldCheck.svg",
+      "sha256": "ef1abd652de0b1acbdb6097db9d26ffc4e8fcb2a4f9cefb20d94bb624c680425",
+      "bytes": 996,
+      "published": true,
+      "evidence": "project_vector_or_documented_Lucide_ISC"
+    },
+    {
+      "file": "apps/lindenhof/public/assets/desktop-imgLucideUsers.svg",
+      "sha256": "419a178e0a735ab366265af21e699ed0cb84e03d2d8be4ef9c3c62d1ffb9e545",
+      "bytes": 1163,
+      "published": true,
+      "evidence": "project_vector_or_documented_Lucide_ISC"
+    },
+    {
+      "file": "apps/lindenhof/public/assets/desktop-imgLucideX.svg",
+      "sha256": "f211feb3224d7e6a9fd178387f2a16061d834f5f3ce1cce3476de5fd3480f99e",
+      "bytes": 432,
+      "published": true,
+      "evidence": "project_vector_or_documented_Lucide_ISC"
+    },
+    {
+      "file": "apps/lindenhof/public/assets/desktop-imgPhotoKaufenFinanzieren.png",
+      "sha256": "2e2111fe87194bf30a02f64c706811c86f6c4800d2b65f5b07c24c1d40ccaf1b",
+      "bytes": 2401241,
+      "published": true,
+      "evidence": "exact_local_imagegen_original",
+      "original": "exec-b785970b-6cc0-432f-899d-74f5218d8513.png"
+    },
+    {
+      "file": "apps/lindenhof/public/assets/desktop-imgVehicleCutout.png",
+      "sha256": "0f39808fa926c32f91d4bc3819ff1b764482637bb4d9f7a158fdec5472a838e3",
+      "bytes": 1717250,
+      "published": true,
+      "evidence": "exact_local_imagegen_original",
+      "original": "exec-f768c057-ae15-4a06-9b83-6f2d2ae77434.png"
+    },
+    {
+      "file": "apps/lindenhof/public/assets/desktop-imgVehicleCutout1.png",
+      "sha256": "79f713fbd09bf791979a4a1cd939c918edea6c504f585d52c07be1771d6102cb",
+      "bytes": 1535964,
+      "published": true,
+      "evidence": "exact_local_imagegen_original",
+      "original": "exec-236421cc-52e7-4b8f-b59d-2f788cb981e0.png"
+    },
+    {
+      "file": "apps/lindenhof/public/assets/desktop-imgVehicleCutout2.png",
+      "sha256": "77d2cd6b5e1ea0f5f2a4282b1d8d1b631895faf1670be28ce4df6a7e21c2cbed",
+      "bytes": 1780309,
+      "published": true,
+      "evidence": "exact_local_imagegen_original",
+      "original": "exec-6ffc05b7-ee64-47e0-9ce9-15547ece881e.png"
+    },
+    {
+      "file": "apps/lindenhof/public/assets/dm-sans-400.ttf",
+      "sha256": "b0ae3e89a7d3ef2b1838bb4b1ceb0b17cc3435af061eee809d76aa623ff116e9",
+      "bytes": 48280,
+      "published": true,
+      "evidence": "bundled_font_license",
+      "license": "Bundled OFL in packages/ui/fonts or apps/barbershop/src/assets/fonts"
+    },
+    {
+      "file": "apps/lindenhof/public/assets/dm-sans-500.ttf",
+      "sha256": "376427b5322148d8de1e03f263bcca4935a2d60ba71d9f94f4947ab664c711ae",
+      "bytes": 48308,
+      "published": true,
+      "evidence": "bundled_font_license",
+      "license": "Bundled OFL in packages/ui/fonts or apps/barbershop/src/assets/fonts"
+    },
+    {
+      "file": "apps/lindenhof/public/assets/dm-sans-700.ttf",
+      "sha256": "2a8e7f713ee79fbccdef3cef5c787aff47580299f7da60144961e7db2ec08211",
+      "bytes": 48200,
+      "published": true,
+      "evidence": "bundled_font_license",
+      "license": "Bundled OFL in packages/ui/fonts or apps/barbershop/src/assets/fonts"
+    },
+    {
+      "file": "apps/lindenhof/public/assets/driving-film.mp4",
+      "sha256": "a3d0d9a861720d093c73794d87b45f1cded68f86caa8a813c69c447f7706fe49",
+      "bytes": 15834286,
+      "published": true,
+      "evidence": "exact_remote_sha256_match",
+      "source": "https://www.pexels.com/video/aerial-view-of-car-driving-along-coastal-road-5418130/",
+      "license": "https://www.pexels.com/license/",
+      "remoteSha256": "a3d0d9a861720d093c73794d87b45f1cded68f86caa8a813c69c447f7706fe49"
+    },
+    {
+      "file": "apps/lindenhof/public/assets/lindenhof-consultation.webp",
+      "sha256": "397da630bb00aa157487abd2272d93863d6b00dd6097f6b804b3b891d592fd89",
+      "bytes": 210902,
+      "published": true,
+      "evidence": "local_imagegen_candidate_and_project_record",
+      "original": "exec-a1c06937-83a5-4559-90da-8175fe33c597.png",
+      "thumbnailMeanAbsoluteError": 3.226,
+      "caveat": "Thumbnail similarity supports provenance but is not a licence or a pixel-exact derivation proof."
+    },
+    {
+      "file": "apps/lindenhof/public/assets/lindenhof-delivery.webp",
+      "sha256": "9be554a85f43ffaaf045e3dd77858c3938c7f35ec0e19f49360661e08142e662",
+      "bytes": 197824,
+      "published": true,
+      "evidence": "local_imagegen_candidate_and_project_record",
+      "original": "exec-05efaeaa-c71b-42e8-886a-415ee1aba510.png",
+      "thumbnailMeanAbsoluteError": 2.825,
+      "caveat": "Thumbnail similarity supports provenance but is not a licence or a pixel-exact derivation proof."
+    },
+    {
+      "file": "apps/lindenhof/public/assets/mazda-studio-angle.png",
+      "sha256": "d69366062d8d2f04c9b0d634689f35130c1b92e1905ef7708524f5e3582f4e0b",
+      "bytes": 1706186,
+      "published": true,
+      "evidence": "exact_local_imagegen_original",
+      "original": "exec-a7102fa2-3bed-4f24-8b3a-3e6af6263a50.png"
+    },
+    {
+      "file": "apps/lindenhof/public/assets/mobile-imgDrivingFilmPoster.png",
+      "sha256": "11320b33c7f6bf9047c39270e6acdc4bf0e3c5e2cba22dfacaafbe48ad5c2f83",
+      "bytes": 207775,
+      "published": true,
+      "evidence": "derived_video_frame",
+      "source": "https://www.pexels.com/video/aerial-view-of-car-driving-along-coastal-road-5418130/"
+    },
+    {
+      "file": "apps/lindenhof/public/assets/mobile-imgEditableMapRoadsIllustration.svg",
+      "sha256": "fb6a83a9734cc30e733e0052b41c74b0797ffe3a0871916f7f26e58319c80b96",
+      "bytes": 1948,
+      "published": true,
+      "evidence": "project_vector_or_documented_Lucide_ISC"
+    },
+    {
+      "file": "apps/lindenhof/public/assets/mobile-imgFrame.svg",
+      "sha256": "4d3ce49fd03dace966a9ad70e940b5d43597eb507f39406bf2df3f42eaf3e792",
+      "bytes": 544,
+      "published": true,
+      "evidence": "project_vector_or_documented_Lucide_ISC"
+    },
+    {
+      "file": "apps/lindenhof/public/assets/mobile-imgLindenhofLAndRoadForestGreen.svg",
+      "sha256": "335027c3539fb36d6b642e268c4c0c0652cef399dacdb21e56c5218acd15b39a",
+      "bytes": 558,
+      "published": true,
+      "evidence": "project_vector_or_documented_Lucide_ISC"
+    },
+    {
+      "file": "apps/lindenhof/public/assets/mobile-imgLindenhofLAndRoadWhite.svg",
+      "sha256": "b3b21a0aa61bd1b090119cf668782655fcabd22e34cef6e8816c9df28c823951",
+      "bytes": 559,
+      "published": true,
+      "evidence": "project_vector_or_documented_Lucide_ISC"
+    },
+    {
+      "file": "apps/lindenhof/public/assets/mobile-imgLindenhofLAndRoadWhite1.svg",
+      "sha256": "dc554187214e6f00e8af057a8fa638e05e38d35b90c9a30bc0790d4c9acdd5a6",
+      "bytes": 520,
+      "published": true,
+      "evidence": "project_vector_or_documented_Lucide_ISC"
+    },
+    {
+      "file": "apps/lindenhof/public/assets/mobile-imgLindenhofShowroomAiGenerated.png",
+      "sha256": "2fb2b9f41b18e3ffe2c3de4872f8435b731a91f75e0e8718b1d5b8a963897aae",
+      "bytes": 2529458,
+      "published": true,
+      "evidence": "exact_local_imagegen_original",
+      "original": "exec-f5e671e1-2dae-4a9a-9513-e0e8a3e5d922.png"
+    },
+    {
+      "file": "apps/lindenhof/public/assets/mobile-imgLucideCalendar.svg",
+      "sha256": "f46755a0113286a1c32fa96b45a5d68d9967ef0ab68bc748f271d1265c656bdf",
+      "bytes": 1698,
+      "published": true,
+      "evidence": "project_vector_or_documented_Lucide_ISC"
+    },
+    {
+      "file": "apps/lindenhof/public/assets/mobile-imgLucideCarFront.svg",
+      "sha256": "0fa75d7e03dc8430def680a4040e9440b196f9e5777a4f6775283daea1a009d0",
+      "bytes": 1429,
+      "published": true,
+      "evidence": "project_vector_or_documented_Lucide_ISC"
+    },
+    {
+      "file": "apps/lindenhof/public/assets/mobile-imgLucideChevronLeft.svg",
+      "sha256": "b18c5d36bc5ae43817a0c68ff42a37308ad4f252e192b05021dbb884a882aed7",
+      "bytes": 333,
+      "published": true,
+      "evidence": "project_vector_or_documented_Lucide_ISC"
+    },
+    {
+      "file": "apps/lindenhof/public/assets/mobile-imgLucideChevronRight.svg",
+      "sha256": "d737c104fdc91d45ad2762184dde44326015a8d4cf4ac4c090e92cfc71d193ef",
+      "bytes": 333,
+      "published": true,
+      "evidence": "project_vector_or_documented_Lucide_ISC"
+    },
+    {
+      "file": "apps/lindenhof/public/assets/mobile-imgLucideCirclePlay.svg",
+      "sha256": "8e10c45d19fbcaae28137b67d563850f7e206991cadfb330b14b61af7f231776",
+      "bytes": 1125,
+      "published": true,
+      "evidence": "project_vector_or_documented_Lucide_ISC"
+    },
+    {
+      "file": "apps/lindenhof/public/assets/mobile-imgLucideGauge.svg",
+      "sha256": "1156f0e55b66496b3690ea9645b2bc8c1d633164ba33109238fe3728b0e23fea",
+      "bytes": 833,
+      "published": true,
+      "evidence": "project_vector_or_documented_Lucide_ISC"
+    },
+    {
+      "file": "apps/lindenhof/public/assets/mobile-imgLucideGitCompareArrows.svg",
+      "sha256": "fa285e6a8960617b73b17959e9e2aa64f9d4076246419cf52849cb3d771e5dad",
+      "bytes": 1466,
+      "published": true,
+      "evidence": "project_vector_or_documented_Lucide_ISC"
+    },
+    {
+      "file": "apps/lindenhof/public/assets/mobile-imgLucideHeart.svg",
+      "sha256": "3c604b24a9a1a303c9eed15196ec26119155a33bb4150faf8160330a871cd7da",
+      "bytes": 1197,
+      "published": true,
+      "evidence": "project_vector_or_documented_Lucide_ISC"
+    },
+    {
+      "file": "apps/lindenhof/public/assets/mobile-imgLucideShieldCheck.svg",
+      "sha256": "ef1abd652de0b1acbdb6097db9d26ffc4e8fcb2a4f9cefb20d94bb624c680425",
+      "bytes": 996,
+      "published": true,
+      "evidence": "project_vector_or_documented_Lucide_ISC"
+    },
+    {
+      "file": "apps/lindenhof/public/assets/mobile-imgLucideUsers.svg",
+      "sha256": "419a178e0a735ab366265af21e699ed0cb84e03d2d8be4ef9c3c62d1ffb9e545",
+      "bytes": 1163,
+      "published": true,
+      "evidence": "project_vector_or_documented_Lucide_ISC"
+    },
+    {
+      "file": "apps/lindenhof/public/assets/mobile-imgPhotoKaufenFinanzieren.png",
+      "sha256": "2e2111fe87194bf30a02f64c706811c86f6c4800d2b65f5b07c24c1d40ccaf1b",
+      "bytes": 2401241,
+      "published": true,
+      "evidence": "exact_local_imagegen_original",
+      "original": "exec-b785970b-6cc0-432f-899d-74f5218d8513.png"
+    },
+    {
+      "file": "apps/lindenhof/public/assets/mobile-imgPortraitShowroomFullLindenhofSignage.png",
+      "sha256": "f030cc26e03ecd307aa4ff3fad7bdb9883a69bc080c5146d74a1e99d2ecaba9f",
+      "bytes": 2307678,
+      "published": true,
+      "evidence": "exact_local_imagegen_original",
+      "original": "exec-7c604e03-35a9-4676-9d64-a5269cd1b089.png"
+    },
+    {
+      "file": "apps/lindenhof/public/assets/mobile-imgVehicleCutout.png",
+      "sha256": "0f39808fa926c32f91d4bc3819ff1b764482637bb4d9f7a158fdec5472a838e3",
+      "bytes": 1717250,
+      "published": true,
+      "evidence": "exact_local_imagegen_original",
+      "original": "exec-f768c057-ae15-4a06-9b83-6f2d2ae77434.png"
+    },
+    {
+      "file": "apps/lindenhof/public/assets/mobile-imgVehicleCutout1.png",
+      "sha256": "79f713fbd09bf791979a4a1cd939c918edea6c504f585d52c07be1771d6102cb",
+      "bytes": 1535964,
+      "published": true,
+      "evidence": "exact_local_imagegen_original",
+      "original": "exec-236421cc-52e7-4b8f-b59d-2f788cb981e0.png"
+    },
+    {
+      "file": "apps/lindenhof/public/assets/mobile-imgVehicleCutout2.png",
+      "sha256": "77d2cd6b5e1ea0f5f2a4282b1d8d1b631895faf1670be28ce4df6a7e21c2cbed",
+      "bytes": 1780309,
+      "published": true,
+      "evidence": "exact_local_imagegen_original",
+      "original": "exec-6ffc05b7-ee64-47e0-9ce9-15547ece881e.png"
+    },
+    {
+      "file": "apps/lindenhof/public/assets/ownership-leasing.png",
+      "sha256": "2fb2b9f41b18e3ffe2c3de4872f8435b731a91f75e0e8718b1d5b8a963897aae",
+      "bytes": 2529458,
+      "published": true,
+      "evidence": "exact_local_imagegen_original",
+      "original": "exec-f5e671e1-2dae-4a9a-9513-e0e8a3e5d922.png"
+    },
+    {
+      "file": "apps/lindenhof/public/assets/ownership-tradein.png",
+      "sha256": "fed21afd34d08b2d55eb4c3ca9fba976bb3a36ed3e11b9534068c4b65645cc7c",
+      "bytes": 2718931,
+      "published": true,
+      "evidence": "exact_local_imagegen_original",
+      "original": "exec-df235dcb-4895-4b0c-a455-d23db5340905.png"
+    },
+    {
+      "file": "apps/lindenhof/public/assets/peugeot-308.webp",
+      "sha256": "ad466dc278e9b1c58a5617be231e1877cff1d39f6cb3ab144c51d23577c56140",
+      "bytes": 131248,
+      "published": true,
+      "evidence": "local_imagegen_candidate_and_project_record",
+      "original": "exec-7548d3c8-9361-48b7-8ec7-3b5748ed6067.png",
+      "thumbnailMeanAbsoluteError": 3.079,
+      "caveat": "Thumbnail similarity supports provenance but is not a licence or a pixel-exact derivation proof."
+    },
+    {
+      "file": "apps/lindenhof/public/assets/porsche-studio-angle.png",
+      "sha256": "ba841c1c4f94caffbf9c4044c4a723115381910f2aaeda546e971c9040d3cad2",
+      "bytes": 1690625,
+      "published": true,
+      "evidence": "exact_local_imagegen_original",
+      "original": "exec-0d72767e-ace2-4074-ac62-81c930a6da23.png"
+    },
+    {
+      "file": "apps/lindenhof/public/assets/showroom-portrait.webp",
+      "sha256": "d3df82326a4549851a04aa2b21bbbd08306138948921d013b207db444e563711",
+      "bytes": 193012,
+      "published": true,
+      "evidence": "local_imagegen_candidate_and_project_record",
+      "original": "exec-24a99d06-8291-4069-9a6d-08fb4ac8a5e5.png",
+      "thumbnailMeanAbsoluteError": 3.913,
+      "caveat": "Thumbnail similarity supports provenance but is not a licence or a pixel-exact derivation proof."
+    },
+    {
+      "file": "apps/lindenhof/public/assets/volkswagen-golf.webp",
+      "sha256": "99c76565b819db0efc873776ca814156fe866168bd0e28c0fae3d63db55ddb8b",
+      "bytes": 113058,
+      "published": true,
+      "evidence": "local_imagegen_candidate_and_project_record",
+      "original": "exec-3a5cd9fb-c1f7-498f-aeac-9820579d63c9.png",
+      "thumbnailMeanAbsoluteError": 4.414,
+      "caveat": "Thumbnail similarity supports provenance but is not a licence or a pixel-exact derivation proof."
+    },
+    {
+      "file": "apps/nails/public/images/beauty-editorial.webp",
+      "sha256": "ed06d38073bb1b3ca751a85d5f17bddb955256cc4c321606ed12597d2adb2088",
+      "bytes": 97070,
+      "published": true,
+      "evidence": "local_imagegen_candidate_and_project_record",
+      "original": "exec-2146b8ee-0864-4a75-a41b-b983a77ca40e.png",
+      "thumbnailMeanAbsoluteError": 1.833,
+      "caveat": "Thumbnail similarity supports provenance but is not a licence or a pixel-exact derivation proof."
+    },
+    {
+      "file": "apps/nails/public/images/beauty-hero.webp",
+      "sha256": "e61b218ec951a8491ae72a9ca3fcbf55f17775b198344be700775cb3fa5044ec",
+      "bytes": 131922,
+      "published": true,
+      "evidence": "local_imagegen_candidate_and_project_record",
+      "original": "exec-a7f5474d-dc4c-4eb7-9ae8-ae9babd2b791.png",
+      "thumbnailMeanAbsoluteError": 2.109,
+      "caveat": "Thumbnail similarity supports provenance but is not a licence or a pixel-exact derivation proof."
+    },
+    {
+      "file": "apps/nails/public/images/manicure-v2.webp",
+      "sha256": "915342a8b31f7f1793984a30da2b8de22b88e2dc9b900053ac48710a4dd2bcb0",
+      "bytes": 197404,
+      "published": true,
+      "evidence": "local_imagegen_candidate_and_project_record",
+      "original": "exec-9518a697-e3a8-4fda-97c6-a31e9a38bb65.png",
+      "thumbnailMeanAbsoluteError": 2.962,
+      "caveat": "Thumbnail similarity supports provenance but is not a licence or a pixel-exact derivation proof."
+    },
+    {
+      "file": "apps/nails/public/images/spa-room.webp",
+      "sha256": "ae864dbd7576aa9d72b58b394716d5e1abe1e50d83c4eb907dca53ec17cd9345",
+      "bytes": 300692,
+      "published": true,
+      "evidence": "local_imagegen_candidate_and_project_record",
+      "original": "exec-3a783d82-d8a8-48d7-a1a4-516c6c142f63.png",
+      "thumbnailMeanAbsoluteError": 2.547,
+      "caveat": "Thumbnail similarity supports provenance but is not a licence or a pixel-exact derivation proof."
+    },
+    {
+      "file": "apps/portfolio/public/ai/face-curious.webp",
+      "sha256": "5837e24e62181642d9db78192cc02caa13ca1d05c0cac80c8c25a2d574caa8e8",
+      "bytes": 23748,
+      "published": true,
+      "evidence": "legacy_pixel_asset_owner_confirmation_pending",
+      "history": "e18939b 2026-10-08 add ai agent ui"
+    },
+    {
+      "file": "apps/portfolio/public/ai/face-default.webp",
+      "sha256": "0562ef4b5e8382fb4ff63425ace1af9ef8529d1309acc8e7309f6e62a0ad203a",
+      "bytes": 22970,
+      "published": true,
+      "evidence": "legacy_pixel_asset_owner_confirmation_pending",
+      "history": "e18939b 2026-10-08 add ai agent ui"
+    },
+    {
+      "file": "apps/portfolio/public/ai/face-happy.webp",
+      "sha256": "2c1b64c8efc834be3a11684c7cf95875853b9c646d03e717d6201f07bbc10ce4",
+      "bytes": 23326,
+      "published": true,
+      "evidence": "legacy_pixel_asset_owner_confirmation_pending",
+      "history": "e18939b 2026-10-08 add ai agent ui"
+    },
+    {
+      "file": "apps/portfolio/public/ai/face-wink.webp",
+      "sha256": "a35fec91c5adb691c13c1be6b72715a006e7f78a9af246379c9c902c57cdabd8",
+      "bytes": 25798,
+      "published": true,
+      "evidence": "legacy_pixel_asset_owner_confirmation_pending",
+      "history": "e18939b 2026-10-08 add ai agent ui"
+    },
+    {
+      "file": "apps/portfolio/public/ai/robot-cat.webp",
+      "sha256": "243b6135d428c935ef2c88572044770b85037cc3ed68782834792f2eee0e58d1",
+      "bytes": 70634,
+      "published": true,
+      "evidence": "legacy_pixel_asset_owner_confirmation_pending",
+      "history": "e18939b 2026-10-08 add ai agent ui"
+    },
+    {
+      "file": "apps/portfolio/public/devices/ipad-pro.webp",
+      "sha256": "d4747d22f805ed7f7d3d20f6cf0f31c6ef53ff24de3cc19c272b881cf98be5df",
+      "bytes": 23770,
+      "published": true,
+      "evidence": "third_party_license_checked",
+      "source": "https://plinthmockups.com/transparent-mockups"
+    },
+    {
+      "file": "apps/portfolio/public/devices/iphone-17-pro.webp",
+      "sha256": "3f63605264965d94d76dae05557e8caae51ca10123ac3cbf3a83a667bd23259c",
+      "bytes": 51756,
+      "published": true,
+      "evidence": "third_party_license_checked",
+      "source": "https://www.applaunchflow.com/tools/mockup-generator/iphone-17-pro"
+    },
+    {
+      "file": "apps/portfolio/public/devices/macbook-pro.webp",
+      "sha256": "f36612dbf58f7ef3bbbf6a0840d49d1e253ba9e39bf5337a23fbe2fc190ed80d",
+      "bytes": 38136,
+      "published": true,
+      "evidence": "third_party_license_checked",
+      "source": "https://plinthmockups.com/transparent-mockups"
+    },
+    {
+      "file": "apps/portfolio/public/favicon.ico",
+      "sha256": "09d2ac08d8cca9b6e1f90221f345a8c4dd0371c64a0dc52b6f96fc589b1e3d67",
+      "bytes": 655,
+      "published": true,
+      "evidence": "existing_project_asset"
+    },
+    {
+      "file": "apps/portfolio/public/favicon.svg",
+      "sha256": "7ec6fa2e17831abff6fb29bdce4a754f29ea88d76f9009f4c190d18ca84e07ba",
+      "bytes": 273,
+      "published": true,
+      "evidence": "project_vector_or_documented_Lucide_ISC"
+    },
+    {
+      "file": "apps/portfolio/public/images/hirda-mark.svg",
+      "sha256": "8311e3cb07ddd9ac00469d623c52c441fe223e1f9cbad662befeed2ab1d5f535",
+      "bytes": 218,
+      "published": true,
+      "evidence": "project_vector_or_documented_Lucide_ISC"
+    },
+    {
+      "file": "apps/portfolio/public/images/studio-mobile-sharp.png",
+      "sha256": "7a89882a5dad68dee299c31c88583db020dfeef65a676beff5bc5c3560eeab14",
+      "bytes": 1792374,
+      "published": true,
+      "evidence": "exact_local_imagegen_original",
+      "original": "exec-a762a874-2fb7-426e-8779-63c85c3fe7ae.png"
+    },
+    {
+      "file": "apps/portfolio/public/images/studio-mobile.png",
+      "sha256": "9074cd5f662c3871a9318b3fdc1137eaecf954d60964607c09d2b18745296827",
+      "bytes": 1548929,
+      "published": true,
+      "evidence": "exact_local_imagegen_original",
+      "original": "exec-fa100303-6e01-4fd8-92dc-69d86182f7f8.png"
+    },
+    {
+      "file": "apps/portfolio/public/images/studio-sharp.png",
+      "sha256": "b983dc2e03ce7bd27be7ae1a1ccc61887bf241a890b469819548a423f31f52dc",
+      "bytes": 1809687,
+      "published": true,
+      "evidence": "exact_local_imagegen_original",
+      "original": "exec-8ab653b7-20f7-444d-ae76-05601e6acb46.png"
+    },
+    {
+      "file": "apps/portfolio/public/images/studio.png",
+      "sha256": "d524b6b72e43e1416870b3185afe32ebdd5d2be08f195ccfa4df1704ffb5879c",
+      "bytes": 1539296,
+      "published": true,
+      "evidence": "exact_local_imagegen_original",
+      "original": "exec-7fd82fa1-1c99-4ef7-8571-ed24bd5d6612.png"
+    },
+    {
+      "file": "apps/portfolio/public/previews/autoservice-mobile.png",
+      "sha256": "c7a4beefb4a293304d19322a0aacc6b78784324d9b2fccf29930dd4bf80e0209",
+      "bytes": 150412,
+      "published": true,
+      "evidence": "new_browser_capture_2026-10-30",
+      "source": "http://127.0.0.1:8762/astro-portfolio/demos/autoservice/"
+    },
+    {
+      "file": "apps/portfolio/public/previews/autoservice-tablet.png",
+      "sha256": "6ae663698ff2d8d51cccab4074146efd84fc9f1027095fca6a3b9be8419a2fc1",
+      "bytes": 698853,
+      "published": true,
+      "evidence": "new_browser_capture_2026-10-30",
+      "source": "http://127.0.0.1:8762/astro-portfolio/demos/autoservice/"
+    },
+    {
+      "file": "apps/portfolio/public/previews/autoservice.jpg",
+      "sha256": "bd6c84eb642720ec2351eece4f7b20b29c8f52f30f95aad245bb2982553a4cb1",
+      "bytes": 80240,
+      "published": false,
+      "evidence": "excluded_archive_source_preserved"
+    },
+    {
+      "file": "apps/portfolio/public/previews/autoservice.png",
+      "sha256": "1c469bc8efa6929a41d6dc4334145df91ab3ee9b48d9fea936f7b1b04d36e49b",
+      "bytes": 945698,
+      "published": true,
+      "evidence": "new_browser_capture_2026-10-30",
+      "source": "http://127.0.0.1:8762/astro-portfolio/demos/autoservice/"
+    },
+    {
+      "file": "apps/portfolio/public/previews/barbershop-2026.png",
+      "sha256": "ffa7fb8a2d92d06df0adadfa7345452f1c6a53978054476cd4ad2dc96f966bfc",
+      "bytes": 122885,
+      "published": false,
+      "evidence": "excluded_archive_source_preserved"
+    },
+    {
+      "file": "apps/portfolio/public/previews/barbershop-mobile.png",
+      "sha256": "3078e90532940fa6f8d0a7e4df0871bf06c11249b8e58ff9e10571f82287185d",
+      "bytes": 212514,
+      "published": true,
+      "evidence": "new_browser_capture_2026-10-30",
+      "source": "http://127.0.0.1:8762/astro-portfolio/demos/barbershop/"
+    },
+    {
+      "file": "apps/portfolio/public/previews/barbershop-tablet.png",
+      "sha256": "639c41d2aabb65a2fadd67369a2e0fb1d3cc70eb6cd6054f722d0b0c2c9283d1",
+      "bytes": 953138,
+      "published": true,
+      "evidence": "new_browser_capture_2026-10-30",
+      "source": "http://127.0.0.1:8762/astro-portfolio/demos/barbershop/"
+    },
+    {
+      "file": "apps/portfolio/public/previews/barbershop.jpg",
+      "sha256": "a7f773c743baae7f41b1c228b89be44851b4a1eee67aa412fa95faf9cf390983",
+      "bytes": 105559,
+      "published": false,
+      "evidence": "excluded_archive_source_preserved"
+    },
+    {
+      "file": "apps/portfolio/public/previews/barbershop.png",
+      "sha256": "1bdba58ecba0df961905ffb2d8c527c241329ed41d44b60b022ad93582051a2e",
+      "bytes": 904901,
+      "published": true,
+      "evidence": "new_browser_capture_2026-10-30",
+      "source": "http://127.0.0.1:8762/astro-portfolio/demos/barbershop/"
+    },
+    {
+      "file": "apps/portfolio/public/previews/cleaning-mobile.png",
+      "sha256": "76070f4c8c3a4820f44608b27492d4c5ef8c7a5347d3d05488bbd98826b2bfdf",
+      "bytes": 168298,
+      "published": true,
+      "evidence": "new_browser_capture_2026-10-30",
+      "source": "http://127.0.0.1:8762/astro-portfolio/demos/cleaning/"
+    },
+    {
+      "file": "apps/portfolio/public/previews/cleaning-tablet.png",
+      "sha256": "e41a8920dd7aa1849557894a5d45e63da63a051acbf932920448c4d460cc0457",
+      "bytes": 780995,
+      "published": true,
+      "evidence": "new_browser_capture_2026-10-30",
+      "source": "http://127.0.0.1:8762/astro-portfolio/demos/cleaning/"
+    },
+    {
+      "file": "apps/portfolio/public/previews/cleaning.jpg",
+      "sha256": "2e0446468be131ac902fb649acf026f8de0934aa078a1d95398178697aac8e7d",
+      "bytes": 86272,
+      "published": false,
+      "evidence": "excluded_archive_source_preserved"
+    },
+    {
+      "file": "apps/portfolio/public/previews/cleaning.png",
+      "sha256": "09166a305886bd641f8889cdcf345e7b8c5d2efec8220dc4190d13382d1ed432",
+      "bytes": 1293001,
+      "published": true,
+      "evidence": "new_browser_capture_2026-10-30",
+      "source": "http://127.0.0.1:8762/astro-portfolio/demos/cleaning/"
+    },
+    {
+      "file": "apps/portfolio/public/previews/ecohomes-mobile.png",
+      "sha256": "b6bc3b7ddcb29202f0f1003368203cc62da1b3a048d8da991969bb0051b0afe1",
+      "bytes": 513779,
+      "published": true,
+      "evidence": "new_browser_capture_2026-10-30",
+      "source": "http://127.0.0.1:8762/astro-portfolio/demos/ecohomes/"
+    },
+    {
+      "file": "apps/portfolio/public/previews/ecohomes-tablet.png",
+      "sha256": "719322c63e58f0c36c54dfa4b7d2aa25c697a34ac3be9d11d2d7697de6b5324f",
+      "bytes": 1518224,
+      "published": true,
+      "evidence": "new_browser_capture_2026-10-30",
+      "source": "http://127.0.0.1:8762/astro-portfolio/demos/ecohomes/"
+    },
+    {
+      "file": "apps/portfolio/public/previews/ecohomes.png",
+      "sha256": "cfe78a55131e5cb32e0d1ae4a577eae2a0ff8ce932998625619c2c9951d0253f",
+      "bytes": 1802685,
+      "published": true,
+      "evidence": "new_browser_capture_2026-10-30",
+      "source": "http://127.0.0.1:8762/astro-portfolio/demos/ecohomes/"
+    },
+    {
+      "file": "apps/portfolio/public/previews/electrical-mobile.png",
+      "sha256": "bce2484913a8bccda35cd4328a27d83f12e1a4c92affde49e26c16be36d2c42c",
+      "bytes": 176785,
+      "published": true,
+      "evidence": "new_browser_capture_2026-10-30",
+      "source": "http://127.0.0.1:8762/astro-portfolio/demos/electrical/"
+    },
+    {
+      "file": "apps/portfolio/public/previews/electrical-tablet.png",
+      "sha256": "47f46f898bd85c75680bcce7c67815a5eb660dc1dc647d1a9261818645b92e6d",
+      "bytes": 886465,
+      "published": true,
+      "evidence": "new_browser_capture_2026-10-30",
+      "source": "http://127.0.0.1:8762/astro-portfolio/demos/electrical/"
+    },
+    {
+      "file": "apps/portfolio/public/previews/electrical.png",
+      "sha256": "0405c92f83117fc76738c7f449d8e0e5922e09c8c71ea52bce21d4f2840c5bd3",
+      "bytes": 1145491,
+      "published": true,
+      "evidence": "new_browser_capture_2026-10-30",
+      "source": "http://127.0.0.1:8762/astro-portfolio/demos/electrical/"
+    },
+    {
+      "file": "apps/portfolio/public/previews/gardens-mobile.png",
+      "sha256": "0934f1959970f665d3cfc40af13fc7c44e5829fe26aa7804e7003048dcbebed0",
+      "bytes": 215064,
+      "published": true,
+      "evidence": "new_browser_capture_2026-10-30",
+      "source": "http://127.0.0.1:8762/astro-portfolio/demos/gardens/"
+    },
+    {
+      "file": "apps/portfolio/public/previews/gardens-tablet.png",
+      "sha256": "e0f6e21e3f8a7fffb74a138a24a3e0d07c5a47738fcbca23d3ff23ad106ac461",
+      "bytes": 1253322,
+      "published": true,
+      "evidence": "new_browser_capture_2026-10-30",
+      "source": "http://127.0.0.1:8762/astro-portfolio/demos/gardens/"
+    },
+    {
+      "file": "apps/portfolio/public/previews/gardens.png",
+      "sha256": "77465fb90da34280ffb71435a566c2faad4852fc8a39692ac391330a1053a00b",
+      "bytes": 1728712,
+      "published": true,
+      "evidence": "new_browser_capture_2026-10-30",
+      "source": "http://127.0.0.1:8762/astro-portfolio/demos/gardens/"
+    },
+    {
+      "file": "apps/portfolio/public/previews/hausbau-mobile.png",
+      "sha256": "aa9350686b0592c7857282dd7777b57bcda2b95403b33793398ca9d4bdb57446",
+      "bytes": 381320,
+      "published": true,
+      "evidence": "new_browser_capture_2026-10-30",
+      "source": "http://127.0.0.1:8762/astro-portfolio/demos/hausbau/"
+    },
+    {
+      "file": "apps/portfolio/public/previews/hausbau-tablet.png",
+      "sha256": "0e80b2b2f5c10142650bc50143070afcaecfceb01885931515ecf90bce1ae2b6",
+      "bytes": 1446417,
+      "published": true,
+      "evidence": "new_browser_capture_2026-10-30",
+      "source": "http://127.0.0.1:8762/astro-portfolio/demos/hausbau/"
+    },
+    {
+      "file": "apps/portfolio/public/previews/hausbau.png",
+      "sha256": "bb28ce28792f9cd6b62b9df97f933ba8fe480f0ed7f70bf6d907f058651e7942",
+      "bytes": 1833770,
+      "published": true,
+      "evidence": "new_browser_capture_2026-10-30",
+      "source": "http://127.0.0.1:8762/astro-portfolio/demos/hausbau/"
+    },
+    {
+      "file": "apps/portfolio/public/previews/homeservice-mobile.png",
+      "sha256": "8b08da6396a10cf3b9049ad0d6e1a2f8a95d4dabc66584287dcc7d40d7e34fe2",
+      "bytes": 161481,
+      "published": true,
+      "evidence": "new_browser_capture_2026-10-30",
+      "source": "http://127.0.0.1:8762/astro-portfolio/demos/homeservice/"
+    },
+    {
+      "file": "apps/portfolio/public/previews/homeservice-tablet.png",
+      "sha256": "a9724d840cbcd5bf0d52ee4ef3c4046caa04b9859e8220df12d11845e9f1928d",
+      "bytes": 699664,
+      "published": true,
+      "evidence": "new_browser_capture_2026-10-30",
+      "source": "http://127.0.0.1:8762/astro-portfolio/demos/homeservice/"
+    },
+    {
+      "file": "apps/portfolio/public/previews/homeservice.png",
+      "sha256": "e852fa068db314957fd295de3b122a2285a81a2525a812aaadfd8fc05ebdf243",
+      "bytes": 741115,
+      "published": true,
+      "evidence": "new_browser_capture_2026-10-30",
+      "source": "http://127.0.0.1:8762/astro-portfolio/demos/homeservice/"
+    },
+    {
+      "file": "apps/portfolio/public/previews/khlibnyi-mobile.png",
+      "sha256": "7c27f1c776cecd3bd9f4a8b9e97ac3799874381a47165350722de2712bf2cf8b",
+      "bytes": 248544,
+      "published": true,
+      "evidence": "new_browser_capture_2026-10-30",
+      "source": "http://127.0.0.1:8762/astro-portfolio/demos/khlibnyi/"
+    },
+    {
+      "file": "apps/portfolio/public/previews/khlibnyi-tablet.png",
+      "sha256": "723f46a3ceb0b465ec6550848180b4e9f7a13ebdf9dbaa978d54cef3b4ebfc13",
+      "bytes": 634563,
+      "published": true,
+      "evidence": "new_browser_capture_2026-10-30",
+      "source": "http://127.0.0.1:8762/astro-portfolio/demos/khlibnyi/"
+    },
+    {
+      "file": "apps/portfolio/public/previews/khlibnyi.png",
+      "sha256": "5f19f135ace25053169936a680c2396ce8036f573c507a654c654ff805b0fc82",
+      "bytes": 804640,
+      "published": true,
+      "evidence": "new_browser_capture_2026-10-30",
+      "source": "http://127.0.0.1:8762/astro-portfolio/demos/khlibnyi/"
+    },
+    {
+      "file": "apps/portfolio/public/previews/lindenhof-mobile.png",
+      "sha256": "38671c4231d854cbd119f3ecd224ceb4ff121a4fd5a04061327084f8eb86dc9e",
+      "bytes": 382211,
+      "published": true,
+      "evidence": "new_browser_capture_2026-10-30",
+      "source": "http://127.0.0.1:8762/astro-portfolio/demos/lindenhof/"
+    },
+    {
+      "file": "apps/portfolio/public/previews/lindenhof-tablet.png",
+      "sha256": "d5b080b9ea2923a1b28a6d1a22ef9c321df2672a9db58049ec2a420c2200c864",
+      "bytes": 918456,
+      "published": true,
+      "evidence": "new_browser_capture_2026-10-30",
+      "source": "http://127.0.0.1:8762/astro-portfolio/demos/lindenhof/"
+    },
+    {
+      "file": "apps/portfolio/public/previews/lindenhof.png",
+      "sha256": "1adfc9f471394686a1a8b318d1d36d5dbf2bd7a0bb931d4deb3055c2bb1e6aa3",
+      "bytes": 1369489,
+      "published": true,
+      "evidence": "new_browser_capture_2026-10-30",
+      "source": "http://127.0.0.1:8762/astro-portfolio/demos/lindenhof/"
+    },
+    {
+      "file": "apps/portfolio/public/previews/nails-mobile.png",
+      "sha256": "339580ace6a38c03b7a92a03ae2891d554d124cd89469be340112e605bc2deeb",
+      "bytes": 125338,
+      "published": true,
+      "evidence": "new_browser_capture_2026-10-30",
+      "source": "http://127.0.0.1:8762/astro-portfolio/demos/nails/"
+    },
+    {
+      "file": "apps/portfolio/public/previews/nails-tablet.png",
+      "sha256": "870ea16f8f37c5b6cd1be116f60bd25b7f26a1c7aa34a6882bfb5d47fc0e5d49",
+      "bytes": 329557,
+      "published": true,
+      "evidence": "new_browser_capture_2026-10-30",
+      "source": "http://127.0.0.1:8762/astro-portfolio/demos/nails/"
+    },
+    {
+      "file": "apps/portfolio/public/previews/nails.jpg",
+      "sha256": "a145ac2432408f2ebd28340c7b82a22cb049c24aca126874f9aa28f8a1009022",
+      "bytes": 90509,
+      "published": false,
+      "evidence": "excluded_archive_source_preserved"
+    },
+    {
+      "file": "apps/portfolio/public/previews/nails.png",
+      "sha256": "59fdebae385b528ed99201cea1d2c30cbddfc67d4ae6eb145489a045b4bd238b",
+      "bytes": 433689,
+      "published": true,
+      "evidence": "new_browser_capture_2026-10-30",
+      "source": "http://127.0.0.1:8762/astro-portfolio/demos/nails/"
+    },
+    {
+      "file": "apps/portfolio/public/previews/streetfood-mobile.png",
+      "sha256": "255183c5461965a2c43ff31adb488769f8731e01b48771ae181d594e1a2b0cb3",
+      "bytes": 280451,
+      "published": true,
+      "evidence": "new_browser_capture_2026-10-30",
+      "source": "http://127.0.0.1:8762/astro-portfolio/demos/streetfood/"
+    },
+    {
+      "file": "apps/portfolio/public/previews/streetfood-tablet.png",
+      "sha256": "7da427e3f536222568764cc71aed509071b09cd22ac52c5b185e8f03b02563de",
+      "bytes": 1246102,
+      "published": true,
+      "evidence": "new_browser_capture_2026-10-30",
+      "source": "http://127.0.0.1:8762/astro-portfolio/demos/streetfood/"
+    },
+    {
+      "file": "apps/portfolio/public/previews/streetfood.png",
+      "sha256": "cb4f430129316575b703bc286679c3fe48896fdac5fee8ddd952715a6ead58c3",
+      "bytes": 911969,
+      "published": true,
+      "evidence": "new_browser_capture_2026-10-30",
+      "source": "http://127.0.0.1:8762/astro-portfolio/demos/streetfood/"
+    },
+    {
+      "file": "apps/portfolio/public/social/hirda-de-2026.png",
+      "sha256": "d01b5b544eed726a818e0afa4f7af31349df8639b1c86bef09696f21f5aec7a4",
+      "bytes": 59973,
+      "published": true,
+      "evidence": "project_html_capture_source_in_apps/portfolio/design"
+    },
+    {
+      "file": "apps/portfolio/public/social/hirda-en-2026.png",
+      "sha256": "f0f3e59f69093e2e1a616832247f78b36ecb1460c39b080caea6bdfc1cd4bf70",
+      "bytes": 59271,
+      "published": true,
+      "evidence": "project_html_capture_source_in_apps/portfolio/design"
+    },
+    {
+      "file": "apps/portfolio/public/social/hirda-ru-2026.png",
+      "sha256": "63fc55bc1b76ce5eb71419c7db0b26d3f5c3f31c891846f5cec7f72437b1bb96",
+      "bytes": 514514,
+      "published": true,
+      "evidence": "project_html_capture_source_in_apps/portfolio/design"
+    },
+    {
+      "file": "apps/streetfood/public/assets/food.svg",
+      "sha256": "169ae75e23d922739d6bd550b130565288e51d3bc3b0905ed9309b38a77d7297",
+      "bytes": 652,
+      "published": true,
+      "evidence": "project_vector_or_documented_Lucide_ISC"
+    },
+    {
+      "file": "apps/streetfood/public/assets/menu/beef.webp",
+      "sha256": "7530a549325f2b41b9781d9a6b9e3c8d1c6cdde03142cd81748994f56230e4dc",
+      "bytes": 78866,
+      "published": true,
+      "evidence": "local_imagegen_candidate_and_project_record",
+      "original": "exec-e157a107-83d6-4f42-b393-5cfe5a51a577.png",
+      "thumbnailMeanAbsoluteError": 2.484,
+      "caveat": "Thumbnail similarity supports provenance but is not a licence or a pixel-exact derivation proof."
+    },
+    {
+      "file": "apps/streetfood/public/assets/menu/chicken.webp",
+      "sha256": "311fe7456a15fb233fcad8453f3017f1629835f534e6d59996a1d174d3b350bd",
+      "bytes": 80580,
+      "published": true,
+      "evidence": "local_imagegen_candidate_and_project_record",
+      "original": "exec-0e388a6a-37c4-4066-8ef7-890d38f9d6bf.png",
+      "thumbnailMeanAbsoluteError": 2.516,
+      "caveat": "Thumbnail similarity supports provenance but is not a licence or a pixel-exact derivation proof."
+    },
+    {
+      "file": "apps/streetfood/public/assets/menu/coffee.webp",
+      "sha256": "5661c59e35de597974400c731ea8f4b99de0795993fabe85d0a9545179657994",
+      "bytes": 34884,
+      "published": true,
+      "evidence": "local_imagegen_candidate_and_project_record",
+      "original": "exec-b021e5db-ad3f-4023-8397-96cf75864dfe.png",
+      "thumbnailMeanAbsoluteError": 1.666,
+      "caveat": "Thumbnail similarity supports provenance but is not a licence or a pixel-exact derivation proof."
+    },
+    {
+      "file": "apps/streetfood/public/assets/menu/croissant.webp",
+      "sha256": "860adabd8bd24a3f81db37933e85abbe849fa219f79825d3fe2b47f9455ad702",
+      "bytes": 56108,
+      "published": true,
+      "evidence": "local_imagegen_candidate_and_project_record",
+      "original": "exec-6995d807-4a2c-42e7-916b-e0181b3907fa.png",
+      "thumbnailMeanAbsoluteError": 1.652,
+      "caveat": "Thumbnail similarity supports provenance but is not a licence or a pixel-exact derivation proof."
+    },
+    {
+      "file": "apps/streetfood/public/assets/menu/double.webp",
+      "sha256": "31a9c63c2a32c3ec0df441c867c53611445a8bed6646ed81c3bd2e2e79c0d8cf",
+      "bytes": 90136,
+      "published": true,
+      "evidence": "local_imagegen_candidate_and_project_record",
+      "original": "exec-04da3b0f-9556-4320-a15c-6d2de20a1975.png",
+      "thumbnailMeanAbsoluteError": 2.712,
+      "caveat": "Thumbnail similarity supports provenance but is not a licence or a pixel-exact derivation proof."
+    },
+    {
+      "file": "apps/streetfood/public/assets/menu/fries.webp",
+      "sha256": "bf592e1ffe99736a93325dcda6a638200d6ab66a78db33d394b62e54a34ec3e3",
+      "bytes": 58304,
+      "published": true,
+      "evidence": "local_imagegen_candidate_and_project_record",
+      "original": "exec-b8cf3543-aa37-4378-a374-49fd3da3319b.png",
+      "thumbnailMeanAbsoluteError": 2.271,
+      "caveat": "Thumbnail similarity supports provenance but is not a licence or a pixel-exact derivation proof."
+    },
+    {
+      "file": "apps/streetfood/public/assets/menu/plate.webp",
+      "sha256": "52c9f234c470117e76fe77184688f199794c642f13fd1640b2aa8842ed48820c",
+      "bytes": 81506,
+      "published": true,
+      "evidence": "local_imagegen_candidate_and_project_record",
+      "original": "exec-cf13a91c-2045-4209-99ba-69cee2c6dc26.png",
+      "thumbnailMeanAbsoluteError": 2.249,
+      "caveat": "Thumbnail similarity supports provenance but is not a licence or a pixel-exact derivation proof."
+    },
+    {
+      "file": "apps/streetfood/public/assets/menu/sweet.webp",
+      "sha256": "ced9e21417c76a481d06a9fa08772aedd8e0229694d8a7400c4e4ac148dee3d3",
+      "bytes": 74516,
+      "published": true,
+      "evidence": "local_imagegen_candidate_and_project_record",
+      "original": "exec-54fddd74-e42b-454b-89a6-a51de23b68fc.png",
+      "thumbnailMeanAbsoluteError": 2.164,
+      "caveat": "Thumbnail similarity supports provenance but is not a licence or a pixel-exact derivation proof."
+    }
+  ]
+}

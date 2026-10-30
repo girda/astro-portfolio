@@ -2,15 +2,17 @@ import test from 'node:test';
 import assert from 'node:assert/strict';
 import {mkdtempSync, mkdirSync, writeFileSync, readFileSync, cpSync, existsSync, readdirSync, rmSync} from 'node:fs';
 import {tmpdir} from 'node:os';
-import {join} from 'node:path';
+import {join, dirname} from 'node:path';
 import {spawnSync} from 'node:child_process';
 import {BUILD_APPS} from '../projects.mjs';
+import {publicLicenses} from '../license-notices.mjs';
 
 test('a failed demo build preserves the last complete output; success replaces it', () => {
   const root = mkdtempSync(join(tmpdir(), 'hirda-build-test-'));
   try {
     mkdirSync(join(root,'scripts'));
-    for (const name of ['build.mjs','projects.mjs','public-assets.mjs']) cpSync(new URL(`../${name}`, import.meta.url),join(root,'scripts',name));
+    for (const name of ['build.mjs','projects.mjs','public-assets.mjs','license-notices.mjs']) cpSync(new URL(`../${name}`, import.meta.url),join(root,'scripts',name));
+    for(const[source]of publicLicenses){const dest=join(root,source);mkdirSync(dirname(dest),{recursive:true});cpSync(new URL('../../'+source,import.meta.url),dest);}
     mkdirSync(join(root,'dist')); writeFileSync(join(root,'dist','previous.txt'),'working');
     for (const app of BUILD_APPS) {
       const bin=join(root,'apps',app,'node_modules','astro','bin');mkdirSync(bin,{recursive:true});
@@ -30,5 +32,6 @@ test('a failed demo build preserves the last complete output; success replaces i
     assert.equal(existsSync(join(root,'dist','previous.txt')),false);
     assert.equal(readFileSync(join(root,'dist','demos','nails','index.html'),'utf8'),'/test/demos/nails/');
     assert.ok(existsSync(join(root,'dist','.nojekyll')));
+    for(const[source,name]of publicLicenses)assert.equal(readFileSync(join(root,'dist','licenses',name),'utf8'),readFileSync(join(root,source),'utf8'));
   } finally {rmSync(root,{recursive:true,force:true});}
 });

@@ -35,6 +35,8 @@ jobs:
         run: npm run check:public
       - name: Check legal pages and shared footer links
         run: npm run check:legal
+      - name: Check registered media and bundled licence notices
+        run: npm run check:media
       - uses: actions/upload-pages-artifact@v3
         with:
           path: dist

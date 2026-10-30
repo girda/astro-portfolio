@@ -46,5 +46,41 @@
     "origin": "OpenAI built-in ImageGen, 2026-10-29",
     "original": "exec-24c9ea1f-019e-4146-abca-ec7d31adbb29.png",
     "description": "bakery-dessert"
+  },
+  {
+    "file": "apps/barbershop/public/images/barber-precision-2026.webp",
+    "origin": "OpenAI built-in ImageGen, 2026-10-30",
+    "original": "exec-e5391bf7-53ec-4aef-8b12-3f8fd3a5224a.png",
+    "description": "Original close rear three-quarter view of fictional adult client; barber refines a fade with unbranded clipper and comb; warm oak, ivory and brick red; no tattoos, celebrities, text or logos.",
+    "prompt_spec": {
+      "use_case": "photorealistic-natural",
+      "asset_type": "KANT gallery photo, portrait 4:5",
+      "primary_request": "Original close rear three-quarter view of fictional adult client; barber refines a fade with unbranded clipper and comb; warm oak, ivory and brick red; no tattoos, celebrities, text or logos.",
+      "constraints": "Original fictional scene, no real person or celebrity likeness, no tattoos/copied artwork, no visible brand or watermark. Preserve existing website layout."
+    }
+  },
+  {
+    "file": "apps/barbershop/public/images/barber-finish-2026.webp",
+    "origin": "OpenAI built-in ImageGen, 2026-10-30",
+    "original": "exec-06808d58-1a75-4bdd-8203-5d26087233e1.png",
+    "description": "Original portrait of fictional adult client being styled with an unbranded dryer and round brush; dark leather, warm oak and ivory walls; natural anatomy; no tattoos, celebrity likeness or logos.",
+    "prompt_spec": {
+      "use_case": "photorealistic-natural",
+      "asset_type": "KANT gallery photo, portrait 4:5",
+      "primary_request": "Original portrait of fictional adult client being styled with an unbranded dryer and round brush; dark leather, warm oak and ivory walls; natural anatomy; no tattoos, celebrity likeness or logos.",
+      "constraints": "Original fictional scene, no real person or celebrity likeness, no tattoos/copied artwork, no visible brand or watermark. Preserve existing website layout."
+    }
+  },
+  {
+    "file": "apps/barbershop/public/images/barber-craft-2026.webp",
+    "origin": "OpenAI built-in ImageGen, 2026-10-30",
+    "original": "exec-78694946-81cb-4380-8f2d-03248b4b5fc3.png",
+    "description": "Original profile of fictional adult bearded client; barber uses comb and grooming scissors near the temple safely away from the eye; warm daylight and brick red; no real-person likeness or logos.",
+    "prompt_spec": {
+      "use_case": "photorealistic-natural",
+      "asset_type": "KANT gallery photo, portrait 4:5",
+      "primary_request": "Original profile of fictional adult bearded client; barber uses comb and grooming scissors near the temple safely away from the eye; warm daylight and brick red; no real-person likeness or logos.",
+      "constraints": "Original fictional scene, no real person or celebrity likeness, no tattoos/copied artwork, no visible brand or watermark. Preserve existing website layout."
+    }
   }
 ]

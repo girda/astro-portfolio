@@ -3,6 +3,7 @@ import { cpSync, mkdirSync, mkdtempSync, rmSync, renameSync, writeFileSync } fro
 import { resolve, relative } from 'node:path';
 import { isPublicAssetAllowed } from './public-assets.mjs';
 import { BUILD_APPS, outputPath } from './projects.mjs';
+import { publicLicenses } from './license-notices.mjs';
 
 const root = resolve(import.meta.dirname, '..');
 const destination = resolve(root, 'dist');
@@ -21,6 +22,8 @@ try {
     mkdirSync(resolve(staging, suffix), {recursive: true});
     cpSync(resolve(folder, 'dist'), resolve(staging, suffix), {recursive: true, filter: source => isPublicAssetAllowed([suffix, relative(resolve(folder, 'dist'),source)].filter(Boolean).join('/'))});
   }
+  mkdirSync(resolve(staging, 'licenses'), {recursive:true});
+  for(const [source,name] of publicLicenses) cpSync(resolve(root,source),resolve(staging,'licenses',name));
   writeFileSync(resolve(staging, '.nojekyll'), '');
   // Не удаляем последнюю рабочую сборку, пока все приложения не собрались.
   rmSync(destination, {recursive: true, force: true});
