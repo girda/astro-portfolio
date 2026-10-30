@@ -749,6 +749,8 @@ const avatarSrc = `${import.meta.env.BASE_URL}ai/robot-cat.webp`;
 </script>
 
 <style>
+  /* Скрытый фиксированный контейнер не должен перехватывать ссылки футера. */
+  .hirda-cat.is-away-from-hero {pointer-events:none;}
   .hirda-cat.is-away-from-hero :is(.cat-launcher, .cat-bubble) {opacity:0;visibility:hidden;pointer-events:none;}
   .cat-launcher,.cat-bubble {transition:opacity 180ms ease,visibility 180ms ease,transform 200ms ease;}
   :global(.cat-scenarios) { display:grid; grid-template-columns:1fr 1fr; gap:10px; margin:18px 0; }
