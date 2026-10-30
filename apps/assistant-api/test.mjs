@@ -123,3 +123,12 @@ test('car demo instructions keep price and transmission constraints together', a
   assert.match(text, /Do not invent comfort, space/);
   assert.match(text, /Never pretend a test drive or rental is booked/);
 });
+
+test('cafe demo instructions ask for fictional order confirmation rather than personal health data',async()=>{
+ const {scenarioInstructions}=await import('./demo.mjs');
+ const prompt=scenarioInstructions('cafe',[]);
+ assert.match(prompt,/never ask the visitor for real allergies/i);
+ assert.match(prompt,/Do not request, retain in summary or repeat real health data/);
+ assert.match(prompt,/Zur Demo hinzufügen/);
+ assert.doesNotMatch(prompt,/Gibt es Allergien|Keep reported allergies/);
+});

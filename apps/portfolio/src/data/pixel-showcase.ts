@@ -12,15 +12,15 @@ export const pixelShowcase = {
           ],
           [
             "assistant",
-            "С удовольствием. Есть ли аллергии, которые нужно учесть?"
+            "Капучино и круассан. Добавить этот выбор в демо-корзину?"
           ],
           [
             "customer",
-            "Нет, аллергий нет."
+            "Да, добавить в демо-корзину."
           ]
         ],
         "result": "Демокорзина: капучино и круассан. Посетитель проверяет выбор перед завершением.",
-        "benefit": "Помогает выбрать и собрать заказ, не пропуская важное уточнение.",
+        "benefit": "Помогает выбрать блюда и проверить состав заказа перед подтверждением.",
         "id": "cafe"
       },
       {
@@ -74,11 +74,11 @@ export const pixelShowcase = {
           ],
           [
             "assistant",
-            "Gerne. Gibt es Allergien, die wir beachten sollen?"
+            "Cappuccino + Croissant. In den Demo-Warenkorb legen?"
           ],
           [
             "customer",
-            "Nein, keine Allergien."
+            "Ja, zum Demo-Warenkorb hinzufügen."
           ]
         ],
         "result": "Demo-Warenkorb: Cappuccino und Croissant. Der Gast prüft seine Auswahl vor dem Abschluss.",
@@ -136,11 +136,11 @@ export const pixelShowcase = {
           ],
           [
             "assistant",
-            "Of course. Are there any allergies we should consider?"
+            "Cappuccino and croissant. Add this selection to your demo cart?"
           ],
           [
             "customer",
-            "No allergies."
+            "Yes, add them to the demo cart."
           ]
         ],
         "result": "Demo basket: cappuccino and croissant. The guest reviews the selection before finishing.",

@@ -100,6 +100,11 @@ const avatarSrc = `${import.meta.env.BASE_URL}ai/robot-cat.webp`;
     </div>
 
     <div class="cat-bottom">
+      <div class="cat-activation" data-cat-activation hidden>
+        <p>{lang==='ru'?'Pixel передаст сообщение и часть диалога через Cloudflare в OpenAI. Проверку соединения выполняет Cloudflare Turnstile. В демо используй вымышленные данные; не вводи сведения о здоровье, пароли и платёжные данные.':lang==='en'?'Pixel sends your message and part of this conversation through Cloudflare to OpenAI. Cloudflare Turnstile verifies the connection. Use fictional details in demos; do not enter health information, passwords or payment data.':'Pixel übermittelt deine Nachricht und einen Teil des Gesprächs über Cloudflare an OpenAI. Cloudflare Turnstile prüft die Verbindung. Nutze in Demos fiktive Angaben; keine Gesundheitsdaten, Passwörter oder Zahlungsdaten.'}</p>
+        <button type="button" data-cat-activate>{lang==='ru'?'Продолжить с ИИ':lang==='en'?'Continue with AI':'Mit KI fortfahren'}</button>
+        <button type="button" data-cat-decline>{lang==='ru'?'Пока без ИИ':lang==='en'?'Not now':'Vorerst ohne KI'}</button>
+      </div>
       <div data-cat-verification class="cat-verification"></div>
       <p class="cat-wait-hint" data-cat-wait-hint role="status" aria-live="polite"></p>
       <form method="dialog" class="cat-compose" data-cat-form>
@@ -498,8 +503,26 @@ const avatarSrc = `${import.meta.env.BASE_URL}ai/robot-cat.webp`;
       }[lang];
     };
 
+    let activationAccepted = false;
+    let activationPending: {value:string;retry:boolean;requestMode:'consult'|'demo'|'brief'} | null = null;
+    const activationNotice=root.querySelector<HTMLElement>('[data-cat-activation]')!;
+    root.querySelector<HTMLButtonElement>('[data-cat-activate]')!.addEventListener('click',()=>{
+      activationAccepted=true;activationNotice.hidden=true;
+      const pending=activationPending;activationPending=null;
+      input.focus({preventScroll:true});
+      if(pending)void sendToAgent(pending.value,pending.retry,pending.requestMode);
+    });
+    root.querySelector<HTMLButtonElement>('[data-cat-decline]')!.addEventListener('click',()=>{
+      if(activationPending?.requestMode==='consult')input.value=activationPending.value;
+      activationPending=null;activationNotice.hidden=true;input.focus({preventScroll:true});
+    });
+
     async function sendToAgent(value: string, retry = false, requestMode: 'consult' | 'demo' | 'brief' = mode) {
       if (busy) { showWaitHint(); return; }
+      if (!import.meta.env.DEV && !activationAccepted) {
+        activationPending={value,retry,requestMode};activationNotice.hidden=false;
+        root.querySelector<HTMLButtonElement>('[data-cat-activate]')!.focus({preventScroll:true});return;
+      }
       if (requestMode === 'demo' && !scenario) { showScenarios(); return; }
       waitHint.textContent = '';
       busy = true;
@@ -1151,3 +1174,5 @@ const avatarSrc = `${import.meta.env.BASE_URL}ai/robot-cat.webp`;
 .cat-compose button, .cat-conversation :global(.chat-message.is-user) { color: #fff; }
 .cat-compose button:hover { background: var(--brand-accent-hover); }
 </style>
+
+<style>.cat-activation{padding:14px;border:1px solid #ffffff30;border-radius:10px;margin-bottom:12px;color:#e7ece7}.cat-activation[hidden]{display:none}.cat-activation p{font-size:12px;line-height:1.6;margin:0 0 12px}.cat-activation button{font:inherit;font-size:12px;min-height:40px;padding:8px 12px;margin:0 8px 6px 0;border:1px solid #ffffff40;border-radius:6px;background:#303a3d;color:#fff;cursor:pointer}.cat-activation button:hover{background:#414d50}.cat-activation button:focus-visible{outline:2px solid #ffad71;outline-offset:3px}</style>
