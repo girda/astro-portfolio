@@ -44,7 +44,7 @@ if (menu && trigger) {
     link.addEventListener("click", () => {
       close();
       // Переносим фокус к выбранной секции, не вызывая повторную прокрутку.
-      const section = document.querySelector<HTMLElement>(link.hash);
+      const section = link.hash ? document.getElementById(link.hash.slice(1)) : null;
       if (section) {
         const previousTabindex = section.getAttribute("tabindex");
         section.setAttribute("tabindex", "-1");
