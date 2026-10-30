@@ -1,0 +1,17 @@
+---
+import LegalLayout from '../layouts/LegalLayout.astro';
+import {legalOperator as owner} from '../config/legal';
+const base=import.meta.env.BASE_URL;
+---
+<LegalLayout title="Impressum" description="Anbieterkennzeichnung des HIRDA-Portfolios und der zugehörigen Demonstrationsprojekte von Artem Hirda.">
+  <h2>Angaben gemäß § 5 DDG</h2>
+  <address>{owner.name}<br/>{owner.street}<br/>{owner.postcode} {owner.city}<br/>{owner.country}</address>
+  <h2>Kontakt</h2>
+  <p>E-Mail: <a href={`mailto:${owner.email}`}>{owner.email}</a><br/>Weitere Kontaktmöglichkeit: <a href={`${base}#contact`}>Kontaktbereich im Portfolio</a>.</p>
+  <h2>Geltungsbereich und Demonstrationsprojekte</h2>
+  <p>Diese Anbieterkennzeichnung gilt für das HIRDA-Portfolio und seine unter derselben Website veröffentlichten Demonstrationsprojekte. HIRDA ist die Bezeichnung dieses Portfolios; Anbieter ist die oben genannte natürliche Person.</p>
+  <p>Die Branchen-Websites zeigen Gestaltungs- und Funktionsbeispiele. Sie sind keine offiziellen Auftritte der dargestellten oder namensähnlicher Unternehmen. Fahrzeug- und Hauskataloge, Speisekarten, Warenkörbe und Terminformulare dienen der Demonstration. Über sie werden keine tatsächlichen Käufe, Bestellungen, Zahlungen oder Buchungen abgeschlossen.</p>
+  <p>Abbildungen können künstlich erstellte, fiktive Visualisierungen zeigen. Die Nennung fremder Marken bedeutet keine Beauftragung, Partnerschaft oder Händlerberechtigung. Fragen zu Inhalten oder Rechten kannst du an die oben angegebene E-Mail-Adresse richten.</p>
+  <h2>Datenschutz</h2>
+  <p>Informationen zum Hosting, zu Kontaktwegen, Pixel und den Karten findest du in den <a href={`${base}datenschutz/`}>Datenschutzhinweisen</a>.</p>
+</LegalLayout>

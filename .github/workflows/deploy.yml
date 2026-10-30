@@ -33,6 +33,8 @@ jobs:
           PAGES_BASE: /astro-portfolio/
       - name: Check public forms, fonts and storage baseline
         run: npm run check:public
+      - name: Check legal pages and shared footer links
+        run: npm run check:legal
       - uses: actions/upload-pages-artifact@v3
         with:
           path: dist

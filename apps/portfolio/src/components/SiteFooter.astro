@@ -44,7 +44,7 @@ const privacy = lang === 'ru' ? {
       <p><a href="https://www.cloudflare.com/turnstile-privacy-policy/" target="_blank" rel="noopener noreferrer">Cloudflare Turnstile Privacy Addendum</a></p>
       <p>{privacy.chat}</p>
       <p><a href="https://openai.com/policies/privacy-policy/" target="_blank" rel="noopener noreferrer">OpenAI Privacy Policy</a></p>
-      <p>{privacy.scope}</p>
+      <p>{privacy.scope} <a href={`${import.meta.env.BASE_URL}datenschutz/#pixel`} lang="de">Datenschutzhinweise (DE)</a></p>
     </details>
 
     <div class="footer-bottom">
@@ -52,11 +52,16 @@ const privacy = lang === 'ru' ? {
       <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 19V5m-6 6 6-6 6 6" /></svg>
     </a>
       <span>© {new Date().getFullYear()} HIRDA</span>
+      <div class="legal-links" aria-label={ru?'Юридическая информация (немецкий)':en?'Legal information (German)':'Rechtliche Informationen'}>
+        <a href={`${import.meta.env.BASE_URL}impressum/`} lang="de">Impressum</a>
+        <a href={`${import.meta.env.BASE_URL}datenschutz/`} lang="de">Datenschutz</a>
+      </div>
       <span class="footer-signature" aria-hidden="true">&lt;design meets code /&gt;</span>
     </div>
   </div>
 </footer>
 <style>
+  .legal-links{display:flex;flex-wrap:wrap;gap:12px 20px}.legal-links a{display:inline-flex;align-items:center;min-height:44px;text-decoration:underline;text-underline-offset:4px}.legal-links a:hover{color:var(--brand-accent)}
   .footer-privacy { margin-top:32px; max-width:72ch; font-size:13px; color:#b7bfbb; }
   .footer-privacy summary { cursor:pointer; min-height:44px; display:list-item; padding-block:10px; }
   .footer-privacy a { text-decoration:underline; text-underline-offset:3px; }

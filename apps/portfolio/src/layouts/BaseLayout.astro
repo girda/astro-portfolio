@@ -15,6 +15,7 @@ interface Props {
   noindex?: boolean;
   canonicalPath?: string;
   socialImage?: string;
+  motion?: boolean;
 }
 
 const { lang = "de" } = Astro.props;
@@ -70,8 +71,7 @@ const image = seo.image;
   <body>
     <div class="site-atmosphere" aria-hidden="true"></div>
     <slot />
-    <ScrollHeadings />
-    <SectionMotion />
+    {Astro.props.motion !== false && <><ScrollHeadings /><SectionMotion /></>}
   </body>
 </html>
 
