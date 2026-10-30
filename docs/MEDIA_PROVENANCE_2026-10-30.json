@@ -1169,40 +1169,60 @@
       "sha256": "5837e24e62181642d9db78192cc02caa13ca1d05c0cac80c8c25a2d574caa8e8",
       "bytes": 23748,
       "published": true,
-      "evidence": "legacy_pixel_asset_owner_confirmation_pending",
-      "history": "e18939b 2026-10-08 add ai agent ui"
+      "evidence": "owner_confirmed_character_variant_source_unrecovered",
+      "history": "e18939b 2026-10-08 add ai agent ui",
+      "ownerConfirmationDate": "2026-10-30",
+      "ownerStatement": "Создан или сгенерирован для меня",
+      "confirmationScope": "Owner confirmed that the existing Pixel cat was created or generated for him.",
+      "caveat": "Original source, creation method/provider and separate licence document have not been recovered. Owner confirmation is not independent rights clearance. The confirmation concerns the Pixel character; the separate derivation source for this face variant has not been recovered."
     },
     {
       "file": "apps/portfolio/public/ai/face-default.webp",
       "sha256": "0562ef4b5e8382fb4ff63425ace1af9ef8529d1309acc8e7309f6e62a0ad203a",
       "bytes": 22970,
       "published": true,
-      "evidence": "legacy_pixel_asset_owner_confirmation_pending",
-      "history": "e18939b 2026-10-08 add ai agent ui"
+      "evidence": "owner_confirmed_character_variant_source_unrecovered",
+      "history": "e18939b 2026-10-08 add ai agent ui",
+      "ownerConfirmationDate": "2026-10-30",
+      "ownerStatement": "Создан или сгенерирован для меня",
+      "confirmationScope": "Owner confirmed that the existing Pixel cat was created or generated for him.",
+      "caveat": "Original source, creation method/provider and separate licence document have not been recovered. Owner confirmation is not independent rights clearance. The confirmation concerns the Pixel character; the separate derivation source for this face variant has not been recovered."
     },
     {
       "file": "apps/portfolio/public/ai/face-happy.webp",
       "sha256": "2c1b64c8efc834be3a11684c7cf95875853b9c646d03e717d6201f07bbc10ce4",
       "bytes": 23326,
       "published": true,
-      "evidence": "legacy_pixel_asset_owner_confirmation_pending",
-      "history": "e18939b 2026-10-08 add ai agent ui"
+      "evidence": "owner_confirmed_character_variant_source_unrecovered",
+      "history": "e18939b 2026-10-08 add ai agent ui",
+      "ownerConfirmationDate": "2026-10-30",
+      "ownerStatement": "Создан или сгенерирован для меня",
+      "confirmationScope": "Owner confirmed that the existing Pixel cat was created or generated for him.",
+      "caveat": "Original source, creation method/provider and separate licence document have not been recovered. Owner confirmation is not independent rights clearance. The confirmation concerns the Pixel character; the separate derivation source for this face variant has not been recovered."
     },
     {
       "file": "apps/portfolio/public/ai/face-wink.webp",
       "sha256": "a35fec91c5adb691c13c1be6b72715a006e7f78a9af246379c9c902c57cdabd8",
       "bytes": 25798,
       "published": true,
-      "evidence": "legacy_pixel_asset_owner_confirmation_pending",
-      "history": "e18939b 2026-10-08 add ai agent ui"
+      "evidence": "owner_confirmed_character_variant_source_unrecovered",
+      "history": "e18939b 2026-10-08 add ai agent ui",
+      "ownerConfirmationDate": "2026-10-30",
+      "ownerStatement": "Создан или сгенерирован для меня",
+      "confirmationScope": "Owner confirmed that the existing Pixel cat was created or generated for him.",
+      "caveat": "Original source, creation method/provider and separate licence document have not been recovered. Owner confirmation is not independent rights clearance. The confirmation concerns the Pixel character; the separate derivation source for this face variant has not been recovered."
     },
     {
       "file": "apps/portfolio/public/ai/robot-cat.webp",
       "sha256": "243b6135d428c935ef2c88572044770b85037cc3ed68782834792f2eee0e58d1",
       "bytes": 70634,
       "published": true,
-      "evidence": "legacy_pixel_asset_owner_confirmation_pending",
-      "history": "e18939b 2026-10-08 add ai agent ui"
+      "evidence": "owner_confirmed_custom_asset",
+      "history": "e18939b 2026-10-08 add ai agent ui",
+      "ownerConfirmationDate": "2026-10-30",
+      "ownerStatement": "Создан или сгенерирован для меня",
+      "confirmationScope": "Owner confirmed that the existing Pixel cat was created or generated for him.",
+      "caveat": "Original source, creation method/provider and separate licence document have not been recovered. Owner confirmation is not independent rights clearance."
     },
     {
       "file": "apps/portfolio/public/devices/ipad-pro.webp",
