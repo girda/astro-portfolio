@@ -1173,8 +1173,10 @@
       "history": "e18939b 2026-10-08 add ai agent ui",
       "ownerConfirmationDate": "2026-10-30",
       "ownerStatement": "Создан или сгенерирован для меня",
-      "confirmationScope": "Owner confirmed that the existing Pixel cat was created or generated for him.",
-      "caveat": "Original source, creation method/provider and separate licence document have not been recovered. Owner confirmation is not independent rights clearance. The confirmation concerns the Pixel character; the separate derivation source for this face variant has not been recovered."
+      "confirmationScope": "Owner confirmed that the existing Pixel cat was created for him in ChatGPT. The generation model and original conversation have not been independently verified.",
+      "caveat": "Original source, generation record and separate licence document have not been recovered. Owner confirmation is not independent rights clearance. The confirmation concerns the Pixel character; the separate derivation source for this face variant has not been recovered.",
+      "ownerClarification": "Мне создавал чатgpt pixel",
+      "reportedCreationService": "ChatGPT (owner statement)"
     },
     {
       "file": "apps/portfolio/public/ai/face-default.webp",
@@ -1185,8 +1187,10 @@
       "history": "e18939b 2026-10-08 add ai agent ui",
       "ownerConfirmationDate": "2026-10-30",
       "ownerStatement": "Создан или сгенерирован для меня",
-      "confirmationScope": "Owner confirmed that the existing Pixel cat was created or generated for him.",
-      "caveat": "Original source, creation method/provider and separate licence document have not been recovered. Owner confirmation is not independent rights clearance. The confirmation concerns the Pixel character; the separate derivation source for this face variant has not been recovered."
+      "confirmationScope": "Owner confirmed that the existing Pixel cat was created for him in ChatGPT. The generation model and original conversation have not been independently verified.",
+      "caveat": "Original source, generation record and separate licence document have not been recovered. Owner confirmation is not independent rights clearance. The confirmation concerns the Pixel character; the separate derivation source for this face variant has not been recovered.",
+      "ownerClarification": "Мне создавал чатgpt pixel",
+      "reportedCreationService": "ChatGPT (owner statement)"
     },
     {
       "file": "apps/portfolio/public/ai/face-happy.webp",
@@ -1197,8 +1201,10 @@
       "history": "e18939b 2026-10-08 add ai agent ui",
       "ownerConfirmationDate": "2026-10-30",
       "ownerStatement": "Создан или сгенерирован для меня",
-      "confirmationScope": "Owner confirmed that the existing Pixel cat was created or generated for him.",
-      "caveat": "Original source, creation method/provider and separate licence document have not been recovered. Owner confirmation is not independent rights clearance. The confirmation concerns the Pixel character; the separate derivation source for this face variant has not been recovered."
+      "confirmationScope": "Owner confirmed that the existing Pixel cat was created for him in ChatGPT. The generation model and original conversation have not been independently verified.",
+      "caveat": "Original source, generation record and separate licence document have not been recovered. Owner confirmation is not independent rights clearance. The confirmation concerns the Pixel character; the separate derivation source for this face variant has not been recovered.",
+      "ownerClarification": "Мне создавал чатgpt pixel",
+      "reportedCreationService": "ChatGPT (owner statement)"
     },
     {
       "file": "apps/portfolio/public/ai/face-wink.webp",
@@ -1209,8 +1215,10 @@
       "history": "e18939b 2026-10-08 add ai agent ui",
       "ownerConfirmationDate": "2026-10-30",
       "ownerStatement": "Создан или сгенерирован для меня",
-      "confirmationScope": "Owner confirmed that the existing Pixel cat was created or generated for him.",
-      "caveat": "Original source, creation method/provider and separate licence document have not been recovered. Owner confirmation is not independent rights clearance. The confirmation concerns the Pixel character; the separate derivation source for this face variant has not been recovered."
+      "confirmationScope": "Owner confirmed that the existing Pixel cat was created for him in ChatGPT. The generation model and original conversation have not been independently verified.",
+      "caveat": "Original source, generation record and separate licence document have not been recovered. Owner confirmation is not independent rights clearance. The confirmation concerns the Pixel character; the separate derivation source for this face variant has not been recovered.",
+      "ownerClarification": "Мне создавал чатgpt pixel",
+      "reportedCreationService": "ChatGPT (owner statement)"
     },
     {
       "file": "apps/portfolio/public/ai/robot-cat.webp",
@@ -1221,8 +1229,10 @@
       "history": "e18939b 2026-10-08 add ai agent ui",
       "ownerConfirmationDate": "2026-10-30",
       "ownerStatement": "Создан или сгенерирован для меня",
-      "confirmationScope": "Owner confirmed that the existing Pixel cat was created or generated for him.",
-      "caveat": "Original source, creation method/provider and separate licence document have not been recovered. Owner confirmation is not independent rights clearance."
+      "confirmationScope": "Owner confirmed that the existing Pixel cat was created for him in ChatGPT. The generation model and original conversation have not been independently verified.",
+      "caveat": "Original source, generation record and separate licence document have not been recovered. Owner confirmation is not independent rights clearance.",
+      "ownerClarification": "Мне создавал чатgpt pixel",
+      "reportedCreationService": "ChatGPT (owner statement)"
     },
     {
       "file": "apps/portfolio/public/devices/ipad-pro.webp",
