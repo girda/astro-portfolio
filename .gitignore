@@ -17,3 +17,6 @@ backups/
 
 # Локальные заявки Pixel и файлы SQLite не должны попадать в Git.
 apps/assistant-api/.local-data/
+
+# Локальный каталог CMS, SQLite и журналы БД.
+apps/menu-cms/.local-data/

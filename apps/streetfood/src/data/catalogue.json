@@ -1,0 +1,354 @@
+{
+  "schemaVersion": 1,
+  "categories": [
+    {
+      "id": "burgers",
+      "name": "Burger",
+      "symbol": "🍔",
+      "sortOrder": 0,
+      "active": true
+    },
+    {
+      "id": "breakfast",
+      "name": "Frühstück",
+      "symbol": "🍳",
+      "sortOrder": 1,
+      "active": true
+    },
+    {
+      "id": "bakery",
+      "name": "Backstube",
+      "symbol": "🥐",
+      "sortOrder": 2,
+      "active": true
+    },
+    {
+      "id": "salads",
+      "name": "Bowls",
+      "symbol": "🥗",
+      "sortOrder": 3,
+      "active": true
+    },
+    {
+      "id": "sides",
+      "name": "Beilagen",
+      "symbol": "🍟",
+      "sortOrder": 4,
+      "active": true
+    },
+    {
+      "id": "coffee",
+      "name": "Kaffee",
+      "symbol": "☕",
+      "sortOrder": 5,
+      "active": true
+    }
+  ],
+  "products": [
+    {
+      "id": "chicken",
+      "categoryId": "burgers",
+      "name": "Chicken & Cheddar",
+      "description": "Brioche, Hähnchen, Cheddar, Tomate, Gurke und BBQ-Sauce.",
+      "price": 1190,
+      "image": "chicken.webp",
+      "allergens": "Weizen, Milch, Ei, Senf",
+      "time": 15,
+      "sortOrder": 0,
+      "available": true
+    },
+    {
+      "id": "beef",
+      "categoryId": "burgers",
+      "name": "Classic Beef Burger",
+      "description": "Rindfleisch, knackiger Salat, rote Zwiebel und Burgersauce.",
+      "price": 1390,
+      "image": "beef.webp",
+      "allergens": "Weizen, Milch, Ei, Senf",
+      "time": 15,
+      "sortOrder": 1,
+      "available": true
+    },
+    {
+      "id": "double",
+      "categoryId": "burgers",
+      "name": "Double Cheeseburger",
+      "description": "Zwei Patties, doppelter Cheddar und Gewürzgurken im Brioche.",
+      "price": 1690,
+      "image": "double.webp",
+      "allergens": "Weizen, Milch, Ei, Senf",
+      "time": 15,
+      "sortOrder": 2,
+      "available": true
+    },
+    {
+      "id": "bbq",
+      "categoryId": "burgers",
+      "name": "Smoky BBQ Burger",
+      "description": "Rindfleisch, BBQ-Sauce, Cheddar und Röstzwiebeln.",
+      "price": 1490,
+      "image": "beef.webp",
+      "allergens": "Weizen, Milch, Senf",
+      "time": 15,
+      "sortOrder": 3,
+      "available": true
+    },
+    {
+      "id": "crispy",
+      "categoryId": "burgers",
+      "name": "Crispy Chicken",
+      "description": "Knuspriges Hähnchen, Coleslaw und cremige Kräutersauce.",
+      "price": 1290,
+      "image": "chicken.webp",
+      "allergens": "Weizen, Milch, Ei",
+      "time": 15,
+      "sortOrder": 4,
+      "available": true
+    },
+    {
+      "id": "chili",
+      "categoryId": "burgers",
+      "name": "Chili Cheese Burger",
+      "description": "Rindfleisch, Cheddar und Jalapeños. Angenehm pikant.",
+      "price": 1390,
+      "image": "double.webp",
+      "allergens": "Weizen, Milch, Ei",
+      "time": 15,
+      "sortOrder": 5,
+      "available": true
+    },
+    {
+      "id": "breakfast",
+      "categoryId": "breakfast",
+      "name": "Herzhaftes Frühstück",
+      "description": "Warme herzhafte Frühstücksidee mit Kartoffeln und Kräutern.",
+      "price": 1090,
+      "image": "plate.webp",
+      "allergens": "Milch, Ei",
+      "time": 15,
+      "sortOrder": 6,
+      "available": true
+    },
+    {
+      "id": "brunch",
+      "categoryId": "breakfast",
+      "name": "Chicken Brunch",
+      "description": "Hähnchen mit cremigem Kartoffelpüree und frischen Kräutern.",
+      "price": 1290,
+      "image": "plate.webp",
+      "allergens": "Milch, Weizen",
+      "time": 15,
+      "sortOrder": 7,
+      "available": true
+    },
+    {
+      "id": "morning",
+      "categoryId": "breakfast",
+      "name": "Morning Plate",
+      "description": "Ein warmer Teller für einen entspannten Start.",
+      "price": 990,
+      "image": "plate.webp",
+      "allergens": "Milch, Ei",
+      "time": 15,
+      "sortOrder": 8,
+      "available": true
+    },
+    {
+      "id": "croissant",
+      "categoryId": "bakery",
+      "name": "Buttercroissant",
+      "description": "Blättriges Buttergebäck mit goldener Kruste.",
+      "price": 290,
+      "image": "croissant.webp",
+      "allergens": "Weizen, Milch",
+      "time": 3,
+      "sortOrder": 9,
+      "available": true
+    },
+    {
+      "id": "almond",
+      "categoryId": "bakery",
+      "name": "Mandelcroissant",
+      "description": "Buttergebäck mit Mandelcreme.",
+      "price": 390,
+      "image": "croissant.webp",
+      "allergens": "Weizen, Milch, Ei, Mandeln",
+      "time": 3,
+      "sortOrder": 10,
+      "available": true
+    },
+    {
+      "id": "bakery-set",
+      "categoryId": "bakery",
+      "name": "Croissant & Kaffee",
+      "description": "Ein Buttercroissant mit einer Tasse Filterkaffee.",
+      "price": 590,
+      "image": "croissant.webp",
+      "allergens": "Weizen, Milch",
+      "time": 3,
+      "sortOrder": 11,
+      "available": true
+    },
+    {
+      "id": "green",
+      "categoryId": "salads",
+      "name": "Green Lunch Bowl",
+      "description": "Beispiel einer saisonalen Bowl; Rezeptur beim Betrieb erfragen.",
+      "price": 1090,
+      "image": "plate.webp",
+      "allergens": "Rezeptur noch offen",
+      "time": 15,
+      "sortOrder": 12,
+      "available": true
+    },
+    {
+      "id": "chicken-bowl",
+      "categoryId": "salads",
+      "name": "Chicken Bowl",
+      "description": "Warme Hähnchen-Bowl als Beispielgericht.",
+      "price": 1290,
+      "image": "plate.webp",
+      "allergens": "Milch, Senf",
+      "time": 15,
+      "sortOrder": 13,
+      "available": true
+    },
+    {
+      "id": "sweet",
+      "categoryId": "sides",
+      "name": "Süßkartoffel-Pommes",
+      "description": "Knusprige Süßkartoffelstreifen mit leichter Würzung.",
+      "price": 490,
+      "image": "sweet.webp",
+      "allergens": "Mögliche Kreuzkontakte erfragen",
+      "time": 15,
+      "sortOrder": 14,
+      "available": true
+    },
+    {
+      "id": "fries",
+      "categoryId": "sides",
+      "name": "Pommes Frites",
+      "description": "Goldene Kartoffelpommes mit einer Prise Salz.",
+      "price": 390,
+      "image": "fries.webp",
+      "allergens": "Mögliche Kreuzkontakte erfragen",
+      "time": 15,
+      "sortOrder": 15,
+      "available": true
+    },
+    {
+      "id": "loaded",
+      "categoryId": "sides",
+      "name": "Loaded Fries",
+      "description": "Pommes mit Cheddarsauce und Frühlingszwiebeln.",
+      "price": 690,
+      "image": "fries.webp",
+      "allergens": "Milch",
+      "time": 15,
+      "sortOrder": 16,
+      "available": true
+    },
+    {
+      "id": "duo",
+      "categoryId": "sides",
+      "name": "Pommes-Duo",
+      "description": "Kartoffel- und Süßkartoffelpommes zum Teilen.",
+      "price": 790,
+      "image": "sweet.webp",
+      "allergens": "Mögliche Kreuzkontakte erfragen",
+      "time": 15,
+      "sortOrder": 17,
+      "available": true
+    },
+    {
+      "id": "cappuccino",
+      "categoryId": "coffee",
+      "name": "Cappuccino",
+      "description": "Espresso mit fein aufgeschäumter Milch.",
+      "price": 350,
+      "image": "coffee.webp",
+      "allergens": "Milch",
+      "time": 5,
+      "sortOrder": 18,
+      "available": true
+    },
+    {
+      "id": "latte",
+      "categoryId": "coffee",
+      "name": "Iced Latte",
+      "description": "Espresso und Milch auf Eis.",
+      "price": 420,
+      "image": "coffee.webp",
+      "allergens": "Milch",
+      "time": 5,
+      "sortOrder": 19,
+      "available": true
+    },
+    {
+      "id": "flat-white",
+      "categoryId": "coffee",
+      "name": "Flat White",
+      "description": "Doppelter Espresso mit samtiger Milch.",
+      "price": 390,
+      "image": "coffee.webp",
+      "allergens": "Milch",
+      "time": 5,
+      "sortOrder": 20,
+      "available": true
+    },
+    {
+      "id": "filter",
+      "categoryId": "coffee",
+      "name": "Filterkaffee",
+      "description": "Frisch aufgebrühter Kaffee ohne Milch.",
+      "price": 280,
+      "image": "coffee.webp",
+      "allergens": "Keine Rezepturallergene vorgesehen",
+      "time": 5,
+      "sortOrder": 21,
+      "available": true
+    },
+    {
+      "id": "oat",
+      "categoryId": "coffee",
+      "name": "Oat Latte",
+      "description": "Espresso mit Haferdrink.",
+      "price": 440,
+      "image": "coffee.webp",
+      "allergens": "Hafer",
+      "time": 5,
+      "sortOrder": 22,
+      "available": true
+    },
+    {
+      "id": "espresso",
+      "categoryId": "coffee",
+      "name": "Espresso",
+      "description": "Klein, kräftig und aromatisch.",
+      "price": 240,
+      "image": "coffee.webp",
+      "allergens": "Keine Rezepturallergene vorgesehen",
+      "time": 5,
+      "sortOrder": 23,
+      "available": true
+    }
+  ],
+  "extras": [
+    {
+      "id": "cheddar",
+      "name": "Extra Cheddar",
+      "price": 100
+    },
+    {
+      "id": "tomato",
+      "name": "Extra Tomate",
+      "price": 60
+    },
+    {
+      "id": "sauce",
+      "name": "BBQ-Sauce",
+      "price": 80
+    }
+  ]
+}

@@ -1,4 +1,9 @@
-import {products,extras,categories,formatMoney} from '../data/menu';
+import {formatMoney} from '../data/format-money';
+import type {MenuData} from '../data/menu';
+import {renderPreview} from './preview-menu';
+const menuData=JSON.parse(document.getElementById('menu-data')!.textContent!) as MenuData;
+renderPreview(menuData);
+const {products,extras,categories}=menuData;
 import {normalizeCart,unitPrice,cartTotal,MAX_QUANTITY} from './cart.mjs';
 const $=<T extends HTMLElement=HTMLElement>(selector:string)=>document.querySelector<T>(selector)!;
 const all=<T extends HTMLElement=HTMLElement>(selector:string)=>[...document.querySelectorAll<T>(selector)];
@@ -14,11 +19,11 @@ let category='all',current=products[0],quantity=1,toastTimer:ReturnType<typeof s
 const dialog=$<HTMLDialogElement>('[data-product-dialog]'),cartDialog=$<HTMLDialogElement>('[data-cart-dialog]');
 function toast(message:string){const node=$('.toast');node.textContent=message;node.classList.add('visible');clearTimeout(toastTimer);toastTimer=setTimeout(()=>node.classList.remove('visible'),2200);}
 function imageFallback(img: HTMLImageElement) {
-  const fallback = new URL(import.meta.env.BASE_URL + 'assets/food.svg', location.origin).href;
+  const fallback = new URL(document.querySelector<HTMLImageElement>('img[data-fallback]')?.dataset.fallback || import.meta.env.BASE_URL + 'assets/food.svg', location.origin).href;
   const recover = () => { if (img.src !== fallback) img.src = fallback; };
   // Диалог переиспользует один img: резервная картинка нужна при каждой ошибке загрузки.
   img.addEventListener('error', recover);
-  if (img.complete && !img.naturalWidth) recover();
+  if (img.getAttribute('src') && img.complete && !img.naturalWidth) recover();
 }
 all<HTMLImageElement>('img').forEach(imageFallback);
 function filter(){const query=$<HTMLInputElement>('#menu-search').value.trim().toLocaleLowerCase('de');let count=0;all('[data-product]').forEach(card=>{const p=products.find(p=>p.id===card.dataset.product)!;const show=(category==='all'||(category==='favorites'?favorites.has(p.id):p.category===category))&&`${p.name} ${p.description}`.toLocaleLowerCase('de').includes(query);card.hidden=!show;if(show)count++;});$('[data-results]').textContent=`${count} ${count===1?'Gericht':'Gerichte'}`;$('.empty-state').hidden=count>0;$('[data-empty-text]').textContent=category==='favorites'?'Tippe auf ein Herz, um deine Lieblingsgerichte hier zu sammeln.':'Probiere eine andere Suche oder Kategorie.';all('[data-category-select]').forEach(b=>b.setAttribute('aria-pressed',String(b.dataset.categorySelect===category)));}
