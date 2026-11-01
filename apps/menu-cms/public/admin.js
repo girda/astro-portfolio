@@ -135,7 +135,8 @@ function render() {
   $('#revision').textContent = `Версия данных: ${state.revision}`;
 }
 function field(label,name,value,{type='text',wide=false,required=true,maxLength,options,min,max,step} = {}) {
-  const wrapper = node('label',label,wide ? 'wide' : undefined);
+  const wrapper = node('label',undefined,wide ? 'wide' : undefined);
+  wrapper.append(node('span',label,'field-label'));
   let input;
   if(options) {
     input = node('select');
