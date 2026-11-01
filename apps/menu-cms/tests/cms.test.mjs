@@ -43,6 +43,8 @@ test('local HTTP API enforces origin, content type, revision, body size and vali
  const app=await startCms({port:0,path:':memory:'});try{
   const request=(path,options={})=>fetch(app.url+path,options);
   assert.equal((await request('/api/catalogue')).status,200);
+  const editorModule=await request('/editor-state.mjs');
+  assert.equal(editorModule.status,200);assert.match(editorModule.headers.get('content-type'),/text\/javascript/);
   const badHost=await new Promise((resolve,reject)=>{const req=httpRequest(app.url+'/api/catalogue',{headers:{Host:'evil.example'}},res=>{res.resume();resolve(res.statusCode)});req.on('error',reject);req.end()});
   assert.equal(badHost,403);
   assert.equal((await request('/api/catalogue',{headers:{Origin:'https://example.com'}})).status,403);
