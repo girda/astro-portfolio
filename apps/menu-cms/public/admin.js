@@ -108,7 +108,7 @@ function render() {
     availability:$('#availability').value, sort:$('#sort').value,
   });
   const total = products.filter(product => !selected || product.categoryId === selected).length;
-  $('#count').textContent = `Показано: ${shown.length} из ${total}. Всего в каталоге: ${products.length}.`;
+  $('#count').textContent = `${shown.length} из ${total} · Всего: ${products.length}`;
   const list = $('#products'); list.replaceChildren();
   for(const product of shown) {
     const category = categories.find(category => category.id === product.categoryId);
@@ -279,3 +279,62 @@ window.addEventListener('beforeunload',event => {if(dirty()) {event.preventDefau
 for(const selector of ['#search','#availability','#sort']) $(selector).addEventListener('input',() => {if(state) render();});
 $('#reload').addEventListener('click',load);
 load();
+
+// Журнал загружается только при открытии раздела и не меняет черновик меню.
+let historyCursor = null, historyBusy = false;
+const historyDate = new Intl.DateTimeFormat('ru-RU',{dateStyle:'medium',timeStyle:'short'});
+function historyValue(key,value) {
+  if(value === null || value === undefined || value === '') return '—';
+  if(typeof value === 'boolean') return value ? 'Да' : 'Нет';
+  if(key === 'price') return money(value);
+  if(key === 'image') return imageLabels[value] || value;
+  if(key === 'categoryId') return state?.catalogue.categories.find(category => category.id === value)?.name || value;
+  return String(value);
+}
+async function loadHistory(append = false) {
+  if(historyBusy) return;
+  historyBusy = true;
+  $('#reload-history').disabled = true; $('#more-history').disabled = true;
+  $('#history-status').textContent = 'Загрузка истории…';
+  try {
+    const data = await api('/api/history' + (append && historyCursor ? `?before=${historyCursor}` : ''));
+    if(!append) $('#history-list').replaceChildren();
+    for(const entry of data.entries) {
+      const details = node('details',undefined,'history-entry');
+      const summary = node('summary');
+      summary.append(node('strong',`${entry.action === 'create' ? 'Создана' : 'Изменена'} ${entry.kind === 'categories' ? 'категория' : 'позиция'}: ${entry.after.name}`));
+      summary.append(node('span',`${historyDate.format(new Date(entry.createdAt))} · Версия ${entry.revision} · Локальная CMS`,'history-meta'));
+      const changes = node('dl',undefined,'history-changes');
+      for(const key of Object.keys(entry.after)) {
+        if(key === 'id' || entry.before?.[key] === entry.after[key]) continue;
+        const row = node('div',undefined,'change-row');
+        row.append(node('dt',fieldLabels[key] || key));
+        for(const [caption,value] of [['Было',entry.before?.[key]],['Стало',entry.after[key]]]) {
+          const cell = node('dd'); cell.append(node('small',caption),node('span',historyValue(key,value))); row.append(cell);
+        }
+        changes.append(row);
+      }
+      if(!changes.children.length) changes.append(node('p','Сохранено без изменения значений.','muted'));
+      details.append(summary,changes); $('#history-list').append(details);
+    }
+    historyCursor = data.nextBefore;
+    $('#more-history').hidden = historyCursor === null;
+    $('#history-status').textContent = $('#history-list').children.length ? `Записей показано: ${$('#history-list').children.length}. Нажми запись, чтобы увидеть изменения.` : 'Изменений пока нет. Следующее сохранение появится здесь.';
+  } catch(error) {$('#history-status').textContent = error.message;}
+  finally {historyBusy = false; $('#reload-history').disabled = false; $('#more-history').disabled = false;}
+}
+function showView(history) {
+  $('#menu-view').hidden = history; $('#history-view').hidden = !history;
+  for(const [id,active] of [['show-menu',!history],['show-history',history]]) {
+    if(active) $('#'+id).setAttribute('aria-current','page'); else $('#'+id).removeAttribute('aria-current');
+  }
+  $('#page-title').textContent = history ? 'История изменений' : 'Управление меню';
+  $('#current-section').textContent = history ? 'История' : 'Контент';
+  $('.skip-link').href = history ? '#history-title' : '#products-title';
+  if(history) void loadHistory();
+  window.scrollTo({top:0,behavior:'instant'});
+}
+$('#show-menu').addEventListener('click',() => showView(false));
+$('#show-history').addEventListener('click',() => showView(true));
+$('#reload-history').addEventListener('click',() => loadHistory());
+$('#more-history').addEventListener('click',() => loadHistory(true));

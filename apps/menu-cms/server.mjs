@@ -25,6 +25,10 @@ export async function startCms({port=8790,path}={}) {
       if(req.headers['sec-fetch-site']==='cross-site')throw new CmsError(403,'Запрос с другого сайта запрещён.');
       const url=new URL(req.url,origin),pathname=url.pathname;
       if(pathname==='/api/catalogue'&&req.method==='GET')return json(res,200,store.read());
+      if(pathname==='/api/history'&&req.method==='GET')return json(res,200,store.history({
+        before:url.searchParams.has('before')?Number(url.searchParams.get('before')):undefined,
+        limit:url.searchParams.has('limit')?Number(url.searchParams.get('limit')):30,
+      }));
       if(pathname==='/api/images'&&req.method==='GET')return json(res,200,menuImages);
       const match=pathname.match(/^\/api\/(categories|products)(?:\/([a-z0-9-]+))?$/);
       if(match){

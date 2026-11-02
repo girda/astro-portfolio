@@ -13,7 +13,13 @@ export function createMenuStore(path, seed=initialCatalogue) {
     CREATE TABLE IF NOT EXISTS categories(id TEXT PRIMARY KEY, data TEXT NOT NULL CHECK(json_valid(data)));
     CREATE TABLE IF NOT EXISTS products(id TEXT PRIMARY KEY,category_id TEXT NOT NULL REFERENCES categories(id) ON DELETE RESTRICT,data TEXT NOT NULL CHECK(json_valid(data)));
     CREATE INDEX IF NOT EXISTS products_category ON products(category_id);
-    CREATE TABLE IF NOT EXISTS metadata(key TEXT PRIMARY KEY,value TEXT NOT NULL);`);
+    CREATE TABLE IF NOT EXISTS metadata(key TEXT PRIMARY KEY,value TEXT NOT NULL);
+    CREATE TABLE IF NOT EXISTS history(
+      revision INTEGER PRIMARY KEY, kind TEXT NOT NULL, entity_id TEXT NOT NULL,
+      action TEXT NOT NULL, created_at TEXT NOT NULL,
+      before_data TEXT CHECK(before_data IS NULL OR json_valid(before_data)),
+      after_data TEXT NOT NULL CHECK(json_valid(after_data))
+    );`);
   if(!db.prepare("SELECT value FROM metadata WHERE key='revision'").get()) {
     validateCatalogue(seed);db.exec('BEGIN IMMEDIATE');
     try {
@@ -28,6 +34,15 @@ export function createMenuStore(path, seed=initialCatalogue) {
     for(const rows of [catalogue.categories,catalogue.products])rows.sort((a,b)=>a.sortOrder-b.sortOrder||a.id.localeCompare(b.id));
     return {catalogue,revision:Number(db.prepare("SELECT value FROM metadata WHERE key='revision'").get().value)};
   }
+  function history({before,limit=30}={}) {
+    if(!Number.isSafeInteger(limit)||limit<1||limit>50 || (before!==undefined&&(!Number.isSafeInteger(before)||before<1)))
+      throw new CmsError(400,'Некорректные параметры истории.');
+    const rows=db.prepare('SELECT * FROM history WHERE revision < ? ORDER BY revision DESC LIMIT ?')
+      .all(before??Number.MAX_SAFE_INTEGER,limit+1);
+    const entries=rows.slice(0,limit).map(row=>({revision:row.revision,kind:row.kind,entityId:row.entity_id,
+      action:row.action,createdAt:row.created_at,before:row.before_data?JSON.parse(row.before_data):null,after:JSON.parse(row.after_data)}));
+    return {entries,nextBefore:rows.length>limit?entries.at(-1).revision:null};
+  }
   function save(kind, body, {id,revision}={}){
     if(!body||typeof body!=='object'||Array.isArray(body))throw new CmsError(400,'Нужен объект данных.');
     if(!Number.isSafeInteger(revision))throw new CmsError(428,'Обнови данные перед сохранением.');
@@ -40,14 +55,17 @@ export function createMenuStore(path, seed=initialCatalogue) {
       if(id&&!state.catalogue[key].some(r=>r.id===id))throw new CmsError(404,'Запись не найдена.');
       const nextId=id||`${kind==='categories'?'category':'product'}-${randomUUID()}`;
       const fields=kind==='categories'?['name','symbol','sortOrder','active']:['name','categoryId','description','price','image','allergens','time','sortOrder','available'];
+      const previous=id?state.catalogue[key].find(row=>row.id===id):null;
       const row={id:nextId,...Object.fromEntries(fields.map(k=>[k,body[k]]))};
       state.catalogue[key]=id?state.catalogue[key].map(r=>r.id===id?row:r):[...state.catalogue[key],row];
       try{validateCatalogue(state.catalogue);}catch(error){throw new CmsError(400,error.message);}
       if(kind==='categories')db.prepare('INSERT INTO categories VALUES (?,?) ON CONFLICT(id) DO UPDATE SET data=excluded.data').run(nextId,JSON.stringify(row));
       else db.prepare('INSERT INTO products VALUES (?,?,?) ON CONFLICT(id) DO UPDATE SET category_id=excluded.category_id,data=excluded.data').run(nextId,row.categoryId,JSON.stringify(row));
+      // История и запись фиксируются одной транзакцией: неуспешное сохранение не оставляет событие.
+      db.prepare('INSERT INTO history VALUES (?,?,?,?,?,?,?)').run(state.revision+1,kind,nextId,id?'update':'create',new Date().toISOString(),previous?JSON.stringify(previous):null,JSON.stringify(row));
       db.prepare("UPDATE metadata SET value=? WHERE key='revision'").run(String(state.revision+1));db.exec('COMMIT');
       return read();
     }catch(error){db.exec('ROLLBACK');throw error;}
   }
-  return {read,saveCategory:(body,options)=>save('categories',body,options),saveProduct:(body,options)=>save('products',body,options),close:()=>db.close()};
+  return {read,history,saveCategory:(body,options)=>save('categories',body,options),saveProduct:(body,options)=>save('products',body,options),close:()=>db.close()};
 }
