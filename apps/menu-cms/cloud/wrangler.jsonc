@@ -24,6 +24,8 @@
     }
   ],
   "vars": {
-    "ADMIN_EMAIL": "artem.girda@gmail.com"
+    "ADMIN_EMAIL": "artem.girda@gmail.com",
+    "ACCESS_TEAM_DOMAIN": "quiet-field-901f.cloudflareaccess.com",
+    "ACCESS_AUD": "25dbf1670692f9952e28dc945bc8f63570df4055ba70a889c84524be1ccccc17"
   }
 }
