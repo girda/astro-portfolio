@@ -14,7 +14,7 @@ export function createCloudStore(db,images){
     const entries=results.slice(0,limit).map(row=>JSON.parse(row.data));
     return {entries,nextBefore:results.length>limit?entries.at(-1).revision:null};
   }
-  async function save(kind,body,{id,revision}={}){
+  async function save(kind,body,{id,revision,actor}={}){
     if(!body||typeof body!=='object'||Array.isArray(body))throw new CmsError(400,'Нужен объект данных.');
     if(!Number.isSafeInteger(revision))throw new CmsError(428,'Обнови данные перед сохранением.');
     if(kind==='products'&&!images.includes(body.image))throw new CmsError(400,'Выбери фото из библиотеки.');
@@ -26,7 +26,7 @@ export function createCloudStore(db,images){
     const row={id:id||`${kind==='categories'?'category':'product'}-${crypto.randomUUID()}`,...Object.fromEntries(fields.map(key=>[key,body[key]]))};
     state.catalogue[kind]=id?state.catalogue[kind].map(item=>item.id===id?row:item):[...state.catalogue[kind],row];
     try{validateCatalogue(state.catalogue)}catch(error){throw new CmsError(400,error.message)}
-    const event={revision:revision+1,kind,entityId:row.id,action:id?'update':'create',createdAt:new Date().toISOString(),before,after:row};
+    const event={revision:revision+1,kind,entityId:row.id,action:id?'update':'create',createdAt:new Date().toISOString(),before,after:row,...(actor?{actor:{id:actor.id,name:actor.name}}:{})};
     try{
       // Уникальная ревизия истории блокирует конкурирующее сохранение. D1 batch откатывает обе операции при конфликте.
       await db.batch([

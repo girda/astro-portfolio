@@ -22,5 +22,8 @@
       "database_name": "hirda-menu-cms",
       "database_id": "68122d51-125a-4ad3-8873-c812967b5899"
     }
-  ]
+  ],
+  "vars": {
+    "ADMIN_EMAIL": "artem.girda@gmail.com"
+  }
 }

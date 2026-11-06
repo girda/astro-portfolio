@@ -323,7 +323,7 @@ async function loadHistory(append = false) {
       const details = node('details',undefined,'history-entry');
       const summary = node('summary');
       summary.append(node('strong',`${entry.action === 'create' ? 'Создана' : 'Изменена'} ${entry.kind === 'categories' ? 'категория' : 'позиция'}: ${entry.after.name}`));
-      summary.append(node('span',`${historyDate.format(new Date(entry.createdAt))} · Версия ${entry.revision} · Локальная CMS`,'history-meta'));
+      summary.append(node('span',`${historyDate.format(new Date(entry.createdAt))} · Версия ${entry.revision} · ${entry.actor?.name || 'Локальная CMS'}`,'history-meta'));
       const changes = node('dl',undefined,'history-changes');
       for(const key of Object.keys(entry.after)) {
         if(key === 'id' || entry.before?.[key] === entry.after[key]) continue;

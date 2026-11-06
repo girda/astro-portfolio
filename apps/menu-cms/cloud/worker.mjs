@@ -1,4 +1,5 @@
 import {authorize} from './auth.mjs';
+import {createUserStore,canRead,canWrite,requireSuper} from './users.mjs';
 import {createCloudStore,CmsError} from './store.mjs';
 import catalogue from '../../streetfood/src/data/catalogue.json';
 import {createMenuView} from '../../streetfood/src/data/menu-view.mjs';
@@ -15,18 +16,30 @@ async function readBody(request){
 }
 export default {async fetch(request,env){
   // Проверяем подпись и адрес даже при прямом обращении к workers.dev и к статическим файлам.
-  if(!await authorize(request,env))return json({error:'Вход в CMS доступен только владельцу через Cloudflare Access.'},403);
+  const identity=await authorize(request,env);
+  if(!identity)return json({error:'Подтверди email через Cloudflare Access.'},403);
   const url=new URL(request.url),path=url.pathname;
   try{
     if(request.headers.get('sec-fetch-site')==='cross-site'||(request.headers.has('origin')&&request.headers.get('origin')!==url.origin))throw new CmsError(403,'Запрос с другого сайта запрещён.');
+    const accounts=createUserStore(env.DB);
+    const user=await accounts.identify(identity);
+    if(path==='/api/me'&&request.method==='GET')return json({user});
+    if(path==='/api/me'&&request.method==='PUT')return json({user:await accounts.profile(user,await readBody(request))});
+    if(path==='/api/users'&&request.method==='GET')return json(await accounts.list(user,url.searchParams.get('after')||''));
+    const userMatch=path.match(/^\/api\/users\/([a-z0-9-]+)$/);
+    if(userMatch&&request.method==='PATCH')return json({user:await accounts.update(user,userMatch[1],await readBody(request),env.ADMIN_EMAIL)});
+    const accountAssets=['/','/account.html','/cloud-shell.js','/account.css','/admin.css'];
+    if(!canRead(user)&&!accountAssets.includes(path))throw new CmsError(403,'Доступ к контенту ожидает одобрения администратора.');
+    if(path==='/users.html'||path==='/users.js')requireSuper(user);
     const store=createCloudStore(env.DB,images);
     if(path==='/api/catalogue'&&request.method==='GET')return json(await store.read());
     if(path==='/api/images'&&request.method==='GET')return json(images);
     if(path==='/api/history'&&request.method==='GET')return json(await store.history({before:url.searchParams.has('before')?Number(url.searchParams.get('before')):undefined,limit:url.searchParams.has('limit')?Number(url.searchParams.get('limit')):30}));
     const match=path.match(/^\/api\/(categories|products)(?:\/([a-z0-9-]+))?$/);
     if(match){
+      if(!canWrite(user))throw new CmsError(403,'Роль позволяет только просмотр.');
       if(!((request.method==='POST'&&!match[2])||(request.method==='PUT'&&match[2])))throw new CmsError(405,'Метод не поддерживается.');
-      return json(await store.save(match[1],await readBody(request),{id:match[2],revision:request.headers.has('if-match')?Number(request.headers.get('if-match')):undefined}),request.method==='POST'?201:200);
+      return json(await store.save(match[1],await readBody(request),{actor:user,id:match[2],revision:request.headers.has('if-match')?Number(request.headers.get('if-match')):undefined}),request.method==='POST'?201:200);
     }
     if(!['GET','HEAD'].includes(request.method))throw new CmsError(405,'Метод не поддерживается.');
     let response=await env.ASSETS.fetch(request);

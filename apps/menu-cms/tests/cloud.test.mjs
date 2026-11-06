@@ -21,3 +21,15 @@ test('cloud authorization fails closed without configuration or signed identity'
  assert.equal(await authorize(new Request('https://cms.example/'),{}),false);
  assert.equal(await authorize(new Request('https://cms.example/',{headers:{'Cf-Access-Authenticated-User-Email':'artem.girda@gmail.com'}}),{ACCESS_TEAM_DOMAIN:'example.cloudflareaccess.com',ACCESS_AUD:'test',ADMIN_EMAIL:'artem.girda@gmail.com'}),false);
 });
+
+test('Access JWT requires trusted signature, issuer, audience and unexpired claims',async()=>{
+ const {generateKeyPair,SignJWT}=await import('jose');const {verifyIdentity}=await import('../cloud/auth.mjs');
+ const key=await generateKeyPair('RS256');const other=await generateKeyPair('RS256');
+ const issuer='https://test.cloudflareaccess.com';
+ const sign=(audience='cms',expiration='5m')=>new SignJWT({email:'test@example.com'}).setProtectedHeader({alg:'RS256'}).setSubject('verified-user').setIssuedAt().setIssuer(issuer).setAudience(audience).setExpirationTime(expiration).sign(key.privateKey);
+ const token=await sign();assert.equal((await verifyIdentity(token,key.publicKey,issuer,'cms')).email,'test@example.com');
+ assert.equal(await verifyIdentity(token,other.publicKey,issuer,'cms'),false);
+ assert.equal(await verifyIdentity(token,key.publicKey,'https://wrong.cloudflareaccess.com','cms'),false);
+ assert.equal(await verifyIdentity(await sign('other'),key.publicKey,issuer,'cms'),false);
+ assert.equal(await verifyIdentity(await sign('cms',0),key.publicKey,issuer,'cms'),false);
+});
