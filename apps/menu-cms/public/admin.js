@@ -9,10 +9,30 @@ const node = (tag,text,className) => {
 };
 const money = cents => new Intl.NumberFormat('de-DE',{style:'currency',currency:'EUR'}).format(cents/100);
 const imageLabels = {
-  'chicken.webp':'Бургер с курицей', 'beef.webp':'Говяжий бургер',
-  'double.webp':'Двойной бургер', 'plate.webp':'Горячее блюдо',
-  'sweet.webp':'Батат фри', 'fries.webp':'Картофель фри',
-  'croissant.webp':'Круассан', 'coffee.webp':'Кофе',
+  "chicken.webp": "Chicken & Cheddar",
+  "beef.webp": "Classic Beef Burger",
+  "double.webp": "Double Cheeseburger",
+  "bbq.webp": "Smoky BBQ Burger",
+  "crispy.webp": "Crispy Chicken",
+  "chili.webp": "Chili Cheese Burger",
+  "plate.webp": "Herzhaftes Frühstück",
+  "brunch.webp": "Chicken Brunch",
+  "morning.webp": "Morning Plate",
+  "croissant.webp": "Buttercroissant",
+  "almond.webp": "Mandelcroissant",
+  "bakery-set.webp": "Croissant & Kaffee",
+  "green.webp": "Green Lunch Bowl",
+  "chicken-bowl.webp": "Chicken Bowl",
+  "sweet.webp": "Süßkartoffel-Pommes",
+  "fries.webp": "Pommes Frites",
+  "loaded.webp": "Loaded Fries",
+  "duo.webp": "Pommes-Duo",
+  "coffee.webp": "Cappuccino",
+  "latte.webp": "Iced Latte",
+  "flat-white.webp": "Flat White",
+  "filter.webp": "Filterkaffee",
+  "oat.webp": "Oat Latte",
+  "espresso.webp": "Espresso"
 };
 const fieldLabels = {
   name:'Название', categoryId:'Категория', description:'Описание', price:'Цена',
