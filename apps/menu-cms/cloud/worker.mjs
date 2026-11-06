@@ -1,4 +1,5 @@
 import {authorize} from './auth.mjs';
+import {isAllowedRequestSource} from './request-source.mjs';
 import {createUserStore,canRead,canWrite,requireSuper} from './users.mjs';
 import {createCloudStore,CmsError} from './store.mjs';
 import catalogue from '../../streetfood/src/data/catalogue.json';
@@ -20,7 +21,7 @@ export default {async fetch(request,env){
   if(!identity)return json({error:'Подтверди email через Cloudflare Access.'},403);
   const url=new URL(request.url),path=url.pathname;
   try{
-    if(request.headers.get('sec-fetch-site')==='cross-site'||(request.headers.has('origin')&&request.headers.get('origin')!==url.origin))throw new CmsError(403,'Запрос с другого сайта запрещён.');
+    if(!isAllowedRequestSource(request))throw new CmsError(403,'Запрос с другого сайта запрещён.');
     const accounts=createUserStore(env.DB);
     const user=await accounts.identify(identity);
     if(path==='/api/me'&&request.method==='GET')return json({user});
