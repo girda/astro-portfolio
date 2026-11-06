@@ -1,0 +1,26 @@
+{
+  "name": "hirda-menu-cms",
+  "main": "worker.mjs",
+  "compatibility_date": "2026-11-06",
+  "account_id": "ad933102ca4c570aa0c733a42f4eee7c",
+  "workers_dev": true,
+  "assets": {
+    "directory": "../.cloud-assets",
+    "binding": "ASSETS",
+    "run_worker_first": true
+  },
+  "observability": {
+    "enabled": true,
+    "traces": {
+      "enabled": true,
+      "head_sampling_rate": 0.01
+    }
+  },
+  "d1_databases": [
+    {
+      "binding": "DB",
+      "database_name": "hirda-menu-cms",
+      "database_id": "68122d51-125a-4ad3-8873-c812967b5899"
+    }
+  ]
+}
