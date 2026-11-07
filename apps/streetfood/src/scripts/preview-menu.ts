@@ -13,6 +13,7 @@ export function renderPreview(data:MenuData) {
     open.dataset.open=p.id;open.setAttribute('aria-label',`${p.name}, ${formatMoney(p.price)}, Details und Extras`);
     const img=card.querySelector<HTMLImageElement>('img')!;img.src=p.image;img.alt=p.name;
     card.querySelector('h2')!.textContent=p.name;card.querySelector('strong')!.textContent=formatMoney(p.price);
+    const description=card.querySelector('.dish-description');if(description)description.textContent=p.description;
     card.querySelector('.prep-time')!.textContent=`${p.time} MIN.`;
     const favorite=card.querySelector<HTMLButtonElement>('[data-favorite]')!;
     favorite.dataset.favorite=p.id;favorite.setAttribute('aria-label',`${p.name} merken`);

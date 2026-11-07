@@ -1853,6 +1853,14 @@
       "published": true,
       "evidence": "native_imagegen_2026-11-06",
       "source": "Original generated Street Food product photograph, commissioned for this demo."
+    },
+    {
+      "file": "apps/streetfood/public/assets/menu/pizzeria-hero.webp",
+      "sha256": "b51d2914428300d406db5928936f3e07d960e86e9d1111da38cb906f1da07bb2",
+      "bytes": 105508,
+      "published": false,
+      "evidence": "Generated with imagegen for pizzeria desktop decoration on 2026-11-07",
+      "original": "exec-ffbad89f-e676-42b0-85ac-eac2612ef6dc.png"
     }
   ]
 }

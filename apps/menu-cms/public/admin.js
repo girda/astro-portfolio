@@ -342,19 +342,42 @@ async function loadHistory(append = false) {
   } catch(error) {$('#history-status').textContent = error.message;}
   finally {historyBusy = false; $('#reload-history').disabled = false; $('#more-history').disabled = false;}
 }
-function showView(history) {
-  $('#menu-view').hidden = history; $('#history-view').hidden = !history;
-  for(const [id,active] of [['show-menu',!history],['show-history',history]]) {
-    if(active) $('#'+id).setAttribute('aria-current','page'); else $('#'+id).removeAttribute('aria-current');
+const views={menu:['Управление меню','Контент','products-title'],history:['История изменений','История','history-title'],preview:['Предпросмотр меню','Предпросмотр','preview-title']};
+function showView(name) {
+  for(const id of Object.keys(views)){
+    $('#'+id+'-view').hidden=id!==name;
+    const button=$('#show-'+id);
+    if(id===name)button.setAttribute('aria-current','page');else button.removeAttribute('aria-current');
   }
-  $('#page-title').textContent = history ? 'История изменений' : 'Управление меню';
-  $('#current-section').textContent = history ? 'История' : 'Контент';
-  $('.skip-link').href = history ? '#history-title' : '#products-title';
-  if(history) void loadHistory();
+  const [title,section,target]=views[name];
+  $('#page-title').textContent=title;$('#current-section').textContent=section;$('.skip-link').href='#'+target;
+  if(name==='history')void loadHistory();
   window.scrollTo({top:0,behavior:'instant'});
 }
-$('#show-menu').addEventListener('click',() => showView(false));
-$('#show-history').addEventListener('click',() => showView(true));
+for(const name of Object.keys(views))$('#show-'+name).addEventListener('click',()=>showView(name));
+const appearances=[
+  {id:'streetfood',name:'Street Food',description:'Светлое меню с крупными фотографиями.',path:''},
+  {id:'diner',name:'Diner',description:'Графит, контрастные цены и характер закусочной.',path:'diner/'},
+  {id:'pizzeria',name:'Pizzeria',description:'Тёплая бумага, бордовый и итальянская типографика.',path:'pizzeria/'}
+];
+let appearance='streetfood';
+try{const saved=localStorage.getItem('my-menu:appearance');if(appearances.some(item=>item.id===saved))appearance=saved;}catch{}
+function syncAppearance(){
+  for(const button of document.querySelectorAll('[data-appearance-select]')){
+    const selected=button.dataset.appearanceSelect===appearance;
+    button.setAttribute('aria-pressed',String(selected));button.textContent=selected?'Выбрано':'Выбрать оформление';
+  }
+}
+for(const item of appearances){
+  const card=node('article',undefined,'appearance-card');
+  const image=document.createElement('img');image.src='/appearance-previews/'+item.id+'.png';image.alt='Первый экран меню '+item.name;image.width=640;image.height=460;image.loading='lazy';
+  const body=node('div',undefined,'appearance-body');body.append(node('h3',item.name),node('p',item.description));
+  const actions=node('div',undefined,'appearance-actions');const select=node('button','Выбрать оформление');select.dataset.appearanceSelect=item.id;
+  select.addEventListener('click',()=>{appearance=item.id;try{localStorage.setItem('my-menu:appearance',appearance);}catch{}syncAppearance();$('#appearance-status').textContent='Выбрано: '+item.name+'.';});
+  const open=node('a','Открыть меню','secondary');open.href='/preview/'+item.path;open.target='_blank';open.rel='noopener';
+  actions.append(select,open);body.append(actions);card.append(image,body);$('#appearance-grid').append(card);
+}
+syncAppearance();
 $('#reload-history').addEventListener('click',() => loadHistory());
 $('#more-history').addEventListener('click',() => loadHistory(true));
 

@@ -13,7 +13,7 @@
   <nav aria-label="Разделы CMS">
     <button id="show-menu" class="nav-item" aria-current="page"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="4" y="3" width="16" height="18" rx="2"/><path d="M8 8h8M8 12h8M8 16h5"/></svg><span>Контент меню</span></button>
     <button id="show-history" class="nav-item"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 11a9 9 0 1 1 2 7M3 4v7h7M12 7v5l3 2"/></svg><span>История</span></button>
-    <a class="nav-item" href="/preview/" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="4" width="18" height="14" rx="2"/><path d="M8 22h8M12 18v4M3 8h18"/></svg><span>Предпросмотр</span></a>
+    <button id="show-preview" class="nav-item"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="4" width="18" height="14" rx="2"/><path d="M8 22h8M12 18v4"/></svg><span>Предпросмотр</span></button>
   </nav>
   <p class="nav-note">Работаешь с черновиком.<br>Публичное меню не меняется.</p>
 </aside>
@@ -44,6 +44,12 @@
       <div class="section-head"><div><h2 id="history-title" tabindex="-1">История изменений</h2><p class="muted">Создание, редактирование и видимость категорий и продуктов.</p></div><button id="reload-history" class="secondary small">Обновить историю</button></div>
       <p class="history-note">История ведётся с момента подключения этой функции. Более ранние изменения не записаны. Автор — локальная CMS, без отдельных пользователей.</p>
       <p id="history-status" role="status" aria-live="polite"></p><div id="history-list"></div><button id="more-history" class="secondary" hidden>Показать ещё</button>
+    </section>
+    <section id="preview-view" class="history-panel" hidden aria-labelledby="preview-title">
+      <div class="section-head"><div><h2 id="preview-title" tabindex="-1">Одно меню. Три оформления.</h2><p class="muted">Категории, блюда и цены общие. Меняется только оформление.</p></div></div>
+      <div class="appearance-grid" id="appearance-grid"></div>
+      <p id="appearance-status" role="status" aria-live="polite"></p>
+      <p class="muted">Выбор сохраняется в этом браузере. Предпросмотр открывает актуальный черновик CMS; публичное меню обновляется отдельно.</p>
     </section>
   </main>
 </div>

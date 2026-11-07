@@ -1,0 +1,63 @@
+/* Одна разметка и корзина; оформления меняют только визуальные токены. */
+html[data-appearance="diner"]{--menu-paper:#242622;--menu-panel:#2c2e29;--menu-ink:#f7f2e7;--menu-muted:#c2beb2;--menu-accent:#b83e32;--menu-line:#ffffff26;--menu-price:#17669a;--menu-heading:Impact,'Arial Narrow',sans-serif}
+html[data-appearance="pizzeria"]{--menu-paper:#f8f3e8;--menu-panel:#fffcf5;--menu-ink:#342f25;--menu-muted:#716857;--menu-accent:#a62f25;--menu-line:#d9cdb9;--menu-price:#a62f25;--menu-heading:Georgia,'Times New Roman',serif}
+html:not([data-appearance="streetfood"]){background:var(--menu-paper);color:var(--menu-ink)}
+[data-appearance="streetfood"] .dish-info>div{min-width:0}
+html:not([data-appearance="streetfood"]) :is(.food-app,.app-header,.categories,.search-bar){background:var(--menu-paper);color:var(--menu-ink)}
+html:not([data-appearance="streetfood"]) .food-app{max-width:1360px;padding-inline:40px}
+html:not([data-appearance="streetfood"]) .app-header{padding:24px 0;border-bottom:1px solid var(--menu-line)}
+html:not([data-appearance="streetfood"]) .wordmark{display:flex;align-items:center;justify-content:center;gap:12px;font-family:var(--menu-heading);font-size:30px;font-weight:500;letter-spacing:-.5px}
+.menu-emblem{width:38px;height:42px;fill:none;stroke:var(--menu-accent);stroke-width:2.5;stroke-linecap:round;stroke-linejoin:round}
+html:not([data-appearance="streetfood"]) .location-button{color:var(--menu-muted);font-size:12px}
+.menu-intro{min-height:310px;display:grid;grid-template-columns:1fr .8fr;align-items:center;position:relative;gap:40px;overflow:hidden;padding:30px 0 40px}
+.menu-intro>div{z-index:1;max-width:620px}.intro-kicker{text-transform:uppercase;letter-spacing:2px;font-size:11px;font-weight:700;color:var(--menu-muted)}
+.menu-intro h1{font-family:var(--menu-heading);font-weight:500;font-size:clamp(36px,4.5vw,62px);line-height:1.08;letter-spacing:-1.5px;margin:18px 0}
+.menu-intro p:not(.intro-kicker){font-size:14px;color:var(--menu-muted);line-height:1.6;max-width:340px}.intro-stamp{display:inline-block;border-top:1px solid var(--menu-line);padding-top:15px;margin-top:10px;text-transform:uppercase;font-size:10px;letter-spacing:2px}
+.menu-intro>img{width:100%;height:260px;object-fit:cover;border-radius:50% 45% 48% 40%;transform:rotate(-6deg)}
+.intro-number{position:absolute;right:15px;bottom:35px;font-family:var(--menu-heading);font-size:25px;padding:12px 20px;background:var(--menu-accent);color:#fff;transform:rotate(7deg);border:2px solid var(--menu-paper)}
+html:not([data-appearance="streetfood"]) .categories{gap:8px;padding:16px 0;border-block:1px solid var(--menu-line);box-shadow:none;scroll-padding-inline:0}
+html:not([data-appearance="streetfood"]) .category{flex-direction:row;gap:0;min-width:max-content;min-height:44px;padding:11px 22px;border:1px solid var(--menu-line);border-radius:5px;color:var(--menu-ink);font-size:14px;transition:background .18s,color .18s}
+html:not([data-appearance="streetfood"]) .category>span{display:none}
+html:not([data-appearance="streetfood"]) .category[aria-pressed="true"]{background:var(--menu-accent);border-color:var(--menu-accent);color:#fff}
+html:not([data-appearance="streetfood"]) .menu-caption{padding:30px 0 24px}.menu-caption h2{font-family:var(--menu-heading);font-size:32px;font-weight:500;margin:0}
+html:not([data-appearance="streetfood"]) .menu-caption>span{color:var(--menu-muted)}
+html:not([data-appearance="streetfood"]) .dish-grid{padding:0;gap:20px 36px}
+html:not([data-appearance="streetfood"]) .dish-card{background:transparent;border-radius:0;box-shadow:none;border-bottom:1px solid var(--menu-line);padding-bottom:16px;overflow:visible}
+html:not([data-appearance="streetfood"]) .dish-open{display:grid;grid-template-columns:132px 1fr;gap:20px;min-height:168px;padding:12px 0 42px;color:var(--menu-ink)}
+html:not([data-appearance="streetfood"]) .dish-photo{aspect-ratio:1;background:var(--menu-panel);border-radius:50%;align-self:start}
+html:not([data-appearance="streetfood"]) .dish-photo img{object-fit:cover}
+html:not([data-appearance="streetfood"]) .prep-time{background:var(--menu-paper);font-size:9px;letter-spacing:0;right:22%;padding:5px 8px}
+html:not([data-appearance="streetfood"]) .dish-info{padding:5px 0 0;gap:10px;align-items:flex-start;min-width:0}
+html:not([data-appearance="streetfood"]) .dish-info>div{min-width:0}
+html:not([data-appearance="streetfood"]) .dish-info h2{font-size:19px;letter-spacing:-.3px;line-height:1.2}
+.dish-description{font-size:12px;line-height:1.6;color:var(--menu-muted);margin:10px 0 0;display:-webkit-box;-webkit-line-clamp:3;-webkit-box-orient:vertical;overflow:hidden}
+html:not([data-appearance="streetfood"]) .dish-info>strong{color:var(--menu-price);font-size:17px;line-height:1.5}
+html:not([data-appearance="streetfood"]) .favorite{top:auto;bottom:12px;right:50px;background:transparent;color:var(--menu-muted);width:36px;height:36px}
+html:not([data-appearance="streetfood"]) .favorite[aria-pressed="true"]{color:var(--menu-accent)}
+html:not([data-appearance="streetfood"]) .favorite svg{width:21px;height:21px}
+html:not([data-appearance="streetfood"]) .quick-add{right:0;bottom:12px;background:var(--menu-accent);color:white;width:36px;height:36px;border-radius:5px}
+html:not([data-appearance="streetfood"]) .cart-dock{width:min(650px,calc(100% - 40px));bottom:20px;border-radius:12px;padding:20px 24px;background:var(--menu-accent);color:#fff}
+html:not([data-appearance="streetfood"]) .cart-dock>span,html:not([data-appearance="streetfood"]) .cart-dock strong{font-size:16px}
+html:not([data-appearance="streetfood"]) .demo-note{color:var(--menu-muted);margin-inline:0}
+html:not([data-appearance="streetfood"]) .food-dialog .demo-note{color:#666;margin-inline:25px}
+[data-appearance="diner"] .food-app{background-image:radial-gradient(#ffffff09 .8px,transparent .8px);background-size:4px 4px}
+[data-appearance="diner"] .dish-info>strong{background:var(--menu-price);color:#fff!important;clip-path:polygon(8% 0,92% 0,100% 15%,95% 80%,50% 100%,5% 80%,0 15%);padding:6px 9px 10px;font-size:15px!important}
+[data-appearance="pizzeria"] .dish-info h2{font-family:var(--menu-heading);font-size:23px!important;font-weight:500}
+[data-appearance="pizzeria"] .menu-intro{border-bottom:5px solid var(--menu-accent)}
+@media(hover:hover){html:not([data-appearance="streetfood"]) .category:hover{background:var(--menu-accent);color:#fff}html:not([data-appearance="streetfood"]) .quick-add:hover{background:var(--menu-price);transform:none}html:not([data-appearance="streetfood"]) .icon-button:hover{background:var(--menu-line)}html:not([data-appearance="streetfood"]) .cart-dock:hover{filter:brightness(1.12)}}
+@media(max-width:1000px){html:not([data-appearance="streetfood"]) .food-app{padding-inline:24px}html:not([data-appearance="streetfood"]) .dish-open{grid-template-columns:96px 1fr;gap:14px}html:not([data-appearance="streetfood"]) .dish-info{flex-wrap:wrap}.menu-intro{gap:24px}}
+@media(max-width:650px){
+/* В QR-меню блюда важнее рекламного hero. */
+.menu-intro{display:none}html:not([data-appearance="streetfood"]) .food-app{padding-inline:16px}
+html:not([data-appearance="streetfood"]) .app-header{padding:14px 0;gap:6px}html:not([data-appearance="streetfood"]) .wordmark{font-size:22px;gap:7px}.menu-emblem{width:25px;height:30px}
+html:not([data-appearance="streetfood"]) .location-button{font-size:11px;margin-top:0}
+html:not([data-appearance="streetfood"]) .categories{margin-inline:-16px;padding:12px 16px;scroll-padding-inline:16px}
+html:not([data-appearance="streetfood"]) .category{padding:10px 16px;font-size:13px}
+html:not([data-appearance="streetfood"]) .menu-caption{padding:20px 0 8px}.menu-caption h2{font-size:26px}
+html:not([data-appearance="streetfood"]) .dish-grid{grid-template-columns:1fr;gap:4px}
+html:not([data-appearance="streetfood"]) .dish-open{grid-template-columns:104px 1fr;gap:14px;min-height:160px;padding-bottom:44px}
+html:not([data-appearance="streetfood"]) .dish-info{padding-top:0}.dish-description{-webkit-line-clamp:2;margin-top:6px}
+html:not([data-appearance="streetfood"]) .dish-info h2{font-size:17px}html:not([data-appearance="streetfood"]) .dish-info>strong{font-size:15px}
+html:not([data-appearance="streetfood"]) .cart-dock{width:calc(100% - 24px);bottom:calc(12px + env(safe-area-inset-bottom));padding:18px 15px;gap:8px}
+html:not([data-appearance="streetfood"]) .cart-dock>span,html:not([data-appearance="streetfood"]) .cart-dock strong{font-size:14px}html:not([data-appearance="streetfood"]) .search-bar{padding:14px 0}
+}

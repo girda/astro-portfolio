@@ -40,9 +40,9 @@ export async function startCms({port=8790,path}={}) {
       }
       if(req.method!=='GET'&&req.method!=='HEAD')throw new CmsError(405,'Метод не поддерживается.');
       let file,type;
-      if(pathname==='/preview/'){
+      if(/^\/preview\/(?:diner\/|pizzeria\/)?$/.test(pathname)){
         let html;
-        try{html=readFileSync(new URL('index.html',buildDir),'utf8');}catch{throw new CmsError(503,'Сначала выполни npm run build в корне проекта.');}
+        try{html=readFileSync(new URL(pathname.replace('/preview/','')+'index.html',buildDir),'utf8');}catch{throw new CmsError(503,'Сначала выполни npm run build в корне проекта.');}
         const data=JSON.stringify(createMenuView(store.read().catalogue,'/preview/')).replaceAll('<','\\u003c');
         if(!/<script\b[^>]*\bid="menu-data"[^>]*>/.test(html))throw new CmsError(503,'Обнови сборку меню для CMS-предпросмотра.');
         html=html.replace(/(<script\b[^>]*\bid="menu-data"[^>]*>)[\s\S]*?(<\/script>)/,(_,a,b)=>a+data+b).replace('<html','<html data-menu-preview');
@@ -51,6 +51,7 @@ export async function startCms({port=8790,path}={}) {
         res.writeHead(200,{'Content-Type':'text/html; charset=utf-8'});return res.end(html);
       }
       if(pathname==='/'||pathname==='/admin.css'||pathname==='/admin.js'||pathname==='/editor-state.mjs'){file=new URL(pathname==='/'?'index.html':pathname.slice(1),publicDir);type=pathname.endsWith('.css')?'text/css':(pathname.endsWith('.js')||pathname.endsWith('.mjs'))?'text/javascript':'text/html';}
+      else if(/^\/appearance-previews\/(?:streetfood|diner|pizzeria)\.png$/.test(pathname)){file=new URL(pathname.slice(1),publicDir);type='image/png';}
       else if(/^\/(?:preview\/)?assets\/menu\/[a-z0-9-]+\.webp$/.test(pathname)){file=new URL(pathname.split('/').at(-1),imagesDir);type='image/webp';}
       else if(/^\/preview\/_astro\/[a-zA-Z0-9_.-]+$/.test(pathname)){const name=pathname.split('/').at(-1);file=new URL('_astro/'+name,buildDir);type=name.endsWith('.css')?'text/css':name.endsWith('.js')?'text/javascript':name.endsWith('.woff2')?'font/woff2':'application/octet-stream';}
       else if(pathname==='/preview/assets/food.svg'){file=new URL('../streetfood/public/assets/food.svg',import.meta.url);type='image/svg+xml';}

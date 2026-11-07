@@ -44,7 +44,7 @@ export default {async fetch(request,env){
     }
     if(!['GET','HEAD'].includes(request.method))throw new CmsError(405,'Метод не поддерживается.');
     let response=await env.ASSETS.fetch(request);
-    if(path==='/preview/'&&response.ok){
+    if(/^\/preview\/(?:diner\/|pizzeria\/)?$/.test(path)&&response.ok){
       const data=JSON.stringify(createMenuView((await store.read()).catalogue,'/preview/')).replaceAll('<','\\u003c');
       const html=(await response.text()).replace(/(<script\b[^>]*\bid="menu-data"[^>]*>)[\s\S]*?(<\/script>)/,(_,a,b)=>a+data+b).replace('<html','<html data-menu-preview');
       response=new Response(html,{headers:{'Content-Type':'text/html; charset=utf-8'}});
