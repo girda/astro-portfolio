@@ -1,0 +1,27 @@
+/* На сверхшироких экранах сохраняем композицию и читаемую длину строк.
+   Общий фон остаётся на всю ширину; контент не масштабируем через zoom. */
+:root{--site-stage-max:1920px;--site-hero-max-height:1040px}
+@media(min-width:1921px){
+  :is(main>.hero,body>.hero,section.studio-hero,.main-hero,.hero.wrap){
+    width:100%;max-width:var(--site-stage-max)!important;margin-inline:auto!important;
+  }
+  /* Эти два hero рассчитывают внутренние поля от ширины экрана.
+     После ограничения сцены расчёт должен учитывать ширину самой сцены. */
+  body[data-demo=autoservice] .hero.wrap,
+  body[data-demo=nails] .hero.wrap{
+    padding-inline:max(40px,calc((min(100vw,var(--site-stage-max)) - 1280px)/2));
+  }
+  body[data-demo=ecohomes] .hero{
+    height:var(--site-hero-max-height);max-height:var(--site-hero-max-height);
+  }
+  .paper-header{max-width:var(--site-stage-max);margin-inline:auto}
+  .paper-header,.paper-end{padding-inline:max(48px,calc((min(100vw,var(--site-stage-max)) - 1440px)/2))}
+  .section-container{max-width:1440px!important;margin-inline:auto}
+}
+@media(min-width:1921px){
+  body[data-demo=nails] .editorial-hero .hero-copy{
+    min-width:0;padding-left:max(40px,calc((min(100vw,var(--site-stage-max)) - 1280px)/2));padding-right:7%;
+  }
+  body[data-demo=barbershop] .services>*{max-width:1440px;margin-inline:auto}
+}
+@media(min-width:1921px){section.studio-hero .studio-image{object-fit:cover;object-position:center}}

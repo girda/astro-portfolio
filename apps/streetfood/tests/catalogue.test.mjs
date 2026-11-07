@@ -4,10 +4,10 @@ import { readFileSync, existsSync } from 'node:fs';
 import { validateCatalogue } from '../src/data/catalogue-contract.mjs';
 const catalogue = JSON.parse(readFileSync(new URL('../src/data/catalogue.json',import.meta.url),'utf8'));
 
-test('menu catalogue preserves 24 products, six real categories and local media', () => {
+test('menu catalogue preserves the shared burger and Italian catalogue and local media', () => {
   assert.equal(validateCatalogue(catalogue), catalogue);
-  assert.equal(catalogue.products.length,24);
-  assert.equal(catalogue.categories.length,6);
+  assert.equal(catalogue.products.length,28);
+  assert.equal(catalogue.categories.length,9);
   for (const product of catalogue.products) assert.ok(existsSync(new URL(`../public/assets/menu/${product.image}`,import.meta.url)));
 });
 
