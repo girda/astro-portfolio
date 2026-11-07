@@ -884,3 +884,9 @@ dialog::backdrop {
     scroll-behavior:auto!important
   }
 }
+
+/* Единая стрелка без наложения на текст; нативная клавиатура select сохранена. */
+select{appearance:none;padding-right:36px;background-color:white;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 24 24' fill='none' stroke='%23526a7a' stroke-width='1.8' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='m6 9 6 6 6-6'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:right 12px center;background-size:16px}
+.brand-mark svg{width:28px;height:28px;fill:none;stroke:currentColor;stroke-width:2;stroke-linejoin:round;stroke-linecap:round}
+.confirmation{width:min(480px,calc(100% - 32px));padding:28px;border-radius:16px}
+.confirmation h2{margin:0 0 12px;font-size:22px}.confirmation p{color:var(--muted);line-height:1.6}.confirmation-actions{display:flex;gap:10px;flex-wrap:wrap;margin-top:24px}.confirmation-actions button{flex:1;min-width:160px}

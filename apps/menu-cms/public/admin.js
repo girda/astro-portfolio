@@ -138,10 +138,9 @@ function render() {
     info.append(node('h3',product.name),node('p',`${category.name} · ${product.available ? 'Включён' : 'Скрыт'}${category.active ? '' : ' · категория скрыта'}`));
     const actions = node('div',undefined,'product-actions');
     const edit = action('Изменить',`Изменить ${product.name}`,() => open('product',product)); edit.dataset.edit = '';
-    const copy = action('Копия',`Создать копию ${product.name}`,() => open('product',null,product));
     const toggle = action(product.available ? 'Скрыть' : 'Показать',`${product.available ? 'Скрыть' : 'Показать'} ${product.name}`,() => toggleProduct(product));
     toggle.dataset.toggle = ''; toggle.setAttribute('aria-pressed',String(product.available));
-    actions.append(node('strong',money(product.price),'price'),edit,copy,toggle);
+    actions.append(node('strong',money(product.price),'price'),edit,toggle);
     row.append(image,info,actions); list.append(row);
   }
   if(!shown.length) {
@@ -200,13 +199,13 @@ function applyValues(values) {
   const image = $('#edit-form').elements.namedItem('image');
   if(image) $('#selected-photo').src = '/assets/menu/' + image.value;
 }
-function open(kind,record,copy) {
+function open(kind,record) {
   if(!state || busy) return;
-  editing = {kind,record:record ? structuredClone(record) : null,copy:!!copy};
+  editing = {kind,record:record ? structuredClone(record) : null};
   $('#edit-form').reset(); $('#fields').replaceChildren();
   $('#form-status').textContent = ''; $('#refresh-conflict').hidden = true;
-  $('#editor-title').textContent = copy ? 'Копия продукта' : `${record ? 'Изменить' : 'Добавить'} ${kind === 'category' ? 'категорию' : 'продукт'}`;
-  const row = record || (copy ? {...copy,name:copy.name.slice(0,151) + ' (Kopie)',sortOrder:Math.max(-1,...state.catalogue.products.map(p => p.sortOrder))+1} : {});
+  $('#editor-title').textContent = `${record ? 'Изменить' : 'Добавить'} ${kind === 'category' ? 'категорию' : 'продукт'}`;
+  const row = record || {};
   field('Название','name',row.name,{wide:true,maxLength:kind === 'category' ? 100 : 160});
   if(kind === 'category') {
     field('Значок меню','symbol',row.symbol || '🍽️',{maxLength:24});
@@ -236,7 +235,7 @@ function save(kind,record,value) {
 }
 function requestClose() {
   if(busy) return;
-  if(dirty() && !window.confirm('Есть несохранённые изменения. Закрыть редактор без сохранения?')) return;
+  if(dirty()) { $('#discard-dialog').showModal(); return; }
   $('#editor').close();
 }
 $('#edit-form').addEventListener('submit',async event => {
@@ -358,3 +357,6 @@ $('#show-menu').addEventListener('click',() => showView(false));
 $('#show-history').addEventListener('click',() => showView(true));
 $('#reload-history').addEventListener('click',() => loadHistory());
 $('#more-history').addEventListener('click',() => loadHistory(true));
+
+$('#keep-editing').addEventListener('click',() => $('#discard-dialog').close());
+$('#discard-changes').addEventListener('click',() => {$('#discard-dialog').close(); $('#editor').close();});
