@@ -53,10 +53,11 @@ export async function startCms({port=8790,path}={}) {
       if(pathname==='/'||pathname==='/admin.css'||pathname==='/admin.js'||pathname==='/editor-state.mjs'){file=new URL(pathname==='/'?'index.html':pathname.slice(1),publicDir);type=pathname.endsWith('.css')?'text/css':(pathname.endsWith('.js')||pathname.endsWith('.mjs'))?'text/javascript':'text/html';}
       else if(/^\/appearance-previews\/(?:streetfood|diner|pizzeria)\.png$/.test(pathname)){file=new URL(pathname.slice(1),publicDir);type='image/png';}
       else if(/^\/(?:preview\/)?assets\/menu\/[a-z0-9-]+\.webp$/.test(pathname)){file=new URL(pathname.split('/').at(-1),imagesDir);type='image/webp';}
-      else if(/^\/preview\/_astro\/[a-zA-Z0-9_.-]+$/.test(pathname)){const name=pathname.split('/').at(-1);file=new URL('_astro/'+name,buildDir);type=name.endsWith('.css')?'text/css':name.endsWith('.js')?'text/javascript':name.endsWith('.woff2')?'font/woff2':'application/octet-stream';}
+      else if(/^\/preview\/_astro\/[a-zA-Z0-9_.-]+$/.test(pathname)){const name=pathname.split('/').at(-1);file=new URL('_astro/'+name,buildDir);type=name.endsWith('.css')?'text/css':name.endsWith('.js')?'text/javascript':name.endsWith('.woff2')?'font/woff2':name.endsWith('.ttf')?'font/ttf':name.endsWith('.webp')?'image/webp':name.endsWith('.svg')?'image/svg+xml':'application/octet-stream';}
       else if(pathname==='/preview/assets/food.svg'){file=new URL('../streetfood/public/assets/food.svg',import.meta.url);type='image/svg+xml';}
       else throw new CmsError(404,'Не найдено.');
       let bytes;try{bytes=readFileSync(file)}catch{throw new CmsError(404,'Файл не найден.');}
+      if(type==='text/css')bytes=Buffer.from(bytes.toString('utf8').replaceAll('/astro-portfolio/demos/streetfood/','/preview/'));
       res.writeHead(200,{'Content-Type':type+'; charset=utf-8'});res.end(req.method==='HEAD'?undefined:bytes);
     }catch(error){json(res,error instanceof CmsError?error.status:500,{error:error instanceof CmsError?error.message:'Внутренняя ошибка CMS.'});}
   });

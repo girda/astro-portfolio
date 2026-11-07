@@ -16,6 +16,13 @@ test('all appearance previews inject the current draft and preserve the selected
       assert.ok(!serialized.includes('<draft>'));
       assert.equal(JSON.parse(serialized).products[0].name,'Changed in CMS <draft>');
       assert.ok(html.includes('data-menu-preview'));
+      const styles=[...html.matchAll(/href="([^"]+\.css)"/g)].map(m=>m[1]).filter(url=>url.startsWith('/preview/'));
+      for(const url of styles){
+        const cssResponse=await fetch(app.url+url);assert.equal(cssResponse.status,200);
+        const css=await cssResponse.text();assert.ok(!css.includes('/astro-portfolio/demos/streetfood/'));
+        const assets=[...css.matchAll(/url\(["']?(\/preview\/[^)"']+)/g)].map(m=>m[1]);
+        for(const asset of new Set(assets))assert.equal((await fetch(app.url+asset)).status,200,asset);
+      }
       assert.ok(!html.includes('/astro-portfolio/demos/streetfood/'));
     }
     assert.equal((await fetch(app.url+'/preview/unknown/')).status,404);

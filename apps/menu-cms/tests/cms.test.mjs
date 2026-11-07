@@ -3,6 +3,8 @@ import assert from 'node:assert/strict';
 import {mkdtempSync,rmSync} from 'node:fs';
 import {tmpdir} from 'node:os';
 import {join} from 'node:path';
+import {readFileSync} from 'node:fs';
+const seedCount=JSON.parse(readFileSync(new URL('../../streetfood/src/data/catalogue.json',import.meta.url),'utf8')).products.length;
 import {request as httpRequest} from 'node:http';
 import {createMenuStore} from '../store.mjs';
 import {startCms} from '../server.mjs';
@@ -13,7 +15,7 @@ const product=categoryId=>({categoryId,name:'Test product',description:'Fictiona
 test('CMS persists categories/products, preserves stable IDs and protects stale edits',()=>{
  const folder=mkdtempSync(join(tmpdir(),'hirda-menu-cms-'));const path=join(folder,'menu.sqlite');let store=createMenuStore(path);
  try{
-  assert.equal(store.read().catalogue.products.length,24);
+  assert.equal(store.read().catalogue.products.length,seedCount);
   let state=store.saveCategory(category,{revision:1});const added=state.catalogue.categories.find(c=>c.name===category.name);
   state=store.saveProduct(product(added.id),{revision:state.revision});const row=state.catalogue.products.find(p=>p.name==='Test product');
   assert.equal(row.categoryId,added.id);
@@ -34,7 +36,7 @@ test('menu view hides unavailable products and inactive categories without delet
   state=store.saveCategory({...coffee,active:false},{id:coffee.id,revision:state.revision});
   let menu=createMenuView(state.catalogue,'/preview/');assert.ok(!menu.categories.some(c=>c.id==='coffee'));assert.ok(!menu.products.some(p=>p.category==='coffee'));
   const burger=state.catalogue.products[0];state=store.saveProduct({...burger,available:false},{id:burger.id,revision:state.revision});
-  menu=createMenuView(state.catalogue,'/preview/');assert.ok(!menu.products.some(p=>p.id===burger.id));assert.equal(state.catalogue.products.length,24);
+  menu=createMenuView(state.catalogue,'/preview/');assert.ok(!menu.products.some(p=>p.id===burger.id));assert.equal(state.catalogue.products.length,seedCount);
   assert.ok(menu.products.every(p=>p.image.startsWith('/preview/assets/menu/')));
  }finally{store.close()}
 });

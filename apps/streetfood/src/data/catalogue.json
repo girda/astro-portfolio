@@ -42,6 +42,27 @@
       "symbol": "☕",
       "sortOrder": 5,
       "active": true
+    },
+    {
+      "id": "pizza",
+      "name": "Pizza",
+      "symbol": "🍕",
+      "sortOrder": 6,
+      "active": true
+    },
+    {
+      "id": "antipasti",
+      "name": "Antipasti",
+      "symbol": "🥗",
+      "sortOrder": 7,
+      "active": true
+    },
+    {
+      "id": "dolci",
+      "name": "Dolci",
+      "symbol": "🍰",
+      "sortOrder": 8,
+      "active": true
     }
   ],
   "products": [
@@ -331,6 +352,54 @@
       "allergens": "Keine Rezepturallergene vorgesehen",
       "time": 5,
       "sortOrder": 23,
+      "available": true
+    },
+    {
+      "id": "margherita",
+      "categoryId": "pizza",
+      "name": "Margherita",
+      "description": "Tomatensauce, Mozzarella, frisches Basilikum und Olivenöl.",
+      "price": 1090,
+      "image": "pizzeria-hero.webp",
+      "allergens": "Weizen, Milch",
+      "time": 15,
+      "sortOrder": 24,
+      "available": true
+    },
+    {
+      "id": "margherita-bufala",
+      "categoryId": "pizza",
+      "name": "Margherita Bufala",
+      "description": "Tomatensauce, Büffelmozzarella, Basilikum und Olivenöl.",
+      "price": 1390,
+      "image": "pizzeria-hero.webp",
+      "allergens": "Weizen, Milch",
+      "time": 15,
+      "sortOrder": 25,
+      "available": true
+    },
+    {
+      "id": "caprese",
+      "categoryId": "antipasti",
+      "name": "Caprese",
+      "description": "Tomaten, Mozzarella, frisches Basilikum und Olivenöl.",
+      "price": 890,
+      "image": "caprese.webp",
+      "allergens": "Milch",
+      "time": 5,
+      "sortOrder": 26,
+      "available": true
+    },
+    {
+      "id": "tiramisu",
+      "categoryId": "dolci",
+      "name": "Tiramisù",
+      "description": "Mascarponecreme, in Kaffee getränkter Biskuit und feiner Kakao.",
+      "price": 650,
+      "image": "tiramisu.webp",
+      "allergens": "Weizen, Milch, Ei",
+      "time": 5,
+      "sortOrder": 27,
       "available": true
     }
   ],
