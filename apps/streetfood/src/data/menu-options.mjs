@@ -15,7 +15,7 @@ export const ALLERGENS = [
  ['lupin','Lupinen','M12 21V8m0 5-6-2m6 6 6-2M12 8C4 8 4 0 9 3c3-5 8 1 3 5Zm0 0c7-5 11 2 5 4'],
  ['molluscs','Weichtiere','M3 17C-1 3 25 3 21 17l-9 5-9-5Zm9 5V6M7 8l5 14m5-14-5 14']
 ].map(([id,label,path])=>({id,label,path}));
-export const DEFAULT_SETTINGS=Object.freeze({title:'FRISCH VOM GRILL.',subtitle:'Burger, Fries & gute Zeiten.',logo:'',menuMode:'informational'});
+export const DEFAULT_SETTINGS=Object.freeze({title:'FRISCH VOM GRILL.',subtitle:'Burger, Fries & gute Zeiten.',logo:'',menuMode:'informational',showPrices:true});
 export const getMenuSettings=catalogue=>({...DEFAULT_SETTINGS,...catalogue.settings});
 // Только перенос уже записанных сведений; по фото или названию аллергены не определяем.
 export function legacyAllergenIds(text=''){

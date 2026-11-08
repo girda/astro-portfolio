@@ -49,8 +49,9 @@ export default {async fetch(request,env){
     if(!['GET','HEAD'].includes(request.method))throw new CmsError(405,'Метод не поддерживается.');
     let response=await env.ASSETS.fetch(request);
     if(/^\/preview\/(?:diner\/|bunhafen\/|pizzeria\/)?$/.test(path)&&response.ok){
-      const data=JSON.stringify(createMenuView((await store.read()).catalogue,'/preview/')).replaceAll('<','\\u003c');
-      const html=(await response.text()).replace(/(<script\b[^>]*\bid="menu-data"[^>]*>)[\s\S]*?(<\/script>)/,(_,a,b)=>a+data+b).replace('<html','<html data-menu-preview');
+      const view=createMenuView((await store.read()).catalogue,'/preview/');
+      const data=JSON.stringify(view).replaceAll('<','\\u003c');
+      const html=(await response.text()).replace(/(<script\b[^>]*\bid="menu-data"[^>]*>)[\s\S]*?(<\/script>)/,(_,a,b)=>a+data+b).replace('<html','<html data-menu-preview').replace(/data-price-visibility="[^"]*"/,`data-price-visibility="${view.settings.showPrices?'visible':'hidden'}"`);
       response=new Response(html,{headers:{'Content-Type':'text/html; charset=utf-8'}});
     }
     const result=new Response(request.method==='HEAD'?null:response.body,response);

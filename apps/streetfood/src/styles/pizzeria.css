@@ -131,3 +131,19 @@ html[data-appearance=pizzeria] .menu-caption:after{width:62px;height:48px;margin
 /* Учитываем габариты повёрнутого изображения, включая прозрачные углы. */
 html[data-appearance=pizzeria] .menu-intro>img{top:36px;width:290px;height:245px}
 @media(max-width:1100px) and (min-width:701px){html[data-appearance=pizzeria] .menu-intro>img{top:32px;width:230px;height:220px}}
+/* Край пиццы и томаты занимают отдельные колонки, включая поворот изображения. */
+@media(min-width:701px){
+ html[data-appearance=pizzeria] .menu-intro{display:grid;grid-template-columns:minmax(0,1fr) minmax(210px,30%) 110px;column-gap:28px;align-items:center;padding-block:32px}
+ html[data-appearance=pizzeria] .menu-intro>div{grid-column:1;min-width:0;max-width:none;padding-left:115px}
+ html[data-appearance=pizzeria] .menu-intro>img{position:relative;grid-column:2;right:auto;top:auto;width:100%;height:240px;max-width:100%;transform:rotate(-5deg)}
+ html[data-appearance=pizzeria] .menu-intro:after{right:0;top:90px;width:90px;height:110px;background-size:330px 110px}
+ html[data-appearance=pizzeria] .menu-intro h1{font-size:clamp(32px,3.3vw,49px);white-space:normal}
+}
+@media(min-width:701px) and (max-width:1000px){
+ html[data-appearance=pizzeria] .menu-intro{grid-template-columns:minmax(0,1fr) 210px 70px;column-gap:20px}
+ html[data-appearance=pizzeria] .menu-intro>div{padding-left:25px}
+ html[data-appearance=pizzeria] .menu-intro>img{height:210px}
+ html[data-appearance=pizzeria] .menu-intro:before{display:none}
+ html[data-appearance=pizzeria] .menu-intro:after{width:70px;height:90px;background-size:270px 90px}
+}
+html[data-appearance=pizzeria] .cart-dock:before{display:none}

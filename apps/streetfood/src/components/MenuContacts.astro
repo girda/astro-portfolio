@@ -1,0 +1,9 @@
+---
+const {name}=Astro.props;
+const contact={address:'Beispielstraße 12 · 00000 Musterstadt',phone:'+49 (0)000 000000',email:'feedback@example.com',hours:'Mo–Do 11:30–21:00 · Fr–Sa 11:30–22:00 · So 12:00–20:00'};
+---
+<footer class="menu-contacts" aria-label="Kontakt und Öffnungszeiten">
+ <div><p class="contact-eyebrow">Besuch uns</p><h2>{name}</h2><small>Beispielkontakte für diesen Prototyp</small></div>
+ <div><h3>Adresse</h3><p>{contact.address}</p><h3>Telefon</h3><p>{contact.phone}</p></div>
+ <div><h3>Öffnungszeiten</h3><p>{contact.hours}</p><h3>Wünsche, Lob & Kritik</h3><p>{contact.email}</p><small>Beispieladresse · Nachrichten werden nicht versendet.</small></div>
+</footer>

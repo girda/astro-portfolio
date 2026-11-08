@@ -22,7 +22,8 @@ try{
   const {initUsers}=await import('/users.js');await initUsers(user);
  }else{
   if(user.role==='viewer')document.body.classList.add('read-only');
-  const nav=el('nav');nav.className='identity-links';nav.setAttribute('aria-label','Учётная запись');nav.append(link(user.name||user.email,'/account.html'));if(user.role==='super_admin')nav.append(link('Пользователи','/users.html'));nav.append(link('Выйти','/cdn-cgi/access/logout'));document.querySelector('.app-header').append(nav);
+  document.querySelectorAll('[data-local-account],#local-account-dialog').forEach(node=>node.remove());
+  const nav=el('nav');nav.className='identity-links';nav.setAttribute('aria-label','Учётная запись');nav.append(link(user.name||user.email,'/account.html'));if(user.role==='super_admin'){const usersLink=link('Пользователи','/users.html');usersLink.className='nav-item';document.querySelector('.app-nav>nav').append(usersLink);}nav.append(link('Выйти','/cdn-cgi/access/logout'));document.querySelector('.app-header').append(nav);
   await import('/admin.js');
  }
 }catch(error){const main=el('main');main.className='account-card';main.append(el('h1','Вход в CMS'),el('p',error.message),link('Повторить вход','/cdn-cgi/access/logout'));document.body.replaceChildren(main);}

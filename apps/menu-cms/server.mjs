@@ -48,10 +48,11 @@ export async function startCms({port=8790,path}={}) {
       if(/^\/preview\/(?:bunhafen\/|pizzeria\/)?$/.test(pathname)){
         let html;
         try{html=readFileSync(new URL(pathname.replace('/preview/','')+'index.html',buildDir),'utf8');}catch{throw new CmsError(503,'Сначала выполни npm run build в корне проекта.');}
-        const data=JSON.stringify(createMenuView(store.read().catalogue,'/preview/')).replaceAll('<','\\u003c');
+        const view=createMenuView(store.read().catalogue,'/preview/');
+        const data=JSON.stringify(view).replaceAll('<','\\u003c');
         if(!/<script\b[^>]*\bid="menu-data"[^>]*>/.test(html))throw new CmsError(503,'Обнови сборку меню для CMS-предпросмотра.');
         html=html.replace(/(<script\b[^>]*\bid="menu-data"[^>]*>)[\s\S]*?(<\/script>)/,(_,a,b)=>a+data+b).replace('<html','<html data-menu-preview');
-        html=html.replaceAll('/astro-portfolio/demos/streetfood/','/preview/');
+        html=html.replace(/data-price-visibility="[^"]*"/,`data-price-visibility="${view.settings.showPrices?'visible':'hidden'}"`).replaceAll('/astro-portfolio/demos/streetfood/','/preview/');
         for(const route of ['impressum','datenschutz'])html=html.replaceAll(`href="/astro-portfolio/${route}/`, `href="https://girda.github.io/astro-portfolio/${route}/`);
         res.writeHead(200,{'Content-Type':'text/html; charset=utf-8'});return res.end(html);
       }

@@ -15,8 +15,9 @@
     <button id="show-history" class="nav-item"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 11a9 9 0 1 1 2 7M3 4v7h7M12 7v5l3 2"/></svg><span>История</span></button>
     <button id="show-preview" class="nav-item"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="4" width="18" height="14" rx="2"/><path d="M8 22h8M12 18v4"/></svg><span>Предпросмотр</span></button>
     <button id="show-qr" class="nav-item"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 3h6v6H3zM15 3h6v6h-6zM3 15h6v6H3zM14 14h3v3h4v4h-7zM21 12v2M12 3v6M3 12h6"/></svg><span>QR-меню</span></button>
-  </nav>
+  <button type="button" class="nav-item" data-local-account title="Вход и регистрация"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="8" r="4"/><path d="M4 22v-2a8 8 0 0 1 16 0v2"/></svg><span>Аккаунт</span></button><button type="button" class="nav-item" data-local-account data-local-users>Пользователи</button></nav>
   <p class="nav-note">Работаешь с черновиком.<br>Публичное меню не меняется.</p>
+
 </aside>
 <div class="app-shell">
   <header class="app-header"><div><span class="breadcrumb"><span id="current-section">Контент</span></span><h1 id="page-title">Управление меню</h1></div></header>
@@ -28,7 +29,8 @@
         <nav id="categories" aria-label="Категории меню"></nav>
         <button data-write id="edit-category" class="secondary full" hidden>Изменить категорию</button>
         <p class="hint">«Все» и «Избранное» создаются автоматически.</p>
-      </aside>
+
+</aside>
       <section class="products" aria-labelledby="products-title">
         <div class="section-head"><div><h2 id="products-title" tabindex="-1">Все продукты</h2><p id="count" class="muted" aria-live="polite"></p></div><button data-write id="new-product" disabled>Добавить продукт</button></div>
         <div class="list-tools">
@@ -49,7 +51,10 @@
     <section id="preview-view" class="history-panel" hidden aria-labelledby="preview-title">
       <div class="section-head"><div><h2 id="preview-title" tabindex="-1">Одно меню. Три оформления.</h2><p class="muted">Категории, блюда и цены общие. Меняется только оформление.</p></div></div>
       <form id="menu-settings" class="menu-settings">
+<aside class="custom-menu-note"><strong>Меню под ваш ресторан</strong><p>Можем разработать индивидуальное оформление: фирменные цвета, логотип, композицию и нужные функции. Эти три темы — готовые варианты для знакомства.</p>
+</aside>
 <h3>Оформление бургерной</h3>
+<label>Показывать цены во всех меню<select name="showPrices"><option value="true">С ценами</option><option value="false">Без цен — только просмотр</option></select></label>
 <label>Заголовок<input name="title" maxlength="80" required placeholder="FRISCH VOM GRILL."/></label>
 <label>Подзаголовок<input name="subtitle" maxlength="160" required placeholder="Burger, Fries & gute Zeiten."/></label>
 <label>Режим бургерной<select name="menuMode"><option value="informational">Информационное меню — без корзины</option><option value="ordering">Меню с демонстрацией заказа</option></select></label>
@@ -82,4 +87,4 @@
   <p id="discard-description">Ты ещё не сохранил правки. Можно вернуться к редактированию или закрыть окно без сохранения.</p>
   <div class="confirmation-actions"><button id="keep-editing" autofocus>Продолжить редактирование</button><button id="discard-changes" class="secondary">Не сохранять</button></div>
 </dialog>
-</body></html>
+<dialog class="account-info-dialog" id="local-account-dialog"><button type="button" class="dialog-close" aria-label="Закрыть" data-account-close>×</button><h2>Учётные записи в сетевой CMS</h2><p>Здесь открыта локальная CMS. Вход и регистрация работают в сетевой версии через код на email от Cloudflare.</p><p>Новый пользователь подтверждает email, заполняет имя и ожидает твоего одобрения. Список пользователей доступен супер-администратору.</p><a class="primary" href="https://hirda-menu-cms.hirda-assistant-api.workers.dev/account.html" target="_blank" rel="noopener">Войти / зарегистрироваться</a><a class="secondary" href="https://hirda-menu-cms.hirda-assistant-api.workers.dev/users.html" target="_blank" rel="noopener">Управление пользователями</a></dialog></body></html>

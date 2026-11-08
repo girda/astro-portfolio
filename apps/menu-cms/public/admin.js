@@ -46,7 +46,7 @@ const imageLabels = {
 const fieldLabels = {
   name:'Название', categoryId:'Категория', description:'Описание', price:'Цена',
   image:'Фото', allergens:'Состав / аллергены', time:'Время', sortOrder:'Порядок',
-  title:'Заголовок',subtitle:'Подзаголовок',logo:'Логотип',menuMode:'Режим меню',allergenIds:'Аллергены',allergensVerified:'Состав проверен',variants:'Варианты порции и цены',available:'Доступность', symbol:'Значок', active:'Видимость категории',
+  showPrices:'Отображение цен',title:'Заголовок',subtitle:'Подзаголовок',logo:'Логотип',menuMode:'Режим меню',allergenIds:'Аллергены',allergensVerified:'Состав проверен',variants:'Варианты порции и цены',available:'Доступность', symbol:'Значок', active:'Видимость категории',
 };
 let state = null, selected = '', editing = null, busy = false, images = [];
 
@@ -412,7 +412,7 @@ $('#discard-changes').addEventListener('click',() => {$('#discard-dialog').close
 let menuLogo='';
 function syncMenuSettings(){
  const settings={...DEFAULT_SETTINGS,...state?.catalogue.settings};const form=$('#menu-settings');
- for(const key of ['title','subtitle','menuMode'])form.elements.namedItem(key).value=settings[key];menuLogo=settings.logo;syncLogoPreview();
+ for(const key of ['title','subtitle','menuMode','showPrices'])form.elements.namedItem(key).value=settings[key];menuLogo=settings.logo;syncLogoPreview();
 }
 function syncLogoPreview(){const image=$('#menu-logo-preview');image.hidden=!menuLogo;if(menuLogo)image.src=menuLogo;else image.removeAttribute('src');}
 $('#clear-menu-logo').addEventListener('click',()=>{menuLogo='';syncLogoPreview();$('#menu-logo-upload').value='';});
@@ -426,5 +426,9 @@ $('#menu-logo-upload').addEventListener('change',async event=>{
 });
 $('#menu-settings').addEventListener('submit',async event=>{
  event.preventDefault();if(busy||!state||!event.target.reportValidity())return;const form=event.target;
- setBusy(true);try{state=await api('/api/settings',{method:'PUT',headers:{'Content-Type':'application/json','If-Match':String(state.revision)},body:JSON.stringify({title:form.elements.namedItem('title').value,subtitle:form.elements.namedItem('subtitle').value,menuMode:form.elements.namedItem('menuMode').value,logo:menuLogo})});$('#settings-status').textContent='Оформление сохранено. Обнови меню.';}catch(error){$('#settings-status').textContent=error.message;}finally{setBusy(false);}
+ setBusy(true);try{state=await api('/api/settings',{method:'PUT',headers:{'Content-Type':'application/json','If-Match':String(state.revision)},body:JSON.stringify({title:form.elements.namedItem('title').value,subtitle:form.elements.namedItem('subtitle').value,menuMode:form.elements.namedItem('menuMode').value,showPrices:form.elements.namedItem('showPrices').value==='true',logo:menuLogo})});$('#settings-status').textContent='Оформление сохранено. Обнови меню.';}catch(error){$('#settings-status').textContent=error.message;}finally{setBusy(false);}
 });
+
+const accountDialog=document.querySelector('#local-account-dialog');
+document.querySelectorAll('[data-local-account]').forEach(button=>button.addEventListener('click',()=>accountDialog.showModal()));
+document.querySelector('[data-account-close]')?.addEventListener('click',()=>accountDialog.close());

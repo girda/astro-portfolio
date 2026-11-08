@@ -22,7 +22,7 @@ export function createCloudStore(db,images){
     if(state.revision!==revision)throw new CmsError(409,'Данные изменились в другой вкладке. Обнови список.');
     const before=kind==='settings'?state.catalogue.settings:(id?state.catalogue[kind].find(row=>row.id===id):null);
     if(id&&!before)throw new CmsError(404,'Запись не найдена.');
-    const fields=kind==='settings'?['title','subtitle','logo','menuMode']:kind==='categories'?['name','symbol','sortOrder','active']:['name','categoryId','description','price','image','allergens','time','sortOrder','available','allergenIds','allergensVerified','variants'];
+    const fields=kind==='settings'?['title','subtitle','logo','menuMode','showPrices']:kind==='categories'?['name','symbol','sortOrder','active']:['name','categoryId','description','price','image','allergens','time','sortOrder','available','allergenIds','allergensVerified','variants'];
     const row={...(kind==='settings'?{}:{id:id||`${kind==='categories'?'category':'product'}-${crypto.randomUUID()}`}),...Object.fromEntries(fields.map(key=>[key,body[key]??before?.[key]]))};
     if(kind==='settings'){try{validateMenuSettings(row)}catch(error){throw new CmsError(400,error.message)}state.catalogue.settings=row;}else state.catalogue[kind]=id?state.catalogue[kind].map(item=>item.id===id?row:item):[...state.catalogue[kind],row];
     try{validateCatalogue(state.catalogue)}catch(error){throw new CmsError(400,error.message)}

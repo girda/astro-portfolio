@@ -35,7 +35,7 @@ export function createMenuStore(path, seed=initialCatalogue) {
     if(!Number.isSafeInteger(revision))throw new CmsError(428,'Обнови данные перед сохранением.');
     db.exec('BEGIN IMMEDIATE');
     try{const state=read();if(state.revision!==revision)throw new CmsError(409,'Данные изменились. Обнови настройки.');
-      const row=Object.fromEntries(['title','subtitle','logo','menuMode'].map(key=>[key,body[key]]));
+      const row=Object.fromEntries(['title','subtitle','logo','menuMode','showPrices'].map(key=>[key,body[key]]));
       db.prepare('INSERT INTO metadata VALUES (?,?) ON CONFLICT(key) DO UPDATE SET value=excluded.value').run('settings',JSON.stringify(row));
       db.prepare('INSERT INTO history VALUES (?,?,?,?,?,?,?)').run(revision+1,'settings','menu','update',new Date().toISOString(),state.catalogue.settings?JSON.stringify(state.catalogue.settings):null,JSON.stringify(row));
       db.prepare("UPDATE metadata SET value=? WHERE key='revision'").run(String(revision+1));db.exec('COMMIT');return read();

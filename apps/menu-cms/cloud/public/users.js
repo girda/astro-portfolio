@@ -1,4 +1,6 @@
 export async function initUsers(actor){
+ const registrationLink=document.querySelector('#registration-link');registrationLink.value=new URL('/account.html',location.origin).href;
+ document.querySelector('#copy-registration').addEventListener('click',async()=>{try{await navigator.clipboard.writeText(registrationLink.value);document.querySelector('#user-status').textContent='Ссылка скопирована.';}catch{registrationLink.focus();registrationLink.select();document.querySelector('#user-status').textContent='Выделил ссылку — скопируй вручную.';}});
  const list=document.querySelector('#user-list'),status=document.querySelector('#user-status'),more=document.querySelector('#more-users'),search=document.querySelector('#user-search');let users=[],cursor='';
  const roles={viewer:'Просмотр',editor:'Редактор',super_admin:'Супер-админ'},states={pending:'Ожидает одобрения',active:'Одобрен',blocked:'Заблокирован'};
  const node=(tag,text)=>{const el=document.createElement(tag);if(text!==undefined)el.textContent=text;return el};
