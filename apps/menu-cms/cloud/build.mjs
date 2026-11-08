@@ -4,7 +4,7 @@ await rm(output,{recursive:true,force:true});await mkdir(output,{recursive:true}
 await cp(new URL('../public/',import.meta.url),output,{recursive:true});
 await cp(new URL('../../streetfood/dist/',import.meta.url),new URL('preview/',output),{recursive:true});
 await cp(new URL('../../streetfood/public/assets/menu/',import.meta.url),new URL('assets/menu/',output),{recursive:true});
-for(const page of ['index.html','diner/index.html','pizzeria/index.html']){
+for(const page of ['index.html','diner/index.html','bunhafen/index.html','pizzeria/index.html']){
 let html=await readFile(new URL('preview/'+page,output),'utf8');
 html=html.replaceAll('/astro-portfolio/demos/streetfood/','/preview/');
 for(const route of ['impressum','datenschutz'])html=html.replaceAll(`href="/astro-portfolio/${route}/`,`href="https://girda.github.io/astro-portfolio/${route}/`);

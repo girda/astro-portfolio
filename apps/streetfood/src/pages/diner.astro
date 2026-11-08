@@ -1,4 +1,4 @@
 ---
-import MenuPage from "../components/MenuPage.astro";
+import {BURGER_BRAND} from "../data/menu-options.mjs";
+return Astro.redirect(`${import.meta.env.BASE_URL}${BURGER_BRAND.path}`);
 ---
-<MenuPage theme="diner"/>

@@ -1,0 +1,30 @@
+/* Общая лента: остаётся сверху, центрирует выбранную категорию через scrollLeft. */
+html body .food-app{overflow:visible}
+html[data-appearance] body .categories{position:sticky!important;top:0;z-index:12;overscroll-behavior-inline:contain}
+html[data-appearance=diner] body .categories{background:#191a18 url('../assets/diner-texture.webp') center/1000px auto!important}
+html body :is(button,a){-webkit-tap-highlight-color:transparent}
+html body .category{appearance:none;outline:none}
+html body .category:focus-visible{outline:2px solid var(--menu-accent,#a57d00);outline-offset:-3px}
+/* Фото полностью в кадре, с тем же форматом при разных пропорциях блюда. */
+html[data-appearance=streetfood] .dish-photo{aspect-ratio:1.55;background:#f5f1e8}
+html[data-appearance=streetfood] .dish-photo img{object-fit:contain;padding:12px}
+html[data-appearance=streetfood] .dish-open:hover .dish-photo img{transform:none}
+html[data-appearance=streetfood] .product-hero{object-fit:contain;background:#fffdf7;padding:20px;height:260px;aspect-ratio:auto}
+/* Компактная карточка Bunhafen: фото слева, знак справа, текст и состав ниже. */
+html[data-appearance=diner] .dish-card{min-height:0;padding-top:0}
+html[data-appearance=diner] .dish-open{display:block;min-height:0;padding:12px 0 10px}
+html[data-appearance=diner][data-menu-mode=informational] .dish-open{padding-bottom:10px}
+html[data-appearance=diner] .dish-photo{width:62%;max-width:185px;height:max(140px,calc(var(--price-rows,1)*94px));aspect-ratio:auto;justify-self:start;margin:0}
+html[data-appearance=diner] .dish-photo img{object-fit:contain;object-position:left top;max-height:150px}
+html[data-appearance=diner] .dish-card:has(.variant-price:nth-child(2)) .dish-photo{width:calc(100% - 160px)}
+html[data-appearance=diner] .dish-info{display:block;width:100%;padding:10px 0 0;gap:0}
+html[data-appearance=diner] .dish-info h2{font:400 24px/1.2 MenuOswald,sans-serif!important;text-transform:none;letter-spacing:0}
+html[data-appearance=diner] .dish-description{font:13px/1.45 DinerBody,Arial,sans-serif;margin:6px 0 0}
+html[data-appearance=diner] .dish-allergens{margin:0;padding:0 50px 18px 0;color:inherit}
+html[data-appearance=diner] .variant-prices{top:14px;right:0;grid-template-columns:repeat(2,max-content);gap:10px 6px}
+html[data-appearance=diner] .variant-price{width:74px;height:82px;background-image:url('../assets/bunhafen-price.svg');padding:25px 0 0}
+html[data-appearance=diner] .variant-price strong{font-family:MenuOswald,sans-serif;font-weight:300}
+html[data-appearance=diner] .variant-label{top:9px;left:0;right:0;max-width:none;transform:none;border:0;background:none;color:#fff6e5;padding:0 4px;font:500 11px/1.1 MenuOswald,sans-serif;text-align:center}
+html[data-appearance=diner] .variant-price:has(.variant-label:empty):before{content:'PREIS';position:absolute;top:9px;left:0;right:0;text-align:center;color:#fff6e5;font:9px/1 Arial,sans-serif;letter-spacing:1.4px}
+html[data-appearance=diner] .quick-add{bottom:17px!important}
+@media(max-width:650px){html[data-appearance=diner] .dish-photo{max-width:170px}html[data-appearance=diner] .dish-info h2{font-size:23px!important}html[data-appearance=diner] .dish-card{min-height:0}}

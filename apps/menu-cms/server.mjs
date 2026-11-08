@@ -44,7 +44,8 @@ export async function startCms({port=8790,path}={}) {
       }
       if(req.method!=='GET'&&req.method!=='HEAD')throw new CmsError(405,'Метод не поддерживается.');
       let file,type;
-      if(/^\/preview\/(?:diner\/|pizzeria\/)?$/.test(pathname)){
+      if(pathname==='/preview/diner/'){res.writeHead(302,{Location:'/preview/bunhafen/'});return res.end();}
+      if(/^\/preview\/(?:bunhafen\/|pizzeria\/)?$/.test(pathname)){
         let html;
         try{html=readFileSync(new URL(pathname.replace('/preview/','')+'index.html',buildDir),'utf8');}catch{throw new CmsError(503,'Сначала выполни npm run build в корне проекта.');}
         const data=JSON.stringify(createMenuView(store.read().catalogue,'/preview/')).replaceAll('<','\\u003c');
@@ -60,7 +61,7 @@ export async function startCms({port=8790,path}={}) {
       else if(/^\/appearance-previews\/(?:streetfood|diner|pizzeria)\.png$/.test(pathname)){file=new URL(pathname.slice(1),publicDir);type='image/png';}
       else if(/^\/(?:preview\/)?assets\/menu\/[a-z0-9-]+\.webp$/.test(pathname)){file=new URL(pathname.split('/').at(-1),imagesDir);type='image/webp';}
       else if(/^\/preview\/_astro\/[a-zA-Z0-9_.-]+$/.test(pathname)){const name=pathname.split('/').at(-1);file=new URL('_astro/'+name,buildDir);type=name.endsWith('.css')?'text/css':name.endsWith('.js')?'text/javascript':name.endsWith('.woff2')?'font/woff2':name.endsWith('.ttf')?'font/ttf':name.endsWith('.webp')?'image/webp':name.endsWith('.svg')?'image/svg+xml':'application/octet-stream';}
-      else if(['/preview/assets/food.svg','/preview/assets/diner-brand.svg'].includes(pathname)){file=new URL('../streetfood/public/assets/'+pathname.split('/').at(-1),import.meta.url);type='image/svg+xml';}
+      else if(['/preview/assets/food.svg','/preview/assets/diner-brand.svg','/preview/assets/bunhafen-brand.svg'].includes(pathname)){file=new URL('../streetfood/public/assets/'+pathname.split('/').at(-1),import.meta.url);type='image/svg+xml';}
       else throw new CmsError(404,'Не найдено.');
       let bytes;try{bytes=readFileSync(file)}catch{throw new CmsError(404,'Файл не найден.');}
       if(type==='text/css')bytes=Buffer.from(bytes.toString('utf8').replaceAll('/astro-portfolio/demos/streetfood/','/preview/'));

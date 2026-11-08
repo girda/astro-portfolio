@@ -1972,6 +1972,14 @@
       "evidence": "built_in_imagegen_for_user_2026_11_08",
       "original": "exec-3d9436f2-2b41-4f34-bd23-9212a92015d4.png",
       "caveat": "Fictional demo food, not a photograph of a real restaurant product."
+    },
+    {
+      "file": "apps/streetfood/public/assets/bunhafen-brand.svg",
+      "sha256": "9880689ac6e678aefb8e5400487f4a9e0d79bb0f19b0de503d1ceb0047e07019",
+      "bytes": 1271,
+      "published": true,
+      "evidence": "original_project_vector_2026_11_08",
+      "source": "Hand-authored Bunhafen crest and vector wordmark for this project."
     }
   ]
 }

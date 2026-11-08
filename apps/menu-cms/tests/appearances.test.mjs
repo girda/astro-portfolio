@@ -10,6 +10,7 @@ test('all appearance previews inject the current draft and preserve the selected
     for(const theme of ['streetfood','diner','pizzeria']){
       const response=await fetch(app.url+'/preview/'+(theme==='streetfood'?'':theme+'/'));
       assert.equal(response.status,200);
+      if(theme==='diner')assert.equal(new URL(response.url).pathname,'/preview/bunhafen/');
       const html=await response.text();
       assert.ok(html.includes(`data-appearance="${theme}"`));
       const serialized=html.match(/<script\b[^>]*id="menu-data"[^>]*>([\s\S]*?)<\/script>/)[1];

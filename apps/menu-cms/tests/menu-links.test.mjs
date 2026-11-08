@@ -1,9 +1,9 @@
 import test from 'node:test';import assert from 'node:assert/strict';
-import {buildMenuUrl,DEFAULT_MENU_ROOT} from '../public/menu-links.mjs';
+import {buildMenuUrl,DEFAULT_MENU_ROOT} from '../../streetfood/src/data/menu-options.mjs';
 import qrcode from 'qrcode-generator';
 test('QR links preserve the public base and choose the right menu',()=>{
  assert.equal(buildMenuUrl(DEFAULT_MENU_ROOT,'pizzeria'),DEFAULT_MENU_ROOT+'pizzeria/');
- assert.equal(buildMenuUrl('https://cafe.de/menu','diner'),'https://cafe.de/menu/diner/');
+ assert.equal(buildMenuUrl('https://cafe.de/menu','diner'),'https://cafe.de/menu/bunhafen/');
  assert.equal(buildMenuUrl('https://cafe.de','streetfood'),'https://cafe.de/');
 });
 test('QR rejects unsafe, private and ambiguous menu URLs',()=>{

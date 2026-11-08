@@ -9,7 +9,7 @@
 <body>
 <a class="skip-link" href="#products-title">К содержимому</a>
 <aside class="app-nav" aria-label="Рабочее пространство">
-  <a class="brand" href="/" aria-label="My Menu"><span class="brand-mark"><svg viewBox="0 0 32 32" aria-hidden="true"><path d="M6 24V8l10 9L26 8v16M6 27h20"/></svg></span><span>My Menu</span></a>
+  <a class="brand" href="/" aria-label="My Menu"><span class="brand-mark"><svg viewBox="0 0 48 48" aria-hidden="true"><rect x="3" y="3" width="42" height="42" rx="13" fill="#58bfc2"/><circle cx="27" cy="25" r="11" fill="none" stroke="#fff" stroke-width="2.5"/><path d="M12 13v10m-3-10v7q0 4 6 4V13m-3 11v12M35 9h8v9" fill="none" stroke="#fff" stroke-width="2.2" stroke-linecap="round"/><path d="M35 9h8v8Z" fill="#e0715b" stroke="none"/></svg></span><span>My Menu</span></a>
   <nav aria-label="Разделы CMS">
     <button id="show-menu" class="nav-item" aria-current="page"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="4" y="3" width="16" height="18" rx="2"/><path d="M8 8h8M8 12h8M8 16h5"/></svg><span>Контент меню</span></button>
     <button id="show-history" class="nav-item"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 11a9 9 0 1 1 2 7M3 4v7h7M12 7v5l3 2"/></svg><span>История</span></button>
@@ -49,13 +49,13 @@
     <section id="preview-view" class="history-panel" hidden aria-labelledby="preview-title">
       <div class="section-head"><div><h2 id="preview-title" tabindex="-1">Одно меню. Три оформления.</h2><p class="muted">Категории, блюда и цены общие. Меняется только оформление.</p></div></div>
       <form id="menu-settings" class="menu-settings">
-<h3>Оформление Diner</h3>
+<h3>Оформление бургерной</h3>
 <label>Заголовок<input name="title" maxlength="80" required placeholder="FRISCH VOM GRILL."/></label>
 <label>Подзаголовок<input name="subtitle" maxlength="160" required placeholder="Burger, Fries & gute Zeiten."/></label>
-<label>Режим Diner<select name="menuMode"><option value="informational">Информационное меню — без корзины</option><option value="ordering">Меню с демонстрацией заказа</option></select></label>
+<label>Режим бургерной<select name="menuMode"><option value="informational">Информационное меню — без корзины</option><option value="ordering">Меню с демонстрацией заказа</option></select></label>
 <label>Заменить логотип<input id="menu-logo-upload" type="file" accept="image/png,image/jpeg,image/webp"/></label>
-<img id="menu-logo-preview" alt="Предпросмотр логотипа" hidden/><button id="clear-menu-logo" type="button" class="secondary">Вернуть логотип Street Food</button>
-<p class="muted">Логотип вписывается без обрезки. Используй PNG или WebP с прозрачным фоном. Варианты цен и аллергены настраиваются внутри каждого блюда. Варианты показываются в информационном Diner; демонстрация заказа использует основную цену.</p>
+<img id="menu-logo-preview" alt="Предпросмотр логотипа" hidden/><button id="clear-menu-logo" type="button" class="secondary">Вернуть фирменный логотип</button>
+<p class="muted">Логотип вписывается без обрезки. Используй PNG или WebP с прозрачным фоном. Варианты цен и аллергены настраиваются внутри каждого блюда. Варианты показываются в информационном меню бургерной; демонстрация заказа использует основную цену.</p>
 <button data-write type="submit">Сохранить оформление</button><p id="settings-status" role="status"></p>
 </form>
 <div class="appearance-grid" id="appearance-grid"></div>
