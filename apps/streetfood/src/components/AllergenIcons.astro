@@ -1,5 +1,5 @@
 ---
-import {ALLERGENS} from '../data/menu-options.mjs';
-const {ids=[],verified=false}=Astro.props;
+import {ALLERGENS,allergenIconMarkup} from '../data/menu-options.mjs';
+const {ids=[]}=Astro.props;
 ---
-<div class="dish-allergens" aria-label="Allergene">{ALLERGENS.filter(a=>ids.includes(a.id)).map(a=><button type="button" class="allergen-icon" data-allergen={a.id} aria-label={`${a.label}${verified?'':' · Angaben noch nicht bestätigt'}`} aria-expanded="false"><svg viewBox="0 0 24 24" aria-hidden="true"><path d={a.path}/></svg><span class="allergen-tip" role="tooltip">{a.label}{!verified&&<small>Angaben noch nicht bestätigt</small>}</span></button>)}</div>
+<div class="dish-allergens" aria-label="Allergene">{ALLERGENS.filter(a=>ids.includes(a.id)).map(a=><button type="button" class="allergen-icon" data-allergen={a.id} style={`--allergen-color:${a.color}`} aria-label={a.shortLabel} aria-expanded="false"><svg viewBox="0 0 24 24" aria-hidden="true" set:html={allergenIconMarkup(a)}/><span class="allergen-tip" role="tooltip">{a.shortLabel}</span></button>)}</div>

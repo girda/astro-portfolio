@@ -14,6 +14,7 @@
     <button id="show-menu" class="nav-item" aria-current="page"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="4" y="3" width="16" height="18" rx="2"/><path d="M8 8h8M8 12h8M8 16h5"/></svg><span>Контент меню</span></button>
     <button id="show-history" class="nav-item"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 11a9 9 0 1 1 2 7M3 4v7h7M12 7v5l3 2"/></svg><span>История</span></button>
     <button id="show-preview" class="nav-item"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="4" width="18" height="14" rx="2"/><path d="M8 22h8M12 18v4"/></svg><span>Предпросмотр</span></button>
+    <button id="show-qr" class="nav-item"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 3h6v6H3zM15 3h6v6h-6zM3 15h6v6H3zM14 14h3v3h4v4h-7zM21 12v2M12 3v6M3 12h6"/></svg><span>QR-меню</span></button>
   </nav>
   <p class="nav-note">Работаешь с черновиком.<br>Публичное меню не меняется.</p>
 </aside>
@@ -60,6 +61,15 @@
 <div class="appearance-grid" id="appearance-grid"></div>
       <p id="appearance-status" role="status" aria-live="polite"></p>
       <p class="muted">Выбор сохраняется в этом браузере. Предпросмотр открывает актуальный черновик CMS; публичное меню обновляется отдельно.</p>
+    </section>
+    <section id="qr-view" class="history-panel" hidden aria-labelledby="qr-title">
+      <div class="section-head"><div><h2 id="qr-title" tabindex="-1">QR-код твоего меню</h2><p class="muted">Выбери оформление и адрес, который откроется у гостя.</p></div></div>
+      <div class="qr-workspace"><form id="qr-form" novalidate>
+        <label>Оформление<select name="appearance" aria-label="Оформление QR"></select></label>
+        <label>Базовый адрес меню<input name="root" type="url" required maxlength="1000" placeholder="https://cafe.de/menu/"/></label>
+        <p class="muted">Можно указать свой домен или адрес опубликованного меню. Это настройка ссылки в QR; подключение домена к хостингу выполняется отдельно.</p>
+        <button type="submit">Создать QR</button><p id="qr-status" role="status" aria-live="polite"></p>
+      </form><div class="qr-result"><div id="qr-output"></div><p id="qr-link"></p><div class="qr-actions"><a id="qr-download-svg" class="secondary">Скачать SVG</a><button id="qr-download-png" class="secondary" type="button" disabled>Скачать PNG</button><a id="qr-open" class="secondary" target="_blank" rel="noopener">Открыть меню</a></div></div></div>
     </section>
   </main>
 </div>

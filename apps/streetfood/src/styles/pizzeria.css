@@ -118,3 +118,16 @@ html[data-appearance=pizzeria] .product-detail>.extras{order:5}
 html[data-appearance=pizzeria] .product-detail>.dish-note{order:6}
 html[data-appearance=pizzeria] .product-hero{height:clamp(180px,30vh,300px)}
 html[data-appearance=pizzeria] .quantity button:disabled{opacity:.4;cursor:default}
+/* Новая правка: фото ниже ленты, декор вне фотографии, линия по низу заголовка. */
+html[data-appearance=pizzeria] .menu-intro{min-height:300px;z-index:1}
+html[data-appearance=pizzeria] .menu-intro>img{top:18px;right:145px;width:300px;height:265px;max-width:34%}
+html[data-appearance=pizzeria] .menu-intro:after{right:0;top:72px;width:105px;height:115px;background-size:330px 110px}
+html[data-appearance=pizzeria] .menu-caption{align-items:flex-end;padding-bottom:20px;gap:18px}
+html[data-appearance=pizzeria] .menu-caption h2{margin:0}
+html[data-appearance=pizzeria] .menu-caption:before{height:12px;margin-bottom:4px;align-self:auto;background:url('../assets/pizzeria-rule-red.svg') center/100% 100% no-repeat}
+html[data-appearance=pizzeria] .menu-caption:after{width:62px;height:48px;margin-bottom:-4px;background-size:144px 48px}
+@media(max-width:1100px) and (min-width:701px){html[data-appearance=pizzeria] .menu-intro{min-height:270px}html[data-appearance=pizzeria] .menu-intro>img{top:20px;right:98px;width:240px;height:235px;max-width:34%}html[data-appearance=pizzeria] .menu-intro:after{right:0;top:80px;width:75px;height:90px;background-size:255px 85px}}
+@media(max-width:700px){html[data-appearance=pizzeria] .menu-intro{display:none}html[data-appearance=pizzeria] .menu-caption{gap:12px;padding-bottom:14px}html[data-appearance=pizzeria] .menu-caption:before{min-width:22px}html[data-appearance=pizzeria] .menu-caption:after{width:38px;height:34px;background-size:102px 34px}}
+/* Учитываем габариты повёрнутого изображения, включая прозрачные углы. */
+html[data-appearance=pizzeria] .menu-intro>img{top:36px;width:290px;height:245px}
+@media(max-width:1100px) and (min-width:701px){html[data-appearance=pizzeria] .menu-intro>img{top:32px;width:230px;height:220px}}

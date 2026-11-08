@@ -1,4 +1,6 @@
-import {ALLERGENS,DEFAULT_SETTINGS,productOptions} from './menu-options.mjs';
+import {MENU_APPEARANCES} from './menu-links.mjs';
+import './qr-menu.js';
+import {ALLERGENS,DEFAULT_SETTINGS,productOptions,allergenIconMarkup} from './menu-options.mjs';
 import {mergeDraft, selectProducts} from './editor-state.mjs';
 
 const $ = selector => document.querySelector(selector);
@@ -33,7 +35,13 @@ const imageLabels = {
   "flat-white.webp": "Flat White",
   "filter.webp": "Filterkaffee",
   "oat.webp": "Oat Latte",
-  "espresso.webp": "Espresso"
+  "espresso.webp": "Espresso",
+  "pizza-bufala.webp": "Margherita Bufala",
+  "pizza-diavola.webp": "Diavola",
+  "pizza-funghi.webp": "Funghi",
+  "pizzeria-hero.webp": "Margherita",
+  "caprese.webp": "Caprese",
+  "tiramisu.webp": "Tiramisù"
 };
 const fieldLabels = {
   name:'Название', categoryId:'Категория', description:'Описание', price:'Цена',
@@ -226,7 +234,7 @@ function open(kind,record) {
     field('Состав / примерные аллергены','allergens',row.allergens,{type:'textarea',wide:true,maxLength:1000});
     const options=productOptions(row);
     const allergens=node('fieldset',undefined,'allergen-editor wide');allergens.append(node('legend','Аллергены — отметь состав блюда'));
-    for(const allergen of ALLERGENS){const label=node('label',undefined,'allergen-choice');const input=node('input');input.type='checkbox';input.name='allergen-'+allergen.id;input.checked=options.allergenIds.includes(allergen.id);label.append(input,node('span',allergen.label));allergens.append(label);}
+    for(const allergen of ALLERGENS){const label=node('label',undefined,'allergen-choice');const input=node('input');input.type='checkbox';input.name='allergen-'+allergen.id;input.checked=options.allergenIds.includes(allergen.id);const icon=document.createElementNS('http://www.w3.org/2000/svg','svg');icon.setAttribute('viewBox','0 0 24 24');icon.setAttribute('aria-hidden','true');icon.innerHTML=allergenIconMarkup(allergen);label.append(input,icon,node('span',allergen.label));allergens.append(label);}
     allergens.append(node('p','Начальные отметки перенесены из текстовых сведений. Перед использованием кафе проверь состав и возможные следы.','muted wide'));$('#fields').append(allergens);
     field('Состав и аллергены проверены владельцем','allergensVerified',options.allergensVerified,{type:'checkbox',required:false});
     const variants=node('fieldset',undefined,'wide');variants.id='variant-editor';variants.append(node('legend','Варианты порции и цены'),node('p','Например: котлета 80 г / 150 г. Если вариантов нет, используется основная цена.','muted'));
@@ -363,7 +371,7 @@ async function loadHistory(append = false) {
   } catch(error) {$('#history-status').textContent = error.message;}
   finally {historyBusy = false; $('#reload-history').disabled = false; $('#more-history').disabled = false;}
 }
-const views={menu:['Управление меню','Контент','products-title'],history:['История изменений','История','history-title'],preview:['Предпросмотр меню','Предпросмотр','preview-title']};
+const views={menu:['Управление меню','Контент','products-title'],history:['История изменений','История','history-title'],preview:['Предпросмотр меню','Предпросмотр','preview-title'],qr:['QR-код меню','QR-меню','qr-title']};
 function showView(name) {
   for(const id of Object.keys(views)){
     $('#'+id+'-view').hidden=id!==name;
@@ -376,11 +384,7 @@ function showView(name) {
   window.scrollTo({top:0,behavior:'instant'});
 }
 for(const name of Object.keys(views))$('#show-'+name).addEventListener('click',()=>showView(name));
-const appearances=[
-  {id:'streetfood',name:'Street Food',description:'Светлое меню с крупными фотографиями.',path:''},
-  {id:'diner',name:'Diner',description:'Графит, контрастные цены и характер закусочной.',path:'diner/'},
-  {id:'pizzeria',name:'Pizzeria',description:'Тёплая бумага, бордовый и итальянская типографика.',path:'pizzeria/'}
-];
+const appearances=MENU_APPEARANCES;
 let appearance='streetfood';
 try{const saved=localStorage.getItem('my-menu:appearance');if(appearances.some(item=>item.id===saved))appearance=saved;}catch{}
 function syncAppearance(){

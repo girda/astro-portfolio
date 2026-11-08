@@ -1,0 +1,6 @@
+/* Единая цветная система аллергенов во всех трёх меню. */
+html body .allergen-icon{width:30px;height:30px;border:1px solid color-mix(in srgb,var(--allergen-color) 55%,transparent);background:#fffdf7;color:var(--allergen-color);border-radius:50%;padding:5px;box-shadow:none}
+html body .allergen-icon svg{stroke-width:1.3}
+html body .allergen-tip{background:#646464;color:#fff;border:0;box-shadow:0 3px 10px #0002;padding:7px 10px;border-radius:4px;font:13px/1.3 Arial,sans-serif;pointer-events:none;max-width:200px}
+html body .allergen-icon:focus-visible{outline:2px solid var(--allergen-color);outline-offset:3px}
+html[data-appearance] body .allergen-icon{width:32px;height:32px;padding:5px}

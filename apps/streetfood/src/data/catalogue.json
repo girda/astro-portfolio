@@ -82,10 +82,10 @@
       "id": "beef",
       "categoryId": "burgers",
       "name": "Classic Beef Burger",
-      "description": "Rindfleisch, knackiger Salat, rote Zwiebel und Burgersauce.",
+      "description": "Rindfleisch im Sesambrötchen, knackiger Salat, rote Zwiebel und Burgersauce.",
       "price": 1390,
       "image": "beef.webp",
-      "allergens": "Weizen, Milch, Ei, Senf",
+      "allergens": "Weizen, Milch, Ei, Senf, Sesam",
       "time": 15,
       "sortOrder": 1,
       "available": true,
@@ -98,7 +98,8 @@
           "label": "150 g",
           "price": 1690
         }
-      ]
+      ],
+      "allergensVerified": false
     },
     {
       "id": "double",
@@ -116,13 +117,14 @@
       "id": "bbq",
       "categoryId": "burgers",
       "name": "Smoky BBQ Burger",
-      "description": "Rindfleisch, BBQ-Sauce, Cheddar und Röstzwiebeln.",
+      "description": "Rindfleisch im Sesambrötchen, BBQ-Sauce, Cheddar und Röstzwiebeln.",
       "price": 1490,
       "image": "bbq.webp",
-      "allergens": "Weizen, Milch, Senf",
+      "allergens": "Weizen, Milch, Ei, Senf, Sesam",
       "time": 15,
       "sortOrder": 3,
-      "available": true
+      "available": true,
+      "allergensVerified": false
     },
     {
       "id": "crispy",
@@ -191,10 +193,11 @@
       "description": "Blättriges Buttergebäck mit goldener Kruste.",
       "price": 290,
       "image": "croissant.webp",
-      "allergens": "Weizen, Milch",
+      "allergens": "Weizen, Milch, Ei",
       "time": 3,
       "sortOrder": 9,
-      "available": true
+      "available": true,
+      "allergensVerified": false
     },
     {
       "id": "almond",
@@ -206,7 +209,8 @@
       "allergens": "Weizen, Milch, Ei, Mandeln",
       "time": 3,
       "sortOrder": 10,
-      "available": true
+      "available": true,
+      "allergensVerified": false
     },
     {
       "id": "bakery-set",
@@ -224,25 +228,27 @@
       "id": "green",
       "categoryId": "salads",
       "name": "Green Lunch Bowl",
-      "description": "Beispiel einer saisonalen Bowl; Rezeptur beim Betrieb erfragen.",
+      "description": "Bunter Gemüse-Bowl mit Avocado, Quinoa und Soja-Sesam-Dressing.",
       "price": 1090,
       "image": "green.webp",
-      "allergens": "Rezeptur noch offen",
+      "allergens": "Sesam, Soja",
       "time": 15,
       "sortOrder": 12,
-      "available": true
+      "available": true,
+      "allergensVerified": false
     },
     {
       "id": "chicken-bowl",
       "categoryId": "salads",
       "name": "Chicken Bowl",
-      "description": "Warme Hähnchen-Bowl als Beispielgericht.",
+      "description": "Hähnchen, Reis, Gemüse und ein Soja-Sesam-Dressing mit Senf.",
       "price": 1290,
       "image": "chicken-bowl.webp",
-      "allergens": "Milch, Senf",
+      "allergens": "Sesam, Soja, Senf",
       "time": 15,
       "sortOrder": 13,
-      "available": true
+      "available": true,
+      "allergensVerified": false
     },
     {
       "id": "sweet",
@@ -275,10 +281,11 @@
       "description": "Pommes mit Cheddarsauce und Frühlingszwiebeln.",
       "price": 690,
       "image": "loaded.webp",
-      "allergens": "Milch",
+      "allergens": "Milch, Senf",
       "time": 15,
       "sortOrder": 16,
-      "available": true
+      "available": true,
+      "allergensVerified": false
     },
     {
       "id": "duo",

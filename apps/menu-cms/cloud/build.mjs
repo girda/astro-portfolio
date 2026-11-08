@@ -25,4 +25,5 @@ await cp(new URL('../../streetfood/src/data/menu-options.mjs',import.meta.url),n
 await cp(new URL('./public/',import.meta.url),output,{recursive:true});
 const index=new URL('index.html',output);
 await writeFile(index,(await readFile(index,'utf8')).replace('src="/admin.js"','src="/cloud-shell.js"').replace('</head>','<link rel="stylesheet" href="/account.css"></head>'));
+await cp(new URL('../node_modules/qrcode-generator/dist/qrcode.mjs',import.meta.url),new URL('qr-generator.mjs',output));
 console.log('Protected CMS assets prepared.');

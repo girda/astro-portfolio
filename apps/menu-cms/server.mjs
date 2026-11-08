@@ -54,8 +54,9 @@ export async function startCms({port=8790,path}={}) {
         for(const route of ['impressum','datenschutz'])html=html.replaceAll(`href="/astro-portfolio/${route}/`, `href="https://girda.github.io/astro-portfolio/${route}/`);
         res.writeHead(200,{'Content-Type':'text/html; charset=utf-8'});return res.end(html);
       }
-      if(pathname==='/menu-options.mjs'){file=new URL('../streetfood/src/data/menu-options.mjs',import.meta.url);type='text/javascript';}
-      else if(pathname==='/'||pathname==='/admin.css'||pathname==='/admin.js'||pathname==='/editor-state.mjs'){file=new URL(pathname==='/'?'index.html':pathname.slice(1),publicDir);type=pathname.endsWith('.css')?'text/css':(pathname.endsWith('.js')||pathname.endsWith('.mjs'))?'text/javascript':'text/html';}
+      if(pathname==='/qr-generator.mjs'){file=new URL('./node_modules/qrcode-generator/dist/qrcode.mjs',import.meta.url);type='text/javascript';}
+      else if(pathname==='/menu-options.mjs'){file=new URL('../streetfood/src/data/menu-options.mjs',import.meta.url);type='text/javascript';}
+      else if(pathname==='/'||pathname==='/admin.css'||pathname==='/admin.js'||pathname==='/editor-state.mjs'||pathname==='/menu-links.mjs'||pathname==='/qr-menu.js'){file=new URL(pathname==='/'?'index.html':pathname.slice(1),publicDir);type=pathname.endsWith('.css')?'text/css':(pathname.endsWith('.js')||pathname.endsWith('.mjs'))?'text/javascript':'text/html';}
       else if(/^\/appearance-previews\/(?:streetfood|diner|pizzeria)\.png$/.test(pathname)){file=new URL(pathname.slice(1),publicDir);type='image/png';}
       else if(/^\/(?:preview\/)?assets\/menu\/[a-z0-9-]+\.webp$/.test(pathname)){file=new URL(pathname.split('/').at(-1),imagesDir);type='image/webp';}
       else if(/^\/preview\/_astro\/[a-zA-Z0-9_.-]+$/.test(pathname)){const name=pathname.split('/').at(-1);file=new URL('_astro/'+name,buildDir);type=name.endsWith('.css')?'text/css':name.endsWith('.js')?'text/javascript':name.endsWith('.woff2')?'font/woff2':name.endsWith('.ttf')?'font/ttf':name.endsWith('.webp')?'image/webp':name.endsWith('.svg')?'image/svg+xml':'application/octet-stream';}

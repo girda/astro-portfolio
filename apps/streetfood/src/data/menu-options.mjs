@@ -24,3 +24,19 @@ export function legacyAllergenIds(text=''){
  ].filter(([,pattern])=>pattern.test(t)).map(([id])=>id);
 }
 export const productOptions=row=>({allergenIds:row.allergenIds??legacyAllergenIds(row.allergens),allergensVerified:row.allergensVerified??false,variants:row.variants??[]});
+
+// Короткие подписи для посетителя; полные названия остаются в редакторе состава.
+const allergenLooks={
+ gluten:['Gluten','#d7a026','#fff1bc'],crustaceans:['Krebstiere','#dd795c','#ffe0ce'],
+ eggs:['Eier','#d8a236','#fffdf3'],fish:['Fisch','#4f9bb9','#dff3fb'],
+ peanuts:['Erdnüsse','#b67a45','#f6dfba'],soy:['Soja','#719d52','#e6f1d3'],
+ milk:['Milch / Laktose','#78aac2','#edf8ff'],nuts:['Nüsse','#a9794c','#efddc9'],
+ celery:['Sellerie','#77a461','#e9f3df'],mustard:['Senf','#c9a025','#fff0ac'],
+ sesame:['Sesam','#c39a63','#f9ead5'],sulphites:['Sulphite','#9d78ad','#efe4f4'],
+ lupin:['Lupinen','#9b82bc','#eee4f8'],molluscs:['Weichtiere','#b58caa','#f4e5ee']
+};
+for(const item of ALLERGENS){[item.shortLabel,item.color,item.softColor]=allergenLooks[item.id];}
+export function allergenIconMarkup(item){
+ const base=`<path d="${item.path}" fill="${item.softColor}" stroke="${item.color}"/>`;
+ return base+(item.id==='eggs'?'<circle cx="12" cy="15" r="3.3" fill="#f3bd39" stroke="none"/>':'');
+}
