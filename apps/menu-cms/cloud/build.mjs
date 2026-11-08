@@ -16,11 +16,6 @@ for(const name of await readdir(new URL('preview/_astro/',output))){
  const file=new URL('preview/_astro/'+name,output);
  await writeFile(file,(await readFile(file,'utf8')).replaceAll('/astro-portfolio/demos/streetfood/','/preview/'));
 }
-for(const name of ['index.html','admin.js']){
- let text=await readFile(new URL(name,output),'utf8');
- text=text.replaceAll('только на этом компьютере','в закрытой сетевой CMS').replaceAll('Сохранено локально','Сохранено в CMS').replaceAll('Локальная CMS','Закрытая CMS').replaceAll('Локально','В сети').replaceAll('локальная CMS, без отдельных пользователей','владелец CMS; ранние события перенесены из локальной базы').replaceAll('локальной CMS','CMS').replaceAll('локальном меню','черновике меню').replaceAll('локальной библиотеки','библиотеки');
- await writeFile(new URL(name,output),text);
-}
 await cp(new URL('../../streetfood/src/data/menu-options.mjs',import.meta.url),new URL('menu-options.mjs',output));
 await cp(new URL('./public/',import.meta.url),output,{recursive:true});
 const index=new URL('index.html',output);

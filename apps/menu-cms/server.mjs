@@ -25,6 +25,7 @@ export async function startCms({port=8790,path}={}) {
       if(req.headers['sec-fetch-site']==='cross-site')throw new CmsError(403,'Запрос с другого сайта запрещён.');
       const url=new URL(req.url,origin),pathname=url.pathname;
       if(pathname==='/api/catalogue'&&req.method==='GET')return json(res,200,store.read());
+      if(pathname==='/api/history/query'&&req.method==='GET')return json(res,200,store.queryHistory(Object.fromEntries(url.searchParams)));
       if(pathname==='/api/history'&&req.method==='GET')return json(res,200,store.history({
         before:url.searchParams.has('before')?Number(url.searchParams.get('before')):undefined,
         limit:url.searchParams.has('limit')?Number(url.searchParams.get('limit')):30,
@@ -58,7 +59,7 @@ export async function startCms({port=8790,path}={}) {
       }
       if(pathname==='/qr-generator.mjs'){file=new URL('./node_modules/qrcode-generator/dist/qrcode.mjs',import.meta.url);type='text/javascript';}
       else if(pathname==='/menu-options.mjs'){file=new URL('../streetfood/src/data/menu-options.mjs',import.meta.url);type='text/javascript';}
-      else if(pathname==='/'||pathname==='/admin.css'||pathname==='/admin.js'||pathname==='/editor-state.mjs'||pathname==='/menu-links.mjs'||pathname==='/qr-menu.js'){file=new URL(pathname==='/'?'index.html':pathname.slice(1),publicDir);type=pathname.endsWith('.css')?'text/css':(pathname.endsWith('.js')||pathname.endsWith('.mjs'))?'text/javascript':'text/html';}
+      else if(pathname==='/'||pathname==='/admin.css'||pathname==='/admin.js'||pathname==='/editor-state.mjs'||pathname==='/menu-links.mjs'||pathname==='/qr-menu.js'||pathname==='/i18n.mjs'){file=new URL(pathname==='/'?'index.html':pathname.slice(1),publicDir);type=pathname.endsWith('.css')?'text/css':(pathname.endsWith('.js')||pathname.endsWith('.mjs'))?'text/javascript':'text/html';}
       else if(/^\/appearance-previews\/(?:streetfood|diner|pizzeria)\.png$/.test(pathname)){file=new URL(pathname.slice(1),publicDir);type='image/png';}
       else if(/^\/(?:preview\/)?assets\/menu\/[a-z0-9-]+\.webp$/.test(pathname)){file=new URL(pathname.split('/').at(-1),imagesDir);type='image/webp';}
       else if(/^\/preview\/_astro\/[a-zA-Z0-9_.-]+$/.test(pathname)){const name=pathname.split('/').at(-1);file=new URL('_astro/'+name,buildDir);type=name.endsWith('.css')?'text/css':name.endsWith('.js')?'text/javascript':name.endsWith('.woff2')?'font/woff2':name.endsWith('.ttf')?'font/ttf':name.endsWith('.webp')?'image/webp':name.endsWith('.svg')?'image/svg+xml':'application/octet-stream';}

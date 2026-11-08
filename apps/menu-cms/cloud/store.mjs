@@ -1,3 +1,4 @@
+import {historyQuery,historySql} from '../history-query.mjs';
 import {validateCatalogue,validateMenuSettings} from '../../streetfood/src/data/catalogue-contract.mjs';
 export class CmsError extends Error {
   constructor(status,message){super(message);this.status=status;}
@@ -13,6 +14,14 @@ export function createCloudStore(db,images){
     const {results}=await db.prepare('SELECT data FROM catalogue_history WHERE revision < ? ORDER BY revision DESC LIMIT ?').bind(before,limit+1).all();
     const entries=results.slice(0,limit).map(row=>JSON.parse(row.data));
     return {entries,nextBefore:results.length>limit?entries.at(-1).revision:null};
+  }
+  async function queryHistory(options={}){
+    let p;try{p=historyQuery(options)}catch(error){throw new CmsError(400,error.message)}
+    p.anchor=Math.min(p.anchor,(await read()).revision);
+    const sql=historySql(p,true),count=await db.prepare('SELECT COUNT(*) AS total FROM catalogue_history WHERE '+sql.where).bind(...sql.params).first();
+    const total=count.total,pages=Math.max(1,Math.ceil(total/p.pageSize)),page=Math.min(p.page,pages);
+    const {results}=await db.prepare('SELECT data FROM catalogue_history WHERE '+sql.where+' ORDER BY '+sql.order+' LIMIT ? OFFSET ?').bind(...sql.params,p.pageSize,(page-1)*p.pageSize).all();
+    return {entries:results.map(row=>JSON.parse(row.data)),total,page,pages,anchor:p.anchor};
   }
   async function save(kind,body,{id,revision,actor}={}){
     if(!body||typeof body!=='object'||Array.isArray(body))throw new CmsError(400,'Нужен объект данных.');
@@ -39,5 +48,5 @@ export function createCloudStore(db,images){
     }
     return {catalogue:state.catalogue,revision:event.revision};
   }
-  return {read,history,save};
+  return {read,history,queryHistory,save};
 }

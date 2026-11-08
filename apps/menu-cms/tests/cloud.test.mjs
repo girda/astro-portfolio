@@ -14,6 +14,7 @@ test('cloud store atomically rejects concurrent revisions and retains history',a
  const results=await Promise.allSettled([store.save('products',{...original,price:1111},{id:original.id,revision:1}),store.save('products',{...original,price:2222},{id:original.id,revision:1})]);
  assert.equal(results.filter(r=>r.status==='fulfilled').length,1);assert.equal(results.find(r=>r.status==='rejected').reason.status,409);
  assert.equal((await store.read()).revision,2);const events=(await store.history()).entries;assert.equal(events.length,1);assert.equal(events[0].before.price,original.price);
+ const queried=await store.queryHistory({q:original.name,kind:'products',field:'price',pageSize:10});assert.equal(queried.total,1);assert.equal(queried.entries[0].revision,2);
  await assert.rejects(store.save('products',{...original,image:'evil.webp'},{id:original.id,revision:2}),{status:400});
  assert.equal((await store.read()).revision,2);sqlite.close();
 });

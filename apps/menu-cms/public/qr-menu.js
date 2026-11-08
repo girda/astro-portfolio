@@ -1,3 +1,4 @@
+import {t,getLocale,initLanguage,applyLanguage,allergenLabel} from './i18n.mjs';
 import qrcode from './qr-generator.mjs';
 import {MENU_APPEARANCES,DEFAULT_MENU_ROOT,buildMenuUrl} from './menu-links.mjs';
 const $=selector=>document.querySelector(selector);
@@ -12,14 +13,14 @@ function generate(){
   const url=buildMenuUrl(root.value,theme.value),qr=qrcode(0,'M');qr.addData(url,'Byte');qr.make();
   const svg=qr.createSvgTag({cellSize:6,margin:24,scalable:true});
   // Библиотека рисует только геометрию модулей, без вставки пользовательского текста в SVG.
-  $('#qr-output').innerHTML=svg;$('#qr-output svg').setAttribute('aria-label','QR-код меню');$('#qr-output svg').setAttribute('role','img');
+  $('#qr-output').innerHTML=svg;$('#qr-output svg').setAttribute('aria-label',t('QR-код меню'));$('#qr-output svg').setAttribute('role','img');
   svgUrl=URL.createObjectURL(new Blob([svg],{type:'image/svg+xml'}));const download=$('#qr-download-svg');download.href=svgUrl;download.download='menu-'+theme.value+'.svg';download.removeAttribute('aria-disabled');
-  $('#qr-download-png').disabled=false;$('#qr-link').textContent=url;$('#qr-open').href=url;$('#qr-status').textContent='QR готов. Проверь адрес перед печатью.';current={qr,url,appearance:theme.value};
+  $('#qr-download-png').disabled=false;$('#qr-link').textContent=url;$('#qr-open').href=url;$('#qr-status').textContent=t('QR готов. Проверь адрес перед печатью.');current={qr,url,appearance:theme.value};
   try{localStorage.setItem('my-menu:qr',JSON.stringify({root:root.value,appearance:theme.value}));}catch{}
- }catch(error){$('#qr-status').textContent=error.message;}
+ }catch(error){$('#qr-status').textContent=t(error.message);}
 }
 form.addEventListener('submit',event=>{event.preventDefault();generate();});
-form.addEventListener('input',()=>{clear();$('#qr-status').textContent='Нажми «Создать QR», чтобы применить изменения.';});
+form.addEventListener('input',()=>{clear();$('#qr-status').textContent=t('Нажми «Создать QR», чтобы применить изменения.');});
 $('#qr-download-png').addEventListener('click',()=>{
  if(!current)return;const {qr,appearance}=current,count=qr.getModuleCount(),cell=12,quiet=4,canvas=document.createElement('canvas');canvas.width=canvas.height=(count+quiet*2)*cell;const ctx=canvas.getContext('2d');ctx.fillStyle='#fff';ctx.fillRect(0,0,canvas.width,canvas.height);ctx.fillStyle='#000';
  for(let r=0;r<count;r++)for(let c=0;c<count;c++)if(qr.isDark(r,c))ctx.fillRect((c+quiet)*cell,(r+quiet)*cell,cell,cell);

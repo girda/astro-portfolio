@@ -29,12 +29,13 @@ export default {async fetch(request,env){
     if(path==='/api/users'&&request.method==='GET')return json(await accounts.list(user,url.searchParams.get('after')||''));
     const userMatch=path.match(/^\/api\/users\/([a-z0-9-]+)$/);
     if(userMatch&&request.method==='PATCH')return json({user:await accounts.update(user,userMatch[1],await readBody(request),env.ADMIN_EMAIL)});
-    const accountAssets=['/','/account.html','/cloud-shell.js','/account.css','/admin.css'];
+    const accountAssets=['/','/account.html','/cloud-shell.js','/account.css','/admin.css','/i18n.mjs'];
     if(!canRead(user)&&!accountAssets.includes(path))throw new CmsError(403,'Доступ к контенту ожидает одобрения администратора.');
     if(path==='/users.html'||path==='/users.js')requireSuper(user);
     const store=createCloudStore(env.DB,images);
     if(path==='/api/catalogue'&&request.method==='GET')return json(await store.read());
     if(path==='/api/images'&&request.method==='GET')return json(images);
+    if(path==='/api/history/query'&&request.method==='GET')return json(await store.queryHistory(Object.fromEntries(url.searchParams)));
     if(path==='/api/history'&&request.method==='GET')return json(await store.history({before:url.searchParams.has('before')?Number(url.searchParams.get('before')):undefined,limit:url.searchParams.has('limit')?Number(url.searchParams.get('limit')):30}));
     if(path==='/api/settings'&&request.method==='PUT'){
       if(!canWrite(user))throw new CmsError(403,'Роль позволяет только просмотр.');

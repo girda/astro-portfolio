@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="ru">
+<html lang="de">
 <head>
   <meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
   <meta name="robots" content="noindex,nofollow">
@@ -9,18 +9,18 @@
 <body>
 <a class="skip-link" href="#products-title">К содержимому</a>
 <aside class="app-nav" aria-label="Рабочее пространство">
-  <a class="brand" href="/" aria-label="My Menu"><span class="brand-mark"><svg viewBox="0 0 48 48" aria-hidden="true"><rect x="3" y="3" width="42" height="42" rx="13" fill="#58bfc2"/><circle cx="27" cy="25" r="11" fill="none" stroke="#fff" stroke-width="2.5"/><path d="M12 13v10m-3-10v7q0 4 6 4V13m-3 11v12M35 9h8v9" fill="none" stroke="#fff" stroke-width="2.2" stroke-linecap="round"/><path d="M35 9h8v8Z" fill="#e0715b" stroke="none"/></svg></span><span>My Menu</span></a>
+  <a class="brand" href="/" aria-label="My Menu"><svg viewBox="0 0 180 112" aria-hidden="true"><g stroke="#6ed1cf" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M29 26Q90 6 151 26L144 90Q90 76 36 90Z" fill="#164c58"/><path d="M29 26c-17-7-17 22-1 18m123-18c17-7 17 22 1 18M31 77c-17-6-17 21 5 13m108-13c17-6 17 21 0 13" fill="#164c58"/><path d="M17 8v28m-5-28v19q0 8 10 8V8m-5 28v64M162 7c-10 0-12 29 0 29V100m0-93c10 0 12 29 0 29" fill="none"/><path d="M59 74h62M68 37q21-24 43 0" fill="none"/></g><text x="90" y="61" text-anchor="middle" fill="#f1f4e9" font-family="Georgia,serif" font-weight="700" font-style="italic" font-size="25">My Menu</text><path d="m85 25 5-5 5 5-5 5Z" fill="#6ed1cf"/></svg></a>
   <nav aria-label="Разделы CMS">
     <button id="show-menu" class="nav-item" aria-current="page"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="4" y="3" width="16" height="18" rx="2"/><path d="M8 8h8M8 12h8M8 16h5"/></svg><span>Контент меню</span></button>
     <button id="show-history" class="nav-item"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 11a9 9 0 1 1 2 7M3 4v7h7M12 7v5l3 2"/></svg><span>История</span></button>
     <button id="show-preview" class="nav-item"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="4" width="18" height="14" rx="2"/><path d="M8 22h8M12 18v4"/></svg><span>Предпросмотр</span></button>
     <button id="show-qr" class="nav-item"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 3h6v6H3zM15 3h6v6h-6zM3 15h6v6H3zM14 14h3v3h4v4h-7zM21 12v2M12 3v6M3 12h6"/></svg><span>QR-меню</span></button>
-  <button type="button" class="nav-item" data-local-account title="Вход и регистрация"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="8" r="4"/><path d="M4 22v-2a8 8 0 0 1 16 0v2"/></svg><span>Аккаунт</span></button><button type="button" class="nav-item" data-local-account data-local-users>Пользователи</button></nav>
-  <p class="nav-note">Работаешь с черновиком.<br>Публичное меню не меняется.</p>
+  <button type="button" class="nav-item" data-local-account data-local-users>Пользователи</button></nav>
+  <button type="button" class="account-chip" data-local-account title="Вход и регистрация"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="8" r="4"/><path d="M4 22v-2a8 8 0 0 1 16 0v2"/></svg><span class="account-letter" aria-hidden="true">L</span><span class="sr-only">Аккаунт</span></button><p class="nav-note">Работаешь с черновиком.<br>Публичное меню не меняется.</p>
 
 </aside>
 <div class="app-shell">
-  <header class="app-header"><div><span class="breadcrumb"><span id="current-section">Контент</span></span><h1 id="page-title">Управление меню</h1></div></header>
+  <header class="app-header"><div><h1 id="page-title">Управление меню</h1></div></header>
   <main>
     <div id="status" role="status" aria-live="polite">Загрузка меню…</div>
     <div id="menu-view" class="workspace">
@@ -45,8 +45,16 @@
     </div>
     <section id="history-view" class="history-panel" hidden aria-labelledby="history-title">
       <div class="section-head"><div><h2 id="history-title" tabindex="-1">История изменений</h2><p class="muted">Создание, редактирование и видимость категорий и продуктов.</p></div><button id="reload-history" class="secondary small">Обновить историю</button></div>
-      <p class="history-note">История ведётся с момента подключения этой функции. Более ранние изменения не записаны. Автор — локальная CMS, без отдельных пользователей.</p>
-      <p id="history-status" role="status" aria-live="polite"></p><div id="history-list"></div><button id="more-history" class="secondary" hidden>Показать ещё</button>
+      <p class="history-note">История фиксирует новые изменения. Автор указан при входе через учётную запись.</p>
+      <form id="history-filters" class="history-filters" role="search">
+<label>Поиск<input type="search" name="q" placeholder="Название, описание или версия" maxlength="200"></label>
+<label>Тип записи<select name="kind"><option value="">Все типы</option><option value="products">Продукты</option><option value="categories">Категории</option><option value="settings">Оформление</option></select></label>
+<label>Действие<select name="action"><option value="">Все действия</option><option value="create">Создание</option><option value="update">Изменение</option></select></label>
+<label>Изменённое поле<select name="field"><option value="">Любое поле</option><option value="price">Цена</option><option value="available">Доступность</option><option value="active">Видимость категории</option><option value="categoryId">Категория</option><option value="allergenIds">Аллергены</option><option value="variants">Варианты порции и цены</option><option value="name">Название</option><option value="image">Фото</option><option value="showPrices">Отображение цен</option><option value="title">Заголовок</option><option value="menuMode">Режим меню</option></select></label>
+<label>Автор<input name="actor" placeholder="Имя автора" maxlength="100"></label><label>С даты<input name="from" type="date"></label><label>По дату<input name="to" type="date"></label>
+<label>Сортировка<select name="sort"><option value="newest">Сначала новые</option><option value="oldest">Сначала старые</option><option value="name">По названию</option></select></label>
+<label>На странице<select name="pageSize"><option>10</option><option selected>20</option><option>50</option></select></label><button type="reset" class="secondary">Сбросить фильтры</button></form>
+<p id="history-status" role="status" aria-live="polite"></p><div id="history-list"></div><nav class="history-pagination" aria-label="Страницы истории"><button type="button" id="history-prev" class="secondary">Назад</button><span id="history-page" aria-live="polite"></span><button type="button" id="history-next" class="secondary">Далее</button></nav>
     </section>
     <section id="preview-view" class="history-panel" hidden aria-labelledby="preview-title">
       <div class="section-head"><div><h2 id="preview-title" tabindex="-1">Одно меню. Три оформления.</h2><p class="muted">Категории, блюда и цены общие. Меняется только оформление.</p></div></div>

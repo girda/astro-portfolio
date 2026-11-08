@@ -1,3 +1,4 @@
+import {historyQuery,historySql} from './history-query.mjs';
 import { DatabaseSync } from 'node:sqlite';
 import { randomUUID } from 'node:crypto';
 import { readFileSync } from 'node:fs';
@@ -57,6 +58,14 @@ export function createMenuStore(path, seed=initialCatalogue) {
       action:row.action,createdAt:row.created_at,before:row.before_data?JSON.parse(row.before_data):null,after:JSON.parse(row.after_data)}));
     return {entries,nextBefore:rows.length>limit?entries.at(-1).revision:null};
   }
+  function queryHistory(options={}){
+    let p;try{p=historyQuery(options)}catch(error){throw new CmsError(400,error.message)}
+    p.anchor=Math.min(p.anchor,read().revision);
+    const sql=historySql(p),total=db.prepare('SELECT COUNT(*) AS total FROM history WHERE '+sql.where).get(...sql.params).total;
+    const pages=Math.max(1,Math.ceil(total/p.pageSize)),page=Math.min(p.page,pages);
+    const rows=db.prepare('SELECT * FROM history WHERE '+sql.where+' ORDER BY '+sql.order+' LIMIT ? OFFSET ?').all(...sql.params,p.pageSize,(page-1)*p.pageSize);
+    return {entries:rows.map(row=>({revision:row.revision,kind:row.kind,entityId:row.entity_id,action:row.action,createdAt:row.created_at,before:row.before_data?JSON.parse(row.before_data):null,after:JSON.parse(row.after_data)})),total,page,pages,anchor:p.anchor};
+  }
   function save(kind, body, {id,revision}={}){
     if(!body||typeof body!=='object'||Array.isArray(body))throw new CmsError(400,'Нужен объект данных.');
     if(!Number.isSafeInteger(revision))throw new CmsError(428,'Обнови данные перед сохранением.');
@@ -81,5 +90,5 @@ export function createMenuStore(path, seed=initialCatalogue) {
       return read();
     }catch(error){db.exec('ROLLBACK');throw error;}
   }
-  return {read,history,saveSettings,saveCategory:(body,options)=>save('categories',body,options),saveProduct:(body,options)=>save('products',body,options),close:()=>db.close()};
+  return {read,history,queryHistory,saveSettings,saveCategory:(body,options)=>save('categories',body,options),saveProduct:(body,options)=>save('products',body,options),close:()=>db.close()};
 }
