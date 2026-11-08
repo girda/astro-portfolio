@@ -6,7 +6,10 @@ const catalogue = JSON.parse(readFileSync(new URL('../src/data/catalogue.json',i
 
 test('menu catalogue preserves the shared burger and Italian catalogue and local media', () => {
   assert.equal(validateCatalogue(catalogue), catalogue);
-  assert.equal(catalogue.products.length,28);
+  assert.equal(catalogue.products.length,30);
+  const pizzas=catalogue.products.filter(p=>p.categoryId==='pizza');
+  assert.equal(pizzas.length,4);
+  assert.equal(new Set(pizzas.map(p=>p.image)).size,4,'Each pizza has its own product image');
   assert.equal(catalogue.categories.length,9);
   for (const product of catalogue.products) assert.ok(existsSync(new URL(`../public/assets/menu/${product.image}`,import.meta.url)));
 });

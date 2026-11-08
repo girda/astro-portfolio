@@ -1,0 +1,120 @@
+/* Утверждённая итальянская композиция. Изменения ограничены этой темой. */
+html[data-appearance=pizzeria]{--menu-paper:#fff7e9;--menu-ink:#292d20;--menu-muted:#4e4b40;--menu-accent:#a81d17;--menu-line:#a81d1770;--pizza-green:#506b2d;--pizza-check:9px}
+html[data-appearance=pizzeria] .food-app{padding-bottom:115px}
+html[data-appearance=pizzeria] .app-header{padding:19px 0 27px!important;gap:18px}
+html[data-appearance=pizzeria] .app-header:after{height:calc(var(--pizza-check)*2);bottom:0;left:-40px;right:-40px;background:conic-gradient(var(--menu-accent) 25%,transparent 0 50%,var(--menu-accent) 0 75%,transparent 0) 0 0/calc(var(--pizza-check)*2) calc(var(--pizza-check)*2)}
+html[data-appearance=pizzeria] .wordmark{font:700 34px/1 Georgia,'Times New Roman',serif;gap:16px;white-space:nowrap;letter-spacing:-1px}
+html[data-appearance=pizzeria] .pizzeria-oven{width:80px;height:63px;stroke:none;overflow:visible}
+html[data-appearance=pizzeria] .wordmark small{display:flex;align-items:center;justify-content:center;gap:10px;letter-spacing:5px;font:700 11px/1.4 Arial,sans-serif;color:var(--pizza-green);margin-top:7px}
+html[data-appearance=pizzeria] .wordmark small i{width:33px;height:1px;background:currentColor}
+html[data-appearance=pizzeria] .header-tools{gap:13px;color:var(--menu-accent)}
+html[data-appearance=pizzeria] .header-tools .icon-button{border-radius:7px;width:40px;height:40px;transition:background .2s ease,color .2s ease}
+html[data-appearance=pizzeria] .header-cart>span{right:-1px;top:-1px;background:var(--menu-accent)}
+html[data-appearance=pizzeria] .header-search-control .search-bar{background:var(--menu-paper);box-shadow:0 2px 14px #4b281817;color:var(--menu-ink)}
+html[data-appearance=pizzeria] .header-search-control .search-bar input:focus{border-bottom-color:var(--menu-accent)}
+html[data-appearance=pizzeria] .menu-intro{min-height:260px;grid-template-columns:1fr;gap:0;padding:48px 0 36px;overflow:visible;z-index:6}
+html[data-appearance=pizzeria] .menu-intro>div{padding:0 0 0 115px;max-width:690px;position:relative;z-index:1}
+html[data-appearance=pizzeria] .menu-intro h1{font:700 italic clamp(38px,4.1vw,58px)/1.08 Georgia,serif;letter-spacing:-1.9px;white-space:nowrap;margin:0 0 9px}
+html[data-appearance=pizzeria] .menu-intro p:not(.intro-kicker){font:400 30px/1.2 Georgia,serif;text-align:left}
+html[data-appearance=pizzeria] .menu-intro p:after{height:15px;width:155px;margin:12px auto 0;background:url('../assets/pizzeria-underline.svg') center/contain no-repeat;clip-path:none}
+html[data-appearance=pizzeria] .menu-intro>img{position:absolute;right:140px;top:-32px;width:330px;height:300px;max-width:37%;object-fit:contain;transform:rotate(-8deg);z-index:2;mix-blend-mode:multiply;filter:drop-shadow(0 8px 4px #51341d26)}
+html[data-appearance=pizzeria] .menu-intro:before{left:-3px;bottom:70px;width:105px;height:105px;background-size:315px 105px;transform:rotate(-15deg);z-index:0}
+html[data-appearance=pizzeria] .menu-intro:after{right:0;top:48px;width:115px;height:125px;background-size:360px 120px;transform:rotate(5deg);z-index:0}
+html[data-appearance=pizzeria] .categories{gap:14px;padding:12px 0 10px;scrollbar-width:none;border-bottom:1px solid var(--menu-accent);background-color:var(--menu-paper)}
+html[data-appearance=pizzeria] .category{font:700 23px/1.2 Georgia,serif;min-height:40px;border-radius:9px;padding:7px 25px;border:1px solid transparent;transition:background .18s ease,color .18s ease}
+html[data-appearance=pizzeria] .category[aria-pressed=true]{color:#fff;background:linear-gradient(#bd2920,#9e1713);border-color:#fff9;box-shadow:inset 0 1px #fff2}
+html[data-appearance=pizzeria] .menu-caption{display:flex;padding:25px 0 12px;gap:15px}
+html[data-appearance=pizzeria] .menu-caption h2{font:700 italic 44px/1.1 Georgia,serif;letter-spacing:-1px;flex:none}
+html[data-appearance=pizzeria] .menu-caption:before{content:'';order:1;flex:1;height:1px;background:var(--menu-accent);align-self:center}
+html[data-appearance=pizzeria] .menu-caption:after{order:2;margin:0;width:75px;height:62px;flex:none;background-size:186px 62px}
+html[data-appearance=pizzeria] .menu-caption>[data-results]{position:absolute;right:0;top:9px;font:11px Arial,sans-serif}
+html[data-appearance=pizzeria] .dish-grid{column-gap:30px}
+html[data-appearance=pizzeria] .dish-card{position:relative;border-bottom-color:var(--menu-line)}
+html[data-appearance=pizzeria] .dish-open{grid-template-columns:39% 1fr;min-height:225px;gap:18px;padding:20px 0 62px}
+html[data-appearance=pizzeria] .dish-photo{aspect-ratio:1;width:100%;align-self:start}
+html[data-appearance=pizzeria] .dish-photo img{height:100%;object-fit:contain;filter:drop-shadow(0 5px 3px #51341d1a);transition:transform .3s ease}
+html[data-appearance=pizzeria] .dish-info{gap:12px;align-self:center}
+html[data-appearance=pizzeria] .dish-info h2{font:700 31px/1.1 Georgia,serif!important;letter-spacing:-.5px}
+html[data-appearance=pizzeria] .dish-description{font:14px/1.45 Arial,sans-serif;margin-top:7px;color:#302d26}
+html[data-appearance=pizzeria] .dish-info>strong{font:700 22px/1.15 Arial,sans-serif;color:#30251d}
+html[data-appearance=pizzeria] .dish-allergens{padding:0 100px 18px calc(39% + 18px);margin-top:-46px;color:var(--pizza-green);min-height:46px;gap:6px}
+html[data-appearance=pizzeria] .allergen-icon{width:25px;height:25px;padding:4px}
+html[data-appearance=pizzeria] :is(.favorite,.quick-add){width:37px;height:37px;bottom:15px;top:auto;border-radius:6px;border:1px solid var(--menu-accent);display:grid;place-items:center;box-shadow:0 2px 0 #681c1429;transition:background .18s ease,transform .18s ease}
+html[data-appearance=pizzeria] .favorite{right:46px;background:#fff7e9;color:var(--menu-accent)}
+html[data-appearance=pizzeria] .favorite[aria-pressed=true]{background:#f6e2d7}
+html[data-appearance=pizzeria] .quick-add{right:0;background:linear-gradient(#c42e24,#a21712);color:#fff}
+html[data-appearance=pizzeria] :is(.favorite,.quick-add) svg{width:23px;height:23px;stroke-width:1.8}
+html[data-appearance=pizzeria] .cart-dock{background:linear-gradient(#b9251b,#991b15);border:1px solid #8a231c;box-shadow:0 5px 25px #5a231d25;padding:18px 24px}
+html[data-appearance=pizzeria] .cart-dock:before{right:20px;top:-37px;width:65px;height:53px;background-size:165px 55px;transform:rotate(-12deg)}
+html[data-appearance=pizzeria] .menu-feature{position:relative;justify-content:flex-start;border-bottom:1px solid var(--menu-accent);gap:26px;padding:20px 0}
+html[data-appearance=pizzeria] .menu-feature>span{font:700 italic 38px/1.15 Georgia,serif}
+html[data-appearance=pizzeria] .menu-feature>span:after{content:'';display:block;width:150px;height:12px;background:url('../assets/pizzeria-underline.svg') center/contain no-repeat;margin:8px auto 0}
+html[data-appearance=pizzeria] .menu-feature>img{width:150px;height:110px}
+html[data-appearance=pizzeria] .menu-feature>small{font:600 15px Arial,sans-serif;color:var(--pizza-green)}
+html[data-appearance=pizzeria] .food-dialog{background:var(--menu-paper);border:1px solid #e7d8c6}
+html[data-appearance=pizzeria] .food-dialog .primary{background:var(--menu-accent)}
+html[data-appearance=pizzeria] .food-dialog :is(input,textarea):focus{border-color:var(--menu-accent);box-shadow:inset 0 -2px var(--menu-accent)}
+html[data-appearance=pizzeria] .food-dialog .allergen-note{color:var(--menu-muted)}
+@media(min-width:701px){html[data-appearance=pizzeria] .dish-card:nth-child(2n+1):before{content:'';position:absolute;right:-15px;top:20px;bottom:0;width:1px;background:var(--menu-line)}}
+@media(hover:hover){html[data-appearance=pizzeria] .header-tools .icon-button:hover{background:#a81d1710}html[data-appearance=pizzeria] .category:hover{background:#a81d1710}html[data-appearance=pizzeria] .category[aria-pressed=true]:hover{color:#fff;background:#921710}html[data-appearance=pizzeria] .dish-open:hover .dish-photo img{transform:scale(1.035)}html[data-appearance=pizzeria] :is(.favorite,.quick-add):hover{transform:translateY(-1px);background:#8e1a14;color:#fff}html[data-appearance=pizzeria] .menu-feature:hover{background:#a81d1705}}
+@media(max-width:1100px) and (min-width:701px){html[data-appearance=pizzeria] .wordmark{font-size:30px}html[data-appearance=pizzeria] .menu-intro{min-height:235px}html[data-appearance=pizzeria] .menu-intro>div{padding-left:70px;max-width:58%}html[data-appearance=pizzeria] .menu-intro h1{font-size:clamp(32px,4.3vw,47px);white-space:normal}html[data-appearance=pizzeria] .menu-intro p:not(.intro-kicker){font-size:24px}html[data-appearance=pizzeria] .menu-intro>img{right:95px;top:-15px;width:270px;height:250px;max-width:35%}html[data-appearance=pizzeria] .menu-intro:before{left:-13px;width:78px;height:85px;background-size:255px 85px}html[data-appearance=pizzeria] .menu-intro:after{width:82px;height:105px;background-size:285px 95px}html[data-appearance=pizzeria] .menu-caption h2{font-size:35px}html[data-appearance=pizzeria] .dish-open{grid-template-columns:36% 1fr;gap:12px}html[data-appearance=pizzeria] .dish-info h2{font-size:26px!important}html[data-appearance=pizzeria] .dish-allergens{padding-left:calc(36% + 12px)}}
+@media(max-width:1000px){html[data-appearance=pizzeria] .app-header:after{left:-24px;right:-24px}}
+@media(max-width:700px){
+ html[data-appearance=pizzeria]{--pizza-check:6px}
+ html[data-appearance=pizzeria] .food-app{padding-inline:18px}
+ html[data-appearance=pizzeria] .app-header{padding:15px 0 22px!important;gap:10px}
+ html[data-appearance=pizzeria] .app-header:after{left:-18px;right:-18px}
+ html[data-appearance=pizzeria] .wordmark{font-size:24px!important;gap:9px!important;letter-spacing:-.7px}
+ html[data-appearance=pizzeria] .pizzeria-oven{width:47px;height:42px}
+ html[data-appearance=pizzeria] .wordmark small{font-size:8px;letter-spacing:3px;gap:6px;margin-top:5px}
+ html[data-appearance=pizzeria] .wordmark small i{width:19px}
+ html[data-appearance=pizzeria] .header-tools{gap:4px}
+ html[data-appearance=pizzeria] .header-tools .icon-button{width:33px;height:36px}
+ html[data-appearance=pizzeria] .header-tools .icon-button svg{width:24px;height:24px}
+ html[data-appearance=pizzeria] .header-tools [data-menu-open]{display:none}
+ html[data-appearance=pizzeria] .menu-intro{display:none}
+ html[data-appearance=pizzeria] .categories{--filter-inset:18px;margin-inline:-18px;padding:12px 18px 10px;gap:6px}
+ html[data-appearance=pizzeria] .category{font-size:18px;min-height:35px;padding:6px 14px;border-radius:7px}
+ html[data-appearance=pizzeria] .menu-caption{padding:22px 0 8px;gap:8px}
+ html[data-appearance=pizzeria] .menu-caption h2{font-size:29px;letter-spacing:-.7px;flex:0 1 auto}
+ html[data-appearance=pizzeria] .menu-caption:after{width:44px;height:42px;background-size:126px 42px}
+ html[data-appearance=pizzeria] .menu-caption>[data-results]{display:none}
+ html[data-appearance=pizzeria] .dish-grid{grid-template-columns:1fr}
+ html[data-appearance=pizzeria] .dish-open{grid-template-columns:39% 1fr;min-height:195px;padding:18px 0 62px;gap:14px}
+ html[data-appearance=pizzeria] .dish-info h2{font-size:25px!important}
+ html[data-appearance=pizzeria] .dish-description{font-size:13px;line-height:1.4}
+ html[data-appearance=pizzeria] .dish-info>strong{font-size:20px}
+ html[data-appearance=pizzeria] .dish-allergens{padding-left:calc(39% + 14px);padding-right:93px;gap:5px}
+ html[data-appearance=pizzeria] .favorite,html[data-appearance=pizzeria] .quick-add{width:34px;height:34px;bottom:14px}
+ html[data-appearance=pizzeria] .favorite{right:42px}
+ html[data-appearance=pizzeria] .cart-dock{padding:17px 17px;bottom:calc(10px + env(safe-area-inset-bottom));border-radius:9px}
+ html[data-appearance=pizzeria] .menu-feature{gap:12px;flex-wrap:wrap}
+ html[data-appearance=pizzeria] .menu-feature>span{font-size:29px}
+ html[data-appearance=pizzeria] .menu-feature>img{width:100px;height:90px;margin-left:auto}
+ html[data-appearance=pizzeria] .menu-feature>small{display:none}
+}
+@media(max-width:360px){html[data-appearance=pizzeria] .wordmark{font-size:19px!important;gap:7px!important}html[data-appearance=pizzeria] .pizzeria-oven{width:39px;height:36px}html[data-appearance=pizzeria] .menu-caption h2{font-size:25px}html[data-appearance=pizzeria] .dish-open{gap:10px}html[data-appearance=pizzeria] .dish-info h2{font-size:22px!important}html[data-appearance=pizzeria] .dish-allergens{padding-left:calc(39% + 10px);padding-right:85px}}
+@media(prefers-reduced-motion:reduce){html[data-appearance=pizzeria] :is(.dish-photo img,.favorite,.quick-add,.category){transition:none}}
+
+html[data-appearance=pizzeria] .quantity button{background:var(--menu-accent);color:#fff}
+html[data-appearance=pizzeria] .product-hero{height:clamp(230px,38vh,360px);object-fit:contain;padding:18px 45px;background:transparent}
+html[data-appearance=pizzeria] .product-title-row h2{font-family:Georgia,serif;color:var(--menu-accent)}
+html[data-appearance=pizzeria] .allergen-tip{border:1px solid #bd9b7e55;background:#fffaf0}
+/* Поле открывается маской: буквы не растягиваются вместе с анимацией. */
+html[data-appearance=pizzeria] .header-search-control .search-bar{transform:translateY(-50%);clip-path:inset(0 0 0 100%);transition:clip-path .22s ease,opacity .18s ease}
+html[data-appearance=pizzeria] .header-search-control.search-open .search-bar{clip-path:inset(0);opacity:1}
+@media(max-width:700px){html[data-appearance=pizzeria] .cart-dock:before{top:8px;right:95px;width:42px;height:35px;background-size:105px 35px;opacity:.22}}
+@media(prefers-reduced-motion:reduce){html[data-appearance=pizzeria] .header-search-control .search-bar{transition:none}}
+/* Подсказка читается поверх карточки, но не перехватывает её нажатия. */
+html[data-appearance=pizzeria] .allergen-tip{pointer-events:none}
+/* Состав и иконки идут перед пожеланием, а не под закреплённой кнопкой заказа. */
+html[data-appearance=pizzeria] .product-detail{display:flex;flex-direction:column;padding-bottom:30px}
+html[data-appearance=pizzeria] .product-detail>.overline{order:0}
+html[data-appearance=pizzeria] .product-detail>.product-title-row{order:1}
+html[data-appearance=pizzeria] .product-detail>[data-product-description]{order:2}
+html[data-appearance=pizzeria] .product-detail>.allergen-note{order:3}
+html[data-appearance=pizzeria] .product-detail>.detail-allergens{order:4;color:var(--pizza-green)!important;padding:0!important;margin:4px 0 18px!important;min-height:0}
+html[data-appearance=pizzeria] .product-detail>.extras{order:5}
+html[data-appearance=pizzeria] .product-detail>.dish-note{order:6}
+html[data-appearance=pizzeria] .product-hero{height:clamp(180px,30vh,300px)}
+html[data-appearance=pizzeria] .quantity button:disabled{opacity:.4;cursor:default}

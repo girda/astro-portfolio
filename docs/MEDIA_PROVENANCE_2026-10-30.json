@@ -1945,6 +1945,33 @@
       "published": true,
       "evidence": "original_project_vector_2026_11_08",
       "source": "Hand-authored SVG crest and Street Food wordmark for this project."
+    },
+    {
+      "file": "apps/streetfood/public/assets/menu/pizza-diavola.webp",
+      "sha256": "d30813d5b70089c527a7892db0325833f5986dcd3071e5234418362d99ab39fb",
+      "bytes": 379386,
+      "published": true,
+      "evidence": "built_in_imagegen_for_user_2026_11_08",
+      "original": "exec-37d65b11-8261-40ac-908a-f545a3adf868.png",
+      "caveat": "Fictional demo food, not a photograph of a real restaurant product."
+    },
+    {
+      "file": "apps/streetfood/public/assets/menu/pizza-funghi.webp",
+      "sha256": "e34ee06722ba166fb53152f4f64f529038e4a9777da1362f99ccca7318471002",
+      "bytes": 384056,
+      "published": true,
+      "evidence": "built_in_imagegen_for_user_2026_11_08",
+      "original": "exec-8e21f922-5627-4e6e-b6e5-f92dde2388a2.png",
+      "caveat": "Fictional demo food, not a photograph of a real restaurant product."
+    },
+    {
+      "file": "apps/streetfood/public/assets/menu/pizza-bufala.webp",
+      "sha256": "b593d455cc3aea5e213d925b705cd0893e9d92255a8887c1080da52b6c0a43ff",
+      "bytes": 339162,
+      "published": true,
+      "evidence": "built_in_imagegen_for_user_2026_11_08",
+      "original": "exec-3d9436f2-2b41-4f34-bd23-9212a92015d4.png",
+      "caveat": "Fictional demo food, not a photograph of a real restaurant product."
     }
   ]
 }

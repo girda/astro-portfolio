@@ -380,12 +380,12 @@
       "id": "margherita-bufala",
       "categoryId": "pizza",
       "name": "Margherita Bufala",
-      "description": "Tomatensauce, Büffelmozzarella, Basilikum und Olivenöl.",
+      "description": "Tomatensauce, Büffelmozzarella, Kirschtomaten, frisches Basilikum und Olivenöl.",
       "price": 1390,
-      "image": "pizzeria-hero.webp",
+      "image": "pizza-bufala.webp",
       "allergens": "Weizen, Milch",
       "time": 15,
-      "sortOrder": 25,
+      "sortOrder": 26,
       "available": true
     },
     {
@@ -397,7 +397,7 @@
       "image": "caprese.webp",
       "allergens": "Milch",
       "time": 5,
-      "sortOrder": 26,
+      "sortOrder": 28,
       "available": true
     },
     {
@@ -409,6 +409,30 @@
       "image": "tiramisu.webp",
       "allergens": "Weizen, Milch, Ei",
       "time": 5,
+      "sortOrder": 29,
+      "available": true
+    },
+    {
+      "id": "diavola",
+      "categoryId": "pizza",
+      "name": "Diavola",
+      "description": "Tomatensauce, Mozzarella, pikante Salami und rote Chili. Für alle, die es etwas schärfer mögen.",
+      "price": 1390,
+      "image": "pizza-diavola.webp",
+      "allergens": "Weizen, Milch",
+      "time": 15,
+      "sortOrder": 25,
+      "available": true
+    },
+    {
+      "id": "funghi",
+      "categoryId": "pizza",
+      "name": "Funghi",
+      "description": "Tomatensauce, Mozzarella, braune Champignons, Petersilie und Olivenöl.",
+      "price": 1250,
+      "image": "pizza-funghi.webp",
+      "allergens": "Weizen, Milch",
+      "time": 15,
       "sortOrder": 27,
       "available": true
     }

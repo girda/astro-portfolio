@@ -1,0 +1,15 @@
+---
+// Кирпичная печь и огонь остаются векторными на любом экране.
+const seams=Array.from({length:11},(_,i)=>{
+ const angle=Math.PI+(i+1)*Math.PI/12;
+ return `M${40+27*Math.cos(angle)} ${48+27*Math.sin(angle)}L${40+39*Math.cos(angle)} ${48+39*Math.sin(angle)}`;
+});
+---
+<svg class="menu-emblem pizzeria-oven" viewBox="0 0 80 63" aria-hidden="true">
+ <path fill="currentColor" stroke="none" d="M1 61V47a39 39 0 0 1 78 0v14H65V47a25 25 0 0 0-50 0v14H1Z"/>
+ <g fill="none" stroke="var(--menu-paper)" stroke-width="2.5">{seams.map(d=><path d={d}/>)}<path d="M2 48h11M2 55h11m54-7h11m-11 7h11"/></g>
+ <path d="M18 61V47a22 22 0 0 1 44 0v14H18Z" fill="currentColor" stroke="none"/>
+ <path d="M29 57c-9-9-1-15 1-20 1 5 3 7 5 7-1-11 7-14 6-21 14 13 5 15 7 21 3-1 4-4 4-7 11 12 0 20 0 20H29Z" fill="var(--menu-paper)" stroke="none"/>
+ <path d="M37 57c-5-5 0-8 2-11 0 4 5 3 5 0 5 6 0 11 0 11Z" fill="currentColor" stroke="none"/>
+</svg>
+<span>Forno &amp; Basilico<small><i aria-hidden="true"></i>PIZZERIA<i aria-hidden="true"></i></small></span>
