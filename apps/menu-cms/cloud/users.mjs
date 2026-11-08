@@ -1,13 +1,12 @@
-import {CmsError} from './store.mjs';
+import {CmsError} from '../errors.mjs';
 const publicUser=row=>({id:row.id,email:row.email,name:row.name,role:row.role,status:row.status,createdAt:row.created_at,lastLoginAt:row.last_login_at,revision:row.revision});
 export function canRead(user){return user?.status==='active'&&['viewer','editor','super_admin'].includes(user.role)}
-export function canWrite(user){return user?.status==='active'&&['editor','super_admin'].includes(user.role)}
 export function requireSuper(user){if(user?.status!=='active'||user.role!=='super_admin')throw new CmsError(403,'Нужны права супер-администратора.')}
 export function createUserStore(db){
  async function identify(identity){
   const email=identity.email.toLowerCase();
   const login=new Date(identity.iat*1000).toISOString();
-  await db.prepare('INSERT INTO cms_users (id,email,created_at,last_login_at) VALUES (?,?,?,?) ON CONFLICT(email) DO NOTHING').bind(crypto.randomUUID(),email,new Date().toISOString(),login).run();
+  await db.prepare("INSERT INTO cms_users (id,email,created_at,last_login_at,status) VALUES (?,?,?,?,'active') ON CONFLICT(email) DO NOTHING").bind(crypto.randomUUID(),email,new Date().toISOString(),login).run();
   await db.prepare('UPDATE cms_users SET last_login_at=? WHERE email=? AND (last_login_at IS NULL OR last_login_at < ?)').bind(login,email,login).run();
   return publicUser(await db.prepare('SELECT * FROM cms_users WHERE email=?').bind(email).first());
  }

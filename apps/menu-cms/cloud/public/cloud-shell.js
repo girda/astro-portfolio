@@ -9,21 +9,21 @@ function profile(user){
  document.body.replaceChildren();const main=el('main');main.className='account-card';
  main.append(el('h1',user.name?t('Мой профиль'):t('Заверши регистрацию')),el('p',user.email),el('p',`${states[user.status]} · ${roles[user.role]}`));
  main.append(el('p',t('Для работы CMS сохраняются имя, email, роль, статус и даты регистрации и входа. Эти данные доступны супер-администратору.')));
+ if(user.status==='active'&&!user.name)main.append(el('p',t('Укажи имя, затем создай ресторан.')));
  if(user.status==='pending')main.append(el('p',t('Заполни имя. Администратор проверит заявку и назначит доступ к меню.')));
  const form=el('form'),label=el('label',t('Имя и фамилия')),input=el('input');input.name='name';input.autocomplete='name';input.required=true;input.minLength=2;input.maxLength=100;input.value=user.name;label.append(input);
  const button=el('button',t('Сохранить имя')),status=el('p');status.setAttribute('role','status');form.append(label,button,status);
- form.addEventListener('submit',async event=>{event.preventDefault();button.disabled=true;try{await api('/api/me',{method:'PUT',body:JSON.stringify({name:input.value})});status.textContent=t('Имя сохранено.');}catch(error){status.textContent=t(error.message);}finally{button.disabled=false;}});
+ form.addEventListener('submit',async event=>{event.preventDefault();button.disabled=true;try{await api('/api/me',{method:'PUT',body:JSON.stringify({name:input.value})});status.textContent=t('Имя сохранено.');if(user.status==='active'&&!user.name)location.assign('/');}catch(error){status.textContent=t(error.message);}finally{button.disabled=false;}});
  if(user.status!=='blocked')main.append(form);
  const links=el('nav');links.className='account-links';if(user.status==='active')links.append(link(t('Контент меню'),'/'));if(user.role==='super_admin'&&user.status==='active')links.append(link(t('Пользователи'),'/users.html'));links.append(link(t('Обновить статус'),'/account.html'),link(t('Выйти'),'/cdn-cgi/access/logout'));main.append(links);document.body.append(main);initLanguage();
 }
 try{
  const {user}=await api('/api/me');
- if(user.status!=='active'||location.pathname==='/account.html')profile(user);
+ if(user.status!=='active'||!user.name||location.pathname==='/account.html')profile(user);
  else if(location.pathname==='/users.html'){
   if(user.role!=='super_admin')throw new Error(t('Раздел доступен только супер-администратору.'));
   const {initUsers}=await import('/users.js');await initUsers(user);
  }else{
-  if(user.role==='viewer')document.body.classList.add('read-only');
   document.querySelectorAll('[data-local-account],#local-account-dialog').forEach(node=>node.remove());
   const chip=link('', '/account.html');chip.className='account-chip';chip.setAttribute('aria-label',t('Мой профиль')+' · '+user.email);chip.title=user.email;
   chip.innerHTML='<svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="8" r="4"/><path d="M4 22v-2a8 8 0 0 1 16 0v2"/></svg>';

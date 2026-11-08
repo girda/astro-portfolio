@@ -6,9 +6,9 @@ import {DEFAULT_SETTINGS} from '../../streetfood/src/data/menu-options.mjs';
 test('all appearance previews inject the current draft and preserve the selected design',async()=>{
   const app=await startCms({port:0,path:':memory:'});
   try{
-    const initial=app.store.read();const product=initial.catalogue.products[0];
-    app.store.saveProduct({...product,name:'Changed in CMS <draft>'},{id:product.id,revision:initial.revision});
-    app.store.saveSettings({...DEFAULT_SETTINGS,showPrices:false},{revision:2});
+    const initial=await app.store.read();const product=initial.catalogue.products[0];
+    await app.store.saveProduct({...product,name:'Changed in CMS <draft>'},{id:product.id,revision:initial.revision});
+    await app.store.saveSettings({...DEFAULT_SETTINGS,showPrices:false},{revision:2});
     for(const theme of ['streetfood','diner','pizzeria']){
       const response=await fetch(app.url+'/preview/'+(theme==='streetfood'?'':theme+'/'));
       assert.equal(response.status,200);

@@ -949,3 +949,7 @@ select{appearance:none;padding-right:36px;background-color:white;background-imag
 }
 
 @media(min-width:1100px){#editor{top:50%;bottom:auto;height:fit-content;transform:translateY(-50%)} }
+
+/* Выбор пространства не меняет дизайн самого редактора меню. */
+.app-header{flex-wrap:wrap;gap:16px}.workspace-controls{display:flex;gap:12px;align-items:end;flex-wrap:wrap;max-width:100%;margin-left:auto}.workspace-controls label{display:grid;gap:4px;font-size:12px;min-width:0}.workspace-controls select{width:clamp(180px,25vw,360px);max-width:100%;min-height:40px}.restaurant-dialog{margin:auto;inset:0;width:min(480px,calc(100vw - 32px));max-height:calc(100dvh - 32px);overflow:auto;border:1px solid var(--border,#d8e1e8);border-radius:12px;padding:24px;background:var(--surface,#fff);color:var(--text,#193d4a)}.restaurant-dialog::backdrop{background:rgb(14 30 37 / .5)}.restaurant-dialog form,.restaurant-dialog label{display:grid;gap:12px}.restaurant-dialog form{gap:20px}.restaurant-actions{display:flex;justify-content:flex-end;gap:12px}.restaurant-dialog input{width:100%;min-width:0}.read-only #menu-settings{pointer-events:none;opacity:.75}.read-only [data-write]{display:none!important}
+@media(max-width:600px){.workspace-controls{margin-left:0;width:100%;gap:8px}.workspace-controls label{flex:1}.workspace-controls select{width:100%}.workspace-controls>button{font-size:12px;min-height:40px}.restaurant-dialog{padding:20px}}

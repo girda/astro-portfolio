@@ -3,6 +3,8 @@ import {MENU_APPEARANCES} from './menu-links.mjs';
 import './qr-menu.js';
 import {ALLERGENS,DEFAULT_SETTINGS,productOptions,allergenIconMarkup} from './menu-options.mjs';
 import {mergeDraft, selectProducts} from './editor-state.mjs';
+import {initWorkspace} from './workspaces.js';
+const workspace=await initWorkspace();
 
 initLanguage();
 const $ = selector => document.querySelector(selector);
@@ -58,7 +60,7 @@ async function api(path,options = {}) {
   const timer = setTimeout(() => controller.abort(),REQUEST_TIMEOUT_MS);
   try {
     let response;
-    try {response = await fetch(path,{...options,signal:controller.signal});}
+    try {response = await fetch(workspace.apiPath(path),{...options,signal:controller.signal});}
     catch {
       throw new Error(controller.signal.aborted ? t('CMS не ответила вовремя. Проверь сервер и повтори.') : t('Нет связи с локальной CMS. Проверь, запущен ли сервер.'));
     }
@@ -403,7 +405,7 @@ for(const item of appearances){
   const body=node('div',undefined,'appearance-body');body.append(node('h3',item.name),node('p',t(item.description)));
   const actions=node('div',undefined,'appearance-actions');const select=node('button',t('Выбрать оформление'));select.dataset.appearanceSelect=item.id;
   select.addEventListener('click',()=>{appearance=item.id;try{localStorage.setItem('my-menu:appearance',appearance);}catch{}syncAppearance();$('#appearance-status').textContent=t('Выбрано: ')+item.name+'.';});
-  const open=node('a',t('Открыть меню'),'secondary');open.href='/preview/'+item.path;open.target='_blank';open.rel='noopener';
+  const open=node('a',t('Открыть меню'),'secondary');open.href=workspace.preview('/preview/'+item.path);open.target='_blank';open.rel='noopener';
   actions.append(select,open);body.append(actions);card.append(image,body);$('#appearance-grid').append(card);
 }
 syncAppearance();
@@ -433,7 +435,7 @@ $('#menu-logo-upload').addEventListener('change',async event=>{
  }catch(error){$('#settings-status').textContent=t(error.message);event.target.value='';}
 });
 $('#menu-settings').addEventListener('submit',async event=>{
- event.preventDefault();if(busy||!state||!event.target.reportValidity())return;const form=event.target;
+ event.preventDefault();if(busy||!state||document.body.classList.contains('read-only')||!event.target.reportValidity())return;const form=event.target;
  setBusy(true);try{state=await api('/api/settings',{method:'PUT',headers:{'Content-Type':'application/json','If-Match':String(state.revision)},body:JSON.stringify({title:form.elements.namedItem('title').value,subtitle:form.elements.namedItem('subtitle').value,menuMode:form.elements.namedItem('menuMode').value,showPrices:form.elements.namedItem('showPrices').value==='true',logo:menuLogo})});settingsBaseline=settingsSignature();$('#settings-status').textContent=t('Оформление сохранено. Обнови меню.');}catch(error){$('#settings-status').textContent=t(error.message);}finally{setBusy(false);}
 });
 
@@ -441,7 +443,13 @@ const accountDialog=document.querySelector('#local-account-dialog');
 document.querySelectorAll('[data-local-account]').forEach(button=>button.addEventListener('click',()=>accountDialog.showModal()));
 document.querySelector('[data-account-close]')?.addEventListener('click',()=>accountDialog.close());
 
-let settingsBaseline='',pendingLanguage=null;
+let settingsBaseline='',pendingLanguage=null,pendingWorkspace=null;
+document.addEventListener('cms-workspace-request',event=>{
+ if(busy||(editing&&$('#editor').open&&signature()!==editing.baseline)||(settingsBaseline&&settingsSignature()!==settingsBaseline)){event.preventDefault();if(busy)return;pendingWorkspace=event.detail.navigate;$('#discard-dialog').showModal();}
+});
+$('#keep-editing').addEventListener('click',()=>{pendingWorkspace=null;});
+$('#discard-dialog').addEventListener('cancel',()=>{pendingWorkspace=null;pendingLanguage=null;});
+$('#discard-changes').addEventListener('click',()=>{if(pendingWorkspace)pendingWorkspace();});
 document.addEventListener('cms-language-request',event=>{
  if((editing&&$('#editor').open&&signature()!==editing.baseline)||(settingsBaseline&&settingsSignature()!==settingsBaseline)){event.preventDefault();pendingLanguage=event.detail;$('#discard-dialog').showModal();}
 });

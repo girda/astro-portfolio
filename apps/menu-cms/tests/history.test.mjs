@@ -57,7 +57,7 @@ test('history API validates cursors and applies local origin protection',async()
   assert.deepEqual(await (await fetch(app.url+'/api/history')).json(),{entries:[],nextBefore:null});
   for(const query of ['?limit=100','?before=NaN','?before=0','?limit='])assert.equal((await fetch(app.url+'/api/history'+query)).status,400);
   assert.equal((await fetch(app.url+'/api/history',{headers:{Origin:'https://evil.example'}})).status,403);
-  const row=app.store.read().catalogue.products[0];app.store.saveProduct({...row,name:'History API test'},{id:row.id,revision:1});
+  const row=(await app.store.read()).catalogue.products[0];await app.store.saveProduct({...row,name:'History API test'},{id:row.id,revision:1});
   const data=await(await fetch(app.url+'/api/history?limit=1')).json();assert.equal(data.entries[0].before.name,row.name);assert.equal(data.entries[0].after.name,'History API test');
  }finally{await app.close();}
 });
