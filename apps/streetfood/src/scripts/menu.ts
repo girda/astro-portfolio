@@ -1,8 +1,11 @@
 import {formatMoney} from '../data/format-money';
 import type {MenuData} from '../data/menu';
+import {ALLERGENS} from '../data/menu-options.mjs';
+import {applyMenuPresentation} from './menu-presentation';
 import {renderPreview} from './preview-menu';
 const menuData=JSON.parse(document.getElementById('menu-data')!.textContent!) as MenuData;
 renderPreview(menuData);
+applyMenuPresentation(menuData);
 const {products,extras,categories}=menuData;
 import {normalizeCart,unitPrice,cartTotal,MAX_QUANTITY} from './cart.mjs';
 const $=<T extends HTMLElement=HTMLElement>(selector:string)=>document.querySelector<T>(selector)!;
@@ -32,14 +35,18 @@ function selectCategory(id:string){category=id;filter();const heading=document.q
 all('[data-category-select]').forEach(b=>b.addEventListener('click',()=>selectCategory(b.dataset.categorySelect!)));
 $('[data-reset]').addEventListener('click',()=>{$<HTMLInputElement>('#menu-search').value='';selectCategory('all');});
 $<HTMLInputElement>('#menu-search').addEventListener('input',filter);
-$('[data-search-open]').addEventListener('click',()=>{$('.search-bar').hidden=false;$('#menu-search').focus();});
-$('[data-search-close]').addEventListener('click',()=>{$('.search-bar').hidden=true;$<HTMLInputElement>('#menu-search').value='';filter();$('[data-search-open]').focus();});
+$('[data-search-open]').addEventListener('click',()=>{$('.search-bar').hidden=false;requestAnimationFrame(()=>{$('.header-search-control').classList.add('search-open');$('[data-search-open]').setAttribute('aria-expanded','true');$('#menu-search').focus({preventScroll:true});});});
+$('#menu-search').addEventListener('keydown',event=>{if(event.key==='Escape')$('[data-search-close]').click();});
+$('[data-search-close]').addEventListener('click',()=>{$('.header-search-control').classList.remove('search-open');$('[data-search-open]').setAttribute('aria-expanded','false');$('.search-bar').hidden=true;$<HTMLInputElement>('#menu-search').value='';filter();$('[data-search-open]').focus();});
 function syncFavorites(persist=true){all('[data-favorite]').forEach(b=>{b.setAttribute('aria-pressed',String(favorites.has(b.dataset.favorite!)));});if(persist)save('street-food:favorites',[...favorites]);}
 all('[data-favorite]').forEach(b=>b.addEventListener('click',()=>{const id=b.dataset.favorite!;favorites.has(id)?favorites.delete(id):favorites.add(id);syncFavorites();if(category==='favorites')filter();}));syncFavorites(false);
 all<HTMLDialogElement>('dialog').forEach(d=>{d.querySelectorAll('[data-close]').forEach(b=>b.addEventListener('click',()=>d.close()));d.addEventListener('click',e=>{if(e.target!==d)return;const r=d.getBoundingClientRect();if(e.clientX<r.left||e.clientX>r.right||e.clientY<r.top||e.clientY>r.bottom)d.close();});});
 function checkedExtras(){return all<HTMLInputElement>('.extras input:checked').map(i=>i.value);}
 function updateProduct(){const price=current.price+checkedExtras().reduce((sum,id)=>sum+extras.find(e=>e.id===id)!.price,0);$('[data-quantity-value]').textContent=String(quantity);$('[data-add-total]').textContent=formatMoney(price*quantity);$<HTMLButtonElement>('[data-quantity="-1"]').disabled=quantity<=1;$<HTMLButtonElement>('[data-quantity="1"]').disabled=quantity>=MAX_QUANTITY;}
-function openProduct(id:string){current=products.find(p=>p.id===id)!;quantity=1;all<HTMLInputElement>('.extras input').forEach(i=>i.checked=false);$<HTMLTextAreaElement>('[data-dish-note]').value='';const img=$<HTMLImageElement>('[data-product-image]');img.src=current.image;img.alt=current.name;$('#product-title').textContent=current.name;$('[data-product-description]').textContent=current.description;$('[data-product-allergens]').textContent=current.allergens;$('[data-product-price]').textContent=formatMoney(current.price);$('[data-product-category]').textContent=`${categories.find(c=>c.id===current.category)!.name} · ${current.time} Min.`;$('.extras').hidden=current.category!=='burgers';updateProduct();dialog.showModal();}
+function openProduct(id:string){current=products.find(p=>p.id===id)!;quantity=1;all<HTMLInputElement>('.extras input').forEach(i=>i.checked=false);$<HTMLTextAreaElement>('[data-dish-note]').value='';const img=$<HTMLImageElement>('[data-product-image]');img.src=current.image;img.alt=current.name;$('#product-title').textContent=current.name;$('[data-product-description]').textContent=current.description;$('[data-product-allergens]').textContent=ALLERGENS.filter(a=>current.allergenIds?.includes(a.id)).map(a=>a.label).join(', ')||'Keine Angaben — bitte beim Restaurant nachfragen.';$('[data-allergen-heading]').textContent=current.allergensVerified?'Allergene:':'Allergene (noch nicht bestätigt):';$('[data-product-price]').textContent=formatMoney(current.price);$('[data-product-category]').textContent=`${categories.find(c=>c.id===current.category)!.name} · ${current.time} Min.`;$('.extras').hidden=current.category!=='burgers';updateProduct();
+ const card=document.querySelector(`[data-product="${current.id}"]`);const detail=$('.product-detail');detail.querySelectorAll('.detail-variants,.detail-allergens').forEach(el=>el.remove());
+ for(const [selector,className]of [['.variant-prices','detail-variants'],['.dish-allergens','detail-allergens']]){const original=card?.querySelector(selector);if(original){const clone=original.cloneNode(true) as HTMLElement;clone.classList.add(className);detail.append(clone);}}
+ dialog.showModal();}
 all('[data-open]').forEach(b=>b.addEventListener('click',()=>openProduct(b.dataset.open!)));
 all('[data-quantity]').forEach(b=>b.addEventListener('click',()=>{quantity=Math.min(MAX_QUANTITY,Math.max(1,quantity+Number(b.dataset.quantity)));updateProduct();}));all('.extras input').forEach(i=>i.addEventListener('change',updateProduct));
 function fly(source:HTMLImageElement){if(matchMedia('(prefers-reduced-motion:reduce)').matches)return;const from=source.getBoundingClientRect(),to=$('.cart-dock').getBoundingClientRect();if(!from.width||from.bottom<0)return;const clone=source.cloneNode() as HTMLImageElement;clone.className='flying-dish';clone.style.left=from.left+from.width/2-32+'px';clone.style.top=from.top+from.height/2-32+'px';document.body.append(clone);const x=to.left+to.width/2-(from.left+from.width/2),y=to.top+to.height/2-(from.top+from.height/2);clone.animate([{transform:'translate(0,0) scale(1)',opacity:1},{transform:`translate(${x*.4}px,${y*.35}px) scale(.85)`,opacity:1,offset:.4},{transform:`translate(${x}px,${y}px) scale(.2)`,opacity:0}],{duration:650,easing:'cubic-bezier(.25,.5,.45,1)'}).finished.then(()=>clone.remove(),()=>clone.remove());}

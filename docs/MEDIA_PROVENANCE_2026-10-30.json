@@ -1663,154 +1663,10 @@
       "evidence": "project_vector_or_documented_Lucide_ISC"
     },
     {
-      "file": "apps/streetfood/public/assets/menu/coffee.webp",
-      "sha256": "f762705058d5416399957e70e76403837ba16566f3915a407b9f8bcd5fba4d40",
-      "bytes": 68950,
-      "published": true,
-      "evidence": "native_imagegen_2026-11-06",
-      "source": "Original generated Street Food product photograph, commissioned for this demo."
-    },
-    {
-      "file": "apps/streetfood/public/assets/menu/croissant.webp",
-      "sha256": "1cbf71dab2209c32d1154553ff95c6656c9c862f8ee23608e56857219a9cb411",
-      "bytes": 91294,
-      "published": true,
-      "evidence": "native_imagegen_2026-11-06",
-      "source": "Original generated Street Food product photograph, commissioned for this demo."
-    },
-    {
-      "file": "apps/streetfood/public/assets/menu/fries.webp",
-      "sha256": "8389078daa7dfa9e73cb846ad702261d39d6cc0e0a77ca5c847832511145c51c",
-      "bytes": 74320,
-      "published": true,
-      "evidence": "native_imagegen_2026-11-06",
-      "source": "Original generated Street Food product photograph, commissioned for this demo."
-    },
-    {
-      "file": "apps/streetfood/public/assets/menu/plate.webp",
-      "sha256": "2de1c0d4f5c949e28980ceea2ad907c31817aa6a22d415e159c31bad6d0d1e14",
-      "bytes": 120338,
-      "published": true,
-      "evidence": "native_imagegen_2026-11-06",
-      "source": "Original generated Street Food product photograph, commissioned for this demo."
-    },
-    {
-      "file": "apps/streetfood/public/assets/menu/sweet.webp",
-      "sha256": "27fb2bd54243db8a74aab4981235706c4eae684bd3c072cef0c4ea0e9cdfd5e5",
-      "bytes": 80144,
-      "published": true,
-      "evidence": "native_imagegen_2026-11-06",
-      "source": "Original generated Street Food product photograph, commissioned for this demo."
-    },
-    {
-      "file": "apps/streetfood/public/assets/menu/brunch.webp",
-      "sha256": "3ca91592bc8c0b125d6185cdbd133da727afb3b2b433fa3fad4b4aa47d0c6bea",
-      "bytes": 119462,
-      "published": true,
-      "evidence": "native_imagegen_2026-11-06",
-      "source": "Original generated Street Food product photograph, commissioned for this demo."
-    },
-    {
-      "file": "apps/streetfood/public/assets/menu/morning.webp",
-      "sha256": "933b58e17d8354c75d2c266704bc58da99bc1dfb0cb60b06d4ee3aa5e083557c",
-      "bytes": 127852,
-      "published": true,
-      "evidence": "native_imagegen_2026-11-06",
-      "source": "Original generated Street Food product photograph, commissioned for this demo."
-    },
-    {
-      "file": "apps/streetfood/public/assets/menu/almond.webp",
-      "sha256": "c5fbf0f0b08772d2001f73d912f93ea22988ccf50e874787ab511ee2a85d1ccc",
-      "bytes": 115108,
-      "published": true,
-      "evidence": "native_imagegen_2026-11-06",
-      "source": "Original generated Street Food product photograph, commissioned for this demo."
-    },
-    {
-      "file": "apps/streetfood/public/assets/menu/bakery-set.webp",
-      "sha256": "80e237b1f75e3921139814c0af7826e865667c6fd139dc369cea5be5f1e5651a",
-      "bytes": 82560,
-      "published": true,
-      "evidence": "native_imagegen_2026-11-06",
-      "source": "Original generated Street Food product photograph, commissioned for this demo."
-    },
-    {
-      "file": "apps/streetfood/public/assets/menu/green.webp",
-      "sha256": "003aefb7cc5467577336196a6ae721d6e69a2b784d245f33e0f9ae767e20b50e",
-      "bytes": 133170,
-      "published": true,
-      "evidence": "native_imagegen_2026-11-06",
-      "source": "Original generated Street Food product photograph, commissioned for this demo."
-    },
-    {
-      "file": "apps/streetfood/public/assets/menu/chicken-bowl.webp",
-      "sha256": "5e6bea81a9ec89dcc9f85fa2dd033761590eddbfc0ad1a33ed94b9cd83bb57d9",
-      "bytes": 111286,
-      "published": true,
-      "evidence": "native_imagegen_2026-11-06",
-      "source": "Original generated Street Food product photograph, commissioned for this demo."
-    },
-    {
-      "file": "apps/streetfood/public/assets/menu/loaded.webp",
-      "sha256": "8bad062466fee0b2077d7dc51deb4836b42e47050c6b0ea5753dc4e75747e43f",
-      "bytes": 104150,
-      "published": true,
-      "evidence": "native_imagegen_2026-11-06",
-      "source": "Original generated Street Food product photograph, commissioned for this demo."
-    },
-    {
-      "file": "apps/streetfood/public/assets/menu/duo.webp",
-      "sha256": "1041474296a8fadb1789c0179481190f9ce1a007cba43385468384e020a20aa9",
-      "bytes": 133642,
-      "published": true,
-      "evidence": "native_imagegen_2026-11-06",
-      "source": "Original generated Street Food product photograph, commissioned for this demo."
-    },
-    {
-      "file": "apps/streetfood/public/assets/menu/latte.webp",
-      "sha256": "5d18d9a05ef55a72956c04267c253eefede63cb15819c22069193a935d3ec5a1",
-      "bytes": 64222,
-      "published": true,
-      "evidence": "native_imagegen_2026-11-06",
-      "source": "Original generated Street Food product photograph, commissioned for this demo."
-    },
-    {
-      "file": "apps/streetfood/public/assets/menu/flat-white.webp",
-      "sha256": "1011a5042c370f0ae3556149fd819a11a760d6424ce32cb3b87fe11e4e8a25d0",
-      "bytes": 68204,
-      "published": true,
-      "evidence": "native_imagegen_2026-11-06",
-      "source": "Original generated Street Food product photograph, commissioned for this demo."
-    },
-    {
-      "file": "apps/streetfood/public/assets/menu/filter.webp",
-      "sha256": "8ece47ba3f31556097b02a87ec9d68a538ae73261b1c3afac2acb406bdd4eee8",
-      "bytes": 63666,
-      "published": true,
-      "evidence": "native_imagegen_2026-11-06",
-      "source": "Original generated Street Food product photograph, commissioned for this demo."
-    },
-    {
-      "file": "apps/streetfood/public/assets/menu/oat.webp",
-      "sha256": "33de491cd49c6402f2b5246d5f47ebc6932242ae3ea227944c137b1b896f6ce2",
-      "bytes": 82970,
-      "published": true,
-      "evidence": "native_imagegen_2026-11-06",
-      "source": "Original generated Street Food product photograph, commissioned for this demo."
-    },
-    {
-      "file": "apps/streetfood/public/assets/menu/espresso.webp",
-      "sha256": "a863a841fd875bd7bc9c47a770dd9d76717815999a9a71f0792c7a9e325f9560",
-      "bytes": 80304,
-      "published": true,
-      "evidence": "native_imagegen_2026-11-06",
-      "source": "Original generated Street Food product photograph, commissioned for this demo."
-    },
-    {
       "file": "apps/streetfood/public/assets/menu/bbq.webp",
       "sha256": "595dd0882aff48f061d98dc992d912f50f02a3295256632de8cbec04c2a383b3",
       "bytes": 221762,
-      "published": false,
+      "published": true,
       "evidence": "built_in_imagegen_for_user_2026_11_07",
       "original": "exec-85471dd9-56b2-47b9-a36a-f9baa1daeddc.png",
       "caveat": "Fictional demo food; reference-guided generation is not pixel-identical extraction."
@@ -1819,7 +1675,7 @@
       "file": "apps/streetfood/public/assets/menu/beef.webp",
       "sha256": "2404f590584d8b76122027be0bb06fc13881cdb8b254c52673522ae61aa307f6",
       "bytes": 203504,
-      "published": false,
+      "published": true,
       "evidence": "built_in_imagegen_for_user_2026_11_07",
       "original": "exec-a14040fc-4e2a-494f-a395-0bf2bb1765c8.png",
       "caveat": "Fictional demo food; reference-guided generation is not pixel-identical extraction."
@@ -1828,7 +1684,7 @@
       "file": "apps/streetfood/public/assets/menu/chicken.webp",
       "sha256": "a629e3773c5f4332934a05b7fef0db9736b6ff9690dbc917b246297aaa039dcb",
       "bytes": 184656,
-      "published": false,
+      "published": true,
       "evidence": "built_in_imagegen_for_user_2026_11_07",
       "original": "exec-530d1839-8759-4f6f-8eac-b33da6865daf.png",
       "caveat": "Fictional demo food; reference-guided generation is not pixel-identical extraction."
@@ -1837,7 +1693,7 @@
       "file": "apps/streetfood/public/assets/menu/chili.webp",
       "sha256": "ea1f94abb8f23191e301960679b5c86b990c622b4eefb6eb4d1c9e619d6e29c2",
       "bytes": 216886,
-      "published": false,
+      "published": true,
       "evidence": "built_in_imagegen_for_user_2026_11_07",
       "original": "exec-2c7dbbc6-599e-44e9-88e3-135da4c3a981.png",
       "caveat": "Fictional demo food; reference-guided generation is not pixel-identical extraction."
@@ -1846,7 +1702,7 @@
       "file": "apps/streetfood/public/assets/menu/crispy.webp",
       "sha256": "412ff8a1c9a6d70d7754c2dae3c77e4c372dcb4915345f653b8cc5989460d657",
       "bytes": 193260,
-      "published": false,
+      "published": true,
       "evidence": "built_in_imagegen_for_user_2026_11_07",
       "original": "exec-eb730c41-919e-4cb3-a7ab-dc0709b7acef.png",
       "caveat": "Fictional demo food; reference-guided generation is not pixel-identical extraction."
@@ -1855,7 +1711,7 @@
       "file": "apps/streetfood/public/assets/menu/double.webp",
       "sha256": "03019f8a811d64486faff7fb26e4b15202b1070b033e6f47bdec01bee667688a",
       "bytes": 184502,
-      "published": false,
+      "published": true,
       "evidence": "built_in_imagegen_for_user_2026_11_07",
       "original": "exec-98242cd0-769f-47ef-b7d9-d62f3141aa24.png",
       "caveat": "Fictional demo food; reference-guided generation is not pixel-identical extraction."
@@ -1864,7 +1720,7 @@
       "file": "apps/streetfood/public/assets/menu/pizzeria-hero.webp",
       "sha256": "73240f431ba83e3b0952c08d08ef3178862db906dc29147e81ec91ef498113ff",
       "bytes": 308774,
-      "published": false,
+      "published": true,
       "evidence": "built_in_imagegen_for_user_2026_11_07",
       "original": "exec-41cb1aed-769d-4191-836e-c5ceca1a5103.png",
       "caveat": "Fictional demo food; reference-guided generation is not pixel-identical extraction."
@@ -1873,7 +1729,7 @@
       "file": "apps/streetfood/public/assets/menu/caprese.webp",
       "sha256": "57678e7f5d3764280c68a508a5a2c71ae5c6f0e7a1d1477d1848e0bd2e7b5ad2",
       "bytes": 244820,
-      "published": false,
+      "published": true,
       "evidence": "built_in_imagegen_for_user_2026_11_07",
       "original": "exec-622d59cd-6bfe-4859-bb08-9b6622b89b6b.png",
       "caveat": "Fictional demo food; reference-guided generation is not pixel-identical extraction."
@@ -1882,7 +1738,7 @@
       "file": "apps/streetfood/public/assets/menu/tiramisu.webp",
       "sha256": "122f08a23f109822d3e25a00604d2d6d515bda6060f595cf269d3d52fe0a9518",
       "bytes": 281056,
-      "published": false,
+      "published": true,
       "evidence": "built_in_imagegen_for_user_2026_11_07",
       "original": "exec-e04e5a94-271f-4e05-a549-05a810220762.png",
       "caveat": "Fictional demo food; reference-guided generation is not pixel-identical extraction."
@@ -1891,7 +1747,7 @@
       "file": "apps/streetfood/public/assets/menu/diner-hero.webp",
       "sha256": "242bce7a73a7101eafead6841c1d19730c09527e8e8576d2cdaf18941de0b89c",
       "bytes": 151456,
-      "published": false,
+      "published": true,
       "evidence": "built_in_imagegen_for_user_2026_11_07",
       "original": "exec-78e204ae-1425-46d0-b105-118da5d94340.png",
       "caveat": "Fictional demo food; reference-guided generation is not pixel-identical extraction."
@@ -1900,7 +1756,7 @@
       "file": "apps/streetfood/src/assets/diner-texture.webp",
       "sha256": "36f857cc7ed3cf6912ecf1501f24231e539aa61da0b1b31b0d03acd112f0a879",
       "bytes": 58276,
-      "published": false,
+      "published": true,
       "evidence": "built_in_imagegen_for_user_2026_11_07",
       "original": "exec-cf132f6b-f868-42cd-ab16-e99f98880d1f.png",
       "caveat": "Fictional demo food; reference-guided generation is not pixel-identical extraction."
@@ -1909,7 +1765,7 @@
       "file": "apps/streetfood/src/assets/pizzeria-botanicals.webp",
       "sha256": "3e6eb6473deeec451e1b05ec1ee18cebbedc16cb94be1c3213b501d7b740051d",
       "bytes": 160056,
-      "published": false,
+      "published": true,
       "evidence": "built_in_imagegen_for_user_2026_11_07",
       "original": "exec-f45d639d-c7f9-4467-ada9-d2da923b1fd8.png",
       "caveat": "Fictional demo food; reference-guided generation is not pixel-identical extraction."
@@ -1918,7 +1774,7 @@
       "file": "apps/streetfood/src/assets/diner-reference-divider-vertical.png",
       "sha256": "781fe0dfaaaf262ccaadbf1740f138afd792be6bc97ca1e0e676ef85a51226fb",
       "bytes": 28789,
-      "published": false,
+      "published": true,
       "evidence": "user_requested_exact_crop_from_approved_generated_reference",
       "original": "exec-4f701990-eddf-4701-a52f-aaab9b5fa1eb.png"
     },
@@ -1926,7 +1782,7 @@
       "file": "apps/streetfood/src/assets/diner-reference-underline.png",
       "sha256": "34a4d1d6112cebcfa9fd462c2c4cc1ccb8d053a078967f2c0001147431fe4cd7",
       "bytes": 17574,
-      "published": false,
+      "published": true,
       "evidence": "user_requested_exact_crop_from_approved_generated_reference",
       "original": "exec-4f701990-eddf-4701-a52f-aaab9b5fa1eb.png"
     },
@@ -1934,9 +1790,161 @@
       "file": "apps/streetfood/src/assets/diner-reference-divider.png",
       "sha256": "b5bde3ea3161020cdac29a87ed5a4ab235b7a3733687ba6312554dba3728261c",
       "bytes": 26216,
-      "published": false,
+      "published": true,
       "evidence": "user_requested_exact_crop_from_approved_generated_reference",
       "original": "exec-4f701990-eddf-4701-a52f-aaab9b5fa1eb.png"
+    },
+    {
+      "file": "apps/streetfood/public/assets/menu/plate.webp",
+      "sha256": "c311996eb50cbb5ec43c2fca96943d26f260354e29eacc23ed19339ef173a2c5",
+      "bytes": 169400,
+      "published": true,
+      "evidence": "built_in_imagegen_edit_user_requested_background_removal_2026_11_08",
+      "original": "exec-e6617f1b-ab70-4bc4-9d7d-642fbeeec9be.png"
+    },
+    {
+      "file": "apps/streetfood/public/assets/menu/brunch.webp",
+      "sha256": "ff3e3703a755d5f4c4e26b97b0a64dd8d5fbfdff89d6d75ef9a62582449acdc0",
+      "bytes": 172916,
+      "published": true,
+      "evidence": "built_in_imagegen_edit_user_requested_background_removal_2026_11_08",
+      "original": "exec-0ba8fe09-363d-4d81-b71c-4b4edc75f8be.png"
+    },
+    {
+      "file": "apps/streetfood/public/assets/menu/morning.webp",
+      "sha256": "8d45a50a0c6f0ecc8dfd85842fa5e1370d04e4526faebecc2b7da1e5151f5296",
+      "bytes": 194622,
+      "published": true,
+      "evidence": "built_in_imagegen_edit_user_requested_background_removal_2026_11_08",
+      "original": "exec-d9e99d22-17fd-4531-8482-82b4d07d337e.png"
+    },
+    {
+      "file": "apps/streetfood/public/assets/menu/croissant.webp",
+      "sha256": "daa7b9411e7efa5ce5be0b1f1f353c3a3c5a33c1430fcaa373a4825e1adc6955",
+      "bytes": 153154,
+      "published": true,
+      "evidence": "built_in_imagegen_edit_user_requested_background_removal_2026_11_08",
+      "original": "exec-00b45af2-7d9f-457e-b9ca-7caf313dbf88.png"
+    },
+    {
+      "file": "apps/streetfood/public/assets/menu/almond.webp",
+      "sha256": "583e2c69a3bf6b3c1edf6bd1e5adaa65e38bf644f19f12ba7fb277ed029dfc46",
+      "bytes": 182594,
+      "published": true,
+      "evidence": "built_in_imagegen_edit_user_requested_background_removal_2026_11_08",
+      "original": "exec-e8491918-d3f5-4e28-890a-153b6e3b19d3.png"
+    },
+    {
+      "file": "apps/streetfood/public/assets/menu/bakery-set.webp",
+      "sha256": "f0bc9812d766d14b901bc414ddd80b9644b53540e9d9e02f2d0f223277276a6e",
+      "bytes": 104360,
+      "published": true,
+      "evidence": "built_in_imagegen_edit_user_requested_background_removal_2026_11_08",
+      "original": "exec-feecbb41-2cda-49b7-8997-dac5e0989536.png"
+    },
+    {
+      "file": "apps/streetfood/public/assets/menu/green.webp",
+      "sha256": "91b964d8d4678b948d1684e593602b6103d4408e6976beb03f03dfaf777905b5",
+      "bytes": 196292,
+      "published": true,
+      "evidence": "built_in_imagegen_edit_user_requested_background_removal_2026_11_08",
+      "original": "exec-d6b7e9ef-5b00-43d6-a559-c3063685eddf.png"
+    },
+    {
+      "file": "apps/streetfood/public/assets/menu/chicken-bowl.webp",
+      "sha256": "cddf53b30e9c2544de8f7da7a036e51065638259f8e6bf8e9b633bb58f056c80",
+      "bytes": 204290,
+      "published": true,
+      "evidence": "built_in_imagegen_edit_user_requested_background_removal_2026_11_08",
+      "original": "exec-9cd960b0-85b7-4035-82d1-40f147959737.png"
+    },
+    {
+      "file": "apps/streetfood/public/assets/menu/sweet.webp",
+      "sha256": "abb7c88d310deb1fb374d0f5e8a17ecbaa932fc4cfdde548ab5a4216c1d89dac",
+      "bytes": 139218,
+      "published": true,
+      "evidence": "built_in_imagegen_edit_user_requested_background_removal_2026_11_08",
+      "original": "exec-ea837445-039e-4a63-9268-976dab622a8b.png"
+    },
+    {
+      "file": "apps/streetfood/public/assets/menu/fries.webp",
+      "sha256": "8eac002343b1d5cfd2a8c88ee234a1e0bc135a15d71ec381b452a0e6d5b3bccc",
+      "bytes": 137536,
+      "published": true,
+      "evidence": "built_in_imagegen_edit_user_requested_background_removal_2026_11_08",
+      "original": "exec-aa3641d9-a287-4643-9601-510180b6fa1b.png"
+    },
+    {
+      "file": "apps/streetfood/public/assets/menu/loaded.webp",
+      "sha256": "77aabc1a074af0c0d7f0bfd0fe0dafbc57f5cd9a5b794ae9016a63312bd9a44e",
+      "bytes": 150538,
+      "published": true,
+      "evidence": "built_in_imagegen_edit_user_requested_background_removal_2026_11_08",
+      "original": "exec-8fd5f842-c093-4ecb-9fb9-bfc3423dcfec.png"
+    },
+    {
+      "file": "apps/streetfood/public/assets/menu/duo.webp",
+      "sha256": "41a42e71212c0a2e392fe527e3973a17ddefd81549245db984d8fd6015a5ae67",
+      "bytes": 178786,
+      "published": true,
+      "evidence": "built_in_imagegen_edit_user_requested_background_removal_2026_11_08",
+      "original": "exec-408a2c3d-dacf-4cfd-8f2a-52e05de6bf2b.png"
+    },
+    {
+      "file": "apps/streetfood/public/assets/menu/coffee.webp",
+      "sha256": "5e3361f845f595c1ebaff9f7721dcfc03958c920c9d72133d16735cd8ea5d5d7",
+      "bytes": 110834,
+      "published": true,
+      "evidence": "built_in_imagegen_edit_user_requested_background_removal_2026_11_08",
+      "original": "exec-cffe7d71-08de-4150-971d-4866168dba0a.png"
+    },
+    {
+      "file": "apps/streetfood/public/assets/menu/latte.webp",
+      "sha256": "6dc644d41cccc9c966e2f15a943bfbc39719651f99c957b56ea3f9ba1f523458",
+      "bytes": 89060,
+      "published": true,
+      "evidence": "built_in_imagegen_edit_user_requested_background_removal_2026_11_08",
+      "original": "exec-144eaddc-7a86-48d5-88d8-2897f0b29a67.png"
+    },
+    {
+      "file": "apps/streetfood/public/assets/menu/flat-white.webp",
+      "sha256": "8c8c0fa5400a0a1743856c17e452ff444ce85de6f64b1c8dd3f5f8aa24db4994",
+      "bytes": 106970,
+      "published": true,
+      "evidence": "built_in_imagegen_edit_user_requested_background_removal_2026_11_08",
+      "original": "exec-79cbe46f-06b9-417f-8d60-c5f1809ac290.png"
+    },
+    {
+      "file": "apps/streetfood/public/assets/menu/filter.webp",
+      "sha256": "7046f42cf31e724114bec429d8171f550b9dbb1d3ceb27749defd9193f9a0ed5",
+      "bytes": 76364,
+      "published": true,
+      "evidence": "built_in_imagegen_edit_user_requested_background_removal_2026_11_08",
+      "original": "exec-18a13e3e-352b-43aa-b329-ca58a67c844f.png"
+    },
+    {
+      "file": "apps/streetfood/public/assets/menu/oat.webp",
+      "sha256": "bce87c9a46f3c64742dfe2cb9e040c40387278f96cba2ffd82ebc5e93d9f6019",
+      "bytes": 97936,
+      "published": true,
+      "evidence": "built_in_imagegen_edit_user_requested_background_removal_2026_11_08",
+      "original": "exec-9ccb7b9b-7441-4c0a-9f35-54cc9b965229.png"
+    },
+    {
+      "file": "apps/streetfood/public/assets/menu/espresso.webp",
+      "sha256": "5293a17d501c2d41d4f355e55d15d386fc880c41de5db8c09c06603d172e325b",
+      "bytes": 77582,
+      "published": true,
+      "evidence": "built_in_imagegen_edit_user_requested_background_removal_2026_11_08",
+      "original": "exec-9212fac9-d849-4f47-8888-857c84ab1c5c.png"
+    },
+    {
+      "file": "apps/streetfood/public/assets/diner-brand.svg",
+      "sha256": "78a2d175c39113c661d96e8dc9f8def345155cbd95d56f6695f744f4e53d4b3d",
+      "bytes": 1590,
+      "published": true,
+      "evidence": "original_project_vector_2026_11_08",
+      "source": "Hand-authored SVG crest and Street Food wordmark for this project."
     }
   ]
 }

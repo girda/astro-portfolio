@@ -1,10 +1,11 @@
 // При конфликте объединяем только изменённые поля, сохраняя чужие независимые правки.
 export function mergeDraft(base, draft, latest) {
   const values = {}, conflicts = [];
+  const same=(a,b)=>Object.is(a,b)||(a!==null&&b!==null&&typeof a==='object'&&typeof b==='object'&&JSON.stringify(a)===JSON.stringify(b));
   for (const key of Object.keys(draft)) {
-    const changed = !Object.is(base[key], draft[key]);
+    const changed = !same(base[key], draft[key]);
     values[key] = changed ? draft[key] : latest[key];
-    if (changed && !Object.is(base[key], latest[key]) && !Object.is(draft[key], latest[key])) conflicts.push(key);
+    if (changed && !same(base[key], latest[key]) && !same(draft[key], latest[key])) conflicts.push(key);
   }
   return {values, conflicts};
 }

@@ -1,4 +1,4 @@
-import {validateCatalogue} from '../../streetfood/src/data/catalogue-contract.mjs';
+import {validateCatalogue,validateMenuSettings} from '../../streetfood/src/data/catalogue-contract.mjs';
 export class CmsError extends Error {
   constructor(status,message){super(message);this.status=status;}
 }
@@ -20,13 +20,13 @@ export function createCloudStore(db,images){
     if(kind==='products'&&!images.includes(body.image))throw new CmsError(400,'Выбери фото из библиотеки.');
     const state=await read();
     if(state.revision!==revision)throw new CmsError(409,'Данные изменились в другой вкладке. Обнови список.');
-    const before=id?state.catalogue[kind].find(row=>row.id===id):null;
+    const before=kind==='settings'?state.catalogue.settings:(id?state.catalogue[kind].find(row=>row.id===id):null);
     if(id&&!before)throw new CmsError(404,'Запись не найдена.');
-    const fields=kind==='categories'?['name','symbol','sortOrder','active']:['name','categoryId','description','price','image','allergens','time','sortOrder','available'];
-    const row={id:id||`${kind==='categories'?'category':'product'}-${crypto.randomUUID()}`,...Object.fromEntries(fields.map(key=>[key,body[key]]))};
-    state.catalogue[kind]=id?state.catalogue[kind].map(item=>item.id===id?row:item):[...state.catalogue[kind],row];
+    const fields=kind==='settings'?['title','subtitle','logo','menuMode']:kind==='categories'?['name','symbol','sortOrder','active']:['name','categoryId','description','price','image','allergens','time','sortOrder','available','allergenIds','allergensVerified','variants'];
+    const row={...(kind==='settings'?{}:{id:id||`${kind==='categories'?'category':'product'}-${crypto.randomUUID()}`}),...Object.fromEntries(fields.map(key=>[key,body[key]??before?.[key]]))};
+    if(kind==='settings'){try{validateMenuSettings(row)}catch(error){throw new CmsError(400,error.message)}state.catalogue.settings=row;}else state.catalogue[kind]=id?state.catalogue[kind].map(item=>item.id===id?row:item):[...state.catalogue[kind],row];
     try{validateCatalogue(state.catalogue)}catch(error){throw new CmsError(400,error.message)}
-    const event={revision:revision+1,kind,entityId:row.id,action:id?'update':'create',createdAt:new Date().toISOString(),before,after:row,...(actor?{actor:{id:actor.id,name:actor.name}}:{})};
+    const event={revision:revision+1,kind,entityId:kind==='settings'?'menu':row.id,action:kind==='settings'||id?'update':'create',createdAt:new Date().toISOString(),before,after:row,...(actor?{actor:{id:actor.id,name:actor.name}}:{})};
     try{
       // Уникальная ревизия истории блокирует конкурирующее сохранение. D1 batch откатывает обе операции при конфликте.
       await db.batch([

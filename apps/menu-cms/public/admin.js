@@ -1,3 +1,4 @@
+import {ALLERGENS,DEFAULT_SETTINGS,productOptions} from './menu-options.mjs';
 import {mergeDraft, selectProducts} from './editor-state.mjs';
 
 const $ = selector => document.querySelector(selector);
@@ -37,7 +38,7 @@ const imageLabels = {
 const fieldLabels = {
   name:'Название', categoryId:'Категория', description:'Описание', price:'Цена',
   image:'Фото', allergens:'Состав / аллергены', time:'Время', sortOrder:'Порядок',
-  available:'Доступность', symbol:'Значок', active:'Видимость категории',
+  title:'Заголовок',subtitle:'Подзаголовок',logo:'Логотип',menuMode:'Режим меню',allergenIds:'Аллергены',allergensVerified:'Состав проверен',variants:'Варианты порции и цены',available:'Доступность', symbol:'Значок', active:'Видимость категории',
 };
 let state = null, selected = '', editing = null, busy = false, images = [];
 
@@ -81,7 +82,7 @@ async function load() {
     const [next,photos] = await Promise.all([api('/api/catalogue'),api('/api/images')]);
     state = next; images = photos;
     if(selected && !state.catalogue.categories.some(category => category.id === selected)) selected = '';
-    render(); status('Данные загружены. Сохранение не публикует меню.');
+    render(); syncMenuSettings(); status('Данные загружены. Сохранение не публикует меню.');
   } catch(error) {status(error.message,true);}
   finally {setBusy(false);}
 }
@@ -182,7 +183,7 @@ function getValues() {
     Object.assign(value,{
       categoryId:valueOf('categoryId'), description:valueOf('description'),
       price:Number(euros)*100 + Number(fraction.padEnd(2,'0')), image:valueOf('image'),
-      allergens:valueOf('allergens'), time:Number(valueOf('time')), available:checked('available'),
+      allergens:valueOf('allergens'),allergenIds:ALLERGENS.filter(a=>checked('allergen-'+a.id)).map(a=>a.id),allergensVerified:!!checked('allergensVerified'),variants:[...document.querySelectorAll('.variant-row')].map(row=>({label:row.querySelector('[data-variant-label]').value,price:Math.round(Number(row.querySelector('[data-variant-price]').value.replace(',','.'))*100)})), time:Number(valueOf('time')), available:checked('available'),
     });
   }
   return value;
@@ -190,6 +191,9 @@ function getValues() {
 const signature = () => JSON.stringify(getValues());
 const dirty = () => editing && (busy || editing.copy || signature() !== editing.baseline);
 function applyValues(values) {
+  if(Array.isArray(values.allergenIds))for(const a of ALLERGENS){const input=$('#edit-form').elements.namedItem('allergen-'+a.id);if(input)input.checked=values.allergenIds.includes(a.id);}
+  if(Array.isArray(values.variants)&&$('#variant-rows')){$('#variant-rows').replaceChildren();for(const variant of values.variants)appendVariant(variant);}
+
   for(const [key,value] of Object.entries(values)) {
     const input = $('#edit-form').elements.namedItem(key);
     if(!input) continue;
@@ -201,7 +205,7 @@ function applyValues(values) {
 }
 function open(kind,record) {
   if(!state || busy) return;
-  editing = {kind,record:record ? structuredClone(record) : null};
+  editing = {kind,record:record ? structuredClone(kind==='product'?{...record,...productOptions(record)}:record) : null};
   $('#edit-form').reset(); $('#fields').replaceChildren();
   $('#form-status').textContent = ''; $('#refresh-conflict').hidden = true;
   $('#editor-title').textContent = `${record ? 'Изменить' : 'Добавить'} ${kind === 'category' ? 'категорию' : 'продукт'}`;
@@ -220,11 +224,24 @@ function open(kind,record) {
     const preview = node('img'); preview.id = 'selected-photo'; preview.alt = 'Выбранное фото продукта'; preview.src = '/assets/menu/' + image.value; preview.className = 'wide';
     $('#fields').append(preview); image.addEventListener('change',() => preview.src = '/assets/menu/' + image.value);
     field('Состав / примерные аллергены','allergens',row.allergens,{type:'textarea',wide:true,maxLength:1000});
+    const options=productOptions(row);
+    const allergens=node('fieldset',undefined,'allergen-editor wide');allergens.append(node('legend','Аллергены — отметь состав блюда'));
+    for(const allergen of ALLERGENS){const label=node('label',undefined,'allergen-choice');const input=node('input');input.type='checkbox';input.name='allergen-'+allergen.id;input.checked=options.allergenIds.includes(allergen.id);label.append(input,node('span',allergen.label));allergens.append(label);}
+    allergens.append(node('p','Начальные отметки перенесены из текстовых сведений. Перед использованием кафе проверь состав и возможные следы.','muted wide'));$('#fields').append(allergens);
+    field('Состав и аллергены проверены владельцем','allergensVerified',options.allergensVerified,{type:'checkbox',required:false});
+    const variants=node('fieldset',undefined,'wide');variants.id='variant-editor';variants.append(node('legend','Варианты порции и цены'),node('p','Например: котлета 80 г / 150 г. Если вариантов нет, используется основная цена.','muted'));
+    const list=node('div');list.id='variant-rows';variants.append(list);const add=node('button','Добавить вариант','secondary');add.type='button';add.addEventListener('click',()=>{if(list.children.length<6)appendVariant({label:'',price:row.price??0});});variants.append(add);$('#fields').append(variants);
+    for(const variant of options.variants)appendVariant(variant);
     field('Приготовление, минут','time',row.time ?? 15,{type:'number',min:0,max:1440,step:1});
     field('Порядок показа','sortOrder',row.sortOrder ?? Math.max(-1,...state.catalogue.products.map(p => p.sortOrder))+1,{type:'number',min:0,max:100000,step:1});
     field('Продукт доступен в меню','available',row.available ?? true,{type:'checkbox',required:false});
   }
   editing.baseline = signature(); $('#editor').showModal();
+}
+function appendVariant(variant){
+ const row=node('div',undefined,'variant-row');const label=node('input');label.dataset.variantLabel='';label.placeholder='Например, 80 г';label.maxLength=40;label.required=true;label.setAttribute('aria-label','Название / граммовка варианта');label.value=variant.label;
+ const price=node('input');price.dataset.variantPrice='';price.inputMode='decimal';price.required=true;price.pattern='[0-9]+([.,][0-9]{1,2})?';price.setAttribute('aria-label','Цена варианта в евро');price.value=(variant.price/100).toFixed(2);
+ const remove=node('button','Удалить','secondary small');remove.type='button';remove.addEventListener('click',()=>row.remove());row.append(label,price,remove);$('#variant-rows').append(row);
 }
 function save(kind,record,value) {
   return api(`/api/${kind === 'category' ? 'categories' : 'products'}${record ? '/' + record.id : ''}`,{
@@ -306,6 +323,10 @@ function historyValue(key,value) {
   if(value === null || value === undefined || value === '') return '—';
   if(typeof value === 'boolean') return value ? 'Да' : 'Нет';
   if(key === 'price') return money(value);
+  if(key === 'logo')return value?'Свой логотип':'Стандартный логотип';
+  if(key === 'menuMode')return value==='informational'?'Информационное меню':'Демонстрация заказа';
+  if(key === 'variants')return value.map(v=>`${v.label}: ${money(v.price)}`).join(' · ')||'Основная цена';
+  if(key === 'allergenIds')return value.map(id=>ALLERGENS.find(a=>a.id===id)?.label||id).join(', ')||'Не отмечены';
   if(key === 'image') return imageLabels[value] || value;
   if(key === 'categoryId') return state?.catalogue.categories.find(category => category.id === value)?.name || value;
   return String(value);
@@ -321,7 +342,7 @@ async function loadHistory(append = false) {
     for(const entry of data.entries) {
       const details = node('details',undefined,'history-entry');
       const summary = node('summary');
-      summary.append(node('strong',`${entry.action === 'create' ? 'Создана' : 'Изменена'} ${entry.kind === 'categories' ? 'категория' : 'позиция'}: ${entry.after.name}`));
+      summary.append(node('strong',`${entry.action === 'create' ? 'Создана' : 'Изменена'} ${entry.kind === 'categories' ? 'категория' : 'позиция'}: ${entry.after.name||entry.after.title||'Оформление меню'}`));
       summary.append(node('span',`${historyDate.format(new Date(entry.createdAt))} · Версия ${entry.revision} · ${entry.actor?.name || 'Локальная CMS'}`,'history-meta'));
       const changes = node('dl',undefined,'history-changes');
       for(const key of Object.keys(entry.after)) {
@@ -383,3 +404,23 @@ $('#more-history').addEventListener('click',() => loadHistory(true));
 
 $('#keep-editing').addEventListener('click',() => $('#discard-dialog').close());
 $('#discard-changes').addEventListener('click',() => {$('#discard-dialog').close(); $('#editor').close();});
+
+let menuLogo='';
+function syncMenuSettings(){
+ const settings={...DEFAULT_SETTINGS,...state?.catalogue.settings};const form=$('#menu-settings');
+ for(const key of ['title','subtitle','menuMode'])form.elements.namedItem(key).value=settings[key];menuLogo=settings.logo;syncLogoPreview();
+}
+function syncLogoPreview(){const image=$('#menu-logo-preview');image.hidden=!menuLogo;if(menuLogo)image.src=menuLogo;else image.removeAttribute('src');}
+$('#clear-menu-logo').addEventListener('click',()=>{menuLogo='';syncLogoPreview();$('#menu-logo-upload').value='';});
+$('#menu-logo-upload').addEventListener('change',async event=>{
+ const file=event.target.files[0];if(!file)return;
+ try{
+  if(!['image/png','image/jpeg','image/webp'].includes(file.type)||file.size>5000000)throw new Error('Выбери PNG, JPEG или WebP до 5 МБ.');
+  const bitmap=await createImageBitmap(file);const factor=Math.min(1,700/bitmap.width,240/bitmap.height);const canvas=document.createElement('canvas');canvas.width=Math.max(1,Math.round(bitmap.width*factor));canvas.height=Math.max(1,Math.round(bitmap.height*factor));canvas.getContext('2d').drawImage(bitmap,0,0,canvas.width,canvas.height);bitmap.close();
+  const data=canvas.toDataURL('image/webp',.8);if(data.length>45000)throw new Error('Логотип слишком сложный. Выбери более простое или меньшее изображение.');menuLogo=data;syncLogoPreview();$('#settings-status').textContent='Логотип подготовлен. Сохрани оформление.';
+ }catch(error){$('#settings-status').textContent=error.message;event.target.value='';}
+});
+$('#menu-settings').addEventListener('submit',async event=>{
+ event.preventDefault();if(busy||!state||!event.target.reportValidity())return;const form=event.target;
+ setBusy(true);try{state=await api('/api/settings',{method:'PUT',headers:{'Content-Type':'application/json','If-Match':String(state.revision)},body:JSON.stringify({title:form.elements.namedItem('title').value,subtitle:form.elements.namedItem('subtitle').value,menuMode:form.elements.namedItem('menuMode').value,logo:menuLogo})});$('#settings-status').textContent='Оформление сохранено. Обнови меню.';}catch(error){$('#settings-status').textContent=error.message;}finally{setBusy(false);}
+});

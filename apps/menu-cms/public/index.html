@@ -47,7 +47,17 @@
     </section>
     <section id="preview-view" class="history-panel" hidden aria-labelledby="preview-title">
       <div class="section-head"><div><h2 id="preview-title" tabindex="-1">Одно меню. Три оформления.</h2><p class="muted">Категории, блюда и цены общие. Меняется только оформление.</p></div></div>
-      <div class="appearance-grid" id="appearance-grid"></div>
+      <form id="menu-settings" class="menu-settings">
+<h3>Оформление Diner</h3>
+<label>Заголовок<input name="title" maxlength="80" required placeholder="FRISCH VOM GRILL."/></label>
+<label>Подзаголовок<input name="subtitle" maxlength="160" required placeholder="Burger, Fries & gute Zeiten."/></label>
+<label>Режим Diner<select name="menuMode"><option value="informational">Информационное меню — без корзины</option><option value="ordering">Меню с демонстрацией заказа</option></select></label>
+<label>Заменить логотип<input id="menu-logo-upload" type="file" accept="image/png,image/jpeg,image/webp"/></label>
+<img id="menu-logo-preview" alt="Предпросмотр логотипа" hidden/><button id="clear-menu-logo" type="button" class="secondary">Вернуть логотип Street Food</button>
+<p class="muted">Логотип вписывается без обрезки. Используй PNG или WebP с прозрачным фоном. Варианты цен и аллергены настраиваются внутри каждого блюда. Варианты показываются в информационном Diner; демонстрация заказа использует основную цену.</p>
+<button data-write type="submit">Сохранить оформление</button><p id="settings-status" role="status"></p>
+</form>
+<div class="appearance-grid" id="appearance-grid"></div>
       <p id="appearance-status" role="status" aria-live="polite"></p>
       <p class="muted">Выбор сохраняется в этом браузере. Предпросмотр открывает актуальный черновик CMS; публичное меню обновляется отдельно.</p>
     </section>

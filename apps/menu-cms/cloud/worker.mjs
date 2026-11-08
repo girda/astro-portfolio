@@ -36,6 +36,10 @@ export default {async fetch(request,env){
     if(path==='/api/catalogue'&&request.method==='GET')return json(await store.read());
     if(path==='/api/images'&&request.method==='GET')return json(images);
     if(path==='/api/history'&&request.method==='GET')return json(await store.history({before:url.searchParams.has('before')?Number(url.searchParams.get('before')):undefined,limit:url.searchParams.has('limit')?Number(url.searchParams.get('limit')):30}));
+    if(path==='/api/settings'&&request.method==='PUT'){
+      if(!canWrite(user))throw new CmsError(403,'Роль позволяет только просмотр.');
+      return json(await store.save('settings',await readBody(request),{actor:user,revision:request.headers.has('if-match')?Number(request.headers.get('if-match')):undefined}));
+    }
     const match=path.match(/^\/api\/(categories|products)(?:\/([a-z0-9-]+))?$/);
     if(match){
       if(!canWrite(user))throw new CmsError(403,'Роль позволяет только просмотр.');

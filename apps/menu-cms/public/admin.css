@@ -901,3 +901,9 @@ select{appearance:none;padding-right:36px;background-color:white;background-imag
  main{max-width:1700px;padding-inline:32px}
  .app-header{padding-inline:32px}
 }
+.menu-settings{display:grid;grid-template-columns:1fr 1fr;gap:18px;padding:24px;background:var(--surface);border:1px solid var(--border);border-radius:8px;margin:20px 0}
+.menu-settings h3,.menu-settings>p{grid-column:1/-1}.menu-settings label{display:grid;gap:7px;font-weight:600}.menu-settings input,.menu-settings select{width:100%;padding:12px;border:1px solid var(--border);border-radius:5px;background:#fff;color:var(--text)}
+#menu-logo-preview{max-width:300px;max-height:110px;object-fit:contain;background:#e4e9ed;padding:10px}
+.allergen-editor{display:grid;grid-template-columns:1fr 1fr;gap:12px;border:1px solid var(--border);padding:16px}.allergen-choice{display:flex;gap:9px;align-items:center;font-size:13px}.allergen-choice input{width:18px!important;height:18px;flex:none}
+.variant-row{display:grid;grid-template-columns:1fr 110px auto;gap:8px;margin:12px 0}.variant-row input{min-width:0;width:100%;padding:10px;border:1px solid var(--border);border-radius:4px}
+@media(max-width:650px){.menu-settings,.allergen-editor{grid-template-columns:1fr}.menu-settings{padding:16px}.variant-row{grid-template-columns:1fr 85px}.variant-row button{grid-column:1/-1}}

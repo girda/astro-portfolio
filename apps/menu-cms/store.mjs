@@ -1,7 +1,7 @@
 import { DatabaseSync } from 'node:sqlite';
 import { randomUUID } from 'node:crypto';
 import { readFileSync } from 'node:fs';
-import { validateCatalogue } from '../streetfood/src/data/catalogue-contract.mjs';
+import { validateCatalogue,validateMenuSettings } from '../streetfood/src/data/catalogue-contract.mjs';
 const initialCatalogue = JSON.parse(readFileSync(new URL('../streetfood/src/data/catalogue.json',import.meta.url),'utf8'));
 export const menuImages=Object.freeze([...new Set(initialCatalogue.products.map(p=>p.image))]);
 export class CmsError extends Error {
@@ -26,11 +26,25 @@ export function createMenuStore(path, seed=initialCatalogue) {
       for(const row of seed.categories)db.prepare('INSERT INTO categories VALUES (?,?)').run(row.id,JSON.stringify(row));
       for(const row of seed.products)db.prepare('INSERT INTO products VALUES (?,?,?)').run(row.id,row.categoryId,JSON.stringify(row));
       db.prepare('INSERT INTO metadata VALUES (?,?)').run('extras',JSON.stringify(seed.extras));
+      if(seed.settings)db.prepare('INSERT INTO metadata VALUES (?,?)').run('settings',JSON.stringify(seed.settings));
       db.prepare('INSERT INTO metadata VALUES (?,?)').run('revision','1');db.exec('COMMIT');
     }catch(error){db.exec('ROLLBACK');db.close();throw error;}
   }
+  function saveSettings(body,{revision}={}){
+    try{validateMenuSettings(body)}catch(error){throw new CmsError(400,error.message)}
+    if(!Number.isSafeInteger(revision))throw new CmsError(428,'Обнови данные перед сохранением.');
+    db.exec('BEGIN IMMEDIATE');
+    try{const state=read();if(state.revision!==revision)throw new CmsError(409,'Данные изменились. Обнови настройки.');
+      const row=Object.fromEntries(['title','subtitle','logo','menuMode'].map(key=>[key,body[key]]));
+      db.prepare('INSERT INTO metadata VALUES (?,?) ON CONFLICT(key) DO UPDATE SET value=excluded.value').run('settings',JSON.stringify(row));
+      db.prepare('INSERT INTO history VALUES (?,?,?,?,?,?,?)').run(revision+1,'settings','menu','update',new Date().toISOString(),state.catalogue.settings?JSON.stringify(state.catalogue.settings):null,JSON.stringify(row));
+      db.prepare("UPDATE metadata SET value=? WHERE key='revision'").run(String(revision+1));db.exec('COMMIT');return read();
+    }catch(error){db.exec('ROLLBACK');throw error;}
+  }
   function read(){
     const catalogue={schemaVersion:1,categories:db.prepare('SELECT data FROM categories').all().map(r=>JSON.parse(r.data)),products:db.prepare('SELECT data FROM products').all().map(r=>JSON.parse(r.data)),extras:JSON.parse(db.prepare("SELECT value FROM metadata WHERE key='extras'").get().value)};
+    const settings=db.prepare("SELECT value FROM metadata WHERE key='settings'").get();
+    if(settings)catalogue.settings=JSON.parse(settings.value);
     for(const rows of [catalogue.categories,catalogue.products])rows.sort((a,b)=>a.sortOrder-b.sortOrder||a.id.localeCompare(b.id));
     return {catalogue,revision:Number(db.prepare("SELECT value FROM metadata WHERE key='revision'").get().value)};
   }
@@ -54,9 +68,9 @@ export function createMenuStore(path, seed=initialCatalogue) {
       if(state.revision!==revision)throw new CmsError(409,'Данные изменились в другой вкладке. Обнови список перед сохранением.');
       if(id&&!state.catalogue[key].some(r=>r.id===id))throw new CmsError(404,'Запись не найдена.');
       const nextId=id||`${kind==='categories'?'category':'product'}-${randomUUID()}`;
-      const fields=kind==='categories'?['name','symbol','sortOrder','active']:['name','categoryId','description','price','image','allergens','time','sortOrder','available'];
+      const fields=kind==='categories'?['name','symbol','sortOrder','active']:['name','categoryId','description','price','image','allergens','time','sortOrder','available','allergenIds','allergensVerified','variants'];
       const previous=id?state.catalogue[key].find(row=>row.id===id):null;
-      const row={id:nextId,...Object.fromEntries(fields.map(k=>[k,body[k]]))};
+      const row={id:nextId,...Object.fromEntries(fields.map(k=>[k,body[k]??previous?.[k]]))};
       state.catalogue[key]=id?state.catalogue[key].map(r=>r.id===id?row:r):[...state.catalogue[key],row];
       try{validateCatalogue(state.catalogue);}catch(error){throw new CmsError(400,error.message);}
       if(kind==='categories')db.prepare('INSERT INTO categories VALUES (?,?) ON CONFLICT(id) DO UPDATE SET data=excluded.data').run(nextId,JSON.stringify(row));
@@ -67,5 +81,5 @@ export function createMenuStore(path, seed=initialCatalogue) {
       return read();
     }catch(error){db.exec('ROLLBACK');throw error;}
   }
-  return {read,history,saveCategory:(body,options)=>save('categories',body,options),saveProduct:(body,options)=>save('products',body,options),close:()=>db.close()};
+  return {read,history,saveSettings,saveCategory:(body,options)=>save('categories',body,options),saveProduct:(body,options)=>save('products',body,options),close:()=>db.close()};
 }

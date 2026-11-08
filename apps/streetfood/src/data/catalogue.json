@@ -88,7 +88,17 @@
       "allergens": "Weizen, Milch, Ei, Senf",
       "time": 15,
       "sortOrder": 1,
-      "available": true
+      "available": true,
+      "variants": [
+        {
+          "label": "80 g",
+          "price": 1390
+        },
+        {
+          "label": "150 g",
+          "price": 1690
+        }
+      ]
     },
     {
       "id": "double",

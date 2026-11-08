@@ -1,3 +1,4 @@
+import {ALLERGENS} from './menu-options.mjs';
 const idPattern = /^[a-z0-9]+(?:-[a-z0-9]+)*$/;
 const reservedCategoryIds = new Set(['all', 'favorites']);
 const fail = message => { throw new Error(`Invalid menu catalogue: ${message}`); };
@@ -20,6 +21,7 @@ function ids(rows, label) {
 // Общая граница данных для текущего меню и будущего хранилища CMS.
 export function validateCatalogue(catalogue) {
   if (!catalogue || catalogue.schemaVersion !== 1) fail('schemaVersion');
+  if(catalogue.settings!==undefined)validateMenuSettings(catalogue.settings);
   const categoryIds = ids(catalogue.categories, 'categories');
   ids(catalogue.products, 'products');
   ids(catalogue.extras, 'extras');
@@ -35,6 +37,10 @@ export function validateCatalogue(catalogue) {
     text(product.name, 'product name', 160);
     text(product.description, 'product description', 3000);
     text(product.allergens, 'product allergens', 1000);
+    if(product.allergenIds!==undefined){if(!Array.isArray(product.allergenIds)||product.allergenIds.length>14||new Set(product.allergenIds).size!==product.allergenIds.length||product.allergenIds.some(id=>!ALLERGENS.some(a=>a.id===id)))fail('allergen IDs');}
+    if(product.allergensVerified!==undefined&&typeof product.allergensVerified!=='boolean')fail('allergen verification');
+    if(product.variants!==undefined){if(!Array.isArray(product.variants)||product.variants.length>6)fail('variants');for(const v of product.variants){text(v.label,'variant label',40);integer(v.price,'variant price',10000000);}}
+
     // Цены — целые евроценты: дробное число не должно попасть в расчёт корзины.
     integer(product.price, 'product price in cents', 10000000);
     integer(product.time, 'preparation time', 1440);
@@ -48,4 +54,12 @@ export function validateCatalogue(catalogue) {
     integer(extra.price, 'extra price in cents', 10000000);
   }
   return catalogue;
+}
+
+export function validateMenuSettings(settings){
+ if(!settings||typeof settings!=='object'||Array.isArray(settings))fail('menu settings');
+ text(settings.title,'menu title',80);text(settings.subtitle,'menu subtitle',160);
+ if(!['informational','ordering'].includes(settings.menuMode))fail('menu mode');
+ if(typeof settings.logo!=='string'||settings.logo.length>45000||(settings.logo!==''&&!/^data:image\/(?:png|jpeg|webp);base64,[A-Za-z0-9+/]+=*$/.test(settings.logo)))fail('logo must be a small raster image');
+ return settings;
 }

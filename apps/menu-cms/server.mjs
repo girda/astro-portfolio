@@ -30,6 +30,10 @@ export async function startCms({port=8790,path}={}) {
         limit:url.searchParams.has('limit')?Number(url.searchParams.get('limit')):30,
       }));
       if(pathname==='/api/images'&&req.method==='GET')return json(res,200,menuImages);
+      if(pathname==='/api/settings'&&req.method==='PUT'){
+        if(!/^application\/json(?:;|$)/i.test(req.headers['content-type']||''))throw new CmsError(415,'Ожидается application/json.');
+        const data=await body(req);return json(res,200,store.saveSettings(data,{revision:req.headers['if-match']?Number(req.headers['if-match']):undefined}));
+      }
       const match=pathname.match(/^\/api\/(categories|products)(?:\/([a-z0-9-]+))?$/);
       if(match){
         if(!((req.method==='POST'&&!match[2])||(req.method==='PUT'&&match[2])))throw new CmsError(405,'Метод не поддерживается.');
@@ -50,11 +54,12 @@ export async function startCms({port=8790,path}={}) {
         for(const route of ['impressum','datenschutz'])html=html.replaceAll(`href="/astro-portfolio/${route}/`, `href="https://girda.github.io/astro-portfolio/${route}/`);
         res.writeHead(200,{'Content-Type':'text/html; charset=utf-8'});return res.end(html);
       }
-      if(pathname==='/'||pathname==='/admin.css'||pathname==='/admin.js'||pathname==='/editor-state.mjs'){file=new URL(pathname==='/'?'index.html':pathname.slice(1),publicDir);type=pathname.endsWith('.css')?'text/css':(pathname.endsWith('.js')||pathname.endsWith('.mjs'))?'text/javascript':'text/html';}
+      if(pathname==='/menu-options.mjs'){file=new URL('../streetfood/src/data/menu-options.mjs',import.meta.url);type='text/javascript';}
+      else if(pathname==='/'||pathname==='/admin.css'||pathname==='/admin.js'||pathname==='/editor-state.mjs'){file=new URL(pathname==='/'?'index.html':pathname.slice(1),publicDir);type=pathname.endsWith('.css')?'text/css':(pathname.endsWith('.js')||pathname.endsWith('.mjs'))?'text/javascript':'text/html';}
       else if(/^\/appearance-previews\/(?:streetfood|diner|pizzeria)\.png$/.test(pathname)){file=new URL(pathname.slice(1),publicDir);type='image/png';}
       else if(/^\/(?:preview\/)?assets\/menu\/[a-z0-9-]+\.webp$/.test(pathname)){file=new URL(pathname.split('/').at(-1),imagesDir);type='image/webp';}
       else if(/^\/preview\/_astro\/[a-zA-Z0-9_.-]+$/.test(pathname)){const name=pathname.split('/').at(-1);file=new URL('_astro/'+name,buildDir);type=name.endsWith('.css')?'text/css':name.endsWith('.js')?'text/javascript':name.endsWith('.woff2')?'font/woff2':name.endsWith('.ttf')?'font/ttf':name.endsWith('.webp')?'image/webp':name.endsWith('.svg')?'image/svg+xml':'application/octet-stream';}
-      else if(pathname==='/preview/assets/food.svg'){file=new URL('../streetfood/public/assets/food.svg',import.meta.url);type='image/svg+xml';}
+      else if(['/preview/assets/food.svg','/preview/assets/diner-brand.svg'].includes(pathname)){file=new URL('../streetfood/public/assets/'+pathname.split('/').at(-1),import.meta.url);type='image/svg+xml';}
       else throw new CmsError(404,'Не найдено.');
       let bytes;try{bytes=readFileSync(file)}catch{throw new CmsError(404,'Файл не найден.');}
       if(type==='text/css')bytes=Buffer.from(bytes.toString('utf8').replaceAll('/astro-portfolio/demos/streetfood/','/preview/'));
