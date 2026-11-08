@@ -58,7 +58,8 @@
     </section>
     <section id="preview-view" class="history-panel" hidden aria-labelledby="preview-title">
       <div class="section-head"><div><h2 id="preview-title" tabindex="-1">Одно меню. Три оформления.</h2><p class="muted">Категории, блюда и цены общие. Меняется только оформление.</p></div></div>
-      <form id="menu-settings" class="menu-settings">
+      <section class="publication-panel"><h3>Публикация меню</h3><p id="publication-state" role="status"></p><div class="publication-actions"><button type="button" id="publish-menu" data-write>Опубликовать черновик</button><a id="public-menu-link" class="secondary" target="_blank" rel="noopener" hidden>Открыть опубликованное меню</a></div><label>Версия для восстановления<select id="publication-version"></select></label><button id="restore-menu" type="button" class="secondary" data-write>Восстановить опубликованную версию</button><p class="muted">Восстановление меняет меню для гостей. Текущий черновик остаётся без изменений.</p></section>
+      <form id="menu-settings" class="menu-settings"><input type="hidden" name="templateKey" value="streetfood">
 <aside class="custom-menu-note"><strong>Меню под ваш ресторан</strong><p>Можем разработать индивидуальное оформление: фирменные цвета, логотип, композицию и нужные функции. Эти три темы — готовые варианты для знакомства.</p>
 </aside>
 <h3>Оформление бургерной</h3>
@@ -73,19 +74,20 @@
 </form>
 <div class="appearance-grid" id="appearance-grid"></div>
       <p id="appearance-status" role="status" aria-live="polite"></p>
-      <p class="muted">Выбор сохраняется в этом браузере. Предпросмотр открывает актуальный черновик CMS; публичное меню обновляется отдельно.</p>
+      <p class="muted">Оформление сохраняется в черновике ресторана. Для гостей оно изменится после публикации.</p>
     </section>
     <section id="qr-view" class="history-panel" hidden aria-labelledby="qr-title">
-      <div class="section-head"><div><h2 id="qr-title" tabindex="-1">QR-код твоего меню</h2><p class="muted">Выбери оформление и адрес, который откроется у гостя.</p></div></div>
+      <div class="section-head"><div><h2 id="qr-title" tabindex="-1">QR-код твоего меню</h2><p class="muted">Один адрес для всех оформлений. Изменение меню не меняет QR-код.</p></div></div>
       <div class="qr-workspace"><form id="qr-form" novalidate>
-        <label>Оформление<select name="appearance" aria-label="Оформление QR"></select></label>
-        <label>Базовый адрес меню<input name="root" type="url" required maxlength="1000" placeholder="https://cafe.de/menu/"/></label>
-        <p class="muted">Можно указать свой домен или адрес опубликованного меню. Это настройка ссылки в QR; подключение домена к хостингу выполняется отдельно.</p>
+
+        <label>Постоянный адрес меню<input name="root" type="url" readonly/></label>
+        <p class="muted">Адрес назначается ресторану и не зависит от оформления. Домен подключается отдельно.</p>
         <button type="submit">Создать QR</button><p id="qr-status" role="status" aria-live="polite"></p>
       </form><div class="qr-result"><div id="qr-output"></div><p id="qr-link"></p><div class="qr-actions"><a id="qr-download-svg" class="secondary">Скачать SVG</a><button id="qr-download-png" class="secondary" type="button" disabled>Скачать PNG</button><a id="qr-open" class="secondary" target="_blank" rel="noopener">Открыть меню</a></div></div></div>
     </section>
   </main>
 </div>
+<dialog id="publish-dialog" class="confirmation" aria-labelledby="publish-title"><h2 id="publish-title">Опубликовать меню?</h2><p id="publish-description">Проверь блюда, цены и аллергены. Посетители увидят сохранённый черновик. Несохранённые изменения не публикуются.</p><p id="publish-error" role="status"></p><div class="confirmation-actions"><button id="cancel-publish" class="secondary">Отмена</button><button id="confirm-publish">Опубликовать</button></div></dialog>
 <dialog id="editor" aria-labelledby="editor-title">
   <div class="editor-head"><div><p class="eyebrow">Редактор контента</p><h2 id="editor-title"></h2></div><button id="close-editor" class="secondary small" aria-label="Закрыть редактор">Закрыть</button></div>
   <form id="edit-form"><div id="fields"></div><p id="form-status" role="status" aria-live="polite"></p><button id="refresh-conflict" class="secondary" type="button" hidden>Обновить данные, сохранив черновик</button><div class="editor-actions"><span>Сохранение в черновик</span><button data-write type="submit">Сохранить</button></div></form>
@@ -95,4 +97,4 @@
   <p id="discard-description">Ты ещё не сохранил правки. Можно вернуться к редактированию или закрыть окно без сохранения.</p>
   <div class="confirmation-actions"><button id="keep-editing" autofocus>Продолжить редактирование</button><button id="discard-changes" class="secondary">Не сохранять</button></div>
 </dialog>
-<dialog class="account-info-dialog" id="local-account-dialog"><button type="button" class="dialog-close" aria-label="Закрыть" data-account-close>×</button><h2>Учётные записи в сетевой CMS</h2><p>Здесь открыта локальная CMS. Вход и регистрация работают в сетевой версии через код на email от Cloudflare.</p><p>Новый пользователь подтверждает email, заполняет имя и ожидает твоего одобрения. Список пользователей доступен супер-администратору.</p><a class="primary" href="https://hirda-menu-cms.hirda-assistant-api.workers.dev/account.html" target="_blank" rel="noopener">Войти / зарегистрироваться</a><a class="secondary" href="https://hirda-menu-cms.hirda-assistant-api.workers.dev/users.html" target="_blank" rel="noopener">Управление пользователями</a></dialog></body></html>
+<dialog class="account-info-dialog" id="local-account-dialog"><button type="button" class="dialog-close" aria-label="Закрыть" data-account-close>×</button><h2>Учётные записи в сетевой CMS</h2><p>Здесь открыта локальная CMS. Вход и регистрация работают в сетевой версии через код на email от Cloudflare.</p><p>Локальные изменения регистрации ещё не опубликованы в Cloudflare. В подготовленной версии после подтверждения email можно создать свой ресторан. Список пользователей доступен супер-администратору.</p><a class="primary" href="https://hirda-menu-cms.hirda-assistant-api.workers.dev/account.html" target="_blank" rel="noopener">Войти / зарегистрироваться</a><a class="secondary" href="https://hirda-menu-cms.hirda-assistant-api.workers.dev/users.html" target="_blank" rel="noopener">Управление пользователями</a></dialog></body></html>

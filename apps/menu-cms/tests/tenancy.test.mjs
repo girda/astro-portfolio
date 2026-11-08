@@ -8,6 +8,7 @@ import {sqliteBinding} from '../sqlite-binding.mjs';
 import {createRestaurantStore} from '../restaurants.mjs';
 import {createCloudStore} from '../cloud/store.mjs';
 import {createUserStore} from '../cloud/users.mjs';
+import {createPublicationStore} from '../publications.mjs';
 import {exportWorkspaceSql} from '../cloud/export-sql.mjs';
 import {catalogueApi} from '../catalogue-api.mjs';
 import {createMenuStore} from '../store.mjs';
@@ -20,7 +21,7 @@ function setup(){
  sqlite.prepare('INSERT INTO catalogue_state VALUES (1,7,?)').run(JSON.stringify({...seed,settings:{...DEFAULT_SETTINGS,title:'Preserved title'}}));
  sqlite.prepare('INSERT INTO catalogue_history VALUES (7,?)').run(JSON.stringify({revision:7,kind:'settings',createdAt:'2026-11-08T00:00:00Z',before:null,after:{title:'Preserved title'}}));
  sqlite.prepare("INSERT INTO cms_users(id,email,name,role,status,created_at) VALUES ('legacy-editor','legacy@example.com','Legacy Editor','editor','active','2026-11-01T00:00:00Z')").run();
- sqlite.exec(sql('migrations/0003-restaurants.sql'));
+ sqlite.exec(sql('migrations/0003-restaurants.sql'));sqlite.exec(sql('migrations/0004-publication.sql'));
  const db=sqliteBinding(sqlite),users=createUserStore(db),restaurants=createRestaurantStore(db),images=seed.products.map(p=>p.image);
  return {sqlite,db,users,restaurants,images};
 }
@@ -108,8 +109,10 @@ test('private export round-trip retains all restaurants/settings/history and rej
  try{
   const user=await person(env.users,'cafe@example.com');const r=await env.restaurants.create(user,{name:"Cafe O'Clock",slug:'cafe-oclock'});
   const store=createCloudStore(env.db,env.images,r.id);await store.save('settings',{...DEFAULT_SETTINGS,title:'Custom title',showPrices:false},{revision:1});
+  const publication=await createPublicationStore(env.db,env.images).publish(user,r.id,2);
   const exported=exportWorkspaceSql(env.sqlite);restored.exec('PRAGMA foreign_keys=ON;');restored.exec(exported);
   const recovered=createCloudStore(sqliteBinding(restored),env.images,r.id);assert.equal((await recovered.read()).catalogue.settings.title,'Custom title');assert.equal((await recovered.read()).catalogue.settings.showPrices,false);assert.equal((await recovered.history()).entries.length,1);
+  assert.equal((await createPublicationStore(sqliteBinding(restored),env.images).published(r.slug)).catalogue.settings.showPrices,false);
   assert.equal(restored.prepare('SELECT name FROM restaurants WHERE id=?').get(r.id).name,"Cafe O'Clock");assert.equal(restored.prepare('SELECT COUNT(*) AS n FROM restaurants').get().n,2);
   assert.throws(()=>restored.exec(exported));assert.equal((await recovered.read()).revision,2);
  }finally{restored.close();env.sqlite.close();}

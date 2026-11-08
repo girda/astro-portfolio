@@ -1,6 +1,6 @@
 # Restaurant QR Menu SaaS — аудит MVP
 
-Последующее изменение: [этап 1 — ресторанные пространства](docs/audit/CMS_RESTAURANT_WORKSPACES_2026-11-08.md). Ниже сохранён исходный снимок аудита до реализации.
+Последующее изменение: [этап 1 — ресторанные пространства](docs/audit/CMS_RESTAURANT_WORKSPACES_2026-11-08.md). [Этап 2 — локальная публикация и постоянная ссылка](docs/audit/CMS_PUBLICATION_2026-11-08.md). Ниже сохранён исходный снимок аудита до реализации.
 
 Дата: 2026-11-08. Репозиторий: `girda/astro-portfolio`, ветка `main`, проверенный код `e0cc68a`. Требования: [PRODUCT_REQUIREMENTS.md](PRODUCT_REQUIREMENTS.md).
 

@@ -1,3 +1,4 @@
+import {createPublicationStore} from './publications.mjs';
 import {createRestaurantStore} from './restaurants.mjs';
 import {createCloudStore,CmsError} from './cloud/store.mjs';
 export async function catalogueApi(request,{db,user,images}){
@@ -7,12 +8,16 @@ export async function catalogueApi(request,{db,user,images}){
   if(request.method==='POST')return Response.json({restaurant:await restaurants.create(user,await readJson(request))},{status:201});
   throw new CmsError(405,'Метод не поддерживается.');
  }
- const match=path.match(/^\/api\/restaurants\/([a-z0-9-]+)\/(catalogue|settings|images|history(?:\/query)?|categories|products)(?:\/([a-z0-9-]+))?$/);
+ const match=path.match(/^\/api\/restaurants\/([a-z0-9-]+)\/(publication|publish|restore|catalogue|settings|images|history(?:\/query)?|categories|products)(?:\/([a-z0-9-]+))?$/);
  if(!match)return null;
  const [,restaurantId,resource,id]=match;
  const writing=!['GET','HEAD'].includes(request.method);
  await restaurants.access(user,restaurantId,writing);
  const store=createCloudStore(db,images,restaurantId);
+ const publication=createPublicationStore(db,images);
+ if(resource==='publication'&&request.method==='GET'&&!id)return Response.json(await publication.status(user,restaurantId));
+ if(resource==='publish'&&request.method==='POST'&&!id)return Response.json(await publication.publish(user,restaurantId,request.headers.get('if-match')?.trim()?Number(request.headers.get('if-match')):undefined));
+ if(resource==='restore'&&request.method==='POST'&&!id)return Response.json(await publication.restore(user,restaurantId,(await readJson(request)).version));
  if(resource==='catalogue'&&request.method==='GET'&&!id)return Response.json(await store.read());
  if(resource==='images'&&request.method==='GET'&&!id)return Response.json(images);
  if(resource==='history/query'&&request.method==='GET'&&!id)return Response.json(await store.queryHistory(Object.fromEntries(url.searchParams)));

@@ -21,7 +21,7 @@ export function renderPreview(data:MenuData) {
     add.dataset.add=p.id;add.setAttribute('aria-label',`${p.name} zum Warenkorb hinzufügen`);
     cards.append(card);
   }
-  grid.replaceChildren(cards);
+  grid.replaceChildren(cards);grid.hidden=false;
   const nav=document.querySelector('.categories')!;
   const category=nav.querySelector<HTMLButtonElement>('button')!;
   const categories=document.createDocumentFragment();

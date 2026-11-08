@@ -58,6 +58,7 @@ export function validateCatalogue(catalogue) {
 
 export function validateMenuSettings(settings){
  if(!settings||typeof settings!=='object'||Array.isArray(settings))fail('menu settings');
+ if(settings.templateKey!==undefined&&!['streetfood','diner','pizzeria'].includes(settings.templateKey))fail('menu template');
  text(settings.title,'menu title',80);text(settings.subtitle,'menu subtitle',160);
  if(settings.showPrices!==undefined&&typeof settings.showPrices!=='boolean')fail('price visibility');
  if(!['informational','ordering'].includes(settings.menuMode))fail('menu mode');

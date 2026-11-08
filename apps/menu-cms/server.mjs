@@ -2,6 +2,7 @@ import {createServer} from 'node:http';
 import {readFileSync,mkdirSync,chmodSync} from 'node:fs';
 import {fileURLToPath} from 'node:url';
 import {CmsError} from './errors.mjs';
+import {publicMenuResponse} from './public-menu.mjs';
 import {localWorkspaces} from './local-workspaces.mjs';
 import {catalogueApi} from './catalogue-api.mjs';
 import {createCloudStore} from './cloud/store.mjs';
@@ -28,6 +29,14 @@ export async function startCms({port=8790,path}={}) {
       if(req.headers.origin&&req.headers.origin!==origin)throw new CmsError(403,'Запрос с другого сайта запрещён.');
       if(req.headers['sec-fetch-site']==='cross-site')throw new CmsError(403,'Запрос с другого сайта запрещён.');
       const url=new URL(req.url,origin),pathname=url.pathname;
+      const publicResponse=await publicMenuResponse(new Request(origin+req.url,{method:req.method}),{db:workspace.db,asset:async path=>{
+        const relative=path.replace('/preview/','');let file;
+        if(relative.startsWith('_astro/'))file=new URL(relative,buildDir);
+        else if(relative.startsWith('assets/'))file=new URL(relative,new URL('../streetfood/public/',import.meta.url));
+        else file=new URL(relative+'index.html',buildDir);
+        try{const bytes=readFileSync(file);const ext=file.pathname.split('.').at(-1);const types={html:'text/html',css:'text/css',js:'text/javascript',svg:'image/svg+xml',webp:'image/webp',woff2:'font/woff2',ttf:'font/ttf'};return new Response(bytes,{headers:{'Content-Type':types[ext]||'application/octet-stream'}});}catch{return new Response(null,{status:404});}
+      }});
+      if(publicResponse){res.writeHead(publicResponse.status,Object.fromEntries(publicResponse.headers));return res.end(Buffer.from(await publicResponse.arrayBuffer()));}
       if(pathname==='/api/restaurants'||pathname.startsWith('/api/restaurants/')||/^\/api\/(catalogue|settings|images|history|categories|products)(?:\/|$)/.test(pathname)){
         const apiPath=pathname.startsWith('/api/restaurants')?pathname:pathname.replace('/api/','/api/restaurants/'+workspace.restaurantId+'/');
         const bytes=['GET','HEAD'].includes(req.method)?undefined:await new Promise((resolve,reject)=>{let size=0;const chunks=[];req.on('data',chunk=>{size+=chunk.length;if(size<=MAX_BODY)chunks.push(chunk)});req.on('end',()=>size>MAX_BODY?reject(new CmsError(413,'Слишком большой запрос.')):resolve(Buffer.concat(chunks)));req.on('error',reject)});

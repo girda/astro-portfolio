@@ -1,10 +1,11 @@
 import {t,getLocale,initLanguage,applyLanguage,allergenLabel} from './i18n.mjs';
 import {MENU_APPEARANCES} from './menu-links.mjs';
-import './qr-menu.js';
+import {initQrMenu} from './qr-menu.js';
 import {ALLERGENS,DEFAULT_SETTINGS,productOptions,allergenIconMarkup} from './menu-options.mjs';
 import {mergeDraft, selectProducts} from './editor-state.mjs';
 import {initWorkspace} from './workspaces.js';
 const workspace=await initWorkspace();
+const refreshQr=await initQrMenu(workspace);
 
 initLanguage();
 const $ = selector => document.querySelector(selector);
@@ -392,7 +393,7 @@ function showView(name) {
 for(const name of Object.keys(views))$('#show-'+name).addEventListener('click',()=>showView(name));
 const appearances=MENU_APPEARANCES;
 let appearance='streetfood';
-try{const saved=localStorage.getItem('my-menu:appearance');if(appearances.some(item=>item.id===saved))appearance=saved;}catch{}
+
 function syncAppearance(){
   for(const button of document.querySelectorAll('[data-appearance-select]')){
     const selected=button.dataset.appearanceSelect===appearance;
@@ -404,7 +405,7 @@ for(const item of appearances){
   const image=document.createElement('img');image.src='/appearance-previews/'+item.id+'.png';image.alt=t('Первый экран меню ')+item.name;image.width=640;image.height=460;image.loading='lazy';
   const body=node('div',undefined,'appearance-body');body.append(node('h3',item.name),node('p',t(item.description)));
   const actions=node('div',undefined,'appearance-actions');const select=node('button',t('Выбрать оформление'));select.dataset.appearanceSelect=item.id;
-  select.addEventListener('click',()=>{appearance=item.id;try{localStorage.setItem('my-menu:appearance',appearance);}catch{}syncAppearance();$('#appearance-status').textContent=t('Выбрано: ')+item.name+'.';});
+  select.dataset.write='';select.addEventListener('click',()=>{if(busy||document.body.classList.contains('read-only'))return;appearance=item.id;$('#menu-settings').elements.namedItem('templateKey').value=appearance;syncAppearance();$('#appearance-status').textContent=t('Сохрани оформление, затем опубликуй меню.');});
   const open=node('a',t('Открыть меню'),'secondary');open.href=workspace.preview('/preview/'+item.path);open.target='_blank';open.rel='noopener';
   actions.append(select,open);body.append(actions);card.append(image,body);$('#appearance-grid').append(card);
 }
@@ -422,7 +423,7 @@ $('#discard-changes').addEventListener('click',() => {$('#discard-dialog').close
 let menuLogo='';
 function syncMenuSettings(){
  const settings={...DEFAULT_SETTINGS,...state?.catalogue.settings};const form=$('#menu-settings');
- for(const key of ['title','subtitle','menuMode','showPrices'])form.elements.namedItem(key).value=settings[key];menuLogo=settings.logo;syncLogoPreview();settingsBaseline=settingsSignature();
+ for(const key of ['title','subtitle','menuMode','showPrices'])form.elements.namedItem(key).value=settings[key];appearance=settings.templateKey||'streetfood';form.elements.namedItem('templateKey').value=appearance;syncAppearance();menuLogo=settings.logo;syncLogoPreview();settingsBaseline=settingsSignature();
 }
 function syncLogoPreview(){const image=$('#menu-logo-preview');image.hidden=!menuLogo;if(menuLogo)image.src=menuLogo;else image.removeAttribute('src');}
 $('#clear-menu-logo').addEventListener('click',()=>{menuLogo='';syncLogoPreview();$('#menu-logo-upload').value='';});
@@ -436,7 +437,7 @@ $('#menu-logo-upload').addEventListener('change',async event=>{
 });
 $('#menu-settings').addEventListener('submit',async event=>{
  event.preventDefault();if(busy||!state||document.body.classList.contains('read-only')||!event.target.reportValidity())return;const form=event.target;
- setBusy(true);try{state=await api('/api/settings',{method:'PUT',headers:{'Content-Type':'application/json','If-Match':String(state.revision)},body:JSON.stringify({title:form.elements.namedItem('title').value,subtitle:form.elements.namedItem('subtitle').value,menuMode:form.elements.namedItem('menuMode').value,showPrices:form.elements.namedItem('showPrices').value==='true',logo:menuLogo})});settingsBaseline=settingsSignature();$('#settings-status').textContent=t('Оформление сохранено. Обнови меню.');}catch(error){$('#settings-status').textContent=t(error.message);}finally{setBusy(false);}
+ setBusy(true);try{state=await api('/api/settings',{method:'PUT',headers:{'Content-Type':'application/json','If-Match':String(state.revision)},body:JSON.stringify({templateKey:form.elements.namedItem('templateKey').value,title:form.elements.namedItem('title').value,subtitle:form.elements.namedItem('subtitle').value,menuMode:form.elements.namedItem('menuMode').value,showPrices:form.elements.namedItem('showPrices').value==='true',logo:menuLogo})});settingsBaseline=settingsSignature();$('#settings-status').textContent=t('Оформление сохранено. Обнови меню.');}catch(error){$('#settings-status').textContent=t(error.message);}finally{setBusy(false);}
 });
 
 const accountDialog=document.querySelector('#local-account-dialog');
@@ -460,3 +461,33 @@ $('#discard-changes').addEventListener('click',()=>{if(pendingLanguage)applyLang
 const settingsSignature=()=>JSON.stringify([...new FormData($('#menu-settings'))].filter(([key])=>key!=='menu-logo-upload'))+menuLogo;
 $('#menu-settings').addEventListener('input',()=>{if(!settingsBaseline)settingsBaseline=settingsSignature();},{once:true});
 try{const savedView=sessionStorage.getItem('my-menu:view');if(Object.hasOwn(views,savedView))showView(savedView);}catch{}
+
+let publication=null,publicationAction=null;
+async function refreshPublication(){
+ try{publication=await api('/api/publication');const versions=$('#publication-version');versions.replaceChildren();
+  for(const version of publication.versions){const option=node('option',new Date(version.created_at).toLocaleString(getLocale())+' · '+version.draft_revision);option.value=version.id;versions.append(option);}
+  if(publication.currentVersion)versions.value=publication.currentVersion;
+  const link=$('#public-menu-link');link.href=publication.path;link.hidden=!publication.currentVersion;
+  $('#publication-state').textContent=t(publication.currentVersion?'Опубликованная версия доступна по постоянной ссылке.':'Меню ещё не опубликовано.');
+  $('#restore-menu').disabled=!publication.versions.length;
+ }catch(error){$('#publication-state').textContent=t(error.message);}
+}
+$('#publish-menu').addEventListener('click',()=>{
+ if(busy||!state)return;
+ if(settingsSignature()!==settingsBaseline){$('#publication-state').textContent=t('Сначала сохрани оформление.');return;}
+ publicationAction={type:'publish'};$('#publish-title').textContent=t('Опубликовать меню?');$('#publish-description').textContent=t('Проверь блюда, цены и аллергены. Посетители увидят сохранённый черновик. Несохранённые изменения не публикуются.');$('#publish-error').textContent='';$('#publish-dialog').showModal();
+});
+$('#cancel-publish').addEventListener('click',()=>$('#publish-dialog').close());
+$('#confirm-publish').addEventListener('click',async()=>{
+ if(busy||!state)return;setBusy(true);$('#confirm-publish').disabled=true;
+ try{if(publicationAction?.type==='restore')await api('/api/restore',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({version:publicationAction.version})});else await api('/api/publish',{method:'POST',headers:{'If-Match':String(state.revision)}});$('#publish-dialog').close();await refreshPublication();await refreshQr();}
+ catch(error){$('#publish-error').textContent=t(error.message);}
+ finally{setBusy(false);$('#confirm-publish').disabled=false;}
+});
+$('#publish-dialog').addEventListener('cancel',event=>{if(busy)event.preventDefault();});
+$('#restore-menu').addEventListener('click',()=>{
+ if(busy||!$('#publication-version').value)return;
+ publicationAction={type:'restore',version:$('#publication-version').value};$('#publish-title').textContent=t('Восстановить опубликованную версию');$('#publish-description').textContent=t('Восстановление меняет меню для гостей. Текущий черновик остаётся без изменений.');$('#publish-error').textContent='';$('#publish-dialog').showModal();
+});
+
+void refreshPublication();

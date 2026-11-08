@@ -1,3 +1,4 @@
+import {publicMenuResponse} from '../public-menu.mjs';
 import {authorize} from './auth.mjs';
 import {isAllowedRequestSource} from './request-source.mjs';
 import {createUserStore,canRead,requireSuper} from './users.mjs';
@@ -11,6 +12,9 @@ const headers={'Cache-Control':'no-store','X-Content-Type-Options':'nosniff','Re
 function json(value,status=200){return Response.json(value,{status,headers});}
 export default {async fetch(request,env){
   // Проверяем подпись и адрес даже при прямом обращении к workers.dev и к статическим файлам.
+  let publicResponse;try{publicResponse=await publicMenuResponse(request,{db:env.DB,asset:path=>env.ASSETS.fetch(new Request(new URL(path,request.url)))});
+  }catch(error){console.error(JSON.stringify({event:'public_menu_error',name:error.name}));return json({error:'Menu temporarily unavailable.'},503);}
+  if(publicResponse)return publicResponse;
   const identity=await authorize(request,env);
   if(!identity)return json({error:'Подтверди email через Cloudflare Access.'},403);
   const url=new URL(request.url),path=url.pathname;

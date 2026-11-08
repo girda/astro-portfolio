@@ -3,7 +3,7 @@ export async function initUsers(actor){
  const registrationLink=document.querySelector('#registration-link');registrationLink.value=new URL('/account.html',location.origin).href;
  document.querySelector('#copy-registration').addEventListener('click',async()=>{try{await navigator.clipboard.writeText(registrationLink.value);document.querySelector('#user-status').textContent=t('Ссылка скопирована.');}catch{registrationLink.focus();registrationLink.select();document.querySelector('#user-status').textContent=t('Выделил ссылку — скопируй вручную.');}});
  const list=document.querySelector('#user-list'),status=document.querySelector('#user-status'),more=document.querySelector('#more-users'),search=document.querySelector('#user-search');let users=[],cursor='';
- const roles={viewer:t('Просмотр'),editor:t('Редактор'),super_admin:t('Супер-админ')},states={pending:t('Ожидает одобрения'),active:t('Одобрен'),blocked:t('Заблокирован')};
+ const roles={viewer:t('Просмотр'),editor:t('Редактор'),super_admin:t('Супер-админ')},states={pending:t('Ожидает одобрения'),active:t('Доступ открыт'),blocked:t('Заблокирован')};
  const node=(tag,text)=>{const el=document.createElement(tag);if(text!==undefined)el.textContent=text;return el};
  const date=value=>value?new Intl.DateTimeFormat(getLocale(),{dateStyle:'medium',timeStyle:'short'}).format(new Date(value)):t('Ещё не входил');
  function select(label,values,value){const wrap=node('label',label),input=node('select');for(const [key,text]of Object.entries(values)){const option=node('option',text);option.value=key;input.append(option)}input.value=value;wrap.append(input);return {wrap,input};}
