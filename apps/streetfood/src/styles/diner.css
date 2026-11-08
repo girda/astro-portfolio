@@ -1,0 +1,61 @@
+/* Финальная редакция Diner: эталонная графика и единый синий акцент. */
+html[data-appearance=diner]{--menu-price:#00539a;--diner-blue:#00539a;--diner-blue-hover:#086bb6;--diner-cream:#f4eddc}
+html[data-appearance=diner] .app-header{padding-block:15px;gap:18px;border-bottom:0}
+html[data-appearance=diner] .app-header:after{height:12px;background:url('../assets/diner-reference-divider.png') center/100% 12px no-repeat;clip-path:none;opacity:1;bottom:-4px}
+html[data-appearance=diner] .app-header .header-cart,html[data-appearance=diner] .app-header [data-menu-open]{border-left:1px solid #f4eddc99;border-radius:0;padding-left:18px;width:58px}
+html[data-appearance=diner] .header-cart>span{background:var(--diner-blue)}
+html[data-appearance=diner] .menu-intro h1{transform:none;font-style:italic;font-weight:600;letter-spacing:-2px}
+.wave-title{display:flex;align-items:end;white-space:nowrap}
+.wave-title>span{display:inline-block;transform:scaleY(var(--letter-height));transform-origin:bottom}
+html[data-appearance=diner] .menu-intro h1:after{background:url('../assets/diner-reference-underline.png') center/100% 100% no-repeat;clip-path:none;height:28px;width:65%;margin-top:0}
+html[data-appearance=diner] .category[aria-pressed=true]{filter:saturate(1.3)}
+html[data-appearance=diner] .dish-grid{column-gap:32px}
+html[data-appearance=diner] .dish-card{padding-top:0}
+html[data-appearance=diner] .dish-card:after{background:url('../assets/diner-reference-divider.png') center/100% 100% no-repeat;clip-path:none;opacity:1;height:8px}
+html[data-appearance=diner] .dish-open{padding:46px 76px 50px 0;min-height:255px;grid-template-columns:39% 1fr}
+html[data-appearance=diner] .dish-info h2{font-weight:500;letter-spacing:-.6px}
+html[data-appearance=diner] .dish-info>strong{width:69px;height:77px;top:15px;bottom:auto;right:0;font:300 20px/1 MenuOswald,sans-serif;letter-spacing:-.4px;display:flex;justify-content:center;align-items:center;padding-bottom:5px}
+html[data-appearance=diner] .favorite{top:14px!important;left:0!important;right:auto!important;bottom:auto!important}
+html[data-appearance=diner] :is(.favorite,.quick-add){width:39px!important;height:39px!important;display:grid;place-items:center;border-radius:5px!important;border:1px solid #f4eddc9c!important;background:linear-gradient(#096db2,var(--diner-blue))!important;color:var(--diner-cream)!important;box-shadow:0 3px 0 #002d55,0 4px 7px #0004}
+html[data-appearance=diner] .favorite svg,html[data-appearance=diner] .quick-add svg{width:21px;height:21px;stroke-width:1.6}
+html[data-appearance=diner] .favorite[aria-pressed=true]{background:var(--diner-blue-hover)!important}
+html[data-appearance=diner] .quick-add{top:auto!important;bottom:20px!important;right:0!important}
+html[data-appearance=diner] .cart-dock{background:var(--diner-blue)!important}
+html[data-appearance=diner] .menu-feature{color:var(--diner-cream)}
+html[data-appearance=diner] .food-dialog{background:#fff;color:#141414;border:1px solid #ddd}
+html[data-appearance=diner] .food-dialog :is(.primary,.quantity button){background:var(--diner-blue);color:white}
+html[data-appearance=diner] .food-dialog :is(.overline,.allergen-note,.demo-note){color:#666}
+.food-dialog{margin:auto}
+.food-dialog[open]{position:fixed;inset:0;float:none}
+.dish-note textarea{resize:none;outline:none}
+.dish-note textarea:focus{border-color:#0876b5;box-shadow:inset 0 -2px #0876b5}
+.product-detail{padding-bottom:30px}
+.product-actions{padding-bottom:24px}
+.flying-dish{object-fit:contain!important}
+@media(min-width:651px){html[data-appearance=diner] .dish-card:nth-child(2n+1):before{content:'';position:absolute;right:-16px;top:24px;bottom:24px;width:2px;background:linear-gradient(transparent,#f4eddc99 15%,#f4eddc88 85%,transparent);transform:rotate(.15deg)}}
+@media(max-width:650px){
+ html[data-appearance=diner] .app-header{padding-block:12px;gap:7px}
+ html[data-appearance=diner] .app-header .header-cart,html[data-appearance=diner] .app-header [data-menu-open]{padding-left:7px;width:34px}
+ html[data-appearance=diner] .app-header:after{height:8px;background-size:100% 8px}
+ html[data-appearance=diner] .dish-open{grid-template-columns:1fr;padding:36px 0 72px;gap:9px}
+ html[data-appearance=diner] .dish-photo{height:190px;width:80%;justify-self:center}
+ html[data-appearance=diner] .dish-info{padding:0;width:100%}
+ html[data-appearance=diner] .dish-info h2{font-size:28px}
+ html[data-appearance=diner] .dish-info>strong{width:66px;height:73px;font-size:18px;top:12px;right:0}
+ html[data-appearance=diner] .dish-card{min-height:340px}
+ html[data-appearance=diner] .favorite{top:15px!important}
+ html[data-appearance=diner] .quick-add{bottom:22px!important}
+}
+@media(hover:hover){html[data-appearance=diner] :is(.favorite,.quick-add):hover{filter:brightness(1.17);transform:translateY(-1px)}}
+html[data-appearance=diner]{--menu-accent:var(--diner-blue)}
+html[data-appearance=diner] .menu-emblem{fill:var(--diner-blue)}
+html[data-appearance=diner] .menu-intro h1{font-size:clamp(54px,6.5vw,90px)}
+html[data-appearance=diner] .menu-intro p:not(.intro-kicker){font:26px/1.4 Arial,sans-serif}
+html[data-appearance=diner] .cart-dock{border-bottom-color:#c94032}
+html[data-appearance=diner] .category[aria-pressed=true]{filter:none}
+html[data-appearance=diner] .food-dialog input:checked{accent-color:var(--diner-blue)}
+@media(max-width:1000px){html[data-appearance=diner] .menu-intro h1{font-size:58px}}
+@font-face{font-family:DinerBody;src:url('../../../barbershop/src/assets/fonts/arimo-400.woff2') format('woff2');font-weight:400;font-display:swap}
+html[data-appearance=diner] body{font-family:DinerBody,Arial,sans-serif}
+html[data-appearance=diner] .dish-description{font-family:DinerBody,Arial,sans-serif}
+@media(min-width:651px){html[data-appearance=diner] .dish-card:nth-child(2n+1):before{width:5px;background:url('../assets/diner-reference-divider-vertical.png') center/100% 100% no-repeat;transform:none}}

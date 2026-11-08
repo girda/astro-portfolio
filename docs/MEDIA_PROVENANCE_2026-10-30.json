@@ -1913,6 +1913,30 @@
       "evidence": "built_in_imagegen_for_user_2026_11_07",
       "original": "exec-f45d639d-c7f9-4467-ada9-d2da923b1fd8.png",
       "caveat": "Fictional demo food; reference-guided generation is not pixel-identical extraction."
+    },
+    {
+      "file": "apps/streetfood/src/assets/diner-reference-divider-vertical.png",
+      "sha256": "781fe0dfaaaf262ccaadbf1740f138afd792be6bc97ca1e0e676ef85a51226fb",
+      "bytes": 28789,
+      "published": false,
+      "evidence": "user_requested_exact_crop_from_approved_generated_reference",
+      "original": "exec-4f701990-eddf-4701-a52f-aaab9b5fa1eb.png"
+    },
+    {
+      "file": "apps/streetfood/src/assets/diner-reference-underline.png",
+      "sha256": "34a4d1d6112cebcfa9fd462c2c4cc1ccb8d053a078967f2c0001147431fe4cd7",
+      "bytes": 17574,
+      "published": false,
+      "evidence": "user_requested_exact_crop_from_approved_generated_reference",
+      "original": "exec-4f701990-eddf-4701-a52f-aaab9b5fa1eb.png"
+    },
+    {
+      "file": "apps/streetfood/src/assets/diner-reference-divider.png",
+      "sha256": "b5bde3ea3161020cdac29a87ed5a4ab235b7a3733687ba6312554dba3728261c",
+      "bytes": 26216,
+      "published": false,
+      "evidence": "user_requested_exact_crop_from_approved_generated_reference",
+      "original": "exec-4f701990-eddf-4701-a52f-aaab9b5fa1eb.png"
     }
   ]
 }
