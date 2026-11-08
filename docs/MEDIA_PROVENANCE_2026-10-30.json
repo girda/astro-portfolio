@@ -1975,11 +1975,11 @@
     },
     {
       "file": "apps/streetfood/public/assets/bunhafen-brand.svg",
-      "sha256": "9880689ac6e678aefb8e5400487f4a9e0d79bb0f19b0de503d1ceb0047e07019",
-      "bytes": 1271,
+      "sha256": "c2f89c27fd30e5f91b461612305300b2233d89f7cc57ec1dac21ba7d9bb1bcf6",
+      "bytes": 2870,
       "published": true,
       "evidence": "original_project_vector_2026_11_08",
-      "source": "Hand-authored Bunhafen crest and vector wordmark for this project."
+      "source": "Original SVG illustration: winged burger, ribbon and vector Bunhafen wordmark; authored for this project from user-selected visual directions, no stock asset used."
     }
   ]
 }
