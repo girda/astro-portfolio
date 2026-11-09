@@ -2,12 +2,11 @@ import assert from 'node:assert/strict';
 import {readFileSync, readdirSync, existsSync} from 'node:fs';
 import {join, resolve} from 'node:path';
 import {legalOperator} from '../apps/portfolio/src/config/legal.ts';
-import {createSiteConfig} from '../apps/portfolio/src/config/site.ts';
+import {deploymentConfig as config} from './deployment-config.mjs';
 import {canonicalUrl} from '../apps/portfolio/src/lib/seo.ts';
 
 // Проверяем публичные переходы по готовому artifact, а не исходные шаблоны.
 const output=resolve(process.argv[2] || 'dist');
-const config=createSiteConfig({origin:process.env.SITE_URL,base:process.env.PAGES_BASE || '/astro-portfolio/'});
 const pages=[];
 function walk(folder){for(const entry of readdirSync(folder,{withFileTypes:true})){const file=join(folder,entry.name);if(entry.isDirectory())walk(file);else if(entry.name.endsWith('.html'))pages.push(file);}}
 walk(output);
@@ -23,6 +22,13 @@ for(const slug of ['impressum','datenschutz']){
 let checked=0;
 for(const file of pages){
  const html=readFileSync(file,'utf8');
+ if(html.includes('class="menu-legal"')){
+  for(const slug of ['impressum','datenschutz']){
+   assert.ok(html.includes(`href="${canonicalUrl('/'+slug+'/',config)}"`),`${file}: ${slug} link/origin`);
+  }
+  checked++;
+  continue;
+ }
  if(!html.includes('hirda-demo-notice') && !html.includes('class="site-footer"'))continue;
  for(const slug of ['impressum','datenschutz'])assert.ok(html.includes(`href="${config.base}${slug}/"`),`${file}: ${slug} link/base`);
  checked++;

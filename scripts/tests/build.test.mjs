@@ -11,7 +11,9 @@ test('a failed demo build preserves the last complete output; success replaces i
   const root = mkdtempSync(join(tmpdir(), 'hirda-build-test-'));
   try {
     mkdirSync(join(root,'scripts'));
-    for (const name of ['build.mjs','projects.mjs','public-assets.mjs','license-notices.mjs']) cpSync(new URL(`../${name}`, import.meta.url),join(root,'scripts',name));
+    for (const name of ['build.mjs','projects.mjs','public-assets.mjs','license-notices.mjs','deployment-config.mjs']) cpSync(new URL(`../${name}`, import.meta.url),join(root,'scripts',name));
+    mkdirSync(join(root,'apps','portfolio','src','config'),{recursive:true});
+    cpSync(new URL('../../apps/portfolio/src/config/site.ts',import.meta.url),join(root,'apps','portfolio','src','config','site.ts'));
     for(const[source]of publicLicenses){const dest=join(root,source);mkdirSync(dirname(dest),{recursive:true});cpSync(new URL('../../'+source,import.meta.url),dest);}
     mkdirSync(join(root,'dist')); writeFileSync(join(root,'dist','previous.txt'),'working');
     for (const app of BUILD_APPS) {
@@ -20,7 +22,7 @@ test('a failed demo build preserves the last complete output; success replaces i
         if(process.env.FAIL_APP==='${app}')process.exit(1);
         mkdirSync('dist',{recursive:true});writeFileSync('dist/index.html',process.env.SITE_BASE);`);
     }
-    const run=fail=>spawnSync(process.execPath,[join(root,'scripts','build.mjs')],{env:{...process.env,FAIL_APP:fail,PAGES_BASE:'/test/'},encoding:'utf8'});
+    const run=(fail,base='/test/')=>spawnSync(process.execPath,[join(root,'scripts','build.mjs')],{env:{...process.env,FAIL_APP:fail,PAGES_BASE:base,SITE_URL:'https://hirdalabs.de'},encoding:'utf8'});
     assert.equal(run('nails').status,1);
     assert.equal(readFileSync(join(root,'dist','previous.txt'),'utf8'),'working');
     assert.equal(readdirSync(root).some(name=>name.startsWith('.build-')),false);
@@ -32,6 +34,9 @@ test('a failed demo build preserves the last complete output; success replaces i
     assert.equal(existsSync(join(root,'dist','previous.txt')),false);
     assert.equal(readFileSync(join(root,'dist','demos','nails','index.html'),'utf8'),'/test/demos/nails/');
     assert.ok(existsSync(join(root,'dist','.nojekyll')));
+    assert.equal(run('', '/').status,0);
+    assert.equal(readFileSync(join(root,'dist','index.html'),'utf8'),'/');
+    assert.equal(readFileSync(join(root,'dist','demos','nails','index.html'),'utf8'),'/demos/nails/');
     for(const[source,name]of publicLicenses)assert.equal(readFileSync(join(root,'dist','licenses',name),'utf8'),readFileSync(join(root,source),'utf8'));
   } finally {rmSync(root,{recursive:true,force:true});}
 });

@@ -18,21 +18,21 @@ One repository for the portfolio and eleven independent Astro demos.
 | GRÜNWERK Gardens | `/astro-portfolio/demos/gardens/` | `npm run dev --prefix apps/gardens` |
 
 Use Node.js 24. Install each app with `npm ci --prefix apps/<app>`.
-Run `npm run build` at the repository root to assemble all twelve sites in `dist/`.
+Run `npm run build` at the repository root to assemble the portfolio and twelve demos in `dist/`.
 `SITE_URL` sets the deployment origin; `PAGES_BASE` defaults to `/astro-portfolio/`.
 Individual app builds default to `/`, so existing local development commands still work.
 
 GitHub Pages uses GitHub Actions. Every push to `main` builds and deploys all sites.
-Configure Settings → Pages → Source: GitHub Actions.
+Set the Pages source to GitHub Actions in Settings → Pages. The workflow reads the configured origin and base path from Pages. See the [custom domain cutover](docs/DEPLOYMENT.md#переключение-после-подтверждения-dns).
 
 These are fictional portfolio concepts. Booking forms demonstrate interactions and do not send reservations. Stock photo credits are included on the demo pages.
 
 ## Checks and SEO
 
-Run `npm test` for API, local n8n and SEO helper tests, then `npm run build` and `npm run check:seo` for generated metadata and preserved demo routes.
+Run `npm run build` before `npm test` so the CMS tests can use the Street Food artifact. Run `npm run check:seo` with the same deployment variables to check the generated metadata and demo routes.
 `SITE_URL` must be a public HTTPS origin (no pathname); `PAGES_BASE` controls the combined deployment prefix.
 Use `SITE_INDEXABLE=false` for a studio preview build. Development pages are noindex; the `/cat-lab/` experiment is always noindex.
-The sitemap currently lists only the existing DE/EN homepages. Add real page routes to `apps/portfolio/src/config/site.ts` as they are implemented.
+The sitemap lists the portfolio home and work pages in German, English and Russian. Add real page routes to `apps/portfolio/src/config/site.ts` as they are implemented.
 A robots.txt below a GitHub Pages project subpath cannot control the origin root; see [deployment notes](docs/DEPLOYMENT.md).
 
 [Project hub](docs/PROJECT_HUB.md) · [Tasks](docs/TASKS.md) · [Architecture](docs/ARCHITECTURE.md)

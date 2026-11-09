@@ -4,19 +4,18 @@ import { resolve, relative } from 'node:path';
 import { isPublicAssetAllowed } from './public-assets.mjs';
 import { BUILD_APPS, outputPath } from './projects.mjs';
 import { publicLicenses } from './license-notices.mjs';
+import { deploymentConfig } from './deployment-config.mjs';
 
 const root = resolve(import.meta.dirname, '..');
 const destination = resolve(root, 'dist');
 const staging = mkdtempSync(resolve(root, '.build-'));
-const base = (process.env.PAGES_BASE || '/astro-portfolio/').replace(/\/?$/, '/');
-const site = process.env.SITE_URL;
 try {
   for (const app of BUILD_APPS) {
     const folder = resolve(root, 'apps', app);
     const suffix = outputPath(app);
     const result = spawnSync(process.execPath, [resolve(folder, 'node_modules/astro/bin/astro.mjs'), 'build'], {
       cwd: folder, stdio: 'inherit',
-      env: { ...process.env, SITE_BASE: base + suffix, ...(site ? { SITE_URL: site } : {}) },
+      env: { ...process.env, SITE_BASE: deploymentConfig.base + suffix, SITE_URL: deploymentConfig.origin },
     });
     if (result.error || result.status !== 0) throw new Error(`Build failed: ${app}`, {cause: result.error});
     mkdirSync(resolve(staging, suffix), {recursive: true});

@@ -5,7 +5,7 @@
   "compatibility_date": "2026-10-09",
   "workers_dev": true,
   "vars": {
-    "ALLOWED_ORIGIN": "https://girda.github.io",
+    "ALLOWED_ORIGIN": "https://girda.github.io,https://hirdalabs.de",
     "OPENAI_MODEL": "gpt-4.1-mini",
     "CHAT_DAILY_LIMIT": "200"
   },

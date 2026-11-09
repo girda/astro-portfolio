@@ -28,7 +28,7 @@ test('all appearance previews inject the current draft and preserve the selected
         const assets=[...css.matchAll(/url\(["']?(\/preview\/[^)"']+)/g)].map(m=>m[1]);
         for(const asset of new Set(assets))assert.equal((await fetch(app.url+asset)).status,200,asset);
       }
-      assert.ok(!html.includes('/astro-portfolio/demos/streetfood/'));
+      assert.doesNotMatch(html, /(?:href|src|data-fallback)="\/(?:astro-portfolio\/)?demos\/streetfood\//);
     }
     assert.equal((await fetch(app.url+'/preview/unknown/')).status,404);
   }finally{await app.close();}

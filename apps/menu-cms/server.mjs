@@ -1,3 +1,4 @@
+import {rewriteBuiltMenuBase} from './menu-paths.mjs';
 import {createServer} from 'node:http';
 import {readFileSync,mkdirSync,chmodSync} from 'node:fs';
 import {fileURLToPath} from 'node:url';
@@ -57,7 +58,7 @@ export async function startCms({port=8790,path}={}) {
         const data=JSON.stringify(view).replaceAll('<','\\u003c');
         if(!/<script\b[^>]*\bid="menu-data"[^>]*>/.test(html))throw new CmsError(503,'Обнови сборку меню для CMS-предпросмотра.');
         html=html.replace(/(<script\b[^>]*\bid="menu-data"[^>]*>)[\s\S]*?(<\/script>)/,(_,a,b)=>a+data+b).replace('<html','<html data-menu-preview');
-        html=html.replace(/data-price-visibility="[^"]*"/,`data-price-visibility="${view.settings.showPrices?'visible':'hidden'}"`).replaceAll('/astro-portfolio/demos/streetfood/','/preview/');
+        html=rewriteBuiltMenuBase(html.replace(/data-price-visibility="[^"]*"/,`data-price-visibility="${view.settings.showPrices?'visible':'hidden'}"`),'/preview/');
         for(const route of ['impressum','datenschutz'])html=html.replaceAll(`href="/astro-portfolio/${route}/`, `href="https://girda.github.io/astro-portfolio/${route}/`);
         html=html.replace(/href="(\/preview\/(?:bunhafen\/|pizzeria\/)?)"/g,(_,href)=>`href="${href}?restaurant=${restaurantId}"`);
         res.writeHead(200,{'Content-Type':'text/html; charset=utf-8'});return res.end(html);
@@ -71,7 +72,7 @@ export async function startCms({port=8790,path}={}) {
       else if(['/preview/assets/food.svg','/preview/assets/diner-brand.svg','/preview/assets/bunhafen-brand.svg'].includes(pathname)){file=new URL('../streetfood/public/assets/'+pathname.split('/').at(-1),import.meta.url);type='image/svg+xml';}
       else throw new CmsError(404,'Не найдено.');
       let bytes;try{bytes=readFileSync(file)}catch{throw new CmsError(404,'Файл не найден.');}
-      if(type==='text/css')bytes=Buffer.from(bytes.toString('utf8').replaceAll('/astro-portfolio/demos/streetfood/','/preview/'));
+      if(type==='text/css')bytes=Buffer.from(rewriteBuiltMenuBase(bytes.toString('utf8'),'/preview/'));
       res.writeHead(200,{'Content-Type':type+'; charset=utf-8'});res.end(req.method==='HEAD'?undefined:bytes);
     }catch(error){json(res,error instanceof CmsError?error.status:500,{error:error instanceof CmsError?error.message:'Внутренняя ошибка CMS.'});}
   });

@@ -5,6 +5,7 @@ on:
   workflow_dispatch:
 permissions:
   contents: read
+  pages: read
 concurrency:
   group: pages
   cancel-in-progress: false
@@ -18,25 +19,21 @@ jobs:
           node-version: '24'
       - name: Install dependencies
         run: node scripts/install.mjs
-      - name: Test API, n8n and SEO helpers
-        run: npm test
-      - name: Build all sites
-        run: npm run build
+      - name: Read GitHub Pages settings
+        id: pages
+        uses: actions/configure-pages@v5
+      - name: Build and check all sites
         env:
-          SITE_URL: https://${{ github.repository_owner }}.github.io
-          PAGES_BASE: /astro-portfolio/
+          SITE_URL: ${{ steps.pages.outputs.origin }}
+          PAGES_BASE: ${{ steps.pages.outputs.base_path || '/' }}
           PUBLIC_ASSISTANT_API_URL: ${{ vars.PUBLIC_ASSISTANT_API_URL }}
-      - name: Check generated SEO and demo URLs
-        run: npm run check:seo
-        env:
-          SITE_URL: https://${{ github.repository_owner }}.github.io
-          PAGES_BASE: /astro-portfolio/
-      - name: Check public forms, fonts and storage baseline
-        run: npm run check:public
-      - name: Check legal pages and shared footer links
-        run: npm run check:legal
-      - name: Check registered media and bundled licence notices
-        run: npm run check:media
+        run: |
+          npm run build
+          npm test
+          npm run check:seo
+          npm run check:public
+          npm run check:legal
+          npm run check:media
       - uses: actions/upload-pages-artifact@v3
         with:
           path: dist

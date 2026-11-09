@@ -1,3 +1,4 @@
+import {rewriteBuiltMenuBase} from '../menu-paths.mjs';
 import {mkdir,readFile,writeFile,cp,rm,readdir} from 'node:fs/promises';
 const output=new URL('../.cloud-assets/',import.meta.url);
 await rm(output,{recursive:true,force:true});await mkdir(output,{recursive:true});
@@ -6,7 +7,7 @@ await cp(new URL('../../streetfood/dist/',import.meta.url),new URL('preview/',ou
 await cp(new URL('../../streetfood/public/assets/menu/',import.meta.url),new URL('assets/menu/',output),{recursive:true});
 for(const page of ['index.html','diner/index.html','bunhafen/index.html','pizzeria/index.html']){
 let html=await readFile(new URL('preview/'+page,output),'utf8');
-html=html.replaceAll('/astro-portfolio/demos/streetfood/','/preview/');
+html=rewriteBuiltMenuBase(html,'/preview/');
 for(const route of ['impressum','datenschutz'])html=html.replaceAll(`href="/astro-portfolio/${route}/`,`href="https://girda.github.io/astro-portfolio/${route}/`);
 await writeFile(new URL('preview/'+page,output),html);
 }
@@ -14,7 +15,7 @@ await writeFile(new URL('preview/'+page,output),html);
 for(const name of await readdir(new URL('preview/_astro/',output))){
  if(!name.endsWith('.css'))continue;
  const file=new URL('preview/_astro/'+name,output);
- await writeFile(file,(await readFile(file,'utf8')).replaceAll('/astro-portfolio/demos/streetfood/','/preview/'));
+ await writeFile(file,rewriteBuiltMenuBase(await readFile(file,'utf8'),'/preview/'));
 }
 await cp(new URL('../../streetfood/src/data/menu-options.mjs',import.meta.url),new URL('menu-options.mjs',output));
 await cp(new URL('./public/',import.meta.url),output,{recursive:true});

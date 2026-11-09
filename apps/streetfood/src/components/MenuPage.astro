@@ -2,7 +2,7 @@
 import "../../../../packages/ui/wide-screen.css";
 import '../../../../packages/ui/edge-carousel.css';
 import {products,categories,extras,settings,formatMoney} from '../data/menu';
-import {BURGER_BRAND} from '../data/menu-options.mjs';
+import {BURGER_BRAND,DEFAULT_MENU_ROOT} from '../data/menu-options.mjs';
 import MenuSearch from './MenuSearch.astro';
 import MenuContacts from './MenuContacts.astro';
 import PizzeriaBrand from './PizzeriaBrand.astro';
@@ -19,6 +19,9 @@ const {theme='streetfood'}=Astro.props;
 const editorial=theme!=='streetfood';
 const name=theme==='pizzeria'?'Forno & Basilico':theme==='diner'?BURGER_BRAND.name:'STREET FOOD';
 const base=import.meta.env.BASE_URL;
+const portfolioRoot=Astro.site
+  ? new URL(base.replace(/demos\/streetfood\/$/, ''), Astro.site)
+  : new URL('../../', DEFAULT_MENU_ROOT);
 const pagePath=theme==='streetfood'?base:theme==='diner'?`${base}${BURGER_BRAND.path}`:`${base}${theme}/`;
 ---
 <!doctype html><html lang="de" data-appearance={theme} data-price-visibility={settings.showPrices===false?'hidden':'visible'} data-menu-mode={theme==='diner'?settings.menuMode:'ordering'}><head><meta charset="utf-8"/><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"/><meta name="theme-color" content="#ffffff"/><title>{name} — Dein digitales Menü</title><meta name="description" content={theme==='pizzeria'?'Pizza, Antipasti und Dolci: Entdecke die Speisekarte von Forno & Basilico.':'Burger, Frühstück und Kaffee: Entdecke das interaktive Street-Food-Menü mit Favoriten, Extras und Warenkorb.'}/><meta name="robots" content="noindex,follow"/><link rel="canonical" href={new URL(pagePath,Astro.site||'https://girda.github.io')}/><link rel="icon" href={`${base}assets/food.svg`}/></head><body>
@@ -31,4 +34,4 @@ const pagePath=theme==='streetfood'?base:theme==='diner'?`${base}${BURGER_BRAND.
 <dialog class="food-dialog cart-dialog" data-cart-dialog aria-labelledby="cart-title"><button class="dialog-close icon-button" data-close aria-label="Warenkorb schließen"><Icon name="x"/></button><div class="cart-heading"><p class="overline">GUTE WAHL.</p><h2 id="cart-title">Deine Bestellung.</h2><p data-cart-location>Deine Auswahl</p></div><div data-cart-items></div><div class="cart-summary"><span>Gesamt</span><strong data-summary-total></strong></div><button class="primary checkout" data-checkout>Auswahl prüfen</button><p class="demo-note">Testmodus · Keine Bestellung an die Küche.</p><div class="order-confirmation" hidden aria-live="polite"><h3>Auswahl geprüft.</h3><p>Das ist ein Test. Deine Auswahl wurde nicht an die Küche gesendet.</p></div></dialog>
 <dialog class="food-dialog small-dialog" data-nav-dialog aria-labelledby="nav-title"><button class="dialog-close icon-button" data-close aria-label="Schließen"><Icon name="x"/></button><h2 id="nav-title">{name}</h2><button class="location-choice" data-nav-category="all">Alle Gerichte</button><button class="location-choice" data-nav-category="favorites">Deine Favoriten</button><p class="demo-note menu-demo-note">Testmenü · Beispielpreise und Rezepturen zur Ansicht.</p></dialog>
 <div class="toast" role="status" aria-live="polite"></div>
-<script id="menu-data" type="application/json" set:html={JSON.stringify({products,extras,categories,settings}).replaceAll("<", "\\u003c")}/><script>import '../scripts/menu';</script><footer class="menu-legal"><a href="https://girda.github.io/astro-portfolio/impressum/">Impressum</a><a href="https://girda.github.io/astro-portfolio/datenschutz/">Datenschutz</a></footer></body></html>
+<script id="menu-data" type="application/json" set:html={JSON.stringify({products,extras,categories,settings}).replaceAll("<", "\\u003c")}/><script>import '../scripts/menu';</script><footer class="menu-legal"><a href={new URL('impressum/', portfolioRoot)}>Impressum</a><a href={new URL('datenschutz/', portfolioRoot)}>Datenschutz</a></footer></body></html>

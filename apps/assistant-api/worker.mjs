@@ -8,7 +8,8 @@ export default {
     const origin = request.headers.get('Origin');
     const headers = { 'Content-Type': 'application/json', 'Cache-Control': 'no-store', 'X-Content-Type-Options': 'nosniff', Vary: 'Origin' };
     const send = (status, body) => Response.json(body, { status, headers });
-    if (origin !== env.ALLOWED_ORIGIN) return send(403, { error: 'forbidden' });
+    const allowedOrigins = env.ALLOWED_ORIGIN?.split(',').map(value => value.trim()) ?? [];
+    if (!origin || !allowedOrigins.includes(origin)) return send(403, { error: 'forbidden' });
     headers['Access-Control-Allow-Origin'] = origin;
     if (request.method === 'OPTIONS') return new Response(null, { status: 204, headers: { ...headers, 'Access-Control-Allow-Methods': 'POST, OPTIONS', 'Access-Control-Allow-Headers': 'Content-Type, Authorization' } });
     if (new URL(request.url).pathname !== '/api/chat') return send(404, { error: 'not_found' });
@@ -37,7 +38,7 @@ export default {
       let body;
       try { body = JSON.parse(new TextDecoder().decode(bytes)); } catch { throw new ApiError(400, 'invalid_request'); }
       validate(body);
-      const verified = await verifyTurnstile(body.turnstileToken, { secret: env.TURNSTILE_SECRET, hostname: 'girda.github.io', ip });
+      const verified = await verifyTurnstile(body.turnstileToken, { secret: env.TURNSTILE_SECRET, hostname: new URL(origin).hostname, ip });
       if (!verified) return send(403, { error: 'verification_failed' });
       if (!(await env.CHAT_BUDGET.getByName('pixel-site-budget').consume())) return send(429, { error: 'daily_limit' });
       return send(200, await answer(body, { apiKey: env.OPENAI_API_KEY, model: env.OPENAI_MODEL }));

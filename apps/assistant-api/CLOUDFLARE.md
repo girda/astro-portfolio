@@ -5,7 +5,7 @@ Worker: `hirda-cat-api`, endpoint: `https://hirda-cat-api.hirda-assistant-api.wo
 
 - Секреты Cloudflare: `OPENAI_API_KEY`, `TURNSTILE_SECRET`. Значения никогда не добавлять в Git.
 - Публичный sitekey: `0x4AAAAAAFS3zEwm2KejbU1v`. Виджет Invisible (пользователь сохранил настройку 29.10.2026), action `pixel_chat`.
-- Worker требует успешный Siteverify с точными hostname `girda.github.io` и action `pixel_chat`. Локальные hostname в production не допускаются.
+- Worker проверяет точный origin по списку `ALLOWED_ORIGIN` и требует совпадения hostname из Siteverify с hostname запроса и action `pixel_chat`. Конфигурация в Git подготовлена для `girda.github.io` и `hirdalabs.de`. Порядок активации описан в [DEPLOYMENT.md](../../docs/DEPLOYMENT.md).
 - Токен одноразовый: после каждой попытки отправки виджет сбрасывается. При ошибке проверки запрос к OpenAI не выполняется.
 - Старый `TEST_ACCESS_TOKEN` больше не используется и не даёт доступа. Пароль в браузере не запрашивается.
 - Лимит IP: 10 попыток в минуту в каждой локации Cloudflare. Это не глобальный лимит.
